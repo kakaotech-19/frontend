@@ -1,0 +1,31 @@
+{
+  "Redux Toolkit Slice": {
+    "prefix": "slice",
+    "body": [
+      "import { createSlice, PayloadAction } from '@reduxjs/toolkit';",
+      "",
+      "interface ${1:SliceName}State {",
+      "  ${2:// 상태 타입 정의}",
+      "}",
+      "",
+      "const initialState: ${1:SliceName}State = {",
+      "  ${3:// 초기 상태 값}",
+      "};",
+      "",
+      "const ${1:sliceName}Slice = createSlice({",
+      "  name: '${1:sliceName}',",
+      "  initialState,",
+      "  reducers: {",
+      "    ${4:actionName}: (state, action: PayloadAction<${5:PayloadType}>) => {",
+      "      ${6:// 상태 업데이트 로직}",
+      "    },",
+      "    ${7:// 추가 리듀서}",
+      "  },",
+      "});",
+      "",
+      "export const { ${4:actionName} } = ${1:sliceName}Slice.actions;",
+      "export default ${1:sliceName}Slice.reducer;"
+    ],
+    "description": "Redux Toolkit Slice 템플릿"
+  }
+}

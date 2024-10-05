@@ -1,0 +1,23 @@
+{
+  "Create React Component Template": {
+    "scope": "typescriptreact", // 스코프 추가
+    "prefix": ">component",
+    "body": [
+      "\"use client\";",
+      "",
+      "import React from \"react\";",
+      "",
+      "const $TM_FILENAME_BASE: React.FC = () => {",
+      "  return (",
+      "    <>",
+      "      {/* Your component code here */}",
+      "     <></>",
+      "    </>",
+      "  );",
+      "}",
+      "",
+      "export default $TM_FILENAME_BASE;"
+    ],
+    "description": "Generate React component template based on filename base"
+  }
+}
