@@ -56,7 +56,7 @@ jobs:
             ${{ github.event.issue.body }}
           mode: md2jira
 
-      # 이슈 생성 또는 업데이트 로직
+      # 이슈 생성 로직 (새로운 이슈를 생성하는 경우)
       - name: Create Jira Sub-task Issue
         if: github.event.action == 'opened'
         id: create-jira-issue
@@ -77,8 +77,8 @@ jobs:
         if: github.event.action == 'opened'
         run: echo "Created Jira Issue Key:${{ steps.create-jira-issue.outputs.issue }}"
 
-      # 이슈 업데이트 시, 본문에서 Jira 이슈 키를 파싱
-      - name: Extract Jira Issue Key from GitHub issue body
+      # 이슈 업데이트 시, 제목에서 Jira 이슈 키를 파싱
+      - name: Extract Jira Issue Key from GitHub issue title
         if: github.event.action == 'edited' || github.event.action == 'closed'
         run: |
           echo "${{ github.event.issue.title }}" | grep -oE 'TODAK-\d+' | head -n 1 > jira_key.txt
@@ -89,19 +89,16 @@ jobs:
         run: |
           echo "Jira Issue Key: $(cat jira_key.txt)"
 
-      # Jira 이슈 업데이트 로직
+      # Jira 이슈 업데이트 로직 (이슈가 수정된 경우)
       - name: Update Jira Issue
         if: github.event.action == 'edited'
-        uses: atlassian/gajira-create@v3
+        uses: atlassian/gajira-update@v3
         with:
-          project: TODAK
-          issuetype: Sub-task
-          summary: "${{ github.event.issue.title }}"
-          description: "${{ steps.md2jira.outputs.output-text }}"
-          update: true  # 이슈가 있으면 업데이트하도록 설정
-          issue: "$(cat jira_key.txt)"  # GitHub 이슈에서 파싱한 Jira 이슈 키로 업데이트
+          issue: "$(cat jira_key.txt)"  # 제목에서 파싱한 Jira 이슈 키로 업데이트
           fields: |
             {
+              "summary": "${{ github.event.issue.title }}",
+              "description": "${{ steps.md2jira.outputs.output-text }}",
               "parent": {
                 "key": "${{ steps.issue-parser.outputs.issueparser_parentKey }}"
               }
