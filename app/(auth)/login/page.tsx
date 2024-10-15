@@ -2,13 +2,11 @@
 
 import { RootState } from "@/store";
 import { setLoginId, setLoginPassword } from "@/store/slices/login/loginSlice";
-import { Button, FooterDivider, HR, Label, TextInput } from "flowbite-react";
+import { Button, HR, Label, TextInput } from "flowbite-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 
 const Page = () => {
-  const router = useRouter();
   const dispatch = useDispatch();
   const loginId = useSelector((state: RootState) => state.login.loginId);
   const password = useSelector((state: RootState) => state.login.password);
