@@ -75,7 +75,7 @@ jobs:
         if: github.event.action == 'opened'
         run: echo "Created Jira Issue Key:${{ steps.create-jira-issue.outputs.issue }}"
 
-      # 이슈 업데이트 시, 제목에서 Jira 이슈 키를 파싱
+      # 이슈 업데이트 및 닫기 시, 제목에서 Jira 이슈 키를 파싱
       - name: Extract Jira Issue Key from GitHub issue title
         if: github.event.action == 'edited' || github.event.action == 'closed'
         run: |
@@ -106,7 +106,9 @@ jobs:
         run: |
           echo "Jira Issue Key: $(cat jira_key.txt)"
 
-      - name: Install jq
+        # 이슈 업데이트 REST Api에서 활용
+      - name: Install jq 
+        if: github.event.action == 'edited'
         run: sudo apt-get install jq
 
       - name: Update Jira Issue
