@@ -15,7 +15,7 @@
 ### diary
 
 - 다이어리 작성 /diary/write
-- 다이어리 수정 /diary/edit
+- 다이어리 조회 /diary
 
 ### member
 
