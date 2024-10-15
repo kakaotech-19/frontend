@@ -77,24 +77,11 @@ jobs:
         if: github.event.action == 'opened'
         run: echo "Created Jira Issue Key:${{ steps.create-jira-issue.outputs.issue }}"
 
-      # GitHub 이슈 본문에 Jira 이슈 키 저장
-      - name: Update GitHub issue with Jira key
-        if: github.event.action == 'opened'
-        uses: actions-cool/issues-helper@v3
-        with:
-          actions: "update-issue"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ github.event.issue.number }}
-          body: |
-            ${{ github.event.issue.body }}
-
-            **Jira Issue Key**: ${{ steps.create-jira-issue.outputs.issue }}
-
       # 이슈 업데이트 시, 본문에서 Jira 이슈 키를 파싱
       - name: Extract Jira Issue Key from GitHub issue body
         if: github.event.action == 'edited' || github.event.action == 'closed'
         run: |
-          echo "${{ github.event.issue.body }}" | grep -oE '\*\*Jira Issue Key\*\*: \S+' | sed 's/\*\*Jira Issue Key\*\*: //' > jira_key.txt
+          echo "${{ github.event.issue.title }}" | grep -oE 'TODAK-\d+' | head -n 1 > jira_key.txt
         id: extract-jira-key
 
       - name: Log extracted Jira Issue Key
