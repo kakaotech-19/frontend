@@ -5,7 +5,7 @@ import {
   setLoginEmail,
   setLoginPassword,
 } from "@/store/slices/login/loginSlice";
-import { Button, Card, Label, TextInput } from "flowbite-react";
+import { Button, Label, TextInput } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -17,7 +17,7 @@ const Page = () => {
 
   return (
     <div className="flex h-screen justify-center items-center">
-      <Card className="w-80 h-80">
+      <div className="w-80 h-80">
         <form className="flex flex-col gap-4">
           <div>
             <div className="mb-2 block">
@@ -52,7 +52,7 @@ const Page = () => {
             회원가입하기
           </text>
         </form>
-      </Card>
+      </div>
     </div>
   );
 };
