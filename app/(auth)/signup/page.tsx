@@ -43,111 +43,107 @@ const Page = () => {
   }, [password, reEnterPassword]);
 
   return (
-    <div className="flex h-screen justify-center items-center">
-      <form
-        className="flex max-w-md flex-col gap-4"
-        onSubmit={(e) => e.preventDefault()}
-      >
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="email2" value="Email" />
-          </div>
-          <div className="flex justify-between">
-            <TextInput
-              id="email2"
-              type="email"
-              value={email}
-              onInput={(e) => dispatch(setSignupEmail(e.currentTarget.value))}
-              placeholder="name@email.com"
-              required
-              shadow
-            />
-            <Button onClick={() => dispatch<any>(verifyOTP(otp))}>
-              verify
-            </Button>
-          </div>
+    <form
+      className="flex max-w-md flex-col gap-4"
+      onSubmit={(e) => e.preventDefault()}
+    >
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="email2" value="Email" />
         </div>
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="otp" value="OTP" />
-          </div>
-          <div className="flex justify-between">
-            <TextInput
-              id="otp"
-              type="text"
-              value={otp}
-              onInput={(e) => dispatch(setOTP(e.currentTarget.value))}
-              placeholder="******"
-              required
-              shadow
-            />
-            <Button onClick={() => dispatch<any>(verifyOTP(otp))}>check</Button>
-          </div>
-        </div>
-        <HR className="mt-0" />
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="signup-id" value="Login ID" />
-          </div>
+        <div className="flex justify-between">
           <TextInput
-            id="signup-id"
+            id="email2"
+            type="email"
+            value={email}
+            onInput={(e) => dispatch(setSignupEmail(e.currentTarget.value))}
+            placeholder="name@email.com"
+            required
+            shadow
+          />
+          <Button onClick={() => dispatch<any>(verifyOTP(otp))}>verify</Button>
+        </div>
+      </div>
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="otp" value="OTP" />
+        </div>
+        <div className="flex justify-between">
+          <TextInput
+            id="otp"
             type="text"
-            value={signupId}
-            onInput={(e) => dispatch(setSignupId(e.currentTarget.value))}
-            placeholder=""
+            value={otp}
+            onInput={(e) => dispatch(setOTP(e.currentTarget.value))}
+            placeholder="******"
             required
             shadow
           />
+          <Button onClick={() => dispatch<any>(verifyOTP(otp))}>check</Button>
         </div>
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="password2" value="Password" />
-          </div>
-          <TextInput
-            id="password2"
-            type="password"
-            onInput={(e) => dispatch(setSignupPassword(e.currentTarget.value))}
-            value={password}
-            required
-            shadow
+      </div>
+      <HR className="mt-0" />
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="signup-id" value="Login ID" />
+        </div>
+        <TextInput
+          id="signup-id"
+          type="text"
+          value={signupId}
+          onInput={(e) => dispatch(setSignupId(e.currentTarget.value))}
+          placeholder=""
+          required
+          shadow
+        />
+      </div>
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="password2" value="Password" />
+        </div>
+        <TextInput
+          id="password2"
+          type="password"
+          onInput={(e) => dispatch(setSignupPassword(e.currentTarget.value))}
+          value={password}
+          required
+          shadow
+        />
+      </div>
+      <div>
+        <div className="mb-2 block">
+          <Label
+            htmlFor="repeat-password"
+            value={`Repeat password ${isSame ? "✓" : ""}`}
           />
         </div>
-        <div>
-          <div className="mb-2 block">
-            <Label
-              htmlFor="repeat-password"
-              value={`Repeat password ${isSame ? "✓" : ""}`}
-            />
-          </div>
-          <TextInput
-            id="repeat-password"
-            type="password"
-            onInput={(e) =>
-              dispatch(setSignupReEnterPassword(e.currentTarget.value))
-            }
-            value={reEnterPassword}
-            required
-            shadow
-          />
-        </div>
-        <HR className="mt-0" />
-        <div className="flex items-center gap-2">
-          <Checkbox id="agree" required />
-          <Label htmlFor="agree" className="flex">
-            I agree with the&nbsp;
-            <Link
-              href="#"
-              className="text-cyan-600 hover:underline dark:text-cyan-500"
-            >
-              terms and conditions
-            </Link>
-          </Label>
-        </div>
-        <Button type="submit" onClick={handlePostSignup}>
-          Register new account
-        </Button>
-      </form>
-    </div>
+        <TextInput
+          id="repeat-password"
+          type="password"
+          onInput={(e) =>
+            dispatch(setSignupReEnterPassword(e.currentTarget.value))
+          }
+          value={reEnterPassword}
+          required
+          shadow
+        />
+      </div>
+      <HR className="mt-0" />
+      <div className="flex items-center gap-2">
+        <Checkbox id="agree" required />
+        <Label htmlFor="agree" className="flex">
+          I agree with the&nbsp;
+          <Link
+            href="#"
+            className="text-cyan-600 hover:underline dark:text-cyan-500"
+          >
+            terms and conditions
+          </Link>
+        </Label>
+      </div>
+      <Button type="submit" onClick={handlePostSignup}>
+        Register new account
+      </Button>
+    </form>
   );
 };
 

@@ -12,8 +12,8 @@ const Page = () => {
   const password = useSelector((state: RootState) => state.login.password);
 
   return (
-    <div className="flex h-screen justify-center items-center">
-      <div className="w-80 h-80">
+    <div className="flex justify-center h-full items-center">
+      <div className="w-80">
         <form className="flex flex-col gap-4">
           <div>
             <div className="mb-2 block">
