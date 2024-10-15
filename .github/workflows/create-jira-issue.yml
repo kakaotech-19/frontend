@@ -75,7 +75,7 @@ jobs:
 
       - name: Log created Jira issue
         if: github.event.action == 'opened'
-        run: echo "Created Jira Issue Key: ${{ steps.create-jira-issue.outputs.issue }}"
+        run: echo "Created Jira Issue Key:${{ steps.create-jira-issue.outputs.issue }}"
 
       # GitHub 이슈 본문에 Jira 이슈 키 저장
       - name: Update GitHub issue with Jira key
