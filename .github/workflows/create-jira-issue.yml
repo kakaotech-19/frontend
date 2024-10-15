@@ -114,6 +114,12 @@ jobs:
           description: "${{ steps.md2jira.outputs.output-text }}"
           update: true  # 이슈가 있으면 업데이트하도록 설정
           issue: "$(cat jira_key.txt)"  # GitHub 이슈에서 파싱한 Jira 이슈 키로 업데이트
+          fields: |
+            {
+              "parent": {
+                "key": "${{ steps.issue-parser.outputs.issueparser_parentKey }}"
+              }
+            }
 
       # Jira 이슈가 닫힐 때 처리
       - name: Close Jira Issue
