@@ -21,6 +21,8 @@
     "@types/redux-logger": "^3.0.13",
     "eslint": "^8.57.1",
     "eslint-config-next": "14.2.13",
+    "flowbite": "^2.5.2",
+    "flowbite-react": "^0.10.2",
     "postcss": "^8.4.47",
     "redux-logger": "^3.0.6",
     "tailwindcss": "^3.4.13",
