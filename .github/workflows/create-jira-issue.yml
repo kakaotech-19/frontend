@@ -156,7 +156,7 @@ jobs:
           -H "Content-Type: application/json" \
           -d '{
             "transition": {
-              "id": 31 # 31이 Done을 의미
+              "id": "31"
             }
           }'
 
