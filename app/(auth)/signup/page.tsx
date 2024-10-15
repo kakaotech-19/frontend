@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import Link from "next/link";
 import {
-  setEmail,
   setOTP,
-  setPassword,
-  setReEnterPassword,
+  setSignupEmail,
+  setSignupPassword,
+  setSignupReEnterPassword,
 } from "@/store/slices/signup/signupSlice";
 import {
   postSignup,
@@ -47,7 +47,7 @@ const Page = () => {
             id="email2"
             type="email"
             value={email}
-            onInput={(e) => dispatch(setEmail(e.currentTarget.value))}
+            onInput={(e) => dispatch(setSignupEmail(e.currentTarget.value))}
             placeholder="name@email.com"
             required
             shadow
@@ -76,7 +76,7 @@ const Page = () => {
           <TextInput
             id="password2"
             type="password"
-            onInput={(e) => dispatch(setPassword(e.currentTarget.value))}
+            onInput={(e) => dispatch(setSignupPassword(e.currentTarget.value))}
             value={password}
             required
             shadow
@@ -89,7 +89,9 @@ const Page = () => {
           <TextInput
             id="repeat-password"
             type="password"
-            onInput={(e) => dispatch(setReEnterPassword(e.currentTarget.value))}
+            onInput={(e) =>
+              dispatch(setSignupReEnterPassword(e.currentTarget.value))
+            }
             value={reEnterPassword}
             required
             shadow

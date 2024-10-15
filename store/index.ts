@@ -1,10 +1,12 @@
 import logger from "redux-logger";
 import { configureStore } from "@reduxjs/toolkit";
 import signupSlice from "./slices/signup/signupSlice";
+import loginSlice from "./slices/login/loginSlice";
 
 const store = configureStore({
   reducer: {
     signup: signupSlice,
+    login: loginSlice,
     // posts: postsReducer,
   },
   middleware: (
