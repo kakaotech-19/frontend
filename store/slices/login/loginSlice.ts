@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 // import { addSignupExtraReducers } from "./signupExtraReducers";
 
 export interface LoginState {
-  email: string;
+  loginId: string;
   password: string;
   isLogin: boolean;
   loading: any;
@@ -10,8 +10,8 @@ export interface LoginState {
 }
 
 export const initialState = {
-  email: "",
   password: "",
+  loginId: "",
   isLogin: false,
   loading: false,
   error: "",
@@ -21,8 +21,8 @@ const loginSlice = createSlice({
   name: "loginSlice",
   initialState,
   reducers: {
-    setLoginEmail: (state: LoginState, action: PayloadAction<string>) => {
-      state.email = action.payload;
+    setLoginId: (state: LoginState, action: PayloadAction<string>) => {
+      state.loginId = action.payload;
     },
     setLoginPassword: (state: LoginState, action: PayloadAction<string>) => {
       state.password = action.payload;
@@ -31,6 +31,6 @@ const loginSlice = createSlice({
   //   extraReducers: (builder: any) => addLoginExtraReducers(builder),
 });
 
-export const { setLoginEmail, setLoginPassword } = loginSlice.actions;
+export const { setLoginId, setLoginPassword } = loginSlice.actions;
 export const extraReducers = loginSlice.reducer;
 export default loginSlice.reducer;

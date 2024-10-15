@@ -1,18 +1,16 @@
 "use client";
 
 import { RootState } from "@/store";
-import {
-  setLoginEmail,
-  setLoginPassword,
-} from "@/store/slices/login/loginSlice";
-import { Button, Label, TextInput } from "flowbite-react";
+import { setLoginId, setLoginPassword } from "@/store/slices/login/loginSlice";
+import { Button, FooterDivider, HR, Label, TextInput } from "flowbite-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 
 const Page = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const email = useSelector((state: RootState) => state.login.email);
+  const loginId = useSelector((state: RootState) => state.login.loginId);
   const password = useSelector((state: RootState) => state.login.password);
 
   return (
@@ -21,20 +19,20 @@ const Page = () => {
         <form className="flex flex-col gap-4">
           <div>
             <div className="mb-2 block">
-              <Label htmlFor="email1" value="Your email" />
+              <Label htmlFor="login-id" value="Login ID" />
             </div>
             <TextInput
-              id="email1"
-              type="email"
-              value={email}
-              onInput={(e) => dispatch(setLoginEmail(e.currentTarget.value))}
-              placeholder="name@email.com"
+              id="login-id"
+              type="text"
+              value={loginId}
+              onInput={(e) => dispatch(setLoginId(e.currentTarget.value))}
+              placeholder=""
               required
             />
           </div>
           <div className="mb-2">
             <div className="mb-2 block">
-              <Label htmlFor="password1" value="Your password" />
+              <Label htmlFor="password1" value="Password" />
             </div>
             <TextInput
               id="password1"
@@ -43,14 +41,25 @@ const Page = () => {
               onInput={(e) => dispatch(setLoginPassword(e.currentTarget.value))}
               required
             />
+            <Label
+              htmlFor="forgot-password"
+              className="text-cyan-600 hover:underline dark:text-cyan-500 text-sm"
+              onClick={() => {}}
+            >
+              forgot password?
+            </Label>
           </div>
-          <Button type="submit">Submit</Button>
-          <text
-            className="text-blue-700 text-sm text-center"
-            onClick={() => router.push("/signup")}
-          >
-            회원가입하기
-          </text>
+          <Button type="submit">Login</Button>
+          <HR className="mb-0" />
+          <Label htmlFor="signup-link" className="flex">
+            Don't have an account?&nbsp;
+            <Link
+              href="/signup"
+              className="text-cyan-600 hover:underline dark:text-cyan-500"
+            >
+              Create Account
+            </Link>
+          </Label>
         </form>
       </div>
     </div>
