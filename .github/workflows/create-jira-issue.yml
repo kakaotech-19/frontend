@@ -67,9 +67,9 @@ jobs:
           summary: "${{ github.event.issue.title }}"
           description: "${{ steps.md2jira.outputs.output-text }}"
           update: true  # 이슈가 있으면 업데이트하도록 설정
-        # Jira 이슈 키를 output으로 저장
-        outputs:
-          issue: ${{ steps.create-or-update.outputs.issue }}
+        # # Jira 이슈 키를 output으로 저장
+        # outputs:
+        #   issue: ${{ steps.create-or-update.outputs.issue }}
 
       # 생성 또는 업데이트된 이슈 로그 출력
       - name: Log created or updated issue
