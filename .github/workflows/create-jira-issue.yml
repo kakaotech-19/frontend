@@ -79,7 +79,7 @@ jobs:
       - name: Extract Jira Issue Key from GitHub issue title
         if: github.event.action == 'edited' || github.event.action == 'closed'
         run: |
-          jira_key=$(echo "${GITHUB_ISSUE_TITLE}" | grep -oE 'TODAK-\d+' | head -n 1)
+          jira_key=$(echo "${GITHUB_ISSUE_TITLE}" | grep -oE 'TODAK-[0-9]+' | head -n 1)
           if [ -z "$jira_key" ]; then
             echo "Jira key not found in issue title"
             exit 1
