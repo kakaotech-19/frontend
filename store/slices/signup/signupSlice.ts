@@ -27,13 +27,16 @@ const signupSlice = createSlice({
   name: "signupSlice",
   initialState,
   reducers: {
-    setEmail: (state: SignupState, action: PayloadAction<string>) => {
+    setSignupEmail: (state: SignupState, action: PayloadAction<string>) => {
       state.email = action.payload;
     },
-    setPassword: (state: SignupState, action: PayloadAction<string>) => {
+    setSignupPassword: (state: SignupState, action: PayloadAction<string>) => {
       state.password = action.payload;
     },
-    setReEnterPassword: (state: SignupState, action: PayloadAction<string>) => {
+    setSignupReEnterPassword: (
+      state: SignupState,
+      action: PayloadAction<string>
+    ) => {
       state.reEnterPassword = action.payload;
     },
     setOTP: (state: SignupState, action: PayloadAction<string>) => {
@@ -43,7 +46,11 @@ const signupSlice = createSlice({
   extraReducers: (builder: any) => addSignupExtraReducers(builder),
 });
 
-export const { setEmail, setPassword, setReEnterPassword, setOTP } =
-  signupSlice.actions;
+export const {
+  setSignupEmail,
+  setSignupPassword,
+  setSignupReEnterPassword,
+  setOTP,
+} = signupSlice.actions;
 export const extraReducers = signupSlice.reducer;
 export default signupSlice.reducer;
