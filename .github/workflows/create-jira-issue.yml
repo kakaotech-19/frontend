@@ -94,8 +94,9 @@ jobs:
       - name: Extract Jira Issue Key from GitHub issue body
         if: github.event.action == 'edited' || github.event.action == 'closed'
         run: |
-          echo "${{ github.event.issue.body }}" | grep -oP '(?<=**Jira Issue Key**: )\S+' > jira_key.txt
+          echo "${{ github.event.issue.body }}" | grep -oE '\*\*Jira Issue Key\*\*: \S+' | sed 's/\*\*Jira Issue Key\*\*: //' > jira_key.txt
         id: extract-jira-key
+
 
       - name: Log extracted Jira Issue Key
         if: github.event.action == 'edited' || github.event.action == 'closed'
