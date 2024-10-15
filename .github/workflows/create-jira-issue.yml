@@ -92,6 +92,7 @@ jobs:
 
 
       - name: Check if jira_key.txt exists and has content
+        if: github.event.action == 'edited' || github.event.action == 'closed'
         run: |
           if [ -s jira_key.txt ]; then
             echo "jira_key.txt exists and is not empty"
