@@ -43,6 +43,7 @@ jobs:
         if: github.event.action == 'opened' || github.event.action == 'edited'
         run: |
           echo '${{ steps.issue-parser.outputs.jsonString }}'
+
       - name: Convert markdown to Jira Syntax
         if: github.event.action == 'opened' || github.event.action == 'edited'
         uses: peter-evans/jira2md@v1
@@ -53,7 +54,27 @@ jobs:
             - ${{ github.event.issue.html_url }}
             ${{ github.event.issue.body }}
           mode: md2jira
-     
+
+      # 이슈 생성 로직 (새로운 이슈를 생성하는 경우)
+      - name: Create Jira Sub-task Issue
+        if: github.event.action == 'opened'
+        id: create-jira-issue
+        uses: atlassian/gajira-create@v3
+        with:
+          project: TODAK
+          issuetype: Sub-task
+          summary: "${{ github.event.issue.title }}"
+          description: "${{ steps.md2jira.outputs.output-text }}"
+          fields: |
+            {
+              "parent": {
+                "key": "${{ steps.issue-parser.outputs.issueparser_parentKey }}"
+              }
+            }
+      - name: Log created Jira issue
+        if: github.event.action == 'opened'
+        run: echo "Created Jira Issue Key:${{ steps.create-jira-issue.outputs.issue }}"
+
       # 이슈 업데이트 시, 제목에서 Jira 이슈 키를 파싱
       - name: Extract Jira Issue Key from GitHub issue title
         if: github.event.action == 'edited' || github.event.action == 'closed'
@@ -65,29 +86,24 @@ jobs:
         if: github.event.action == 'edited' || github.event.action == 'closed'
         run: |
           echo "Jira Issue Key: $(cat jira_key.txt)"
-          
-      # 이슈 생성 또는 업데이트 로직
-      - name: Create or Update Jira Issue
-        if: github.event.action == 'opened' || github.event.action == 'edited'
-        id: create-or-update-jira-issue
-        uses: atlassian/gajira-create@v3
-        with:
-          project: TODAK
-          issuetype: Sub-task
-          summary: "${{ github.event.issue.title }}"
-          description: "${{ steps.md2jira.outputs.output-text }}"
-          issue: "$(cat jira_key.txt)"  # 제목에서 파싱한 Jira 이슈 키로 업데이트
-          update: true  # 이슈가 있으면 업데이트하도록 설정
-          fields: |
-            {
+
+      # Jira 이슈 업데이트 로직 (REST API 호출)
+      - name: Update Jira Issue
+        if: github.event.action == 'edited'
+        run: |
+          curl -X PUT \
+          --url "${{ secrets.JIRA_BASE_URL }}/rest/api/2/issue/$(cat jira_key.txt)" \
+          --user "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "fields": {
+              "summary": "'"${{ github.event.issue.title }}"'",
+              "description": "'"${{ steps.md2jira.outputs.output-text }}"'",
               "parent": {
-                "key": "${{ steps.issue-parser.outputs.issueparser_parentKey }}"
+                "key": "'"${{ steps.issue-parser.outputs.issueparser_parentKey }}"'"
               }
             }
-
-      - name: Log created or updated Jira issue
-        if: github.event.action == 'opened' || github.event.action == 'edited'
-        run: echo "Jira Issue Key:$(cat jira_key.txt)"
+          }'
 
       # Jira 이슈가 닫힐 때 처리
       - name: Close Jira Issue
@@ -108,8 +124,8 @@ jobs:
       - name: Create branch with Ticket number
         if: github.event.action == 'opened'
         run: |
-          git checkout -b ${{ steps.create-or-update-jira-issue.outputs.issue }}
-          git push origin ${{ steps.create-or-update-jira-issue.outputs.issue }}
+          git checkout -b ${{ steps.create-jira-issue.outputs.issue }}
+          git push origin ${{ steps.create-jira-issue.outputs.issue }}
 
       # 이슈 제목 업데이트
       - name: Update issue title
@@ -118,4 +134,4 @@ jobs:
         with:
           actions: "update-issue"
           token: ${{ secrets.GITHUB_TOKEN }}
-          title: "${{ steps.create-or-update-jira-issue.outputs.issue }} ${{ github.event.issue.title }}"
+          title: "${{ steps.create-jira-issue.outputs.issue }} ${{ github.event.issue.title }}"
