@@ -110,19 +110,25 @@ jobs:
       - name: Update Jira Issue
         if: github.event.action == 'edited'
         run: |
+          summary="${{ github.event.issue.title }}"
+          description="${{ steps.md2jira.outputs.output-text }}"
+          parent_key="${{ steps.issue-parser.outputs.issueparser_parentKey }}"
+          
+          # 이스케이프 처리된 JSON 데이터를 사용할 때 작은따옴표 사용
           curl -X PUT \
           --url "${{ secrets.JIRA_BASE_URL }}/rest/api/2/issue/$(cat jira_key.txt)" \
           --user "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
           -H "Content-Type: application/json" \
-          -d '{
-            "fields": {
-              "summary": "'"${{ github.event.issue.title }}"'",
-              "description": "'"${{ steps.md2jira.outputs.output-text }}"'",
-              "parent": {
-                "key": "'"${{ steps.issue-parser.outputs.issueparser_parentKey }}"'"
+          -d "{
+            \"fields\": {
+              \"summary\": \"$summary\",
+              \"description\": \"$description\",
+              \"parent\": {
+                \"key\": \"$parent_key\"
               }
             }
-          }'
+          }"
+
 
       # Jira 이슈가 닫힐 때 처리
       - name: Close Jira Issue
