@@ -106,28 +106,40 @@ jobs:
         run: |
           echo "Jira Issue Key: $(cat jira_key.txt)"
 
-      # Jira 이슈 업데이트 로직 (REST API 호출)
+      - name: Install jq
+        run: sudo apt-get install jq
+
       - name: Update Jira Issue
         if: github.event.action == 'edited'
         run: |
           summary="${{ github.event.issue.title }}"
           description="${{ steps.md2jira.outputs.output-text }}"
           parent_key="${{ steps.issue-parser.outputs.issueparser_parentKey }}"
-          
-          # 이스케이프 처리된 JSON 데이터를 사용할 때 작은따옴표 사용
-          curl -X PUT \
-          --url "${{ secrets.JIRA_BASE_URL }}/rest/api/2/issue/$(cat jira_key.txt)" \
-          --user "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
-          -H "Content-Type: application/json" \
-          -d "{
-            \"fields\": {
-              \"summary\": \"$summary\",
-              \"description\": \"$description\",
-              \"parent\": {
-                \"key\": \"$parent_key\"
+      
+          # JSON 데이터를 jq를 사용하여 안전하게 생성
+          json_payload=$(jq -n \
+            --arg summary "$summary" \
+            --arg description "$description" \
+            --arg parent_key "$parent_key" \
+            '{
+              fields: {
+                summary: $summary,
+                description: $description,
+                parent: {
+                  key: $parent_key
+                }
               }
-            }
-          }"
+            }')
+      
+          echo "JSON payload: $json_payload"
+      
+          # API 요청
+          curl -X PUT \
+            --url "${{ secrets.JIRA_BASE_URL }}/rest/api/2/issue/$(cat jira_key.txt)" \
+            --user "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d "$json_payload"
+
 
 
       # Jira 이슈가 닫힐 때 처리
