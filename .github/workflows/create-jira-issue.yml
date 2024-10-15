@@ -116,7 +116,7 @@ jobs:
         if: github.event.action == 'edited'
         run: |
           # GitHub 이슈 제목에서 맨 앞의 Ticket Number(TODAK-###)를 제거
-          summary=$(echo "${{ github.event.issue.title }}" | | sed -E 's/^TODAK-[0-9]+ *//')
+          summary=$(echo "${{ github.event.issue.title }}" | sed -E 's/^TODAK-[0-9]+ *//')
         
           description="${{ steps.md2jira.outputs.output-text }}"
           parent_key="${{ steps.issue-parser.outputs.issueparser_parentKey }}"
