@@ -2,9 +2,9 @@ name: Sync Jira with GitHub Issue
 on:
   issues:
     types:
-      - opened
-      - edited
-      - closed
+      - opened # github 이슈 생성 시, jira 하위 작업 타입의 이슈 생성
+      - edited # github 이슈 업데이트 시, 관련 jira 이슈 업데이트
+      - closed # github 이슈 닫을 시, 관련 jira 이슈도 close
 
 jobs:
   sync-jira-issue:
@@ -115,7 +115,9 @@ jobs:
       - name: Update Jira Issue
         if: github.event.action == 'edited'
         run: |
-          summary="${{ github.event.issue.title }}"
+          # GitHub 이슈 제목에서 맨 앞의 Ticket Number(TODAK-###)를 제거
+          summary=$(echo "${{ github.event.issue.title }}" | | sed -E 's/^TODAK-[0-9]+ *//')
+        
           description="${{ steps.md2jira.outputs.output-text }}"
           parent_key="${{ steps.issue-parser.outputs.issueparser_parentKey }}"
       
@@ -143,16 +145,20 @@ jobs:
             -H "Content-Type: application/json" \
             -d "$json_payload"
 
-
-
-      # Jira 이슈가 닫힐 때 처리
+      # Jira 이슈 닫기 (Transition to Done)
       - name: Close Jira Issue
         if: github.event.action == 'closed'
         id: close
-        uses: atlassian/gajira-transition@v3
-        with:
-          issue: "$(cat jira_key.txt)"
-          transition: Done  # 자식 이슈를 Done 상태로 변경
+        run: |
+          curl -X POST \
+          --url "${{ secrets.JIRA_BASE_URL }}/rest/api/2/issue/$(cat jira_key.txt)/transitions" \
+          --user "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "transition": {
+              "id": 31 # 31이 Done을 의미
+            }
+          }'
 
       # GitHub 이슈가 열릴 때만 브랜치 생성 로직 실행
       - name: Checkout develop code
