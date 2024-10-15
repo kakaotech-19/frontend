@@ -31,6 +31,7 @@ jobs:
           curl -H "Accept: application/vnd.github.v3.raw" \
             -o ./feature.yml \
             https://api.github.com/repos/kakaotech-19/.github/contents/.github/ISSUE_TEMPLATE/feature.yml
+
       # 가져온 파일을 Issue Parser에 사용
       - name: Issue Parser
         if: github.event.action == 'opened' || github.event.action == 'edited'
@@ -72,7 +73,6 @@ jobs:
               }
             }
 
-
       - name: Log created Jira issue
         if: github.event.action == 'opened'
         run: echo "Created Jira Issue Key:${{ steps.create-jira-issue.outputs.issue }}"
@@ -96,7 +96,6 @@ jobs:
         run: |
           echo "${{ github.event.issue.body }}" | grep -oE '\*\*Jira Issue Key\*\*: \S+' | sed 's/\*\*Jira Issue Key\*\*: //' > jira_key.txt
         id: extract-jira-key
-
 
       - name: Log extracted Jira Issue Key
         if: github.event.action == 'edited' || github.event.action == 'closed'
