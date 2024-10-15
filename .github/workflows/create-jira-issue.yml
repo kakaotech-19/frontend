@@ -1,14 +1,17 @@
-name: Create Jira issue
+name: Sync Jira with GitHub Issue
 on:
   issues:
     types:
       - opened
+      - edited
+      - closed
+
 jobs:
-  create-issue:
-    name: Create Jira issue
+  sync-jira-issue:
+    name: Sync Jira with GitHub Issue
     runs-on: ubuntu-latest
     steps:
-      - name: Login
+      - name: Login to Jira
         uses: atlassian/gajira-login@v3
         env:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
@@ -16,70 +19,90 @@ jobs:
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
 
       - name: Checkout main code
+        if: github.event.action == 'opened' || github.event.action == 'edited'
         uses: actions/checkout@v4
         with:
           ref: main
-          
-       # 다른 레포에서 파일 가져오기
+
+      # 다른 레포에서 파일 가져오기
       - name: Fetch issue template from other repo
+        if: github.event.action == 'opened' || github.event.action == 'edited'
         run: |
           curl -H "Accept: application/vnd.github.v3.raw" \
             -o ./feature.yml \
             https://api.github.com/repos/kakaotech-19/.github/contents/.github/ISSUE_TEMPLATE/feature.yml
-            
+
       # 가져온 파일을 Issue Parser에 사용
       - name: Issue Parser
+        if: github.event.action == 'opened' || github.event.action == 'edited'
         uses: stefanbuck/github-issue-parser@v3
         id: issue-parser
         with:
           template-path: ./feature.yml
 
       - name: Log Issue Parser
+        if: github.event.action == 'opened' || github.event.action == 'edited'
         run: |
           echo '${{ steps.issue-parser.outputs.jsonString }}'
 
       - name: Convert markdown to Jira Syntax
+        if: github.event.action == 'opened' || github.event.action == 'edited'
         uses: peter-evans/jira2md@v1
         id: md2jira
         with:
           input-text: |
             ### Github Issue Link
             - ${{ github.event.issue.html_url }}
-
             ${{ github.event.issue.body }}
           mode: md2jira
 
-      - name: Create Issue
-        id: create
+      # 이슈 생성 또는 업데이트 로직
+      - name: Create or Update Jira Issue
+        if: github.event.action == 'opened' || github.event.action == 'edited'
+        id: create-or-update
         uses: atlassian/gajira-create@v3
         with:
           project: TODAK
           issuetype: Sub-task
           summary: "${{ github.event.issue.title }}"
           description: "${{ steps.md2jira.outputs.output-text }}"
-          fields: |
-            {
-              "parent": {
-                "key": "${{ steps.issue-parser.outputs.issueparser_parentKey }}"
-              }
-            }
+          update: true  # 이슈가 있으면 업데이트하도록 설정
+        # Jira 이슈 키를 output으로 저장
+        outputs:
+          issue: ${{ steps.create-or-update.outputs.issue }}
 
-      - name: Log created issue
-        run: echo "Jira Issue ${{ steps.issue-parser.outputs.parentKey }}/${{ steps.create.outputs.issue }} was created"
+      # 생성 또는 업데이트된 이슈 로그 출력
+      - name: Log created or updated issue
+        if: github.event.action == 'opened' || github.event.action == 'edited'
+        run: echo "Jira Issue ${{ steps.create-or-update.outputs.issue }} was created or updated"
 
+      # GitHub 이슈가 열릴 때만 브랜치 생성 로직 실행
       - name: Checkout develop code
+        if: github.event.action == 'opened'
         uses: actions/checkout@v4
         with:
           ref: develop
 
       - name: Create branch with Ticket number
+        if: github.event.action == 'opened'
         run: |
-          git checkout -b ${{ steps.create.outputs.issue }}
-          git push origin ${{ steps.create.outputs.issue }}
+          git checkout -b ${{ steps.create-or-update.outputs.issue }}
+          git push origin ${{ steps.create-or-update.outputs.issue }}
 
+      # 이슈 제목 업데이트
       - name: Update issue title
+        if: github.event.action == 'opened'
         uses: actions-cool/issues-helper@v3
         with:
           actions: "update-issue"
           token: ${{ secrets.GITHUB_TOKEN }}
-          title: "${{ steps.create.outputs.issue }} ${{ github.event.issue.title }}"
+          title: "${{ steps.create-or-update.outputs.issue }} ${{ github.event.issue.title }}"
+
+      # Jira 이슈가 닫힐 때 처리
+      - name: Close Jira Issue
+        if: github.event.action == 'closed'
+        id: close
+        uses: atlassian/gajira-transition@v3
+        with:
+          issue: "${{ steps.create-or-update.outputs.issue }}"
+          transition: Done  # 자식 이슈를 Done 상태로 변경
