@@ -9,7 +9,6 @@ import {
 import { Label, TextInput, Button, HR } from "flowbite-react";
 import Link from "next/link";
 import React from "react";
-import { Root } from "react-dom/client";
 import { useDispatch, useSelector } from "react-redux";
 
 const LoginForm: React.FC = () => {

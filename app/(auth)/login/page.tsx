@@ -1,13 +1,15 @@
 "use client";
 
-import KakaoLoginButton from "@/components/Auth/KakaoLoginButton";
-import GoogleLoginButton from "@/components/Auth/GoogleLoginButton";
-import { Button, FooterDivider, Label } from "flowbite-react";
-import LoginForm from "../../../components/Auth/LoginForm";
+import { Button, HR } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { setIsEmailFormView } from "@/store/slices/login/loginSlice";
+import {
+  GoogleLoginButton,
+  KakaoLoginButton,
+  LoginForm,
+} from "@/components/Auth";
 
 const Page = () => {
   const dispatch = useDispatch();
@@ -24,9 +26,12 @@ const Page = () => {
           <KakaoLoginButton onClick={() => {}} />
           <br />
           <GoogleLoginButton onClick={() => {}} />
-          <br />
-          <Label className="text-sm text-gray-500">or</Label>
-          <FooterDivider className="mt-4" />
+          <div className="inline-flex items-center justify-center w-full">
+            <HR className="w-64 h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+            <span className="absolute px-3 font-sm text-gray-400 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900">
+              or
+            </span>
+          </div>
           <Button
             className="w-full"
             onClick={() => dispatch(setIsEmailFormView(true))}

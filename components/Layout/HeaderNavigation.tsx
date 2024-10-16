@@ -2,7 +2,7 @@
 
 import React from "react";
 
-const page: React.FC = () => {
+const HeaderNavigation: React.FC = () => {
   return (
     <>
       {/* Your component code here */}
@@ -11,4 +11,4 @@ const page: React.FC = () => {
   );
 };
 
-export default page;
+export default HeaderNavigation;
