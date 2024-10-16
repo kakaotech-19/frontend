@@ -1,12 +1,14 @@
 "use client";
 
+import { BottomNavigation } from "@/components/Layout";
 import React from "react";
 
-const layout: React.FC = () => {
+const layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       {/* Your component code here */}
-      <></>
+      <>{children}</>
+      <BottomNavigation />
     </>
   );
 };

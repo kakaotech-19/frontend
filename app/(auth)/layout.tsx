@@ -1,9 +1,8 @@
 "use client";
 
-import Logo from "@/components/Layout/Logo";
+import { Logo } from "@/components/Layout";
 import store from "@/store";
-import { HR, Label } from "flowbite-react";
-import { useEffect, useState } from "react";
+import { HR } from "flowbite-react";
 import { Provider } from "react-redux";
 
 export default function RootLayout({
