@@ -21,7 +21,7 @@ const addPostSignup = (builder: ActionReducerMapBuilder<SignupState>) => {
     state.loading = false;
   });
   builder.addCase(postSignup.rejected, (state, action) => {
-    state.isVerify = false;
+    state.isEmailVerified = false;
     state.loading = false;
     state.error = action.error.message ?? null;
   });
@@ -42,11 +42,11 @@ const addVerifyOTP = (builder: ActionReducerMapBuilder<SignupState>) => {
     state.error = null;
   });
   builder.addCase(verifyOTP.fulfilled, (state, action) => {
-    state.isVerify = true;
+    state.isEmailVerified = true;
     state.loading = false;
   });
   builder.addCase(verifyOTP.rejected, (state, action) => {
-    state.isVerify = false;
+    state.isEmailVerified = false;
     state.loading = false;
     state.error = action.error.message ?? null;
   });
