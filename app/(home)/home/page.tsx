@@ -1,7 +1,7 @@
 "use client";
 
+import { Feed } from "@/components/Feed";
 import React from "react";
-import Feed from "@/components/Feed/Feed";
 
 const page: React.FC = () => {
   return (
