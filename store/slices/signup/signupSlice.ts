@@ -3,11 +3,12 @@ import { addSignupExtraReducers } from "./signupExtraReducers";
 
 export interface SignupState {
   email: string;
+  nickname: string;
   signupId: string;
   password: string;
   otp: string;
   reEnterPassword: string;
-  isVerify: boolean;
+  isEmailVerified: boolean;
   isSignup: boolean;
   loading: any;
   error: any;
@@ -15,11 +16,12 @@ export interface SignupState {
 
 export const initialState = {
   email: "",
+  nickname: "",
   signupId: "",
   password: "",
   otp: "",
   reEnterPassword: "",
-  isVerify: false,
+  isEmailVerified: false,
   isSignup: false,
   loading: false,
   error: "",
@@ -31,6 +33,9 @@ const signupSlice = createSlice({
   reducers: {
     setSignupEmail: (state: SignupState, action: PayloadAction<string>) => {
       state.email = action.payload;
+    },
+    setSignupNickname: (state: SignupState, action: PayloadAction<string>) => {
+      state.nickname = action.payload;
     },
     setSignupId: (state: SignupState, action: PayloadAction<string>) => {
       state.signupId = action.payload;
@@ -53,6 +58,7 @@ const signupSlice = createSlice({
 
 export const {
   setSignupEmail,
+  setSignupNickname,
   setSignupId,
   setSignupPassword,
   setSignupReEnterPassword,

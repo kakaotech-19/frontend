@@ -3,8 +3,7 @@
 import KakaoLoginButton from "@/components/Auth/KakaoLoginButton";
 import GoogleLoginButton from "@/components/Auth/GoogleLoginButton";
 import { Button, FooterDivider, Label } from "flowbite-react";
-import { useState } from "react";
-import LoginForm from "./LoginForm";
+import LoginForm from "../../../components/Auth/LoginForm";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";

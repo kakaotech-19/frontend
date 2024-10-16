@@ -13,8 +13,8 @@ export default function RootLayout({
 }) {
   return (
     <Provider store={store}>
-      <div className="w-full h-screen flex justify-center items-center">
-        <div className="flex flex-col items-center">
+      <div className="w-full min-h-screen flex justify-center items-center">
+        <div className="flex flex-col items-center my-10">
           <Logo />
           <HR />
           {children}

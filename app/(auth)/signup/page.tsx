@@ -8,6 +8,7 @@ import {
   setOTP,
   setSignupEmail,
   setSignupId,
+  setSignupNickname,
   setSignupPassword,
   setSignupReEnterPassword,
 } from "@/store/slices/signup/signupSlice";
@@ -20,6 +21,7 @@ import { useEffect, useState } from "react";
 const Page = () => {
   const dispatch = useDispatch();
   const email = useSelector((state: RootState) => state.signup.email);
+  const nickname = useSelector((state: RootState) => state.signup.nickname);
   const otp = useSelector((state: RootState) => state.signup.otp);
   const signupId = useSelector((state: RootState) => state.signup.signupId);
   const password = useSelector((state: RootState) => state.signup.password);
@@ -82,6 +84,20 @@ const Page = () => {
         </div>
       </div>
       <HR className="mt-0" />
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="nickname" value="Nickname" />
+        </div>
+        <TextInput
+          id="nickname"
+          type="text"
+          value={nickname}
+          onInput={(e) => dispatch(setSignupNickname(e.currentTarget.value))}
+          placeholder=""
+          required
+          shadow
+        />
+      </div>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="signup-id" value="Login ID" />
