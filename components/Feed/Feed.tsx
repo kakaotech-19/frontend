@@ -9,7 +9,11 @@ const Feed: React.FC = () => {
   return (
     <>
       <div className="jusfity-center w-full max-w-md border-b border-gray-200">
-        <UserAvatarWithLabel />
+        <UserAvatarWithLabel
+          imageUrl="/cat.png"
+          nickname="King cat"
+          description="2024-10-10"
+        />
         <div className="w-full relative" onClick={() => {}}>
           <Image
             width={500}
