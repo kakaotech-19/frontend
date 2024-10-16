@@ -20,14 +20,16 @@ const Page = () => {
   return (
     <>
       {isEmailFormView ? (
-        <LoginForm />
+        <>
+          <LoginForm />
+        </>
       ) : (
         <>
           <KakaoLoginButton onClick={() => {}} />
           <br />
           <GoogleLoginButton onClick={() => {}} />
           <div className="inline-flex items-center justify-center w-full">
-            <HR className="w-64 h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+            <HR className="w-60 h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
             <span className="absolute px-3 font-sm text-gray-400 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900">
               or
             </span>
