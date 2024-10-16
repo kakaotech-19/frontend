@@ -36,7 +36,7 @@ const Page = () => {
           </Button>
           <br />
           <Button
-            className="w-full bg-white border border-gray-300 text-cyan-600"
+            className="w-full bg-white border border-gray-300 text-cyan-600 hover:text-white"
             onClick={() => router.push("/signup")}
           >
             Create Account
