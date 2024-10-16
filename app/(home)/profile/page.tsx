@@ -17,7 +17,7 @@ const page: React.FC = () => {
 
   return (
     <div className="w-full h-screen">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center m-4">
         <UserAvatarWithLabel
           imageUrl={"/cat.png"}
           nickname={"user"}
