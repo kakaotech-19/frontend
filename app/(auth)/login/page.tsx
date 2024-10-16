@@ -2,28 +2,37 @@
 
 import KakaoLoginButton from "@/components/Auth/KakaoLoginButton";
 import GoogleLoginButton from "@/components/Auth/GoogleLoginButton";
-import { Button, FooterDivider } from "flowbite-react";
+import { Button, FooterDivider, Label } from "flowbite-react";
 import { useState } from "react";
-import EmailLoginForm from "./EmailLoginForm";
+import LoginForm from "./LoginForm";
 import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { setIsEmailFormView } from "@/store/slices/login/loginSlice";
 
 const Page = () => {
-  const [isEmailForm, setIsEmailForm] = useState(false);
+  const dispatch = useDispatch();
   const router = useRouter();
+  const isEmailFormView = useSelector(
+    (state: RootState) => state.login.isEmailFormView
+  );
   return (
     <>
-      {isEmailForm ? (
-        <EmailLoginForm />
+      {isEmailFormView ? (
+        <LoginForm />
       ) : (
         <>
           <KakaoLoginButton onClick={() => {}} />
           <br />
           <GoogleLoginButton onClick={() => {}} />
           <br />
-          or
-          <FooterDivider />
-          <Button className="w-full" onClick={() => setIsEmailForm(true)}>
-            Sign in with Email
+          <Label className="text-sm text-gray-500">or</Label>
+          <FooterDivider className="mt-4" />
+          <Button
+            className="w-full"
+            onClick={() => dispatch(setIsEmailFormView(true))}
+          >
+            Sign in with ID
           </Button>
           <br />
           <Button
