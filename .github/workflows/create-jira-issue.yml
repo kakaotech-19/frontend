@@ -108,7 +108,7 @@ jobs:
         run: |
           echo "Jira Issue Key: $(cat jira_key.txt)"
 
-        # 이슈 업데이트 REST Api에서 활용
+        # 이슈 업데이트 관련 작업(REST Api 활용)
       - name: Install jq 
         if: github.event.action == 'edited'
         run: sudo apt-get install jq
@@ -167,14 +167,15 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: develop
-
-      - name: Create branch with Ticket number
+          
+      - name: Create branch with Ticket number and custom branch name
         if: github.event.action == 'opened'
         run: |
-          git checkout -b ${{ steps.create-jira-issue.outputs.issue }}
-          git push origin ${{ steps.create-jira-issue.outputs.issue }}
-
-      # 이슈 제목 업데이트
+          branch_name="${{ steps.issue-parser.outputs.issueparser_branchName }}"
+          git checkout -b feature/${{ steps.create-jira-issue.outputs.issue }}/$branch_name
+          git push origin feature/${{ steps.create-jira-issue.outputs.issue }}/$branch_name
+          
+      # 이슈 제목을 업데이트 (Add Ticket Number)
       - name: Update issue title
         if: github.event.action == 'opened'
         uses: actions-cool/issues-helper@v3
