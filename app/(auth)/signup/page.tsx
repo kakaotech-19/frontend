@@ -45,10 +45,7 @@ const Page = () => {
   }, [password, reEnterPassword]);
 
   return (
-    <form
-      className="flex max-w-md flex-col gap-4"
-      onSubmit={(e) => e.preventDefault()}
-    >
+    <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="email2" value="Email" />
