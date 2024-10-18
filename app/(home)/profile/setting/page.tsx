@@ -1,41 +1,59 @@
 "use client";
 
+import { UserAvatarWithLabel } from "@/components/User";
+import UploadFileLabel from "@/components/User/UploadFileLabel";
+import { HR } from "flowbite-react";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const page: React.FC = () => {
+  const router = useRouter();
   return (
-    <div className="w-full h-screen flex justify-center items-start mt-20">
-      <div>
-        <label
-          htmlFor="dropzone-file"
-          className="flex flex-col items-start justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+    <div className="w-full h-screen items-start">
+      <div className="flex justify-between items-center m-4">
+        <UserAvatarWithLabel
+          imageUrl={"/cat.png"}
+          nickname={"user"}
+          description="name@email.com"
+        />
+        <svg
+          className="mr-4 text-gray-500"
+          width="30"
+          height="30"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          onClick={() => router.push("/profile")}
         >
-          <div className="flex flex-col items-center justify-center pt-5 pb-6">
-            <svg
-              className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 16"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-              />
-            </svg>
-            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-              <span className="font-semibold">Click to upload</span> or drag and
-              drop
-            </p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-              SVG, PNG, JPG or GIF (MAX. 800x400px)
-            </p>
-          </div>
-          <input id="dropzone-file" type="file" className="hidden" />
-        </label>
+          <path
+            opacity="0.34"
+            d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
+            stroke="#292D32"
+            strokeWidth="1.5"
+            strokeMiterlimit="10"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M2 12.8799V11.1199C2 10.0799 2.85 9.21994 3.9 9.21994C5.71 9.21994 6.45 7.93994 5.54 6.36994C5.02 5.46994 5.33 4.29994 6.24 3.77994L7.97 2.78994C8.76 2.31994 9.78 2.59994 10.25 3.38994L10.36 3.57994C11.26 5.14994 12.74 5.14994 13.65 3.57994L13.76 3.38994C14.23 2.59994 15.25 2.31994 16.04 2.78994L17.77 3.77994C18.68 4.29994 18.99 5.46994 18.47 6.36994C17.56 7.93994 18.3 9.21994 20.11 9.21994C21.15 9.21994 22.01 10.0699 22.01 11.1199V12.8799C22.01 13.9199 21.16 14.7799 20.11 14.7799C18.3 14.7799 17.56 16.0599 18.47 17.6299C18.99 18.5399 18.68 19.6999 17.77 20.2199L16.04 21.2099C15.25 21.6799 14.23 21.3999 13.76 20.6099L13.65 20.4199C12.75 18.8499 11.27 18.8499 10.36 20.4199L10.25 20.6099C9.78 21.3999 8.76 21.6799 7.97 21.2099L6.24 20.2199C5.33 19.6999 5.02 18.5299 5.54 17.6299C6.45 16.0599 5.71 14.7799 3.9 14.7799C2.85 14.7799 2 13.9199 2 12.8799Z"
+            stroke="#292D32"
+            strokeWidth="1.5"
+            strokeMiterlimit="10"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
+      <HR className="mt-0" />
+      <div className="flex flex-col justify-center items-center mt-10">
+        <div className="flex justify-center items-center">
+          <UploadFileLabel />
+        </div>
+        <br />
+        <p>
+          - 배경이 없는 이미지를 업로드해주세요. <br />
+          - 얼굴이 선명하게 나온 사진을 사용해주세요. <br />
+        </p>
       </div>
     </div>
   );
