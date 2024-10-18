@@ -2,7 +2,7 @@
 
 import { UserAvatarWithLabel } from "@/components/User";
 import UploadFileLabel from "@/components/User/UploadFileLabel";
-import { HR } from "flowbite-react";
+import { Button, HR, Label } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -11,11 +11,31 @@ const page: React.FC = () => {
   return (
     <div className="w-full h-screen items-start">
       <div className="flex justify-between items-center m-4">
-        <UserAvatarWithLabel
-          imageUrl={"/cat.png"}
-          nickname={"user"}
-          description="name@email.com"
-        />
+        <div className="flex justify-center items-end">
+          <UserAvatarWithLabel
+            imageUrl={"/cat.png"}
+            nickname={"user"}
+            description="name@email.com"
+          />
+          <svg
+            className="w-6 h-6 mb-2 text-gray-800 dark:text-white justify-start"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"
+            />
+          </svg>
+        </div>
+
         <svg
           className="mr-4 text-gray-500"
           width="30"
@@ -46,14 +66,14 @@ const page: React.FC = () => {
       </div>
       <HR className="mt-0" />
       <div className="flex flex-col justify-center items-center mt-10">
-        <div className="flex justify-center items-center">
+        <div className="flex-col justify-center items-center gap-2">
           <UploadFileLabel />
+          <Label className="text-gray-500 text-xs">
+            - 배경이 없는 이미지를 업로드해주세요. <br />
+            - 얼굴이 선명하게 나온 사진을 사용해주세요. <br />
+          </Label>
         </div>
-        <br />
-        <p>
-          - 배경이 없는 이미지를 업로드해주세요. <br />
-          - 얼굴이 선명하게 나온 사진을 사용해주세요. <br />
-        </p>
+        <Button className="mt-4"> 캐릭터 생성하기 </Button>
       </div>
     </div>
   );
