@@ -4,14 +4,19 @@ import { UserAvatarWithLabel } from "@/components/User";
 import { useRouter } from "next/navigation";
 import React from "react";
 import Calendar from "react-calendar";
+import "@/lib/react-calendar/Calendar.css";
+import { RootState } from "@/store"; // Adjust the import path according to your project structure
+import { useDispatch, useSelector } from "react-redux";
+import { setDate } from "@/store/slices/dairy/diarySlice";
 
 const page: React.FC = () => {
-  const [date, setDate] = React.useState(new Date());
+  const date = useSelector((state: RootState) => state.diary.date);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const onChange = (newDate: any) => {
     if (newDate instanceof Date) {
-      setDate(newDate);
+      dispatch(setDate(newDate));
     }
   };
 
