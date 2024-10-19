@@ -2,11 +2,13 @@ import logger from "redux-logger";
 import { configureStore } from "@reduxjs/toolkit";
 import signupSlice from "./slices/signup/signupSlice";
 import loginSlice from "./slices/login/loginSlice";
+import diarySlice from "./slices/dairy/diarySlice";
 
 const store = configureStore({
   reducer: {
     signup: signupSlice,
     login: loginSlice,
+    diary: diarySlice,
     // posts: postsReducer,
   },
   middleware: (
