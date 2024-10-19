@@ -29,7 +29,7 @@ const Page: React.FC = () => {
         </div>
       </label>
       <Label className="mb-2"> 기분을 알려주세요. </Label>
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-5" role="group">
+      <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 mb-5" role="group">
         <button
           type="button"
           className="px-4 py-2 text-xs font-medium rounded-md text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-cyan-700 focus:z-10 focus:ring-2 focus:ring-cyan-700 focus:text-cyan-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-cyan-500 dark:focus:text-white"
