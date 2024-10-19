@@ -10,12 +10,6 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
-    "@tiptap/core": "^2.8.0",
-    "@tiptap/extension-code-block": "^2.8.0",
-    "@tiptap/extension-horizontal-rule": "^2.8.0",
-    "@tiptap/pm": "^2.8.0",
-    "@tiptap/react": "^2.8.0",
-    "@tiptap/starter-kit": "^2.8.0",
     "flowbite-typography": "^1.0.4",
     "next": "14.2.13",
     "react": "^18.3.1",
