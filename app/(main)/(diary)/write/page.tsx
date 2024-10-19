@@ -1,11 +1,16 @@
 "use client";
 
-import { Button, Label, Textarea } from "flowbite-react";
+import { RootState } from "@/store";
+import { Button, HR, Label, Textarea } from "flowbite-react";
+import { useRouter } from "next/navigation";
 import { useState, useLayoutEffect } from "react";
+import { useSelector } from "react-redux";
 
 const Page: React.FC = () => {
   const [isPublic, setIsPublic] = useState(true);
   const [text, setText] = useState("");
+  const router = useRouter();
+  const date = new Date();
 
   useLayoutEffect(() => {
     const savedText = localStorage.getItem("diaryText");
@@ -23,44 +28,39 @@ const Page: React.FC = () => {
 
   return (
     <div className="flex flex-col h-relative justify-between p-4">
-      <label className="items-center mb-5 cursor-pointer">
+      <div className="flex justify-between items-center">
+        <p className="text-xl">
+          {date.toLocaleDateString("ko-KR", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </p>
         <div className="flex justify-end space-x-2">
-          <Button> 저장 </Button>
+          <Button onClick={() => router.push("/read")}> 저장 </Button>
         </div>
-      </label>
-      <Label className="mb-2"> 기분을 알려주세요. </Label>
-      <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 mb-5" role="group">
-        <button
-          type="button"
-          className="px-4 py-2 text-xs font-medium rounded-md text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-cyan-700 focus:z-10 focus:ring-2 focus:ring-cyan-700 focus:text-cyan-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-cyan-500 dark:focus:text-white"
-        >
-          기뻐요
-        </button>
-        <button
-          type="button"
-          className="px-4 py-2 text-xs font-medium rounded-md text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-cyan-700 focus:z-10 focus:ring-2 focus:ring-cyan-700 focus:text-cyan-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-cyan-500 dark:focus:text-white"
-        >
-          재밌어요
-        </button>
-        <button
-          type="button"
-          className="px-4 py-2 text-xs font-medium rounded-md text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-cyan-700 focus:z-10 focus:ring-2 focus:ring-cyan-700 focus:text-cyan-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-cyan-500 dark:focus:text-white"
-        >
-          행복해요
-        </button>
-        <button
-          type="button"
-          className="px-4 py-2 text-xs font-medium rounded-md text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-cyan-700 focus:z-10 focus:ring-2 focus:ring-cyan-700 focus:text-cyan-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-cyan-500 dark:focus:text-white"
-        >
-          슬퍼요
-        </button>
-        <button
-          type="button"
-          className="px-4 py-2 text-xs font-medium rounded-md text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-cyan-700 focus:z-10 focus:ring-2 focus:ring-cyan-700 focus:text-cyan-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-cyan-500 dark:focus:text-white"
-        >
-          화나요
-        </button>
       </div>
+      <HR className="mb-2 mt-2" />
+      <Label className="mb-4">
+        <p className="mb-2">기분을 알려주세요.</p>
+        <div>
+          <span className="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
+            기뻐요
+          </span>
+          <span className="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-700 dark:text-yellow-300">
+            재밌어요
+          </span>
+          <span className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+            행복해요
+          </span>
+          <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-900 dark:text-gray-300">
+            슬퍼요
+          </span>
+          <span className="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">
+            화나요
+          </span>
+        </div>
+      </Label>
       <div className="relative">
         <Textarea
           className="h-96 text-md"
