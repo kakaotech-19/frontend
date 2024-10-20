@@ -7,7 +7,7 @@ import { UserAvatarWithLabel } from "../Profile";
 
 const Feed: React.FC = () => {
   return (
-    <div className="jusfity-center w-full max-w-md border-b border-gray-200">
+    <div className="flex-col w-full max-w-md border-b border-gray-200">
       <UserAvatarWithLabel
         imageUrl="/cat.png"
         nickname="King cat"
