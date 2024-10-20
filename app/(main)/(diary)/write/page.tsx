@@ -44,19 +44,19 @@ const Page: React.FC = () => {
       <Label className="mb-4">
         <p className="mb-2">기분을 알려주세요.</p>
         <div>
-          <span className="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
+          <span className="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-3 py-1 rounded-full dark:bg-blue-900 dark:text-blue-300">
             기뻐요
           </span>
-          <span className="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-700 dark:text-yellow-300">
+          <span className="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-3 py-1 rounded-full dark:bg-yellow-700 dark:text-yellow-300">
             재밌어요
           </span>
-          <span className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+          <span className="bg-green-100 text-green-800 text-xs font-medium me-2 px-3 py-1 rounded-full dark:bg-green-900 dark:text-green-300">
             행복해요
           </span>
-          <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-900 dark:text-gray-300">
+          <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-3 py-1 rounded-full dark:bg-gray-900 dark:text-gray-300">
             슬퍼요
           </span>
-          <span className="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">
+          <span className="bg-red-100 text-red-800 text-xs font-medium me-2 px-3 py-1 rounded-full dark:bg-red-900 dark:text-red-300">
             화나요
           </span>
         </div>
