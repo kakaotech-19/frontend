@@ -17,5 +17,6 @@ const config: Config = {
     },
   },
   plugins: [flowbite.plugin(), require("flowbite-typography")],
+  darkMode: "class",
 };
 export default config;
