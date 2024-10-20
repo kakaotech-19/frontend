@@ -24,18 +24,18 @@ jobs:
         with:
           version: 8
 
-      # 4. pnpm 저장 디렉토리 고정
-      - name: Configure pnpm store directory
-        run: pnpm config set store-dir .pnpm-store
+      # # 4. pnpm 저장 디렉토리 고정
+      # - name: Configure pnpm store directory
+      #   run: pnpm config set store-dir .pnpm-store
 
-      # 5. pnpm 캐시 설정
-      - name: Cache pnpm store
-        uses: actions/cache@v3
-        with:
-          path: .pnpm-store
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+      # # 5. pnpm 캐시 설정
+      # - name: Cache pnpm store
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: .pnpm-store
+      #     key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-pnpm-store-
 
       # 6. 의존성 설치
       - name: Install dependencies
