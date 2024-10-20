@@ -27,6 +27,7 @@
     "flowbite": "^2.5.2",
     "flowbite-react": "^0.10.2",
     "postcss": "^8.4.47",
+    "react-draggable": "^4.4.6",
     "react-redux": "^9.1.2",
     "redux-logger": "^3.0.6",
     "tailwindcss": "^3.4.13",
