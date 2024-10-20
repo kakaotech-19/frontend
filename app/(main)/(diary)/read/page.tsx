@@ -21,7 +21,7 @@ const page: React.FC = () => {
           />
         </div>
         <div className="w-full max-w-md">
-          <p className="text-md h-full p-2 rounded-none border border-red-300 overflow-y-auto">
+          <p className="text-md h-full p-2 rounded-none overflow-y-auto">
             안녕하세요. 여기는 일기 내용입니다. 일기내용 안녕하세요. 여기는 일기
             내용입니다. 일기내용 안녕하세요. 여기는 일기 내용입니다. 일기내용
             안녕하세요. 여기는 일기 내용입니다. 일기내용 안녕하세요. 여기는 일기

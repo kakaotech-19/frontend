@@ -10,7 +10,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
     <Provider store={store}>
       {/* Your component code here */}
       <HeaderNavigation />
-      <>{children}</>
+      {children}
       <BottomNavigation />
     </Provider>
   );

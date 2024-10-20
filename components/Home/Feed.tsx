@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { UserAvatarWithLabel } from "../Profile";
 import Image from "next/image";
-import { HR } from "flowbite-react";
 
 const Feed: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

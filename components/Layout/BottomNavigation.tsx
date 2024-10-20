@@ -33,11 +33,11 @@ const BottomNavigation: React.FC = () => {
   }, [lastScrollY]);
   return (
     <div
-      className={`fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600 transition-transform duration-300 ${
+      className={`fixed bottom-0 left-0 z-50 w-full bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600 transition-transform duration-300 ${
         isVisible ? "translate-y-0" : "translate-y-full"
       }`}
     >
-      <div className="grid h-full max-w-lg grid-cols-3 mx-auto font-medium">
+      <div className="grid h-16 max-w-lg grid-cols-3 mx-auto font-medium">
         <button
           type="button"
           onClick={() => router.push("/home")}
