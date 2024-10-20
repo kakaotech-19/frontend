@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { HR } from "flowbite-react";
-import { UserAvatarWithLabel } from "../User";
+import { UserAvatarWithLabel } from "../Profile";
 
 const Feed: React.FC = () => {
   return (

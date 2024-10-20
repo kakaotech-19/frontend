@@ -1,7 +1,7 @@
 "use client";
 
-import { UserAvatarWithLabel } from "@/components/User";
-import UploadFileLabel from "@/components/User/UploadFileLabel";
+import { UserAvatarWithLabel } from "@/components/Profile";
+import UploadFileLabel from "@/components/Profile/UploadFileLabel";
 import { Button, HR, Label } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React from "react";
