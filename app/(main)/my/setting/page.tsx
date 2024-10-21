@@ -2,7 +2,7 @@
 
 import { UserAvatarWithLabel } from "@/components/my";
 import UploadFileLabel from "@/components/my/UploadFileLabel";
-import path from "@/router";
+import path from "@/routes";
 import { Button, HR, Label } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React from "react";

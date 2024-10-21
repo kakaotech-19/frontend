@@ -1,6 +1,6 @@
 "use client";
 
-import path from "@/router";
+import path from "@/routes";
 import { Button } from "flowbite-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";

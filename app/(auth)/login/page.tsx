@@ -9,8 +9,8 @@ import {
   GoogleLoginButton,
   KakaoLoginButton,
   LoginForm,
-} from "@/components/Auth";
-import path from "@/router";
+} from "@/components/auth";
+import path from "@/routes";
 
 const Page = () => {
   const dispatch = useDispatch();

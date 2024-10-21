@@ -8,7 +8,7 @@ import "@/lib/react-calendar/Calendar.css";
 import { RootState } from "@/store"; // Adjust the import path according to your project structure
 import { useDispatch, useSelector } from "react-redux";
 import { setDate } from "@/store/slices/dairy/diarySlice";
-import path from "@/router";
+import path from "@/routes";
 
 const page: React.FC = () => {
   const date = useSelector((state: RootState) => state.diary.date);

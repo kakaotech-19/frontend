@@ -1,3 +1,3 @@
 import UserAvatarWithLabel from "./UserAvatarWithLabel";
-
-export { UserAvatarWithLabel };
+import UploadFileLabel from "./UploadFileLabel";
+export { UploadFileLabel, UserAvatarWithLabel };

@@ -10,6 +10,7 @@ import { Label, TextInput, Button, HR } from "flowbite-react";
 import Link from "next/link";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { DirectionSVG } from "../svg";
 
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -22,23 +23,7 @@ const LoginForm: React.FC = () => {
         onClick={() => dispatch(setIsEmailFormView(false))}
         className="fixed flex top-4 left-4 items-center text-cyan-600 hover:underline dark:text-cyan-500 text-sm"
       >
-        <svg
-          className="w-5 h-5"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="m15 19-7-7 7-7"
-          />
-        </svg>
+        <DirectionSVG />
         All sign in options
       </Label>
       <div className="flex justify-center h-full items-center">

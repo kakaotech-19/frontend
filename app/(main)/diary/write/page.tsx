@@ -1,6 +1,6 @@
 "use client";
 
-import path from "@/router";
+import path from "@/routes";
 import { Button, HR, Label, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useState, useLayoutEffect } from "react";
