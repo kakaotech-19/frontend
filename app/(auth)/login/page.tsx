@@ -10,6 +10,7 @@ import {
   KakaoLoginButton,
   LoginForm,
 } from "@/components/Auth";
+import path from "@/router";
 
 const Page = () => {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const Page = () => {
           <br />
           <Button
             className="w-full bg-white border border-gray-300 text-cyan-600 hover:text-white"
-            onClick={() => router.push("/signup")}
+            onClick={() => router.push(path.SIGNUP)}
           >
             Create Account
           </Button>

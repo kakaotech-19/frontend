@@ -1,5 +1,6 @@
 "use client";
 
+import path from "@/router";
 import { Button } from "flowbite-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -29,14 +30,12 @@ const page = () => {
         </ol>
 
         <div className="grid grid-cols-2 gap-4 w-full max-w-md">
-          <Button onClick={() => router.push("/login")}>login</Button>
-          <Button onClick={() => router.push("/home")}>home</Button>
-          <Button onClick={() => router.push("/write")}>write</Button>
-          <Button onClick={() => router.push("/read")}>read</Button>
-          <Button onClick={() => router.push("/profile")}>profile</Button>
-          <Button onClick={() => router.push("/profile/setting")}>
-            setting
-          </Button>
+          <Button onClick={() => router.push(path.LOGIN)}>login</Button>
+          <Button onClick={() => router.push(path.HOME)}>home</Button>
+          <Button onClick={() => router.push(path.WRITE)}>write</Button>
+          <Button onClick={() => router.push(path.READ)}>read</Button>
+          <Button onClick={() => router.push(path.MY)}>profile</Button>
+          <Button onClick={() => router.push(path.SETTING)}>setting</Button>
         </div>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">

@@ -1,5 +1,6 @@
 "use client";
 
+import path from "@/router";
 import { Button, HR, Label, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useState, useLayoutEffect } from "react";
@@ -61,7 +62,7 @@ const Page: React.FC = () => {
           <div className="flex justify-center items-center space-x-2">
             <Button
               className="h-8 justify-center items-center"
-              onClick={() => router.push("/read")}
+              onClick={() => router.push(path.READ)}
             >
               저장
             </Button>
