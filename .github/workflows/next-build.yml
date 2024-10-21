@@ -1,4 +1,6 @@
-name: Build and Publish to GHCR
+#reuse workflow
+
+name: Reuse Build and Publish to GHCR
 
 on:
   push:
@@ -6,44 +8,9 @@ on:
   pull_request:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4 # 코드 체크아웃
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3 # QEMU 설정
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3 # Buildx 설정
-
-      # Docker 로그인
-      - name: Login to Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ secrets.ORGANIZATION }} # organization username
-          password: ${{ secrets.PAT_TOKEN }} # classic token 필요
-
-      # Docker 이미지 빌드 및 푸시
-      - name: Build and Push Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: Dockerfile
-          push: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main') }}
-          tags: ghcr.io/kakaotech-19/${{ github.repository }}:latest
-
-      # Discord 알림
-      - name: Discord 알림
-        uses: sarisia/actions-status-discord@v1
-        if: always()
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          status: ${{ job.status }}
-          title: "NextJS 빌드 결과"
-          description: |
-            ${{ job.status != 'success' && format('실패 단계: {0}', job.status) || '' }}
-          color: ${{ job.status == 'success' && '0x00ff00' || '0xff0000' }}
+  build-and-publish:
+    uses: kakaotech-19/.github/.github/workflows/build-and-publish-ghcr.yml@main
+    secrets:
+      ORGANIZATION: ${{ secrets.ORGANIZATION }}
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
