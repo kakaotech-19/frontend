@@ -1,6 +1,6 @@
 "use client";
 
-import { BottomNavigation, HeaderNavigation } from "@/components/Layout";
+import { BottomNavigation, HeaderNavigation } from "@/components/layout";
 import store from "@/store";
 import React from "react";
 import { Provider } from "react-redux";

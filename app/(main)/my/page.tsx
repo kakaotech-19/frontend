@@ -1,6 +1,6 @@
 "use client";
 
-import { UserAvatarWithLabel } from "@/components/Profile";
+import { UserAvatarWithLabel } from "@/components/my";
 import { useRouter } from "next/navigation";
 import React from "react";
 import Calendar from "react-calendar";

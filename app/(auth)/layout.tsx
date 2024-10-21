@@ -1,6 +1,6 @@
 "use client";
 
-import { Logo } from "@/components/Layout";
+import { Logo } from "@/components/layout";
 import store from "@/store";
 import { HR } from "flowbite-react";
 import { Provider } from "react-redux";
