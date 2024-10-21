@@ -1,51 +1,42 @@
-name: Build
+name: Build and Publish to GHCR
 
 on:
-  pull_request:
+  push:
     branches: [main, release, develop]
+  pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. 코드 체크아웃
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4 # 코드 체크아웃
 
-      # 2. Node.js 설정
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3 # QEMU 설정
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3 # Buildx 설정
+
+      # Docker 로그인
+      - name: Login to Container Registry
+        uses: docker/login-action@v3
         with:
-          node-version: "18"
+          registry: ghcr.io
+          username: ${{ secrets.ORGANIZATION }} # organization username
+          password: ${{ secrets.PAT_TOKEN }} # classic token 필요
 
-      # 3. pnpm 설치
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
+      # Docker 이미지 빌드 및 푸시
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v6
         with:
-          version: 8
+          context: .
+          file: Dockerfile
+          push: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main') }}
+          tags: ghcr.io/kakaotech-19/${{ github.repository }}:latest
 
-      # # 4. pnpm 저장 디렉토리 고정
-      # - name: Configure pnpm store directory
-      #   run: pnpm config set store-dir .pnpm-store
-
-      # # 5. pnpm 캐시 설정
-      # - name: Cache pnpm store
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: .pnpm-store
-      #     key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-pnpm-store-
-
-      # 6. 의존성 설치
-      - name: Install dependencies
-        run: pnpm install
-
-      # 7. 빌드 실행
-      - name: Build
-        run: pnpm build
-
-      # 8. Discord 알림
+      # Discord 알림
       - name: Discord 알림
         uses: sarisia/actions-status-discord@v1
         if: always()
