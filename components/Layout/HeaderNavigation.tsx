@@ -1,36 +1,12 @@
 "use client";
 
+import useHideOnScroll from "@/hooks/useHideOnScroll";
 import { HR } from "flowbite-react";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
 const HeaderNavigation: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  useEffect(() => {
-    const controlNavbar = () => {
-      if (typeof window !== "undefined") {
-        if (window.scrollY > lastScrollY) {
-          // 스크롤 내릴 때
-          setIsVisible(false);
-        } else {
-          // 스크롤 올릴 때
-          setIsVisible(true);
-        }
-        setLastScrollY(window.scrollY);
-      }
-    };
-
-    if (typeof window !== "undefined") {
-      window.addEventListener("scroll", controlNavbar);
-
-      // 클린업 함수
-      return () => {
-        window.removeEventListener("scroll", controlNavbar);
-      };
-    }
-  }, [lastScrollY]);
+  const [isVisible] = useHideOnScroll();
 
   return (
     <nav
