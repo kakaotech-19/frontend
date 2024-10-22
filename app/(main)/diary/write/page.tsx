@@ -1,9 +1,11 @@
 "use client";
 
 import path from "@/routes";
+import { setCommentView } from "@/store/slices/dairy/diarySlice";
 import { Button, HR, Label, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useState, useLayoutEffect } from "react";
+import { useDispatch } from "react-redux";
 
 const Page: React.FC = () => {
   const [isPublic, setIsPublic] = useState(true);
@@ -11,6 +13,7 @@ const Page: React.FC = () => {
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
 
   const router = useRouter();
+  const dispatch = useDispatch();
   const date = new Date();
 
   useLayoutEffect(() => {
@@ -62,7 +65,10 @@ const Page: React.FC = () => {
           <div className="flex justify-center items-center space-x-2">
             <Button
               className="h-8 justify-center items-center"
-              onClick={() => router.push(path.READ)}
+              onClick={() => {
+                router.push(path.DIARY);
+                dispatch(setCommentView(true));
+              }}
             >
               저장
             </Button>

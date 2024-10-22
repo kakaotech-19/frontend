@@ -29,7 +29,7 @@ const BottomNavigation: React.FC = () => {
         <button
           type="button"
           className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
-          onClick={() => router.push(path.WRITE)}
+          onClick={() => router.push(path.DIARY)}
         >
           <PencilSVG />
           <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-500">

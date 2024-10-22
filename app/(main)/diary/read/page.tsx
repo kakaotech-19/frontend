@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Draggable from "react-draggable";
 import Image from "next/image";
 import { Textarea } from "flowbite-react";
