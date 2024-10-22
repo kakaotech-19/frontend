@@ -14,7 +14,7 @@ const HeaderNavigation: React.FC = () => {
         isVisible ? "translate-y-0" : "-translate-y-full"
       } border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700 z-50`}
     >
-      <div className="flex flex-wrap items-center justify-between mx-auto p-1">
+      <div className="flex flex-wrap items-center justify-between mx-auto p-2">
         <Link
           href="#"
           className="flex items-center space-x-3 rtl:space-x-reverse"
