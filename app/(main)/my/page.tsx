@@ -2,23 +2,47 @@
 
 import { UserAvatarWithLabel } from "@/components/my";
 import { useRouter } from "next/navigation";
-import React from "react";
-import Calendar from "react-calendar";
-import "@/lib/react-calendar/Calendar.css";
-import { RootState } from "@/store"; // Adjust the import path according to your project structure
-import { useDispatch, useSelector } from "react-redux";
-import { setDate } from "@/store/slices/dairy/diarySlice";
+import React, { useState, useEffect } from "react";
+import { RootState } from "@/store";
+import { useSelector } from "react-redux";
 import path from "@/routes";
+import Image from "next/image";
+import InfiniteScroll from "react-infinite-scroll-component";
+import SettingSVG from "@/components/svg/SettingSVG";
+import { HR } from "flowbite-react";
 
-const page: React.FC = () => {
+interface Post {
+  id: number;
+  imageUrl: string;
+}
+
+const dummyPosts: Post[] = Array(100)
+  .fill(null)
+  .map((_, index) => ({
+    id: index + 1,
+    imageUrl: "/cat.png",
+  }));
+
+const Page: React.FC = () => {
   const date = useSelector((state: RootState) => state.diary.date);
   const router = useRouter();
-  const dispatch = useDispatch();
 
-  const onChange = (newDate: any) => {
-    if (newDate instanceof Date) {
-      dispatch(setDate(newDate));
-    }
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [hasMore, setHasMore] = useState(true);
+
+  useEffect(() => {
+    fetchMoreData();
+  }, []);
+
+  const fetchMoreData = () => {
+    setTimeout(() => {
+      const currentLength = posts.length;
+      const nextPosts = dummyPosts.slice(currentLength, currentLength + 12);
+      setPosts((prevPosts) => [...prevPosts, ...nextPosts]);
+      if (posts.length + nextPosts.length >= dummyPosts.length) {
+        setHasMore(false);
+      }
+    }, 100);
   };
 
   return (
@@ -26,30 +50,51 @@ const page: React.FC = () => {
       <div className="flex">
         <div className="flex w-full items-center justify-between mt-14">
           <UserAvatarWithLabel
-            imageUrl={"/cat.png"}
-            nickname={"user"}
+            imageUrl="/cat.png"
+            nickname="user"
             description="name@email.com"
           />
-          <svg
-            className="mr-4 text-gray-500"
-            width="30"
-            height="30"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-            onClick={() => router.push(path.SETTING)}
-          >
-            <path
-              d="M20.1 9.2214C18.29 9.2214 17.55 7.9414 18.45 6.3714C18.97 5.4614 18.66 4.3014 17.75 3.7814L16.02 2.7914C15.23 2.3214 14.21 2.6014 13.74 3.3914L13.63 3.5814C12.73 5.1514 11.25 5.1514 10.34 3.5814L10.23 3.3914C9.78 2.6014 8.76 2.3214 7.97 2.7914L6.24 3.7814C5.33 4.3014 5.02 5.4714 5.54 6.3814C6.45 7.9414 5.71 9.2214 3.9 9.2214C2.86 9.2214 2 10.0714 2 11.1214V12.8814C2 13.9214 2.85 14.7814 3.9 14.7814C5.71 14.7814 6.45 16.0614 5.54 17.6314C5.02 18.5414 5.33 19.7014 6.24 20.2214L7.97 21.2114C8.76 21.6814 9.78 21.4014 10.25 20.6114L10.36 20.4214C11.26 18.8514 12.74 18.8514 13.65 20.4214L13.76 20.6114C14.23 21.4014 15.25 21.6814 16.04 21.2114L17.77 20.2214C18.68 19.7014 18.99 18.5314 18.47 17.6314C17.56 16.0614 18.3 14.7814 20.11 14.7814C21.15 14.7814 22.01 13.9314 22.01 12.8814V11.1214C22 10.0814 21.15 9.2214 20.1 9.2214ZM12 15.2514C10.21 15.2514 8.75 13.7914 8.75 12.0014C8.75 10.2114 10.21 8.7514 12 8.7514C13.79 8.7514 15.25 10.2114 15.25 12.0014C15.25 13.7914 13.79 15.2514 12 15.2514Z"
-              fill="currentColor"
-            />
-          </svg>
+          <div onClick={() => router.push(path.SETTING)}>
+            <SettingSVG />
+          </div>
         </div>
       </div>
-      <div className="flex justify-center items-center">
-        {/* 인스타 피드 스타일 */}
+      <HR className="mt-0 mb-0" />
+      <div className="flex flex-col md:flex-row justify-center items-start mt-8 px-4">
+        <h2 className="text-lg font-bold mb-4"> 나의 게시물 </h2>
+        <div className="w-full">
+          <InfiniteScroll
+            dataLength={posts.length}
+            next={fetchMoreData}
+            hasMore={hasMore}
+            loader={<h4>로딩중 ...</h4>}
+            endMessage={
+              <p style={{ textAlign: "center" }}>
+                <b>모든 게시물을 불러왔습니다.</b>
+              </p>
+            }
+            style={{ overflow: "visible" }} // 세로 스크롤을 위해 추가
+          >
+            <div className="w-full grid grid-cols-2 gap-4">
+              {" "}
+              {/* grid-cols-3에서 grid-cols-2로 변경 */}
+              {posts.map((item) => (
+                <div key={item.id} className="aspect-square relative">
+                  <Image
+                    src={item.imageUrl}
+                    alt={`게시물 이미지 ${item.id}`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover rounded-md shadow-md"
+                  />
+                </div>
+              ))}
+            </div>
+          </InfiniteScroll>
+        </div>
       </div>
     </div>
   );
 };
 
-export default page;
+export default Page;
