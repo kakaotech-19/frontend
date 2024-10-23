@@ -1,13 +1,13 @@
 "use client";
 
 import Lottie from "lottie-react";
-import ShareAnimationData from "@/public/animation/share.json";
+import GraphicAnimationData from "@/public/lottie-animation/graphic.json";
 import { AnimationType } from "@/type";
 
-const ShareAnimation: React.FC<AnimationType> = ({ style }) => {
+const GraphicAnimation: React.FC<AnimationType> = ({ style }) => {
   return (
     <Lottie
-      animationData={ShareAnimationData}
+      animationData={GraphicAnimationData}
       loop={true}
       autoplay={true}
       style={style}
@@ -18,4 +18,4 @@ const ShareAnimation: React.FC<AnimationType> = ({ style }) => {
   );
 };
 
-export default ShareAnimation;
+export default GraphicAnimation;

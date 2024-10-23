@@ -1,13 +1,13 @@
 "use client";
 
 import Lottie from "lottie-react";
-import WritingAnimationData from "@/public/animation/writing.json";
+import MusicAnimationData from "@/public/lottie-animation/music.json";
 import { AnimationType } from "@/type";
 
-const WritingAnimation: React.FC<AnimationType> = ({ style }) => {
+const MusicAnimation: React.FC<AnimationType> = ({ style }) => {
   return (
     <Lottie
-      animationData={WritingAnimationData}
+      animationData={MusicAnimationData}
       loop={true}
       autoplay={true}
       style={style}
@@ -18,4 +18,4 @@ const WritingAnimation: React.FC<AnimationType> = ({ style }) => {
   );
 };
 
-export default WritingAnimation;
+export default MusicAnimation;

@@ -5,7 +5,7 @@ import {
   MusicAnimation,
   ShareAnimation,
   WritingAnimation,
-} from "@/components/animation";
+} from "@/components/lottie-animation";
 import { Logo } from "@/components/layout";
 import path from "@/routes";
 import { Button } from "flowbite-react";
