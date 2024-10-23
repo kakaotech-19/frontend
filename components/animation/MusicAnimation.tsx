@@ -1,20 +1,21 @@
 "use client";
 
-import React from "react";
 import Lottie from "lottie-react";
 import MusicAnimationData from "@/public/animation/music.json";
+import { AnimationType } from "@/type";
 
-const MusicAnimation = () => {
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: MusicAnimationData,
-    DatarendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
-  return <Lottie {...defaultOptions} height={200} width={200} />;
+const MusicAnimation: React.FC<AnimationType> = ({ style }) => {
+  return (
+    <Lottie
+      animationData={MusicAnimationData}
+      loop={true}
+      autoplay={true}
+      style={style}
+      rendererSettings={{
+        preserveAspectRatio: "xMidYMid slice",
+      }}
+    />
+  );
 };
 
 export default MusicAnimation;

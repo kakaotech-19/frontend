@@ -1,3 +1,4 @@
 import ButtonType from "./buttonType";
+import AnimationType from "./animationType";
 
-export type { ButtonType };
+export type { ButtonType, AnimationType };

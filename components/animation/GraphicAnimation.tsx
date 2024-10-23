@@ -1,20 +1,21 @@
 "use client";
 
-import React from "react";
 import Lottie from "lottie-react";
 import GraphicAnimationData from "@/public/animation/graphic.json";
+import { AnimationType } from "@/type";
 
-const GraphicAnimation = () => {
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: GraphicAnimationData,
-    DataDatarendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
-  return <Lottie {...defaultOptions} height={200} width={200} />;
+const GraphicAnimation: React.FC<AnimationType> = ({ style }) => {
+  return (
+    <Lottie
+      animationData={GraphicAnimationData}
+      loop={true}
+      autoplay={true}
+      style={style}
+      rendererSettings={{
+        preserveAspectRatio: "xMidYMid slice",
+      }}
+    />
+  );
 };
 
 export default GraphicAnimation;

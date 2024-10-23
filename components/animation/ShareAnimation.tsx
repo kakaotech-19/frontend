@@ -2,18 +2,20 @@
 
 import Lottie from "lottie-react";
 import ShareAnimationData from "@/public/animation/share.json";
+import { AnimationType } from "@/type";
 
-const ShareAnimation = () => {
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: ShareAnimationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
-  return <Lottie {...defaultOptions} height={200} width={200} />;
+const ShareAnimation: React.FC<AnimationType> = ({ style }) => {
+  return (
+    <Lottie
+      animationData={ShareAnimationData}
+      loop={true}
+      autoplay={true}
+      style={style}
+      rendererSettings={{
+        preserveAspectRatio: "xMidYMid slice",
+      }}
+    />
+  );
 };
 
 export default ShareAnimation;
