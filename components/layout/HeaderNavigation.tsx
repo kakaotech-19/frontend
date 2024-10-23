@@ -16,7 +16,7 @@ const HeaderNavigation: React.FC = () => {
     >
       <div className="flex flex-wrap items-center justify-between mx-auto p-2">
         <Link
-          href="#"
+          href="/home"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
           <img
