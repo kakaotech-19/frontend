@@ -1,7 +1,8 @@
 "use client";
 
-import { UserAvatarWithLabel } from "@/components/Profile";
-import UploadFileLabel from "@/components/Profile/UploadFileLabel";
+import { UserAvatarWithLabel } from "@/components/my";
+import UploadFileLabel from "@/components/my/UploadFileLabel";
+import path from "@/routes";
 import { Button, HR, Label } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -42,7 +43,7 @@ const page: React.FC = () => {
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          onClick={() => router.push("/profile")}
+          onClick={() => router.push(path.MY)}
         >
           <path
             opacity="0.34"
