@@ -2,7 +2,7 @@
 
 import MyCalendar from "@/components/diary/Calendar";
 import path from "@/routes";
-import { Accordion, Button, Textarea } from "flowbite-react";
+import { Accordion, Button, Datepicker, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { Modal } from "flowbite-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,6 +42,7 @@ const page: React.FC = () => {
               <Accordion.Title>공유하기</Accordion.Title>
               <Accordion.Content>
                 <div className="flex-col mb-2 w-full max-w-md border-b border-gray-200">
+                  <Datepicker className="mb-2" />
                   <div className="w-full relative">
                     <Image
                       width={500}
