@@ -29,9 +29,6 @@ const MyCalendar: React.FC = () => {
       onChange={onChange}
       className="w-full p-2 max-w-md space-y-2 bg-white border border-gray-200 rounded-md"
       tileClassName="flex text-center p-4 border border-gray-100 hover:bg-cyan-500 rounded-sm text-gray-700"
-      tileContent={({ date }) => (
-        <span className="flex justify-center items-center w-1 h-1 rounded-full bg-cyan-500 text-white"></span>
-      )}
       navigationLabel={({ date }) => (
         <span className="flex text-lg font-semibold p-4">
           {date.toLocaleString("ko-KR", {
@@ -39,6 +36,9 @@ const MyCalendar: React.FC = () => {
             year: "numeric",
           })}
         </span>
+      )}
+      tileContent={({ date }) => (
+        <span className="flex justify-center items-center w-1 h-1 rounded-full bg-cyan-500 text-white animate-pulse"></span>
       )}
     />
   );

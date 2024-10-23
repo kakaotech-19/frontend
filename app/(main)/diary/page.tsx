@@ -2,7 +2,7 @@
 
 import MyCalendar from "@/components/diary/Calendar";
 import path from "@/routes";
-import { Accordion, Button, Textarea } from "flowbite-react";
+import { Accordion, Button, Datepicker, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { Modal } from "flowbite-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,8 @@ import { RootState } from "@/store";
 import { setCommentView } from "@/store/slices/dairy/diarySlice";
 import Image from "next/image";
 import AudioModule from "@/components/home/AudioModule";
+import { ShareSVG } from "@/components/svg";
+import { useState } from "react";
 
 const page: React.FC = () => {
   const router = useRouter();
@@ -17,6 +19,8 @@ const page: React.FC = () => {
   const commentView = useSelector(
     (state: RootState) => state.diary.commentView
   );
+
+  const [isShare, setIsShare] = useState(false);
 
   return (
     <div className="w-full min-h-screen flex justify-center items-start">
@@ -35,6 +39,12 @@ const page: React.FC = () => {
             <Accordion.Panel>
               <Accordion.Title>내 다이어리</Accordion.Title>
               <Accordion.Content>
+                <div className="relative">
+                  <p className="text-sm font-semibold flex justify-end m-2">
+                    일기가 작성된 경우
+                    <span className="top-0 right-0 absolute w-2 h-2 bg-cyan-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                  </p>
+                </div>
                 <MyCalendar />
               </Accordion.Content>
             </Accordion.Panel>
@@ -42,6 +52,18 @@ const page: React.FC = () => {
               <Accordion.Title>공유하기</Accordion.Title>
               <Accordion.Content>
                 <div className="flex-col mb-2 w-full max-w-md border-b border-gray-200">
+                  <div className="flex justify-between items-center mb-2">
+                    <Datepicker className="" autoHide={false} />
+                    <Button
+                      onClick={() => setIsShare(true)}
+                      className="flex justify-end items-center h-10"
+                    >
+                      업로드
+                      <div className="ml-2">
+                        <ShareSVG />
+                      </div>
+                    </Button>
+                  </div>
                   <div className="w-full relative">
                     <Image
                       width={500}
@@ -53,13 +75,6 @@ const page: React.FC = () => {
                       className="rounded-md shadow-md"
                     />
                     <AudioModule src="https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3" />
-                  </div>
-                  <Textarea
-                    rows={2}
-                    placeholder="설명을 추가하세요."
-                  ></Textarea>
-                  <div className="flex justify-end">
-                    <Button> 업로드 </Button>
                   </div>
                 </div>
               </Accordion.Content>
@@ -76,6 +91,20 @@ const page: React.FC = () => {
               <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                 여기에 모달 내용을 넣으세요.
               </p>
+            </div>
+          </Modal.Body>
+        </Modal>
+        <Modal show={isShare} onClose={() => setIsShare(false)}>
+          <Modal.Header>토닥토닥</Modal.Header>
+          <Modal.Body>
+            <div className="space-y-6">
+              <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                게시물을 소개해주세요.
+                <Textarea rows={4} placeholder="설명을 추가하세요."></Textarea>
+              </p>
+              <div className="flex justify-end items-center">
+                <Button className="flex items-center h-8">완료</Button>
+              </div>
             </div>
           </Modal.Body>
         </Modal>

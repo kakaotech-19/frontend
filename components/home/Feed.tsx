@@ -1,4 +1,3 @@
-// ... 기존 import 문 ...
 import { UserAvatarWithLabel } from "../my";
 import Image from "next/image";
 import AudioModule from "./AudioModule";
