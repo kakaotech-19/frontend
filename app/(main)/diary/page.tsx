@@ -2,15 +2,14 @@
 
 import MyCalendar from "@/components/diary/Calendar";
 import path from "@/routes";
-import { Accordion, Button, Label, Textarea } from "flowbite-react";
+import { Accordion, Button, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
-import React, { useRef, useState } from "react";
 import { Modal } from "flowbite-react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { setCommentView } from "@/store/slices/dairy/diarySlice";
 import Image from "next/image";
-import { MuteSVG, VolumeUpSVG } from "@/components/svg";
+import AudioModule from "@/components/home/AudioModule";
 
 const page: React.FC = () => {
   const router = useRouter();
@@ -19,24 +18,11 @@ const page: React.FC = () => {
     (state: RootState) => state.diary.commentView
   );
 
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const handleClickAudio = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
-
   return (
     <div className="w-full min-h-screen flex justify-center items-start">
       <div className="w-full mt-14 overflow-y-auto">
         <div className="w-full flex flex-col justify-center">
-          <div className="flex justify-between m-4 items-center">
+          <div className="flex justify-between m-2 ml-4 mr-4 items-center">
             <p className="text-lg">오늘의 일기를 작성해보세요~</p>
             <Button
               className="h-8 justify-center items-center"
@@ -66,19 +52,7 @@ const page: React.FC = () => {
                       style={{ width: "100%", height: "auto" }}
                       className="rounded-md shadow-md"
                     />
-                    <div
-                      onClick={handleClickAudio}
-                      className="absolute bottom-2 right-2 text-sm font-semibold rounded-full pl-2 pr-2 bg-white opacity-75"
-                    >
-                      {isPlaying ? <VolumeUpSVG /> : <MuteSVG />}
-                    </div>
-                    <audio ref={audioRef} style={{ display: "none" }}>
-                      <source
-                        src="https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3"
-                        type="audio/mpeg"
-                      />
-                      브라우저가 오디오 요소를 지원하지 않습니다.
-                    </audio>
+                    <AudioModule src="https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3" />
                   </div>
                   <Textarea
                     rows={2}
