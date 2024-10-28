@@ -11,7 +11,7 @@ import path from "@/routes";
 import { Button } from "flowbite-react";
 import Link from "next/link";
 
-const page = () => {
+const Page = () => {
   return (
     <div className="w-full flex flex-col min-h-screen justify-center items-center bg-gray-50">
       <main className="flex-1 w-full">
@@ -114,4 +114,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
