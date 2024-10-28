@@ -3,13 +3,16 @@ import { configureStore } from "@reduxjs/toolkit";
 import signupSlice from "./slices/signup/signupSlice";
 import loginSlice from "./slices/login/loginSlice";
 import diarySlice from "./slices/dairy/diarySlice";
+import feedSlice from "./slices/feed/feedSlice";
+import memberSlice from "./slices/member/memberSlice";
 
 const store = configureStore({
   reducer: {
     signup: signupSlice,
     login: loginSlice,
     diary: diarySlice,
-    // posts: postsReducer,
+    feed: feedSlice,
+    member: memberSlice,
   },
   middleware: (
     getDefaultMiddleware: (arg0: {

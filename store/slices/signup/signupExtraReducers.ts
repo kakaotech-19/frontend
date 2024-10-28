@@ -2,50 +2,169 @@ import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { SignupState } from "./signupSlice";
 import axios from "axios";
 
-// 회원가입 -----------------------------------------------------
-export const postSignup = createAsyncThunk(
-  "signup/postSignup",
+// 이메일 인증 -----------------------------------------------------
+export const verifyEmail = createAsyncThunk(
+  "signup/verifyEmail",
   async (data: any) => {
-    const response = await axios.post("/user/profile", data);
+    const response = await axios.post("/auth/email", data);
     return response.data;
   }
 );
 
-const addPostSignup = (builder: ActionReducerMapBuilder<SignupState>) => {
-  builder.addCase(postSignup.pending, (state) => {
+const addVerifyEmail = (builder: ActionReducerMapBuilder<SignupState>) => {
+  builder.addCase(verifyEmail.pending, (state) => {
     state.loading = true;
     state.error = null;
   });
-  builder.addCase(postSignup.fulfilled, (state, action) => {
+  builder.addCase(verifyEmail.fulfilled, (state, action) => {
+    state.loading = false;
+  });
+  builder.addCase(verifyEmail.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.error.message ?? null;
+  });
+};
+
+// 이메일 인증번호 확인 -----------------------------------------------------
+export const confirmEmailCode = createAsyncThunk(
+  "signup/confirmEmailCode",
+  async (data: any) => {
+    const response = await axios.post("/auth/email/otp", data);
+    return response.data;
+  }
+);
+
+const addConfirmEmailCode = (builder: ActionReducerMapBuilder<SignupState>) => {
+  builder.addCase(confirmEmailCode.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  });
+  builder.addCase(confirmEmailCode.fulfilled, (state, action) => {
+    state.loading = false;
+  });
+  builder.addCase(confirmEmailCode.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.error.message ?? null;
+  });
+};
+
+// 닉네임 중복 확인 -----------------------------------------------------
+export const checkNicknameDuplicate = createAsyncThunk(
+  "signup/checkNicknameDuplicate",
+  async (data: any) => {
+    const response = await axios.post("/auth/nickname", data);
+    return response.data;
+  }
+);
+
+const addCheckNicknameDuplicate = (
+  builder: ActionReducerMapBuilder<SignupState>
+) => {
+  builder.addCase(checkNicknameDuplicate.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  });
+  builder.addCase(checkNicknameDuplicate.fulfilled, (state, action) => {
+    state.loading = false;
+  });
+  builder.addCase(checkNicknameDuplicate.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.error.message ?? null;
+  });
+};
+
+// ID 중복 확인 -----------------------------------------------------
+export const checkIdDuplicate = createAsyncThunk(
+  "signup/checkIdDuplicate",
+  async (data: any) => {
+    const response = await axios.post("/auth/login-id", data);
+    return response.data;
+  }
+);
+
+const addcheckIdDuplicate = (builder: ActionReducerMapBuilder<SignupState>) => {
+  builder.addCase(checkIdDuplicate.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  });
+  builder.addCase(checkIdDuplicate.fulfilled, (state, action) => {
+    state.loading = false;
+  });
+  builder.addCase(checkIdDuplicate.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.error.message ?? null;
+  });
+};
+
+// 회원가입 -----------------------------------------------------
+export const registerUser = createAsyncThunk(
+  "signup/registerUser",
+  async (data: any) => {
+    const response = await axios.post("/auth/signup", data);
+    return response.data;
+  }
+);
+
+const addRegisterUser = (builder: ActionReducerMapBuilder<SignupState>) => {
+  builder.addCase(registerUser.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  });
+  builder.addCase(registerUser.fulfilled, (state, action) => {
     state.isSignup = true;
     state.loading = false;
   });
-  builder.addCase(postSignup.rejected, (state, action) => {
+  builder.addCase(registerUser.rejected, (state, action) => {
     state.isEmailVerified = false;
     state.loading = false;
     state.error = action.error.message ?? null;
   });
 };
 
-// 이메일 OTP 인증 -----------------------------------------------------
-export const verifyOTP = createAsyncThunk(
-  "signup/verifyOTP",
+// 회원탈퇴 -----------------------------------------------------
+export const deleteAccount = createAsyncThunk(
+  "signup/deleteAccount",
   async (data: any) => {
-    const response = await axios.post("/user/profile", data);
+    const response = await axios.post("/auth/deactivate", data);
     return response.data;
   }
 );
 
-const addVerifyOTP = (builder: ActionReducerMapBuilder<SignupState>) => {
-  builder.addCase(verifyOTP.pending, (state) => {
+const addDeleteAccount = (builder: ActionReducerMapBuilder<SignupState>) => {
+  builder.addCase(deleteAccount.pending, (state) => {
     state.loading = true;
     state.error = null;
   });
-  builder.addCase(verifyOTP.fulfilled, (state, action) => {
-    state.isEmailVerified = true;
+  builder.addCase(deleteAccount.fulfilled, (state, action) => {
+    state.isSignup = true;
     state.loading = false;
   });
-  builder.addCase(verifyOTP.rejected, (state, action) => {
+  builder.addCase(deleteAccount.rejected, (state, action) => {
+    state.isEmailVerified = false;
+    state.loading = false;
+    state.error = action.error.message ?? null;
+  });
+};
+
+// 토큰 재발급 -----------------------------------------------------
+export const reissueToken = createAsyncThunk(
+  "signup/reissueToken",
+  async (data: any) => {
+    const response = await axios.post("/auth/refresh-token", data);
+    return response.data;
+  }
+);
+
+const addReissueToken = (builder: ActionReducerMapBuilder<SignupState>) => {
+  builder.addCase(reissueToken.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  });
+  builder.addCase(reissueToken.fulfilled, (state, action) => {
+    state.isSignup = true;
+    state.loading = false;
+  });
+  builder.addCase(reissueToken.rejected, (state, action) => {
     state.isEmailVerified = false;
     state.loading = false;
     state.error = action.error.message ?? null;
@@ -56,6 +175,11 @@ const addVerifyOTP = (builder: ActionReducerMapBuilder<SignupState>) => {
 export const addSignupExtraReducers = (
   builder: ActionReducerMapBuilder<SignupState>
 ) => {
-  addVerifyOTP(builder);
-  addPostSignup(builder);
+  addRegisterUser(builder);
+  addCheckNicknameDuplicate(builder);
+  addcheckIdDuplicate(builder);
+  addVerifyEmail(builder);
+  addConfirmEmailCode(builder);
+  addDeleteAccount(builder);
+  addReissueToken(builder);
 };

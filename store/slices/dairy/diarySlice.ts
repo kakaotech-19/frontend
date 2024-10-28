@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import { addSignupExtraReducers } from "./signupExtraReducers";
+import { addDiaryExtraReducers } from "./diaryExtraReducers";
 
 export interface DiaryState {
   date: Date;
@@ -26,7 +26,7 @@ const diarySlice = createSlice({
       state.commentView = action.payload;
     },
   },
-  //   extraReducers: (builder: any) => addLoginExtraReducers(builder),
+  extraReducers: (builder: any) => addDiaryExtraReducers(builder),
 });
 
 export const { setDate, setCommentView } = diarySlice.actions;

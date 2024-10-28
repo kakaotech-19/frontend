@@ -13,8 +13,8 @@ import {
   setSignupReEnterPassword,
 } from "@/store/slices/signup/signupSlice";
 import {
-  postSignup,
-  verifyOTP,
+  registerUser,
+  confirmEmailCode,
 } from "@/store/slices/signup/signupExtraReducers";
 import { useEffect, useState } from "react";
 
@@ -36,7 +36,7 @@ const Page = () => {
       return;
     }
     const data = {};
-    dispatch<any>(postSignup(data));
+    dispatch<any>(registerUser(data));
   };
 
   useEffect(() => {
@@ -60,7 +60,9 @@ const Page = () => {
             required
             shadow
           />
-          <Button onClick={() => dispatch<any>(verifyOTP(otp))}>verify</Button>
+          <Button onClick={() => dispatch<any>(confirmEmailCode(otp))}>
+            verify
+          </Button>
         </div>
       </div>
       <div>
@@ -77,7 +79,9 @@ const Page = () => {
             required
             shadow
           />
-          <Button onClick={() => dispatch<any>(verifyOTP(otp))}>check</Button>
+          <Button onClick={() => dispatch<any>(confirmEmailCode(otp))}>
+            check
+          </Button>
         </div>
       </div>
       <HR className="mt-0" />
