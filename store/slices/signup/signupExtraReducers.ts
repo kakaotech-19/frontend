@@ -1,4 +1,8 @@
-import { ActionReducerMapBuilder, combineReducers, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  ActionReducerMapBuilder,
+  combineReducers,
+  createAsyncThunk,
+} from "@reduxjs/toolkit";
 import { SignupState } from "./signupSlice";
 import axios from "axios";
 
@@ -13,10 +17,10 @@ export const verifyEmail = createAsyncThunk(
 
 // 이메일 인증번호 확인 -----------------------------------------------------
 export const confirmEmailCode = createAsyncThunk(
-  'signup/confirmEmailCode',
+  "signup/confirmEmailCode",
   async (data: any) => {
     try {
-      const response = await axios.post('/auth/email/otp', data);
+      const response = await axios.post("/auth/email/otp", data);
       return response.data;
     } catch (error) {
       // 에러 핸들링
@@ -27,18 +31,18 @@ export const confirmEmailCode = createAsyncThunk(
 
 // 닉네임 중복 확인 -----------------------------------------------------
 export const checkNicknameDuplicate = createAsyncThunk(
-  'signup/checkNicknameDuplicate',
+  "signup/checkNicknameDuplicate",
   async (data: any) => {
-    const response = await axios.post('/auth/nickname', data);
+    const response = await axios.post("/auth/nickname", data);
     return response.data;
   }
 );
 
 // ID 중복 확인 -----------------------------------------------------
 export const checkIdDuplicate = createAsyncThunk(
-  'signup/checkIdDuplicate',
+  "signup/checkIdDuplicate",
   async (data: any) => {
-    const response = await axios.post('/auth/login-id', data);
+    const response = await axios.post("/auth/login-id", data);
     return response.data;
   }
 );
@@ -70,18 +74,21 @@ const addRegisterUser = (builder: ActionReducerMapBuilder<SignupState>) => {
 
 // 회원탈퇴 -----------------------------------------------------
 export const deleteAccount = createAsyncThunk(
-  'signup/deleteAccount',
+  "signup/deleteAccount",
   async (data: any) => {
-    const response = await axios.post('/auth/deactivate', data);
+    const response = await axios.post("/auth/deactivate", data);
     return response.data;
   }
 );
 
-
-// 토큰 재발급
-export const reissueToken = createAsyncThunk(refreshToken) => {
-  // 구현 내용
-};
+// 토큰 재발급 -----------------------------------------------------
+export const reissueToken = createAsyncThunk(
+  "signup/reissueToken",
+  async (data: any) => {
+    const response = await axios.post("/auth/refresh-token", data);
+    return response.data;
+  }
+);
 
 // extra reducers 추가 -----------------------------------------------------
 export const addSignupExtraReducers = (
