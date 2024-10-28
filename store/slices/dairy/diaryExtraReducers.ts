@@ -27,9 +27,35 @@ const addFetchDiaryDetail = (builder: ActionReducerMapBuilder<DiaryState>) => {
   });
 };
 
+// 연월 일기 작성 현황 확인 -----------------------------------------------------
+export const fetchDiaryStatus = createAsyncThunk(
+  "diary/fetchDiaryStatus",
+  async (params: Date) => {
+    const response = await axios.get(
+      `/diary/my?yearMonth=${params.toISOString()}`
+    );
+    return response.data;
+  }
+);
+
+const addFetchDiaryStatus = (builder: ActionReducerMapBuilder<DiaryState>) => {
+  builder.addCase(fetchDiaryStatus.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  });
+  builder.addCase(fetchDiaryStatus.fulfilled, (state, action) => {
+    state.loading = false;
+  });
+  builder.addCase(fetchDiaryStatus.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.error.message ?? null;
+  });
+};
+
 // extra reducers 추가 -----------------------------------------------------
 export const addDiaryExtraReducers = (
   builder: ActionReducerMapBuilder<DiaryState>
 ) => {
   addFetchDiaryDetail(builder);
+  addFetchDiaryStatus(builder);
 };
