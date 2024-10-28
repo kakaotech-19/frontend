@@ -75,11 +75,35 @@ const addCreateDiaryEntry = (builder: ActionReducerMapBuilder<DiaryState>) => {
   });
 };
 
+// 일기 삭제 -----------------------------------------------------
+export const deleteDiaryEntry = createAsyncThunk(
+  "diary/deleteDiaryEntry",
+  async () => {
+    const response = await axios.delete("/diary/my/1");
+    return response.data;
+  }
+);
+
+const addDeleteDiaryEntry = (builder: ActionReducerMapBuilder<DiaryState>) => {
+  builder.addCase(deleteDiaryEntry.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  });
+  builder.addCase(deleteDiaryEntry.fulfilled, (state, action) => {
+    state.loading = false;
+  });
+  builder.addCase(deleteDiaryEntry.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.error.message ?? null;
+  });
+};
+
 // extra reducers 추가 -----------------------------------------------------
 export const addDiaryExtraReducers = (
   builder: ActionReducerMapBuilder<DiaryState>
 ) => {
   addFetchDiaryDetail(builder);
   addFetchDiaryStatus(builder);
-  addCreateDiaryEntry;
+  addCreateDiaryEntry(builder);
+  addDeleteDiaryEntry(builder);
 };
