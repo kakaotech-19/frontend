@@ -25,9 +25,34 @@ const addFetchFeedEntries = (builder: ActionReducerMapBuilder<FeedState>) => {
   });
 };
 
+// 일기장 반응 이벤트 -----------------------------------------------------
+
+export const reactionFeed = createAsyncThunk(
+  "feed/reactionFeed",
+  async (data: any) => {
+    const response = await axios.post("/diary/public/1/reaction", data);
+    return response.data;
+  }
+);
+
+const addReactionFeed = (builder: ActionReducerMapBuilder<FeedState>) => {
+  builder.addCase(reactionFeed.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  });
+  builder.addCase(reactionFeed.fulfilled, (state, action) => {
+    state.loading = false;
+  });
+  builder.addCase(reactionFeed.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.error.message ?? null;
+  });
+};
+
 // extra reducers 추가 -----------------------------------------------------
 export const addDiaryExtraReducers = (
   builder: ActionReducerMapBuilder<FeedState>
 ) => {
-  // addLoginUser(builder);
+  addFetchFeedEntries(builder);
+  addReactionFeed(builder);
 };
