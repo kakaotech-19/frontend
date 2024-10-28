@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import { Button, Modal } from "flowbite-react";
 
-const page: React.FC = () => {
+const Page: React.FC = () => {
   const [showModal, setShowModal] = React.useState(false);
   return (
     <div className="w-full min-h-screen flex justify-center items-center">
@@ -61,4 +61,4 @@ const page: React.FC = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -7,7 +7,7 @@ import { Button, HR, Label } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-const page: React.FC = () => {
+const Page: React.FC = () => {
   const router = useRouter();
   return (
     <div className="w-full h-screen justify-center">
@@ -79,4 +79,4 @@ const page: React.FC = () => {
   );
 };
 
-export default page;
+export default Page;

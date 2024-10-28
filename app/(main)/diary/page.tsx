@@ -13,7 +13,7 @@ import AudioModule from "@/components/home/AudioModule";
 import { ShareSVG } from "@/components/svg";
 import { useState } from "react";
 
-const page: React.FC = () => {
+const Page: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const commentView = useSelector(
@@ -113,4 +113,4 @@ const page: React.FC = () => {
   );
 };
 
-export default page;
+export default Page;
