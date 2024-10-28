@@ -68,16 +68,6 @@ const addRegisterUser = (builder: ActionReducerMapBuilder<SignupState>) => {
   });
 };
 
-// // 로그인
-// export const loginUser = createAsyncThunk(credentials) => {
-//   // 구현 내용
-// };
-
-// // 로그아웃
-// export const logoutUcreateAsyncThunkasync () => {
-//   // 구현 내용
-// };
-
 // 회원탈퇴
 export const deleteAccount = createAsyncThunk(userId) => {
   // 구현 내용

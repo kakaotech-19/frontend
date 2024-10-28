@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import { addSignupExtraReducers } from "./signupExtraReducers";
+import { addLoginExtraReducers } from "./loginExtraReducers";
 
 export interface LoginState {
   loginId: string;
@@ -33,7 +33,7 @@ const loginSlice = createSlice({
       state.isEmailFormView = action.payload;
     },
   },
-  //   extraReducers: (builder: any) => addLoginExtraReducers(builder),
+  extraReducers: (builder: any) => addLoginExtraReducers(builder),
 });
 
 export const { setLoginId, setLoginPassword, setIsEmailFormView } =
