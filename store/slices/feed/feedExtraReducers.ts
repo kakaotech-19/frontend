@@ -49,10 +49,34 @@ const addReactionFeed = (builder: ActionReducerMapBuilder<FeedState>) => {
   });
 };
 
+// 일기장 공개 업로드 -----------------------------------------------------
+export const uploadFeed = createAsyncThunk(
+  "Feed/uploadFeed",
+  async (data: any) => {
+    const response = await axios.post("/diary/public", data);
+    return response.data;
+  }
+);
+
+const addUploadFeed = (builder: ActionReducerMapBuilder<FeedState>) => {
+  builder.addCase(uploadFeed.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  });
+  builder.addCase(uploadFeed.fulfilled, (state, action) => {
+    state.loading = false;
+  });
+  builder.addCase(uploadFeed.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.error.message ?? null;
+  });
+};
+
 // extra reducers 추가 -----------------------------------------------------
 export const addDiaryExtraReducers = (
   builder: ActionReducerMapBuilder<FeedState>
 ) => {
   addFetchFeedEntries(builder);
   addReactionFeed(builder);
+  addUploadFeed(builder);
 };
