@@ -53,8 +53,8 @@ const addFetchSummaryMemberInfo = (
 // 캐릭터 생성 -----------------------------------------------------
 export const createCharacter = createAsyncThunk(
   "member/createCharacter",
-  async () => {
-    const response = await axios.get("/member/image");
+  async (data: any) => {
+    const response = await axios.post("/member/image", data);
     return response.data;
   }
 );
