@@ -1,17 +1,37 @@
 "use client";
 
-import {
-  GraphicAnimation,
-  MusicAnimation,
-  ShareAnimation,
-  WritingAnimation,
-} from "@/components/lottie-animation";
 import { Logo } from "@/components/layout";
 import path from "@/routes";
 import { Button } from "flowbite-react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 
-const Page = () => {
+const DynamicGraphicAnimation = dynamic(
+  () => import("@/components/lottie-animation/GraphicAnimation"),
+  {
+    ssr: false,
+  }
+);
+const DynamicMusicAnimation = dynamic(
+  () => import("@/components/lottie-animation/MusicAnimation"),
+  {
+    ssr: false,
+  }
+);
+const DynamicShareAnimation = dynamic(
+  () => import("@/components/lottie-animation/ShareAnimation"),
+  {
+    ssr: false,
+  }
+);
+const DynamicWritingAnimation = dynamic(
+  () => import("@/components/lottie-animation/WritingAnimation"),
+  {
+    ssr: false,
+  }
+);
+
+const page = () => {
   return (
     <div className="w-full flex flex-col min-h-screen justify-center items-center bg-gray-50">
       <main className="flex-1 w-full">
@@ -47,7 +67,7 @@ const Page = () => {
               <div className="h-screen mb-80 flex flex-col items-center space-y-4 text-center">
                 <div className="flex flex-col items-center space-y-4 text-center">
                   <div className="w-80">
-                    <WritingAnimation />
+                    <DynamicWritingAnimation />
                   </div>
                   <h3 className="text-xl font-bold text-gray-800">
                     당신의 이야기를 작성하세요
@@ -60,7 +80,7 @@ const Page = () => {
               </div>
               <div className="h-screen mb-80 flex flex-col items-center space-y-4 text-center">
                 <div className="w-80">
-                  <MusicAnimation />
+                  <DynamicMusicAnimation />
                 </div>
                 <h3 className="text-xl font-bold text-gray-800">
                   일상이 웹툰과 음악으로 재탄생합니다
@@ -74,10 +94,10 @@ const Page = () => {
                 <div className="w-64 relative">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-12 bg-white">
-                      <ShareAnimation />
+                      <DynamicShareAnimation />
                     </div>
                   </div>
-                  <GraphicAnimation />
+                  <DynamicGraphicAnimation />
                 </div>
                 <h3 className="text-xl font-bold text-gray-800">
                   스토리의 주인공이 되어보세요
@@ -114,4 +134,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default page;
