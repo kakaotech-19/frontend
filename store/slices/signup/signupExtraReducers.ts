@@ -68,10 +68,15 @@ const addRegisterUser = (builder: ActionReducerMapBuilder<SignupState>) => {
   });
 };
 
-// 회원탈퇴
-export const deleteAccount = createAsyncThunk(userId) => {
-  // 구현 내용
-};
+// 회원탈퇴 -----------------------------------------------------
+export const deleteAccount = createAsyncThunk(
+  'signup/deleteAccount',
+  async (data: any) => {
+    const response = await axios.post('/auth/deactivate', data);
+    return response.data;
+  }
+);
+
 
 // 토큰 재발급
 export const reissueToken = createAsyncThunk(refreshToken) => {
