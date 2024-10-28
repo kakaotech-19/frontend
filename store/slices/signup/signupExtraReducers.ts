@@ -34,7 +34,7 @@ export const checkNicknameDuplicate = createAsyncThunk(
   }
 );
 
-// ID 중복 확인
+// ID 중복 확인 -----------------------------------------------------
 export const checkIdDuplicate = createAsyncThunk(
   'signup/checkIdDuplicate',
   async (data: any) => {
@@ -43,32 +43,11 @@ export const checkIdDuplicate = createAsyncThunk(
   }
 );
 
-
-// 로그인
-export const loginUser = createAsyncThunk(credentials) => {
-  // 구현 내용
-};
-
-// 로그아웃
-export const logoutUcreateAsyncThunkasync () => {
-  // 구현 내용
-};
-
-// 회원탈퇴
-export const deleteAccount = createAsyncThunk(userId) => {
-  // 구현 내용
-};
-
-// 토큰 재발급
-export const reissueToken = createAsyncThunk(refreshToken) => {
-  // 구현 내용
-};
-
 // 회원가입 -----------------------------------------------------
 export const registerUser = createAsyncThunk(
   "signup/registerUser",
   async (data: any) => {
-    const response = await axios.post("/user/profile", data);
+    const response = await axios.post("/auth/signup", data);
     return response.data;
   }
 );
@@ -87,6 +66,26 @@ const addRegisterUser = (builder: ActionReducerMapBuilder<SignupState>) => {
     state.loading = false;
     state.error = action.error.message ?? null;
   });
+};
+
+// // 로그인
+// export const loginUser = createAsyncThunk(credentials) => {
+//   // 구현 내용
+// };
+
+// // 로그아웃
+// export const logoutUcreateAsyncThunkasync () => {
+//   // 구현 내용
+// };
+
+// 회원탈퇴
+export const deleteAccount = createAsyncThunk(userId) => {
+  // 구현 내용
+};
+
+// 토큰 재발급
+export const reissueToken = createAsyncThunk(refreshToken) => {
+  // 구현 내용
 };
 
 // extra reducers 추가 -----------------------------------------------------
