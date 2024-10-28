@@ -50,10 +50,34 @@ const addFetchSummaryMemberInfo = (
   });
 };
 
+// 캐릭터 생성 -----------------------------------------------------
+export const createCharacter = createAsyncThunk(
+  "member/createCharacter",
+  async () => {
+    const response = await axios.get("/member/image");
+    return response.data;
+  }
+);
+
+const addCreateCharacter = (builder: ActionReducerMapBuilder<MemberState>) => {
+  builder.addCase(createCharacter.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  });
+  builder.addCase(createCharacter.fulfilled, (state, action) => {
+    state.loading = false;
+  });
+  builder.addCase(createCharacter.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.error.message ?? null;
+  });
+};
+
 // extra reducers 추가 -----------------------------------------------------
 export const addMemberExtraReducers = (
   builder: ActionReducerMapBuilder<MemberState>
 ) => {
   addFetchMemberInfo(builder);
   addFetchSummaryMemberInfo(builder);
+  addCreateCharacter(builder);
 };
