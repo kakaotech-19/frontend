@@ -50,6 +50,29 @@ const addFetchSummaryMemberInfo = (
   });
 };
 
+// 캐릭터 불러오기 -----------------------------------------------------
+export const fetchCharacter = createAsyncThunk(
+  "namespace/fetchCharacter",
+  async () => {
+    const response = await axios.get("/member/image");
+    return response.data;
+  }
+);
+
+const addFetchCharacter = (builder: ActionReducerMapBuilder<MemberState>) => {
+  builder.addCase(fetchCharacter.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  });
+  builder.addCase(fetchCharacter.fulfilled, (state, action) => {
+    state.loading = false;
+  });
+  builder.addCase(fetchCharacter.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.error.message ?? null;
+  });
+};
+
 // 캐릭터 생성 -----------------------------------------------------
 export const createCharacter = createAsyncThunk(
   "member/createCharacter",
@@ -80,4 +103,5 @@ export const addMemberExtraReducers = (
   addFetchMemberInfo(builder);
   addFetchSummaryMemberInfo(builder);
   addCreateCharacter(builder);
+  addFetchCharacter(builder);
 };
