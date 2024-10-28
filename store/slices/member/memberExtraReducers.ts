@@ -96,6 +96,31 @@ const addCreateCharacter = (builder: ActionReducerMapBuilder<MemberState>) => {
   });
 };
 
+// 캐릭터 등록 -----------------------------------------------------
+export const registerCharacter = createAsyncThunk(
+  "member/registerCharacter",
+  async (data: any) => {
+    const response = await axios.post("/member/image/register", data);
+    return response.data;
+  }
+);
+
+const addRegisterCharacter = (
+  builder: ActionReducerMapBuilder<MemberState>
+) => {
+  builder.addCase(registerCharacter.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  });
+  builder.addCase(registerCharacter.fulfilled, (state, action) => {
+    state.loading = false;
+  });
+  builder.addCase(registerCharacter.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.error.message ?? null;
+  });
+};
+
 // extra reducers 추가 -----------------------------------------------------
 export const addMemberExtraReducers = (
   builder: ActionReducerMapBuilder<MemberState>
@@ -104,4 +129,5 @@ export const addMemberExtraReducers = (
   addFetchSummaryMemberInfo(builder);
   addCreateCharacter(builder);
   addFetchCharacter(builder);
+  addRegisterCharacter(builder);
 };
