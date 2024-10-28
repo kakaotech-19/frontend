@@ -121,6 +121,29 @@ const addRegisterCharacter = (
   });
 };
 
+// 닉네임 변경 -----------------------------------------------------
+export const changeNickname = createAsyncThunk(
+  "member/changeNickname",
+  async (data: any) => {
+    const response = await axios.patch("/member/nickname", data);
+    return response.data;
+  }
+);
+
+const addChangeNickname = (builder: ActionReducerMapBuilder<MemberState>) => {
+  builder.addCase(changeNickname.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  });
+  builder.addCase(changeNickname.fulfilled, (state, action) => {
+    state.loading = false;
+  });
+  builder.addCase(changeNickname.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.error.message ?? null;
+  });
+};
+
 // extra reducers 추가 -----------------------------------------------------
 export const addMemberExtraReducers = (
   builder: ActionReducerMapBuilder<MemberState>
@@ -130,4 +153,5 @@ export const addMemberExtraReducers = (
   addCreateCharacter(builder);
   addFetchCharacter(builder);
   addRegisterCharacter(builder);
+  addChangeNickname(builder);
 };
