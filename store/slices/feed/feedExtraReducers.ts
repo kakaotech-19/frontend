@@ -73,7 +73,7 @@ const addUploadFeed = (builder: ActionReducerMapBuilder<FeedState>) => {
 };
 
 // extra reducers 추가 -----------------------------------------------------
-export const addDiaryExtraReducers = (
+export const addFeedExtraReducers = (
   builder: ActionReducerMapBuilder<FeedState>
 ) => {
   addFetchFeedEntries(builder);

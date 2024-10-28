@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { extraReducers } from "../signup/signupSlice";
+import { addFeedExtraReducers } from "./feedExtraReducers";
 
 export interface FeedState {
   // 상태 타입 정의
