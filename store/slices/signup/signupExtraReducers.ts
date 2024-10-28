@@ -25,14 +25,14 @@ export const confirmEmailCode = createAsyncThunk(
   }
 );
 
-// // 닉네임 중복 확인 -----------------------------------------------------
-// export const checkNicknameDuplicate = createAsyncThunk(
-//   'signup/checkNicknameDuplicate',
-//   async (data: any) => {
-//     const response = await axios.post('/api/endpoint', data);
-//     return response.data;
-//   }
-// );
+// 닉네임 중복 확인 -----------------------------------------------------
+export const checkNicknameDuplicate = createAsyncThunk(
+  'signup/checkNicknameDuplicate',
+  async (data: any) => {
+    const response = await axios.post('/api/endpoint', data);
+    return response.data;
+  }
+);
 
 
 // ID 중복 확인
