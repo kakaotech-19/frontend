@@ -57,5 +57,25 @@
       ""
     ],
     "description": "Redux Toolkit을 사용한 GET 요청을 위한 createAsyncThunk 스니펫"
+  },
+  "Add Extra Reducer Function": {
+    "prefix": ">builder",
+    "body": [
+      "const ${1:functionName} = (${2:builder}: ActionReducerMapBuilder<${3:StateType}>) => {",
+      "  ${2:builder}.addCase(${4:asyncThunk}.pending, (state) => {",
+      "    state.loading = true;",
+      "    state.error = null;",
+      "  });",
+      "  ${2:builder}.addCase(${4:asyncThunk}.fulfilled, (state, action) => {",
+      "    state.loading = false;",
+      "  });",
+      "  ${2:builder}.addCase(${4:asyncThunk}.rejected, (state, action) => {",
+      "    state.loading = false;",
+      "    state.error = action.error.message ?? null;",
+      "  });",
+      "};",
+      ""
+    ],
+    "description": "Redux Toolkit의 extraReducers를 위한 리듀서 함수 생성 스니펫"
   }
 }
