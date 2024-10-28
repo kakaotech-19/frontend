@@ -6,7 +6,7 @@ import axios from "axios";
 export const verifyEmail = createAsyncThunk(
   "signup/verifyEmail",
   async (data: any) => {
-    const response = await axios.post("/user/profile", data);
+    const response = await axios.post("/auth/email", data);
     return response.data;
   }
 );
@@ -16,7 +16,7 @@ export const confirmEmailCode = createAsyncThunk(
   'signup/confirmEmailCode',
   async (data: any) => {
     try {
-      const response = await axios.post('/api/endpoint', data);
+      const response = await axios.post('/auth/email/otp', data);
       return response.data;
     } catch (error) {
       // 에러 핸들링
@@ -29,16 +29,20 @@ export const confirmEmailCode = createAsyncThunk(
 export const checkNicknameDuplicate = createAsyncThunk(
   'signup/checkNicknameDuplicate',
   async (data: any) => {
-    const response = await axios.post('/api/endpoint', data);
+    const response = await axios.post('/auth/nickname', data);
     return response.data;
   }
 );
 
-
 // ID 중복 확인
-export const checkIdDuplicate = createAsyncThunk(id) => {
-  // 구현 내용
-};
+export const checkIdDuplicate = createAsyncThunk(
+  'signup/checkIdDuplicate',
+  async (data: any) => {
+    const response = await axios.post('/auth/login-id', data);
+    return response.data;
+  }
+);
+
 
 // 로그인
 export const loginUser = createAsyncThunk(credentials) => {
