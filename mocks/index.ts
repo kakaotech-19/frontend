@@ -4,7 +4,9 @@ async function initMocks() {
     server.listen();
   } else {
     const { worker } = await import("./config/browser");
-    worker.start();
+    worker.start({
+      onUnhandledRequest: "bypass", // 핫리로드 관련 설정 무시
+    });
   }
 }
 
