@@ -1,3 +1,4 @@
+// 인증 도메인 -------------------------------------
 import {
   VerifyEmailType,
   ConfirmEmailCodeType,
@@ -15,3 +16,7 @@ export type {
   RegisterUserType,
   LoginUserType,
 };
+
+// 피드 도메인 -------------------------------------
+import { ReactionFeedType, UploadFeedType } from "./feedRequestType";
+export type { ReactionFeedType, UploadFeedType };
