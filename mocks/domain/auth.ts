@@ -31,4 +31,9 @@ export const authMockups = [
   http.post(url + "/auth/login", () => {
     return new HttpResponse("No Content", { status: 204 });
   }),
+
+  // 로그아웃
+  http.post(url + "/auth/logout", () => {
+    return new HttpResponse("No Content", { status: 204 });
+  }),
 ];
