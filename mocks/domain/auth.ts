@@ -36,4 +36,9 @@ export const authMockups = [
   http.post(url + "/auth/logout", () => {
     return new HttpResponse("No Content", { status: 204 });
   }),
+
+  // 회원 탈퇴
+  http.post(url + "/auth/deactivate", () => {
+    return new HttpResponse("No Content", { status: 204 });
+  }),
 ];
