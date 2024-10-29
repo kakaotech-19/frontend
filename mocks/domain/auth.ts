@@ -26,4 +26,9 @@ export const authMockups = [
   http.post(url + "/auth/signup", () => {
     return new HttpResponse("created", { status: 201 });
   }),
+
+  // 로그인
+  http.post(url + "/auth/login", () => {
+    return new HttpResponse("No Content", { status: 204 });
+  }),
 ];
