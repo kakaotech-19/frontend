@@ -4,3 +4,8 @@ export type CreateDiaryEntryType = {
   emotion: string;
   content: string;
 };
+
+// 일기 삭제 -----------------------------------------------------
+export type deleteDiaryEntryType = {
+  diaryId: number;
+};
