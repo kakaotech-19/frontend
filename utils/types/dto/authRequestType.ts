@@ -17,3 +17,11 @@ export type CheckNicknameDuplicateType = {
 export type CheckIDDuplicateType = {
   loginId: string;
 };
+
+// 회원가입 -----------------------------------------------------
+export type RegisterUserType = {
+  email: string;
+  nickname: string;
+  loginId: string;
+  password: string;
+};
