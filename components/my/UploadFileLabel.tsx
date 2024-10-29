@@ -25,7 +25,7 @@ const UploadFileLabel: React.FC = () => {
       formData.append("file", selectedFile);
 
       try {
-        const response = await axios.post("/api/upload", formData, {
+        const response = await axiosInstance.post("/api/upload", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

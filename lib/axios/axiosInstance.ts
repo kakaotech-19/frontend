@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Axios 인스턴스 생성
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL + "/api/v1",
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true, // 자격증명(리프레시 토큰)을 포함한 쿠키를 서버로 전달
   headers: {
     "Content-Type": "application/json",
