@@ -37,4 +37,9 @@ export const diaryMockups = [
       ],
     });
   }),
+
+  // 나의 일기 작성
+  http.post(url + "/diary/my", () => {
+    return new HttpResponse("created", { status: 201 });
+  }),
 ];
