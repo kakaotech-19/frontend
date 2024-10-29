@@ -41,4 +41,9 @@ export const authMockups = [
   http.post(url + "/auth/deactivate", () => {
     return new HttpResponse("No Content", { status: 204 });
   }),
+
+  // 토큰 재발급
+  http.post(url + "/auth/refresh-token", () => {
+    return new HttpResponse("ok", { status: 200 });
+  }),
 ];
