@@ -1,6 +1,7 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { DiaryState } from "./diarySlice";
 import axiosInstance from "@/utils/lib/axios";
+import { CreateDiaryEntryType, DeleteDiaryEntryType } from "@/utils/types/dto";
 
 // 나의 일기 상세 조회 -----------------------------------------------------
 export const fetchDiaryDetail = createAsyncThunk(
@@ -55,7 +56,7 @@ const addFetchDiaryStatus = (builder: ActionReducerMapBuilder<DiaryState>) => {
 // 일기 작성 -----------------------------------------------------
 export const createDiaryEntry = createAsyncThunk(
   "diary/createDiaryEntry",
-  async (data: any) => {
+  async (data: CreateDiaryEntryType) => {
     const response = await axiosInstance.post("/diary/my", data);
     return response.data;
   }
