@@ -1,6 +1,6 @@
 "use client";
 
-import { ButtonType } from "@/utils/types";
+import { ButtonType } from "@/utils/types/common";
 import { Button } from "flowbite-react";
 import React from "react";
 
