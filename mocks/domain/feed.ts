@@ -100,4 +100,9 @@ export const feedMockups = [
   http.post(url + "/diary/public/1/reaction", () => {
     return new HttpResponse("No Content", { status: 204 });
   }),
+
+  // 일기장 공개 업로드
+  http.post(url + "/api/v1/diary/public", () => {
+    return new HttpResponse("created", { status: 201 });
+  }),
 ];
