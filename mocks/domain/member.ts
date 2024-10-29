@@ -39,5 +39,7 @@ export const memberMockups = [
   }),
 
   // 닉네임 변경
-  http,
+  http.patch(url + "/member/nickname", () => {
+    return new HttpResponse("ok", { status: 200 });
+  }),
 ];
