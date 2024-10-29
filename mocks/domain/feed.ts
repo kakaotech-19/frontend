@@ -8,7 +8,7 @@ export const feedMockups = [
       diaries: [
         {
           publicId: 5, // public diary
-          characterImageUrl: "https://s3-url.com", // member
+          characterImageUrl: "/minion1.png", // member
           nickname: "todak", // member
           publicContent: "blah blah", // public diary
           webtoonImageUrl: "https://s3-url.com", // diary
@@ -25,7 +25,7 @@ export const feedMockups = [
         },
         {
           publicId: 4, // public diary
-          characterImageUrl: "https://s3-url.com", // member
+          characterImageUrl: "/minion2.png", // member
           nickname: "todak", // member
           publicContent: "blah blah", // public diary
           webtoonImageUrl: "https://s3-url.com", // diary
@@ -42,7 +42,7 @@ export const feedMockups = [
         },
         {
           publicId: 3, // public diary
-          characterImageUrl: "https://s3-url.com", // member
+          characterImageUrl: "/minion3.png", // member
           nickname: "todak", // member
           publicContent: "blah blah", // public diary
           webtoonImageUrl: "https://s3-url.com", // diary
@@ -59,7 +59,7 @@ export const feedMockups = [
         },
         {
           publicId: 2, // public diary
-          characterImageUrl: "https://s3-url.com", // member
+          characterImageUrl: "/minion4.png", // member
           nickname: "todak", // member
           publicContent: "blah blah", // public diary
           webtoonImageUrl: "https://s3-url.com", // diary
@@ -76,7 +76,7 @@ export const feedMockups = [
         },
         {
           publicId: 1, // public diary
-          characterImageUrl: "https://s3-url.com", // member
+          characterImageUrl: "/cat.png", // member
           nickname: "todak", // member
           publicContent: "blah blah", // public diary
           webtoonImageUrl: "https://s3-url.com", // diary

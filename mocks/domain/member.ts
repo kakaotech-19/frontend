@@ -7,7 +7,7 @@ export const memberMockups = [
     return new HttpResponse.JSON({
       nickname: "todak",
       email: "ktb@gmail.com",
-      characterImageUrl: "https://s3-url.com",
+      characterImageUrl: "/minion1",
     });
   }),
 
@@ -15,21 +15,21 @@ export const memberMockups = [
   http.get(url + "/member/summary", () => {
     return new HttpResponse.JSON({
       nickname: "todak",
-      characterImageUrl: "https://s3-url.com",
+      characterImageUrl: "/minion2",
     });
   }),
 
   // 캐릭터 불러오기
   http.get(url + "/member/image", () => {
     return new HttpResponse.JSON({
-      characterImageUrl: "String",
+      characterImageUrl: "/minion3",
     });
   }),
 
   // 캐릭터 생성
   http.post(url + "/member/image", () => {
     return new HttpResponse.JSON({
-      characterImageUrl: "String",
+      characterImageUrl: "minion4",
     });
   }),
 
