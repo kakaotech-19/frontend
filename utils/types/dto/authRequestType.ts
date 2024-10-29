@@ -7,3 +7,8 @@ export type VerifyEmailType = {
 export type VerifyEmailCodeType = {
   emailOtp: string;
 };
+
+// 닉네임 중복 확인 -----------------------------------------------------
+export type CheckNicknameType = {
+  nickname: string;
+};
