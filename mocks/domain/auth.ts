@@ -6,4 +6,9 @@ export const authMockups = [
   http.post(url + "/auth/email", () => {
     return new HttpResponse("No Content", { status: 204 });
   }),
+
+  // 이메일 인증번호 확인
+  http.post(url + "/auth/email/otp", () => {
+    return new HttpResponse("No Content", { status: 204 });
+  }),
 ];
