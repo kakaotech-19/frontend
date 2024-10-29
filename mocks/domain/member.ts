@@ -25,4 +25,16 @@ export const memberMockups = [
       characterImageUrl: "String",
     });
   }),
+
+  // 캐릭터 생성
+  http.post(url + "/member/image", () => {
+    return new HttpResponse.JSON({
+      characterImageUrl: "String",
+    });
+  }),
+
+  // 캐릭터 등록
+  http.post(url + "/member/image/register", () => {
+    return new HttpResponse("No Content", { status: 204 });
+  }),
 ];
