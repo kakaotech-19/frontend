@@ -95,4 +95,9 @@ export const feedMockups = [
       after: 1,
     });
   }),
+
+  // 일기장 반응 이벤트
+  http.post(url + "/diary/public/1/reaction", () => {
+    return new HttpResponse("No Content", { status: 204 });
+  }),
 ];
