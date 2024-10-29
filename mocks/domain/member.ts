@@ -4,7 +4,7 @@ const url = process.env.NEXT_PUBLIC_API_URL;
 export const memberMockups = [
   // 회원 정보
   http.get(url + "/member/detail", () => {
-    return new HttpResponse.JSON({
+    return HttpResponse.json({
       nickname: "todak",
       email: "ktb@gmail.com",
       characterImageUrl: "/minion1",
@@ -13,7 +13,7 @@ export const memberMockups = [
 
   // 회원 정보 축약
   http.get(url + "/member/summary", () => {
-    return new HttpResponse.JSON({
+    return HttpResponse.json({
       nickname: "todak",
       characterImageUrl: "/minion2",
     });
@@ -21,14 +21,14 @@ export const memberMockups = [
 
   // 캐릭터 불러오기
   http.get(url + "/member/image", () => {
-    return new HttpResponse.JSON({
+    return HttpResponse.json({
       characterImageUrl: "/minion3",
     });
   }),
 
   // 캐릭터 생성
   http.post(url + "/member/image", () => {
-    return new HttpResponse.JSON({
+    return HttpResponse.json({
       characterImageUrl: "minion4",
     });
   }),

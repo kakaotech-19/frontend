@@ -4,7 +4,7 @@ const url = process.env.NEXT_PUBLIC_API_URL;
 export const feedMockups = [
   // 일기장 불러오기 (무한 스크롤)
   http.get(url + "/diary/public", () => {
-    return new HttpResponse.JSON({
+    return HttpResponse.json({
       diaries: [
         {
           publicId: 5, // public diary
