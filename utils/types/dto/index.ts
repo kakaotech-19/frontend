@@ -24,3 +24,7 @@ export type { ReactionFeedType, UploadFeedType };
 // 다이어리 도메인 -------------------------------------
 import { CreateDiaryEntryType } from "./diaryRequestType";
 export type { CreateDiaryEntryType };
+
+// 회원 도메인 -------------------------------------
+import { CreateCharacterType, ChangeNicknameType } from "./memberRequestType";
+export type { CreateCharacterType, ChangeNicknameType };

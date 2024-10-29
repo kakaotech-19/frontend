@@ -1,6 +1,7 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { MemberState } from "./memberSlice";
 import axiosInstance from "@/utils/lib/axios";
+import { ChangeNicknameType, CreateCharacterType } from "@/utils/types/dto";
 
 // 회원 정보 -----------------------------------------------------
 export const fetchMemberInfo = createAsyncThunk(
@@ -28,7 +29,7 @@ const addFetchMemberInfo = (builder: ActionReducerMapBuilder<MemberState>) => {
 // 회원 정보 축약 -----------------------------------------------------
 export const fetchSummaryMemberInfo = createAsyncThunk(
   "diary/fetchSummaryMemberInfo",
-  async (params: any) => {
+  async () => {
     const response = await axiosInstance.get("/member/summary");
     return response.data;
   }
@@ -76,7 +77,7 @@ const addFetchCharacter = (builder: ActionReducerMapBuilder<MemberState>) => {
 // 캐릭터 생성 -----------------------------------------------------
 export const createCharacter = createAsyncThunk(
   "member/createCharacter",
-  async (data: any) => {
+  async (data: CreateCharacterType) => {
     const response = await axiosInstance.post("/member/image", data);
     return response.data;
   }
@@ -99,8 +100,8 @@ const addCreateCharacter = (builder: ActionReducerMapBuilder<MemberState>) => {
 // 캐릭터 등록 -----------------------------------------------------
 export const registerCharacter = createAsyncThunk(
   "member/registerCharacter",
-  async (data: any) => {
-    const response = await axiosInstance.post("/member/image/register", data);
+  async () => {
+    const response = await axiosInstance.post("/member/image/register");
     return response.data;
   }
 );
@@ -124,7 +125,7 @@ const addRegisterCharacter = (
 // 닉네임 변경 -----------------------------------------------------
 export const changeNickname = createAsyncThunk(
   "member/changeNickname",
-  async (data: any) => {
+  async (data: ChangeNicknameType) => {
     const response = await axiosInstance.patch("/member/nickname", data);
     return response.data;
   }
