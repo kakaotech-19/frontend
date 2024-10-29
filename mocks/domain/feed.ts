@@ -3,7 +3,7 @@ import { HttpResponse, http } from "msw";
 const url = process.env.NEXT_PUBLIC_API_URL;
 export const feedMockups = [
   // 일기장 불러오기 (무한 스크롤)
-  http.get(url + "/diary/public?after=5", () => {
+  http.get(url + "/diary/public", () => {
     return new HttpResponse.JSON({
       diaries: [
         {
@@ -98,7 +98,7 @@ export const feedMockups = [
 
   // 일기장 반응 이벤트
   http.post(url + "/diary/public/1/reaction", () => {
-    return new HttpResponse("No Content", { status: 204 });
+    return new HttpResponse(null, { status: 204 });
   }),
 
   // 일기장 공개 업로드
@@ -108,6 +108,6 @@ export const feedMockups = [
 
   // 공개 일기장 삭제
   http.delete(url + "/api/v1/diary/public", () => {
-    return new HttpResponse("No Content", { status: 204 });
+    return new HttpResponse(null, { status: 204 });
   }),
 ];

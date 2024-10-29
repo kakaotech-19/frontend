@@ -3,7 +3,7 @@ import { HttpResponse, http } from "msw";
 const url = process.env.NEXT_PUBLIC_API_URL;
 export const diaryMockups = [
   // 나의 일기 상세 조회
-  http.get(url + "/diary/my/detail?date=2024-10-07", () => {
+  http.get(url + "/diary/my/detail", () => {
     return new HttpResponse.JSON({
       diaryId: 6,
       content: "blah blah",
@@ -23,7 +23,7 @@ export const diaryMockups = [
   }),
 
   // 연월 일기 작성 현황 확인
-  http.get(url + "/diary/my?yearMonth=2024-10", () => {
+  http.get(url + "/diary/my", () => {
     return new HttpResponse.JSON({
       diaryIndexes: [
         {

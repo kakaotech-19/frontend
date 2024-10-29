@@ -35,7 +35,7 @@ export const memberMockups = [
 
   // 캐릭터 등록
   http.post(url + "/member/image/register", () => {
-    return new HttpResponse("No Content", { status: 204 });
+    return new HttpResponse(null, { status: 204 });
   }),
 
   // 닉네임 변경
