@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import axiosInstance from "@/lib/axios";
+import axiosInstance from "@/utils/lib/axios";
 
 const UploadFileLabel: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);

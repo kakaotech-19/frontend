@@ -1,7 +1,7 @@
 "use client";
 
 import Lottie from "lottie-react";
-import { AnimationType } from "@/type";
+import { AnimationType } from "@/utils/types";
 import ShareAnimationData from "@/public/lottie-animation/share.json";
 
 const ShareAnimation: React.FC<AnimationType> = ({ style }) => {

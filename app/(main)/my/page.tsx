@@ -3,9 +3,9 @@
 import { UserAvatarWithLabel } from "@/components/my";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import { RootState } from "@/store";
+import { RootState } from "@/feature/redux";
 import { useSelector } from "react-redux";
-import path from "@/routes";
+import path from "@/feature/routes";
 import Image from "next/image";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SettingSVG from "@/components/svg/SettingSVG";

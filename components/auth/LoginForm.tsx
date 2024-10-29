@@ -1,17 +1,17 @@
 "use client";
 
-import { RootState } from "@/store";
+import { RootState } from "@/feature/redux";
 import {
   setIsEmailFormView,
   setLoginId,
   setLoginPassword,
-} from "@/store/slices/login/loginSlice";
+} from "@/feature/redux/slices/login/loginSlice";
 import { Label, TextInput, Button, HR } from "flowbite-react";
 import Link from "next/link";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DirectionSVG } from "../svg";
-import { loginUser } from "@/store/slices/login/loginExtraReducers";
+import { loginUser } from "@/feature/redux/slices/login/loginExtraReducers";
 
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch();

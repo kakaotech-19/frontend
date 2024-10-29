@@ -1,6 +1,6 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { FeedState } from "./feedSlice";
-import axiosInstance from "@/lib/axios";
+import axiosInstance from "@/utils/lib/axios";
 
 // 일기장 불러오기 (무한 스크롤) -----------------------------------------------------
 export const fetchFeedEntries = createAsyncThunk(

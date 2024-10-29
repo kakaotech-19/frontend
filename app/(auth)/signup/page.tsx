@@ -1,6 +1,6 @@
 "use client";
 
-import { RootState } from "@/store";
+import { RootState } from "@/feature/redux";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Checkbox, HR, Label, TextInput } from "flowbite-react";
 import Link from "next/link";
@@ -11,11 +11,11 @@ import {
   setSignupNickname,
   setSignupPassword,
   setSignupReEnterPassword,
-} from "@/store/slices/signup/signupSlice";
+} from "@/feature/redux/slices/signup/signupSlice";
 import {
   registerUser,
   confirmEmailCode,
-} from "@/store/slices/signup/signupExtraReducers";
+} from "@/feature/redux/slices/signup/signupExtraReducers";
 import { useEffect, useState } from "react";
 
 const Page = () => {

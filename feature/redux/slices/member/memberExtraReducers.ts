@@ -1,6 +1,6 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { MemberState } from "./memberSlice";
-import axiosInstance from "@/lib/axios";
+import axiosInstance from "@/utils/lib/axios";
 
 // 회원 정보 -----------------------------------------------------
 export const fetchMemberInfo = createAsyncThunk(

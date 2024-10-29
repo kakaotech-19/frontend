@@ -2,7 +2,7 @@
 
 import Lottie from "lottie-react";
 import MusicAnimationData from "@/public/lottie-animation/music.json";
-import { AnimationType } from "@/type";
+import { AnimationType } from "@/utils/types";
 
 const MusicAnimation: React.FC<AnimationType> = ({ style }) => {
   return (

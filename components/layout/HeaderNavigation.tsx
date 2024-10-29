@@ -1,9 +1,8 @@
 "use client";
 
-import useHideOnScroll from "@/hooks/useHideOnScroll";
+import { useHideOnScroll } from "@/utils/hooks";
 import { HR } from "flowbite-react";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
 
 const HeaderNavigation: React.FC = () => {
   const [isVisible] = useHideOnScroll();
