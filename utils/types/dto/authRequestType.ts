@@ -9,6 +9,11 @@ export type VerifyEmailCodeType = {
 };
 
 // 닉네임 중복 확인 -----------------------------------------------------
-export type CheckNicknameType = {
+export type CheckNicknameDuplicateType = {
   nickname: string;
+};
+
+// ID 중복 확인 -----------------------------------------------------
+export type CheckIDDuplicateType = {
+  loginId: string;
 };
