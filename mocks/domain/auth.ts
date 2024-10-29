@@ -16,4 +16,9 @@ export const authMockups = [
   http.post(url + "/auth/nickname", () => {
     return new HttpResponse("No Content", { status: 204 });
   }),
+
+  // 아이디 중복 확인
+  http.post(url + "/auth/login-id", () => {
+    return new HttpResponse("No Content", { status: 204 });
+  }),
 ];
