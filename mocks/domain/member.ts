@@ -37,4 +37,7 @@ export const memberMockups = [
   http.post(url + "/member/image/register", () => {
     return new HttpResponse("No Content", { status: 204 });
   }),
+
+  // 닉네임 변경
+  http,
 ];
