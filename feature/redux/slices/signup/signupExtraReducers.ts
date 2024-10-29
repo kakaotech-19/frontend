@@ -132,7 +132,7 @@ const addRegisterUser = (builder: ActionReducerMapBuilder<SignupState>) => {
 export const deleteAccount = createAsyncThunk(
   "signup/deleteAccount",
   async () => {
-    const response = await axiosInstance.post("/auth/deactivate", data);
+    const response = await axiosInstance.post("/auth/deactivate");
     return response.data;
   }
 );

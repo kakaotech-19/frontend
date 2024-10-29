@@ -64,7 +64,7 @@ const LoginForm: React.FC = () => {
                 forgot password?
               </Label>
             </div>
-            <Button type="button" onClick={() => dispatch<any>(loginUser({}))}>
+            <Button type="button" onClick={() => {}}>
               Login
             </Button>
             <HR className="mb-0" />

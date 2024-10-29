@@ -3,10 +3,10 @@
 import { RootState } from "@/feature/redux";
 import { useDispatch, useSelector } from "react-redux";
 import { setDate } from "@/feature/redux/slices/dairy/diarySlice";
-import Calendar from "react-calendar";
 import { useRouter } from "next/navigation";
 import path from "@/feature/routes";
-import "@/lib/react-calendar/Calendar.css";
+import Calendar from "react-calendar";
+import "@/utils/lib/react-calendar/Calendar.css";
 
 const MyCalendar: React.FC = () => {
   const date = useSelector((state: RootState) => state.diary.date);

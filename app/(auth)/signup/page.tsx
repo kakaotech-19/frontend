@@ -17,6 +17,7 @@ import {
   confirmEmailCode,
 } from "@/feature/redux/slices/signup/signupExtraReducers";
 import { useEffect, useState } from "react";
+import { RegisterUserType } from "@/utils/types/dto";
 
 const Page = () => {
   const dispatch = useDispatch();
@@ -35,7 +36,12 @@ const Page = () => {
       alert("Passwords do not match");
       return;
     }
-    const data = {};
+    const data = {
+      email: "String",
+      nickname: "String",
+      loginId: "String",
+      password: "String",
+    };
     dispatch<any>(registerUser(data));
   };
 
@@ -60,9 +66,7 @@ const Page = () => {
             required
             shadow
           />
-          <Button onClick={() => dispatch<any>(confirmEmailCode(otp))}>
-            verify
-          </Button>
+          <Button onClick={() => {}}>verify</Button>
         </div>
       </div>
       <div>
@@ -74,14 +78,12 @@ const Page = () => {
             id="otp"
             type="text"
             value={otp}
-            onInput={(e) => dispatch(setOTP(e.currentTarget.value))}
+            onInput={() => {}}
             placeholder="******"
             required
             shadow
           />
-          <Button onClick={() => dispatch<any>(confirmEmailCode(otp))}>
-            check
-          </Button>
+          <Button onClick={() => {}}>check</Button>
         </div>
       </div>
       <HR className="mt-0" />

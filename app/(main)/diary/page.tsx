@@ -2,9 +2,8 @@
 
 import MyCalendar from "@/components/diary/Calendar";
 import path from "@/feature/routes";
-import { Accordion, Button, Datepicker, Textarea } from "flowbite-react";
+import { Modal, Accordion, Button, Datepicker, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
-import { Modal } from "flowbite-react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/feature/redux";
 import { setCommentView } from "@/feature/redux/slices/dairy/diarySlice";
