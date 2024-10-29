@@ -25,3 +25,9 @@ export type RegisterUserType = {
   loginId: string;
   password: string;
 };
+
+// 로그인 -----------------------------------------------------
+export type LoginUserType = {
+  loginId: string;
+  password: string;
+};
