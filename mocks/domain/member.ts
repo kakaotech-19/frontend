@@ -2,8 +2,12 @@ import { HttpResponse, http } from "msw";
 
 const url = process.env.NEXT_PUBLIC_API_URL;
 export const memberMockups = [
-  // 이메일 인증
-  //   http.post(url + "/auth/email", () => {
-  //     return new HttpResponse("No Content", { status: 204 });
-  //   }),
+  // 회원 정보
+  http.get(url + "/member/detail", () => {
+    return new HttpResponse.JSON({
+      nickname: "todak",
+      email: "ktb@gmail.com",
+      characterImageUrl: "https://s3-url.com",
+    });
+  }),
 ];

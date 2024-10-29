@@ -1,4 +1,3 @@
-import { http, HttpResponse } from "msw";
 import { authMockups } from "../domain/auth";
 import { feedMockups } from "../domain/feed";
 import { memberMockups } from "../domain/member";
