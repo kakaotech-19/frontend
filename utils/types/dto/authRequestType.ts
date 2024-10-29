@@ -4,7 +4,7 @@ export type VerifyEmailType = {
 };
 
 // 이메일 인증번호 확인 -----------------------------------------------------
-export type VerifyEmailCodeType = {
+export type ConfirmEmailCodeType = {
   emailOtp: string;
 };
 
@@ -14,7 +14,7 @@ export type CheckNicknameDuplicateType = {
 };
 
 // ID 중복 확인 -----------------------------------------------------
-export type CheckIDDuplicateType = {
+export type CheckIdDuplicateType = {
   loginId: string;
 };
 

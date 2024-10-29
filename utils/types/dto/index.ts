@@ -1,17 +1,17 @@
 import {
   VerifyEmailType,
-  VerifyEmailCodeType,
+  ConfirmEmailCodeType,
   CheckNicknameDuplicateType,
-  CheckIDDuplicateType,
+  CheckIdDuplicateType,
   RegisterUserType,
   LoginUserType,
 } from "./authRequestType";
 
 export type {
   VerifyEmailType,
-  VerifyEmailCodeType,
+  ConfirmEmailCodeType,
   CheckNicknameDuplicateType,
-  CheckIDDuplicateType,
+  CheckIdDuplicateType,
   RegisterUserType,
   LoginUserType,
 };
