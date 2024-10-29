@@ -1,6 +1,12 @@
 import { http, HttpResponse } from "msw";
 import { authMockups } from "../domain/auth";
+import { feedMockups } from "../domain/feed";
+import { memberMockups } from "../domain/member";
+import { diaryMockups } from "../domain/diary";
 
-const url = process.env.NEXT_PUBLIC_API_URL;
-
-export const handlers = [...authMockups];
+export const handlers = [
+  ...authMockups,
+  ...feedMockups,
+  ...memberMockups,
+  ...diaryMockups,
+];
