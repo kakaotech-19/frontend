@@ -2,11 +2,6 @@ import { HttpResponse, http } from "msw";
 
 const url = process.env.NEXT_PUBLIC_API_URL;
 export const diaryMockups = [
-  // 이메일 인증
-  //   http.post(url + "/auth/email", () => {
-  //     return new HttpResponse("No Content", { status: 204 });
-  //   }),
-
   // 나의 일기 상세 조회
   http.get(url + "/diary/my/detail?date=2024-10-07", () => {
     return new HttpResponse.JSON({
@@ -24,6 +19,22 @@ export const diaryMockups = [
       aiComment: "good good",
       emotion: "JOY",
       date: "2024-10-17",
+    });
+  }),
+
+  // 연월 일기 작성 현황 확인
+  http.get(url + "/diary/my?yearMonth=2024-10", () => {
+    return new HttpResponse.JSON({
+      diaryIndexes: [
+        {
+          diaryId: 6,
+          date: "2024-10-17",
+        },
+        {
+          diaryId: 5,
+          date: "2024-10-20",
+        },
+      ],
     });
   }),
 ];
