@@ -11,4 +11,9 @@ export const authMockups = [
   http.post(url + "/auth/email/otp", () => {
     return new HttpResponse("No Content", { status: 204 });
   }),
+
+  // 닉네임 중복 확인
+  http.post(url + "/auth/nickname", () => {
+    return new HttpResponse("No Content", { status: 204 });
+  }),
 ];
