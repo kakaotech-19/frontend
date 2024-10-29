@@ -18,4 +18,11 @@ export const memberMockups = [
       characterImageUrl: "https://s3-url.com",
     });
   }),
+
+  // 캐릭터 불러오기
+  http.get(url + "/member/image", () => {
+    return new HttpResponse.JSON({
+      characterImageUrl: "String",
+    });
+  }),
 ];
