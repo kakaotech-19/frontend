@@ -42,4 +42,9 @@ export const diaryMockups = [
   http.post(url + "/diary/my", () => {
     return new HttpResponse("created", { status: 201 });
   }),
+
+  // 일기장 삭제
+  http.delete(url + "/diary/my/1", () => {
+    return new HttpResponse("ok", { status: 200 });
+  }),
 ];
