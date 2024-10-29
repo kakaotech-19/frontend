@@ -1,12 +1,12 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { MemberState } from "./memberSlice";
-import axios from "axios";
+import axiosInstance from "@/lib/axios";
 
 // 회원 정보 -----------------------------------------------------
 export const fetchMemberInfo = createAsyncThunk(
   "member/fetchMemberInfo",
   async () => {
-    const response = await axios.get("/member/detail");
+    const response = await axiosInstance.get("/member/detail");
     return response.data;
   }
 );
@@ -29,7 +29,7 @@ const addFetchMemberInfo = (builder: ActionReducerMapBuilder<MemberState>) => {
 export const fetchSummaryMemberInfo = createAsyncThunk(
   "diary/fetchSummaryMemberInfo",
   async (params: any) => {
-    const response = await axios.get("/member/summary");
+    const response = await axiosInstance.get("/member/summary");
     return response.data;
   }
 );
@@ -54,7 +54,7 @@ const addFetchSummaryMemberInfo = (
 export const fetchCharacter = createAsyncThunk(
   "namespace/fetchCharacter",
   async () => {
-    const response = await axios.get("/member/image");
+    const response = await axiosInstance.get("/member/image");
     return response.data;
   }
 );
@@ -77,7 +77,7 @@ const addFetchCharacter = (builder: ActionReducerMapBuilder<MemberState>) => {
 export const createCharacter = createAsyncThunk(
   "member/createCharacter",
   async (data: any) => {
-    const response = await axios.post("/member/image", data);
+    const response = await axiosInstance.post("/member/image", data);
     return response.data;
   }
 );
@@ -100,7 +100,7 @@ const addCreateCharacter = (builder: ActionReducerMapBuilder<MemberState>) => {
 export const registerCharacter = createAsyncThunk(
   "member/registerCharacter",
   async (data: any) => {
-    const response = await axios.post("/member/image/register", data);
+    const response = await axiosInstance.post("/member/image/register", data);
     return response.data;
   }
 );
@@ -125,7 +125,7 @@ const addRegisterCharacter = (
 export const changeNickname = createAsyncThunk(
   "member/changeNickname",
   async (data: any) => {
-    const response = await axios.patch("/member/nickname", data);
+    const response = await axiosInstance.patch("/member/nickname", data);
     return response.data;
   }
 );

@@ -1,6 +1,7 @@
 "use client";
 
 import { Logo } from "@/components/layout";
+import useMocking from "@/hooks/useMocking";
 import store from "@/store";
 import { HR } from "flowbite-react";
 import { Provider } from "react-redux";
@@ -10,6 +11,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  useMocking();
   return (
     <Provider store={store}>
       <div className="w-full min-h-screen flex justify-center items-center">

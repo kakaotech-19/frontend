@@ -11,6 +11,7 @@ import Link from "next/link";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DirectionSVG } from "../svg";
+import { loginUser } from "@/store/slices/login/loginExtraReducers";
 
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -63,7 +64,9 @@ const LoginForm: React.FC = () => {
                 forgot password?
               </Label>
             </div>
-            <Button type="submit">Login</Button>
+            <Button type="button" onClick={() => dispatch<any>(loginUser({}))}>
+              Login
+            </Button>
             <HR className="mb-0" />
             <Label htmlFor="signup-link" className="flex">
               Don't have an account?&nbsp;

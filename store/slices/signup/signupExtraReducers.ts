@@ -1,12 +1,12 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { SignupState } from "./signupSlice";
-import axios from "axios";
+import axiosInstance from "@/lib/axios";
 
 // 이메일 인증 -----------------------------------------------------
 export const verifyEmail = createAsyncThunk(
   "signup/verifyEmail",
   async (data: any) => {
-    const response = await axios.post("/auth/email", data);
+    const response = await axiosInstance.post("/auth/email", data);
     return response.data;
   }
 );
@@ -29,7 +29,7 @@ const addVerifyEmail = (builder: ActionReducerMapBuilder<SignupState>) => {
 export const confirmEmailCode = createAsyncThunk(
   "signup/confirmEmailCode",
   async (data: any) => {
-    const response = await axios.post("/auth/email/otp", data);
+    const response = await axiosInstance.post("/auth/email/otp", data);
     return response.data;
   }
 );
@@ -52,7 +52,7 @@ const addConfirmEmailCode = (builder: ActionReducerMapBuilder<SignupState>) => {
 export const checkNicknameDuplicate = createAsyncThunk(
   "signup/checkNicknameDuplicate",
   async (data: any) => {
-    const response = await axios.post("/auth/nickname", data);
+    const response = await axiosInstance.post("/auth/nickname", data);
     return response.data;
   }
 );
@@ -77,7 +77,7 @@ const addCheckNicknameDuplicate = (
 export const checkIdDuplicate = createAsyncThunk(
   "signup/checkIdDuplicate",
   async (data: any) => {
-    const response = await axios.post("/auth/login-id", data);
+    const response = await axiosInstance.post("/auth/login-id", data);
     return response.data;
   }
 );
@@ -100,7 +100,7 @@ const addcheckIdDuplicate = (builder: ActionReducerMapBuilder<SignupState>) => {
 export const registerUser = createAsyncThunk(
   "signup/registerUser",
   async (data: any) => {
-    const response = await axios.post("/auth/signup", data);
+    const response = await axiosInstance.post("/auth/signup", data);
     return response.data;
   }
 );
@@ -125,7 +125,7 @@ const addRegisterUser = (builder: ActionReducerMapBuilder<SignupState>) => {
 export const deleteAccount = createAsyncThunk(
   "signup/deleteAccount",
   async (data: any) => {
-    const response = await axios.post("/auth/deactivate", data);
+    const response = await axiosInstance.post("/auth/deactivate", data);
     return response.data;
   }
 );
@@ -150,7 +150,7 @@ const addDeleteAccount = (builder: ActionReducerMapBuilder<SignupState>) => {
 export const reissueToken = createAsyncThunk(
   "signup/reissueToken",
   async (data: any) => {
-    const response = await axios.post("/auth/refresh-token", data);
+    const response = await axiosInstance.post("/auth/refresh-token", data);
     return response.data;
   }
 );

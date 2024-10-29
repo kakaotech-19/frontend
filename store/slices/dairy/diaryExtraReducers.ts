@@ -1,12 +1,12 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { DiaryState } from "./diarySlice";
-import axios from "axios";
+import axiosInstance from "@/lib/axios";
 
 // 나의 일기 상세 조회 -----------------------------------------------------
 export const fetchDiaryDetail = createAsyncThunk(
   "diary/fetchDiaryDetail",
   async (params: Date) => {
-    const response = await axios.get(
+    const response = await axiosInstance.get(
       `/diary/my/detail?date=${params.toISOString()}`
     );
     return response.data;
@@ -31,7 +31,7 @@ const addFetchDiaryDetail = (builder: ActionReducerMapBuilder<DiaryState>) => {
 export const fetchDiaryStatus = createAsyncThunk(
   "diary/fetchDiaryStatus",
   async (params: Date) => {
-    const response = await axios.get(
+    const response = await axiosInstance.get(
       `/diary/my?yearMonth=${params.toISOString()}`
     );
     return response.data;
@@ -56,7 +56,7 @@ const addFetchDiaryStatus = (builder: ActionReducerMapBuilder<DiaryState>) => {
 export const createDiaryEntry = createAsyncThunk(
   "diary/createDiaryEntry",
   async (data: any) => {
-    const response = await axios.post("/diary/my", data);
+    const response = await axiosInstance.post("/diary/my", data);
     return response.data;
   }
 );
@@ -79,7 +79,7 @@ const addCreateDiaryEntry = (builder: ActionReducerMapBuilder<DiaryState>) => {
 export const deleteDiaryEntry = createAsyncThunk(
   "diary/deleteDiaryEntry",
   async () => {
-    const response = await axios.delete("/diary/my/1");
+    const response = await axiosInstance.delete("/diary/my/1");
     return response.data;
   }
 );

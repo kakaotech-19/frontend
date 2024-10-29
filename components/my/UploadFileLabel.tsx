@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import axios from "axios";
+import axiosInstance from "@/lib/axios";
 
 const UploadFileLabel: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -25,7 +25,7 @@ const UploadFileLabel: React.FC = () => {
       formData.append("file", selectedFile);
 
       try {
-        const response = await axios.post("/api/upload", formData, {
+        const response = await axiosInstance.post("/api/upload", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

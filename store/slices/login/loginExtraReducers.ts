@@ -1,10 +1,10 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { LoginState } from "./loginSlice";
-import axios from "axios";
+import axiosInstance from "@/lib/axios";
 
 // 로그인 -----------------------------------------------------
 export const loginUser = createAsyncThunk("login/login", async (data: any) => {
-  const response = await axios.post("/auth/login", data);
+  const response = await axiosInstance.post("/auth/login", data);
   return response.data;
 });
 
@@ -24,7 +24,7 @@ const addLoginUser = (builder: ActionReducerMapBuilder<LoginState>) => {
 
 // 로그아웃 -----------------------------------------------------
 export const logoutUser = createAsyncThunk("login/logout", async () => {
-  const response = await axios.post("/auth/logout");
+  const response = await axiosInstance.post("/auth/logout");
   return response.data;
 });
 
