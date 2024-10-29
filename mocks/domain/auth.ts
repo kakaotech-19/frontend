@@ -21,4 +21,9 @@ export const authMockups = [
   http.post(url + "/auth/login-id", () => {
     return new HttpResponse("No Content", { status: 204 });
   }),
+
+  // 회원가입
+  http.post(url + "/auth/signup", () => {
+    return new HttpResponse("created", { status: 201 });
+  }),
 ];
