@@ -64,6 +64,29 @@ const signupSlice = createSlice({
     setOTP: (state: SignupState, action: PayloadAction<string>) => {
       state.otp = action.payload;
     },
+
+    // verify state --------------------------------
+    setIsEmailVerified: (
+      state: SignupState,
+      action: PayloadAction<boolean>
+    ) => {
+      state.verify.isEmailVerified = action.payload;
+    },
+    setIsOtpVerified: (state: SignupState, action: PayloadAction<boolean>) => {
+      state.verify.isOtpVerified = action.payload;
+    },
+    setIsNicknameVerified: (
+      state: SignupState,
+      action: PayloadAction<boolean>
+    ) => {
+      state.verify.isNicknameVerified = action.payload;
+    },
+    setIsSignupIdVerified: (
+      state: SignupState,
+      action: PayloadAction<boolean>
+    ) => {
+      state.verify.isSignupIdVerified = action.payload;
+    },
     setIsTermsAgreed: (state: SignupState, action: PayloadAction<boolean>) => {
       state.verify.isTermsAgreed = action.payload;
     },
@@ -78,6 +101,10 @@ export const {
   setSignupPassword,
   setSignupReEnterPassword,
   setOTP,
+  setIsEmailVerified,
+  setIsOtpVerified,
+  setIsNicknameVerified,
+  setIsSignupIdVerified,
   setIsTermsAgreed,
 } = signupSlice.actions;
 export const extraReducers = signupSlice.reducer;
