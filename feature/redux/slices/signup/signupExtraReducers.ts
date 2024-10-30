@@ -49,9 +49,11 @@ const addConfirmEmailCode = (builder: ActionReducerMapBuilder<SignupState>) => {
     state.error = null;
   });
   builder.addCase(confirmEmailCode.fulfilled, (state, action) => {
+    state.verify.isOtpVerified = true;
     state.loading = false;
   });
   builder.addCase(confirmEmailCode.rejected, (state, action) => {
+    state.verify.isOtpVerified = false;
     state.loading = false;
     state.error = action.error.message ?? null;
   });
