@@ -35,6 +35,7 @@ import {
 } from "@/utils/types/dto";
 import { useRouter } from "next/navigation";
 import path from "@/feature/routes";
+import { setIsEmailFormView } from "@/feature/redux/slices/login/loginSlice";
 
 const Page = () => {
   const dispatch = useDispatch();
@@ -52,8 +53,10 @@ const Page = () => {
   const isSignup = useSelector((state: RootState) => state.signup.isSignup);
   useEffect(() => {
     if (isSignup) {
+      alert("회원가입이 완료되었습니다. 로그인해주세요.");
       router.push(path.LOGIN);
       dispatch(resetSignupState());
+      dispatch(setIsEmailFormView(true));
     }
   }, [isSignup]);
 
