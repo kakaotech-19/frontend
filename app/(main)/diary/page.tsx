@@ -1,13 +1,12 @@
 "use client";
 
 import MyCalendar from "@/components/diary/Calendar";
-import path from "@/routes";
-import { Accordion, Button, Datepicker, Textarea } from "flowbite-react";
+import path from "@/feature/routes";
+import { Modal, Accordion, Button, Datepicker, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
-import { Modal } from "flowbite-react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/store";
-import { setCommentView } from "@/store/slices/dairy/diarySlice";
+import { RootState } from "@/feature/redux";
+import { setCommentView } from "@/feature/redux/slices/dairy/diarySlice";
 import Image from "next/image";
 import AudioModule from "@/components/home/AudioModule";
 import { ShareSVG } from "@/components/svg";

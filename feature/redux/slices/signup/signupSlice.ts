@@ -6,10 +6,17 @@ export interface SignupState {
   nickname: string;
   signupId: string;
   password: string;
-  otp: string;
   reEnterPassword: string;
-  isEmailVerified: boolean;
+  otp: string;
   isSignup: boolean;
+  isTermsModalView: boolean;
+  verify: {
+    isEmailVerified: boolean;
+    isOtpVerified: boolean;
+    isNicknameVerified: boolean;
+    isSignupIdVerified: boolean;
+    isTermsAgreed: boolean;
+  };
   loading: any;
   error: any;
 }
@@ -21,8 +28,15 @@ export const initialState = {
   password: "",
   otp: "",
   reEnterPassword: "",
-  isEmailVerified: false,
   isSignup: false,
+  isTermsModalView: false,
+  verify: {
+    isEmailVerified: false,
+    isOtpVerified: false,
+    isNicknameVerified: false,
+    isSignupIdVerified: false,
+    isTermsAgreed: false,
+  },
   loading: false,
   error: "",
 };
@@ -52,6 +66,41 @@ const signupSlice = createSlice({
     setOTP: (state: SignupState, action: PayloadAction<string>) => {
       state.otp = action.payload;
     },
+    setIsTermsModalView: (
+      state: SignupState,
+      action: PayloadAction<boolean>
+    ) => {
+      state.isTermsModalView = action.payload;
+    },
+
+    // verify state --------------------------------
+    setIsEmailVerified: (
+      state: SignupState,
+      action: PayloadAction<boolean>
+    ) => {
+      state.verify.isEmailVerified = action.payload;
+    },
+    setIsOtpVerified: (state: SignupState, action: PayloadAction<boolean>) => {
+      state.verify.isOtpVerified = action.payload;
+    },
+    setIsNicknameVerified: (
+      state: SignupState,
+      action: PayloadAction<boolean>
+    ) => {
+      state.verify.isNicknameVerified = action.payload;
+    },
+    setIsSignupIdVerified: (
+      state: SignupState,
+      action: PayloadAction<boolean>
+    ) => {
+      state.verify.isSignupIdVerified = action.payload;
+    },
+    setIsTermsAgreed: (state: SignupState, action: PayloadAction<boolean>) => {
+      state.verify.isTermsAgreed = action.payload;
+    },
+
+    // all reset --------------------------------
+    resetSignupState: () => initialState,
   },
   extraReducers: (builder: any) => addSignupExtraReducers(builder),
 });
@@ -63,6 +112,13 @@ export const {
   setSignupPassword,
   setSignupReEnterPassword,
   setOTP,
+  setIsEmailVerified,
+  setIsOtpVerified,
+  setIsNicknameVerified,
+  setIsSignupIdVerified,
+  setIsTermsAgreed,
+  resetSignupState,
+  setIsTermsModalView,
 } = signupSlice.actions;
 export const extraReducers = signupSlice.reducer;
 export default signupSlice.reducer;

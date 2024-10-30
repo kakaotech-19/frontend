@@ -3,14 +3,14 @@
 import { Button, HR } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/store";
-import { setIsEmailFormView } from "@/store/slices/login/loginSlice";
+import { RootState } from "@/feature/redux";
+import { setIsEmailFormView } from "@/feature/redux/slices/login/loginSlice";
 import {
   GoogleLoginButton,
   KakaoLoginButton,
   LoginForm,
 } from "@/components/auth";
-import path from "@/routes";
+import path from "@/feature/routes";
 
 const Page = () => {
   const dispatch = useDispatch();

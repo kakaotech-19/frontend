@@ -1,12 +1,12 @@
 "use client";
 
-import { RootState } from "@/store";
+import { RootState } from "@/feature/redux";
 import { useDispatch, useSelector } from "react-redux";
-import { setDate } from "@/store/slices/dairy/diarySlice";
-import Calendar from "react-calendar";
+import { setDate } from "@/feature/redux/slices/dairy/diarySlice";
 import { useRouter } from "next/navigation";
-import path from "@/routes";
-import "@/lib/react-calendar/Calendar.css";
+import path from "@/feature/routes";
+import Calendar from "react-calendar";
+import "@/utils/lib/react-calendar/Calendar.css";
 
 const MyCalendar: React.FC = () => {
   const date = useSelector((state: RootState) => state.diary.date);

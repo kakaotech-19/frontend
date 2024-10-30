@@ -2,7 +2,7 @@
 
 import Lottie from "lottie-react";
 import WritingAnimationData from "@/public/lottie-animation/writing.json";
-import { AnimationType } from "@/type";
+import { AnimationType } from "@/utils/types/common";
 
 const WritingAnimation: React.FC<AnimationType> = ({ style }) => {
   return (

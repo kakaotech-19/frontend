@@ -1,22 +1,42 @@
 "use client";
 
-import { RootState } from "@/store";
+import { RootState } from "@/feature/redux";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Checkbox, HR, Label, TextInput } from "flowbite-react";
-import Link from "next/link";
+import { Button, Checkbox, HR, Label, Modal, TextInput } from "flowbite-react";
 import {
+  resetSignupState,
+  setIsEmailVerified,
+  setIsNicknameVerified,
+  setIsOtpVerified,
+  setIsSignupIdVerified,
+  setIsTermsAgreed,
+  setIsTermsModalView,
   setOTP,
   setSignupEmail,
   setSignupId,
   setSignupNickname,
   setSignupPassword,
   setSignupReEnterPassword,
-} from "@/store/slices/signup/signupSlice";
+} from "@/feature/redux/slices/signup/signupSlice";
 import {
-  registerUser,
+  checkIdDuplicate,
+  checkNicknameDuplicate,
   confirmEmailCode,
-} from "@/store/slices/signup/signupExtraReducers";
+  registerUser,
+  verifyEmail,
+} from "@/feature/redux/slices/signup/signupExtraReducers";
 import { useEffect, useState } from "react";
+import {
+  CheckIdDuplicateType,
+  CheckNicknameDuplicateType,
+  ConfirmEmailCodeType,
+  RegisterUserType,
+  VerifyEmailType,
+} from "@/utils/types/dto";
+import { useRouter } from "next/navigation";
+import path from "@/feature/routes";
+import { setIsEmailFormView } from "@/feature/redux/slices/login/loginSlice";
+import TermsAndConditionsModal from "@/components/auth/TermsAndConditionsModal";
 
 const Page = () => {
   const dispatch = useDispatch();
@@ -28,21 +48,84 @@ const Page = () => {
   const reEnterPassword = useSelector(
     (state: RootState) => state.signup.reEnterPassword
   );
-  const [isSame, setIsSame] = useState(false);
 
-  const handlePostSignup = () => {
-    if (password !== reEnterPassword) {
-      alert("Passwords do not match");
-      return;
+  // 회원가입 성공시 유저 라우팅
+  const router = useRouter();
+  const isSignup = useSelector((state: RootState) => state.signup.isSignup);
+  useEffect(() => {
+    if (isSignup) {
+      alert("회원가입이 완료되었습니다. 로그인해주세요.");
+      router.push(path.LOGIN);
+      dispatch(resetSignupState());
+      dispatch(setIsEmailFormView(true));
     }
-    const data = {};
-    dispatch<any>(registerUser(data));
-  };
+  }, [isSignup]);
 
+  // 화면에 같은지 표시해주기 위한 상태
+  const [isSame, setIsSame] = useState(false);
   useEffect(() => {
     if (password.length && password === reEnterPassword) setIsSame(true);
     else setIsSame(false);
   }, [password, reEnterPassword]);
+
+  // 회원가입 상태 검사
+  const verify = useSelector((state: RootState) => state.signup.verify);
+  const validateSignup = () => {
+    return (
+      verify.isEmailVerified &&
+      verify.isOtpVerified &&
+      verify.isNicknameVerified &&
+      verify.isSignupIdVerified &&
+      verify.isTermsAgreed &&
+      password === reEnterPassword
+    );
+  };
+
+  // 회원가입
+  const handlePostSignup = () => {
+    if (!validateSignup()) {
+      return alert("Please check your information");
+    }
+    const data: RegisterUserType = {
+      email: email,
+      nickname: nickname,
+      loginId: signupId,
+      password: password,
+    };
+    dispatch<any>(registerUser(data));
+  };
+
+  // 이메일 인증
+  const handleVerifyEmail = () => {
+    const data: VerifyEmailType = {
+      email: email,
+    };
+    dispatch<any>(verifyEmail(data));
+  };
+
+  // otp 확인
+  const handleConfirmEmailCode = () => {
+    const data: ConfirmEmailCodeType = {
+      emailOtp: otp,
+    };
+    dispatch<any>(confirmEmailCode(data));
+  };
+
+  // 닉네임 중복 확인
+  const handleCheckNicknameDuplicate = () => {
+    const data: CheckNicknameDuplicateType = {
+      nickname: nickname,
+    };
+    dispatch<any>(checkNicknameDuplicate(data));
+  };
+
+  // 아이디 중복 확인
+  const handleCheckIdDuplicate = () => {
+    const data: CheckIdDuplicateType = {
+      loginId: signupId,
+    };
+    dispatch<any>(checkIdDuplicate(data));
+  };
 
   return (
     <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
@@ -55,13 +138,16 @@ const Page = () => {
             id="email2"
             type="email"
             value={email}
-            onInput={(e) => dispatch(setSignupEmail(e.currentTarget.value))}
+            onInput={(e) => {
+              dispatch(setSignupEmail(e.currentTarget.value));
+              dispatch(setIsEmailVerified(false));
+            }}
             placeholder="name@email.com"
             required
             shadow
           />
-          <Button onClick={() => dispatch<any>(confirmEmailCode(otp))}>
-            verify
+          <Button onClick={handleVerifyEmail}>
+            {verify.isEmailVerified ? "✅" : "verify"}
           </Button>
         </div>
       </div>
@@ -74,13 +160,16 @@ const Page = () => {
             id="otp"
             type="text"
             value={otp}
-            onInput={(e) => dispatch(setOTP(e.currentTarget.value))}
+            onInput={(e) => {
+              dispatch(setOTP(e.currentTarget.value));
+              dispatch(setIsOtpVerified(false));
+            }}
             placeholder="******"
             required
             shadow
           />
-          <Button onClick={() => dispatch<any>(confirmEmailCode(otp))}>
-            check
+          <Button onClick={handleConfirmEmailCode}>
+            {verify.isOtpVerified ? "✅" : "check"}
           </Button>
         </div>
       </div>
@@ -89,29 +178,45 @@ const Page = () => {
         <div className="mb-2 block">
           <Label htmlFor="nickname" value="Nickname" />
         </div>
-        <TextInput
-          id="nickname"
-          type="text"
-          value={nickname}
-          onInput={(e) => dispatch(setSignupNickname(e.currentTarget.value))}
-          placeholder=""
-          required
-          shadow
-        />
+        <div className="flex justify-between">
+          <TextInput
+            id="nickname"
+            type="text"
+            value={nickname}
+            onInput={(e) => {
+              dispatch(setSignupNickname(e.currentTarget.value));
+              dispatch(setIsNicknameVerified(false));
+            }}
+            placeholder=""
+            required
+            shadow
+          />
+          <Button onClick={handleCheckNicknameDuplicate}>
+            {verify.isNicknameVerified ? "✅" : "check"}
+          </Button>
+        </div>
       </div>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="signup-id" value="Login ID" />
         </div>
-        <TextInput
-          id="signup-id"
-          type="text"
-          value={signupId}
-          onInput={(e) => dispatch(setSignupId(e.currentTarget.value))}
-          placeholder=""
-          required
-          shadow
-        />
+        <div className="flex justify-between">
+          <TextInput
+            id="signup-id"
+            type="text"
+            value={signupId}
+            onInput={(e) => {
+              dispatch(setSignupId(e.currentTarget.value));
+              dispatch(setIsSignupIdVerified(false));
+            }}
+            placeholder=""
+            required
+            shadow
+          />
+          <Button onClick={handleCheckIdDuplicate}>
+            {verify.isSignupIdVerified ? "✅" : "check"}
+          </Button>
+        </div>
       </div>
       <div>
         <div className="mb-2 block">
@@ -130,7 +235,7 @@ const Page = () => {
         <div className="mb-2 block">
           <Label
             htmlFor="repeat-password"
-            value={`Repeat password ${isSame ? "✓" : ""}`}
+            value={`Repeat password ${isSame ? "✅" : "❌"}`}
           />
         </div>
         <TextInput
@@ -146,15 +251,20 @@ const Page = () => {
       </div>
       <HR className="mt-0" />
       <div className="flex items-center gap-2">
-        <Checkbox id="agree" required />
+        <Checkbox
+          id="agree"
+          onChange={(e) => dispatch(setIsTermsAgreed(e.target.checked))}
+          required
+        />
         <Label htmlFor="agree" className="flex">
           I agree with the&nbsp;
-          <Link
-            href="#"
-            className="text-cyan-600 hover:underline dark:text-cyan-500"
+          <p
+            onClick={() => dispatch(setIsTermsModalView(true))}
+            className="text-cyan-600 hover:underline dark:text-cyan-500 underline"
           >
             terms and conditions
-          </Link>
+          </p>
+          <TermsAndConditionsModal />
         </Label>
       </div>
       <Button type="submit" onClick={handlePostSignup}>

@@ -1,12 +1,16 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { LoginState } from "./loginSlice";
-import axiosInstance from "@/lib/axios";
+import axiosInstance from "@/utils/lib/axios";
+import { LoginUserType } from "@/utils/types/dto";
 
 // 로그인 -----------------------------------------------------
-export const loginUser = createAsyncThunk("login/login", async (data: any) => {
-  const response = await axiosInstance.post("/auth/login", data);
-  return response.data;
-});
+export const loginUser = createAsyncThunk(
+  "login/login",
+  async (data: LoginUserType) => {
+    const response = await axiosInstance.post("/auth/login", data);
+    return response.data;
+  }
+);
 
 const addLoginUser = (builder: ActionReducerMapBuilder<LoginState>) => {
   builder.addCase(loginUser.pending, (state) => {
@@ -14,9 +18,11 @@ const addLoginUser = (builder: ActionReducerMapBuilder<LoginState>) => {
     state.error = null;
   });
   builder.addCase(loginUser.fulfilled, (state, action) => {
+    state.isLogin = true;
     state.loading = false;
   });
   builder.addCase(loginUser.rejected, (state, action) => {
+    state.isLogin = false;
     state.loading = false;
     state.error = action.error.message ?? null;
   });

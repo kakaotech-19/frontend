@@ -1,7 +1,7 @@
 "use client";
 
-import path from "@/routes";
-import { setCommentView } from "@/store/slices/dairy/diarySlice";
+import path from "@/feature/routes";
+import { setCommentView } from "@/feature/redux/slices/dairy/diarySlice";
 import { Button, HR, Label, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useState, useLayoutEffect } from "react";

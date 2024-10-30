@@ -2,7 +2,7 @@
 
 import Lottie from "lottie-react";
 import GraphicAnimationData from "@/public/lottie-animation/graphic.json";
-import { AnimationType } from "@/type";
+import { AnimationType } from "@/utils/types/common";
 
 const GraphicAnimation: React.FC<AnimationType> = ({ style }) => {
   return (
