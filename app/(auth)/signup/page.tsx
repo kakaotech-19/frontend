@@ -8,6 +8,7 @@ import {
   setIsEmailVerified,
   setIsNicknameVerified,
   setIsOtpVerified,
+  setIsSignupIdVerified,
   setIsTermsAgreed,
   setOTP,
   setSignupEmail,
@@ -187,12 +188,17 @@ const Page = () => {
             id="signup-id"
             type="text"
             value={signupId}
-            onInput={(e) => dispatch(setSignupId(e.currentTarget.value))}
+            onInput={(e) => {
+              dispatch(setSignupId(e.currentTarget.value));
+              dispatch(setIsSignupIdVerified(false));
+            }}
             placeholder=""
             required
             shadow
           />
-          <Button onClick={handleCheckIdDuplicate}>check</Button>
+          <Button onClick={handleCheckIdDuplicate}>
+            {verify.isSignupIdVerified ? "✅" : "check"}
+          </Button>
         </div>
       </div>
       <div>
