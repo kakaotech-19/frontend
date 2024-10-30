@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Checkbox, HR, Label, TextInput } from "flowbite-react";
 import Link from "next/link";
 import {
+  setIsTermsAgreed,
   setOTP,
   setSignupEmail,
   setSignupId,
@@ -38,17 +39,31 @@ const Page = () => {
   const reEnterPassword = useSelector(
     (state: RootState) => state.signup.reEnterPassword
   );
-  const [isSame, setIsSame] = useState(false);
 
+  // 화면에 같은지 표시해주기 위한 상태
+  const [isSame, setIsSame] = useState(false);
   useEffect(() => {
     if (password.length && password === reEnterPassword) setIsSame(true);
     else setIsSame(false);
   }, [password, reEnterPassword]);
 
+  // 회원가입 상태 검사
+  const verify = useSelector((state: RootState) => state.signup.verify);
+  const validateSignup = () => {
+    return (
+      verify.isEmailVerified &&
+      verify.isOtpVerified &&
+      verify.isNicknameVerified &&
+      verify.isSignupIdVerified &&
+      verify.isTermsAgreed &&
+      password === reEnterPassword
+    );
+  };
+
+  // 회원가입
   const handlePostSignup = () => {
-    if (password !== reEnterPassword) {
-      alert("Passwords do not match");
-      return;
+    if (!validateSignup()) {
+      return alert("Please check your information");
     }
     const data: RegisterUserType = {
       email: email,
@@ -59,6 +74,7 @@ const Page = () => {
     dispatch<any>(registerUser(data));
   };
 
+  // 이메일 인증
   const handleVerifyEmail = () => {
     const data: VerifyEmailType = {
       email: email,
@@ -66,6 +82,7 @@ const Page = () => {
     dispatch<any>(verifyEmail(data));
   };
 
+  // otp 확인
   const handleConfirmEmailCode = () => {
     const data: ConfirmEmailCodeType = {
       emailOtp: otp,
@@ -73,6 +90,7 @@ const Page = () => {
     dispatch<any>(confirmEmailCode(data));
   };
 
+  // 닉네임 중복 확인
   const handleCheckNicknameDuplicate = () => {
     const data: CheckNicknameDuplicateType = {
       nickname: nickname,
@@ -80,6 +98,7 @@ const Page = () => {
     dispatch<any>(checkNicknameDuplicate(data));
   };
 
+  // 아이디 중복 확인
   const handleCheckIdDuplicate = () => {
     const data: CheckIdDuplicateType = {
       loginId: signupId,
@@ -191,7 +210,11 @@ const Page = () => {
       </div>
       <HR className="mt-0" />
       <div className="flex items-center gap-2">
-        <Checkbox id="agree" required />
+        <Checkbox
+          id="agree"
+          onChange={(e) => dispatch(setIsTermsAgreed(e.target.checked))}
+          required
+        />
         <Label htmlFor="agree" className="flex">
           I agree with the&nbsp;
           <Link
