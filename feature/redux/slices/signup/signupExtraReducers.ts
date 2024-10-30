@@ -101,9 +101,11 @@ const addcheckIdDuplicate = (builder: ActionReducerMapBuilder<SignupState>) => {
     state.error = null;
   });
   builder.addCase(checkIdDuplicate.fulfilled, (state, action) => {
+    state.verify.isSignupIdVerified = true;
     state.loading = false;
   });
   builder.addCase(checkIdDuplicate.rejected, (state, action) => {
+    state.verify.isSignupIdVerified = false;
     state.loading = false;
     state.error = action.error.message ?? null;
   });
