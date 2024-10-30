@@ -76,9 +76,11 @@ const addCheckNicknameDuplicate = (
     state.error = null;
   });
   builder.addCase(checkNicknameDuplicate.fulfilled, (state, action) => {
+    state.verify.isNicknameVerified = true;
     state.loading = false;
   });
   builder.addCase(checkNicknameDuplicate.rejected, (state, action) => {
+    state.verify.isNicknameVerified = false;
     state.loading = false;
     state.error = action.error.message ?? null;
   });
