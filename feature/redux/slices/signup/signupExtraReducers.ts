@@ -130,7 +130,7 @@ const addRegisterUser = (builder: ActionReducerMapBuilder<SignupState>) => {
     state.loading = false;
   });
   builder.addCase(registerUser.rejected, (state, action) => {
-    state.isEmailVerified = false;
+    state.isSignup = false;
     state.loading = false;
     state.error = action.error.message ?? null;
   });
