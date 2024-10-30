@@ -6,6 +6,7 @@ import { Button, Checkbox, HR, Label, TextInput } from "flowbite-react";
 import Link from "next/link";
 import {
   setIsEmailVerified,
+  setIsNicknameVerified,
   setIsOtpVerified,
   setIsTermsAgreed,
   setOTP,
@@ -164,12 +165,17 @@ const Page = () => {
             id="nickname"
             type="text"
             value={nickname}
-            onInput={(e) => dispatch(setSignupNickname(e.currentTarget.value))}
+            onInput={(e) => {
+              dispatch(setSignupNickname(e.currentTarget.value));
+              dispatch(setIsNicknameVerified(false));
+            }}
             placeholder=""
             required
             shadow
           />
-          <Button onClick={handleCheckNicknameDuplicate}>check</Button>
+          <Button onClick={handleCheckNicknameDuplicate}>
+            {verify.isNicknameVerified ? "✅" : "check"}
+          </Button>
         </div>
       </div>
       <div>
