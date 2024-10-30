@@ -24,9 +24,11 @@ const addVerifyEmail = (builder: ActionReducerMapBuilder<SignupState>) => {
     state.error = null;
   });
   builder.addCase(verifyEmail.fulfilled, (state, action) => {
+    state.verify.isEmailVerified = true;
     state.loading = false;
   });
   builder.addCase(verifyEmail.rejected, (state, action) => {
+    state.verify.isEmailVerified = false;
     state.loading = false;
     state.error = action.error.message ?? null;
   });
