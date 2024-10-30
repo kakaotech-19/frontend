@@ -90,6 +90,9 @@ const signupSlice = createSlice({
     setIsTermsAgreed: (state: SignupState, action: PayloadAction<boolean>) => {
       state.verify.isTermsAgreed = action.payload;
     },
+
+    // all reset --------------------------------
+    resetSignupState: () => initialState,
   },
   extraReducers: (builder: any) => addSignupExtraReducers(builder),
 });
@@ -106,6 +109,7 @@ export const {
   setIsNicknameVerified,
   setIsSignupIdVerified,
   setIsTermsAgreed,
+  resetSignupState,
 } = signupSlice.actions;
 export const extraReducers = signupSlice.reducer;
 export default signupSlice.reducer;

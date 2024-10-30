@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Checkbox, HR, Label, TextInput } from "flowbite-react";
 import Link from "next/link";
 import {
+  resetSignupState,
   setIsEmailVerified,
   setIsNicknameVerified,
   setIsOtpVerified,
@@ -52,6 +53,7 @@ const Page = () => {
   useEffect(() => {
     if (isSignup) {
       router.push(path.LOGIN);
+      dispatch(resetSignupState());
     }
   }, [isSignup]);
 
