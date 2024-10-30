@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Checkbox, HR, Label, TextInput } from "flowbite-react";
 import Link from "next/link";
 import {
+  setIsEmailVerified,
   setIsTermsAgreed,
   setOTP,
   setSignupEmail,
@@ -117,12 +118,17 @@ const Page = () => {
             id="email2"
             type="email"
             value={email}
-            onInput={(e) => dispatch(setSignupEmail(e.currentTarget.value))}
+            onInput={(e) => {
+              dispatch(setSignupEmail(e.currentTarget.value));
+              dispatch(setIsEmailVerified(false));
+            }}
             placeholder="name@email.com"
             required
             shadow
           />
-          <Button onClick={handleVerifyEmail}>verify</Button>
+          <Button onClick={handleVerifyEmail}>
+            {verify.isEmailVerified ? "✅" : "verify"}
+          </Button>
         </div>
       </div>
       <div>
@@ -194,7 +200,7 @@ const Page = () => {
         <div className="mb-2 block">
           <Label
             htmlFor="repeat-password"
-            value={`Repeat password ${isSame ? "✓" : ""}`}
+            value={`Repeat password ${isSame ? "✅" : "❌"}`}
           />
         </div>
         <TextInput
