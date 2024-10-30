@@ -14,6 +14,7 @@ export interface SignupState {
     isOtpVerified: boolean;
     isNicknameVerified: boolean;
     isSignupIdVerified: boolean;
+    isTermsAgreed: boolean;
   };
   loading: any;
   error: any;
@@ -32,6 +33,7 @@ export const initialState = {
     isOtpVerified: false,
     isNicknameVerified: false,
     isSignupIdVerified: false,
+    isTermsAgreed: false,
   },
   loading: false,
   error: "",
@@ -62,6 +64,9 @@ const signupSlice = createSlice({
     setOTP: (state: SignupState, action: PayloadAction<string>) => {
       state.otp = action.payload;
     },
+    setIsTermsAgreed: (state: SignupState, action: PayloadAction<boolean>) => {
+      state.verify.isTermsAgreed = action.payload;
+    },
   },
   extraReducers: (builder: any) => addSignupExtraReducers(builder),
 });
@@ -73,6 +78,7 @@ export const {
   setSignupPassword,
   setSignupReEnterPassword,
   setOTP,
+  setIsTermsAgreed,
 } = signupSlice.actions;
 export const extraReducers = signupSlice.reducer;
 export default signupSlice.reducer;
