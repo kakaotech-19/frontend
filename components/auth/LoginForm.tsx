@@ -19,11 +19,19 @@ const LoginForm: React.FC = () => {
   const loginId = useSelector((state: RootState) => state.login.loginId);
   const password = useSelector((state: RootState) => state.login.password);
 
+  // 로그인 상태 검사
+  const validateLogin = () => {
+    return loginId.trim().length > 0 && password.trim().length > 0;
+  };
+
   // 로그인
   const handleLogin = () => {
+    if (!validateLogin()) {
+      return;
+    }
     const data: LoginUserType = {
-      loginId: loginId,
-      password: password,
+      loginId: loginId.trim(),
+      password: password.trim(),
     };
     dispatch<any>(loginUser(data));
   };
