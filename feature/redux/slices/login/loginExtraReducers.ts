@@ -18,9 +18,11 @@ const addLoginUser = (builder: ActionReducerMapBuilder<LoginState>) => {
     state.error = null;
   });
   builder.addCase(loginUser.fulfilled, (state, action) => {
+    state.isLogin = true;
     state.loading = false;
   });
   builder.addCase(loginUser.rejected, (state, action) => {
+    state.isLogin = false;
     state.loading = false;
     state.error = action.error.message ?? null;
   });

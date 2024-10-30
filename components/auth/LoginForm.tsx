@@ -8,16 +8,27 @@ import {
 } from "@/feature/redux/slices/login/loginSlice";
 import { Label, TextInput, Button, HR } from "flowbite-react";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DirectionSVG } from "../svg";
 import { LoginUserType } from "@/utils/types/dto";
 import { loginUser } from "@/feature/redux/slices/login/loginExtraReducers";
+import { useRouter } from "next/navigation";
+import path from "@/feature/routes";
 
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
   const loginId = useSelector((state: RootState) => state.login.loginId);
   const password = useSelector((state: RootState) => state.login.password);
+
+  // 로그인 성공 시 유저 라우팅
+  const router = useRouter();
+  const isLogin = useSelector((state: RootState) => state.login.isLogin);
+  useEffect(() => {
+    if (isLogin) {
+      router.push(path.HOME);
+    }
+  }, [isLogin]);
 
   // 로그인 상태 검사
   const validateLogin = () => {
