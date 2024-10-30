@@ -32,11 +32,16 @@ const loginSlice = createSlice({
     setIsEmailFormView: (state: LoginState, action: PayloadAction<boolean>) => {
       state.isEmailFormView = action.payload;
     },
+    resetLoginState: () => initialState,
   },
   extraReducers: (builder: any) => addLoginExtraReducers(builder),
 });
 
-export const { setLoginId, setLoginPassword, setIsEmailFormView } =
-  loginSlice.actions;
+export const {
+  setLoginId,
+  setLoginPassword,
+  setIsEmailFormView,
+  resetLoginState,
+} = loginSlice.actions;
 export const extraReducers = loginSlice.reducer;
 export default loginSlice.reducer;

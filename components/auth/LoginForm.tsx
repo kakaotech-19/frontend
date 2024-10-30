@@ -2,6 +2,7 @@
 
 import { RootState } from "@/feature/redux";
 import {
+  resetLoginState,
   setIsEmailFormView,
   setLoginId,
   setLoginPassword,
@@ -27,6 +28,7 @@ const LoginForm: React.FC = () => {
   useEffect(() => {
     if (isLogin) {
       router.push(path.HOME);
+      dispatch(resetLoginState());
     }
   }, [isLogin]);
 
