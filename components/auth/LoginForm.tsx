@@ -11,12 +11,22 @@ import Link from "next/link";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DirectionSVG } from "../svg";
+import { LoginUserType } from "@/utils/types/dto";
 import { loginUser } from "@/feature/redux/slices/login/loginExtraReducers";
 
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
   const loginId = useSelector((state: RootState) => state.login.loginId);
   const password = useSelector((state: RootState) => state.login.password);
+
+  // 로그인
+  const handleLogin = () => {
+    const data: LoginUserType = {
+      loginId: loginId,
+      password: password,
+    };
+    dispatch<any>(loginUser(data));
+  };
 
   return (
     <>
@@ -29,7 +39,10 @@ const LoginForm: React.FC = () => {
       </Label>
       <div className="flex justify-center h-full items-center">
         <div className="w-80">
-          <form className="flex flex-col gap-4">
+          <form
+            className="flex flex-col gap-4"
+            onSubmit={(e) => e.preventDefault()}
+          >
             <div>
               <div className="mb-2 block">
                 <Label htmlFor="login-id" value="Login ID" />
@@ -64,7 +77,7 @@ const LoginForm: React.FC = () => {
                 forgot password?
               </Label>
             </div>
-            <Button type="button" onClick={() => {}}>
+            <Button type="submit" onClick={handleLogin}>
               Login
             </Button>
             <HR className="mb-0" />
