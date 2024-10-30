@@ -80,6 +80,13 @@ const Page = () => {
     dispatch<any>(checkNicknameDuplicate(data));
   };
 
+  const handleCheckIdDuplicate = () => {
+    const data: CheckIdDuplicateType = {
+      loginId: signupId,
+    };
+    dispatch<any>(checkIdDuplicate(data));
+  };
+
   return (
     <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
       <div>
@@ -148,7 +155,7 @@ const Page = () => {
             required
             shadow
           />
-          <Button>check</Button>
+          <Button onClick={handleCheckIdDuplicate}>check</Button>
         </div>
       </div>
       <div>
