@@ -6,6 +6,7 @@ import { Button, Checkbox, HR, Label, TextInput } from "flowbite-react";
 import Link from "next/link";
 import {
   setIsEmailVerified,
+  setIsOtpVerified,
   setIsTermsAgreed,
   setOTP,
   setSignupEmail,
@@ -140,12 +141,17 @@ const Page = () => {
             id="otp"
             type="text"
             value={otp}
-            onInput={(e) => dispatch(setOTP(e.currentTarget.value))}
+            onInput={(e) => {
+              dispatch(setOTP(e.currentTarget.value));
+              dispatch(setIsOtpVerified(false));
+            }}
             placeholder="******"
             required
             shadow
           />
-          <Button onClick={handleConfirmEmailCode}>check</Button>
+          <Button onClick={handleConfirmEmailCode}>
+            {verify.isOtpVerified ? "✅" : "check"}
+          </Button>
         </div>
       </div>
       <HR className="mt-0" />
