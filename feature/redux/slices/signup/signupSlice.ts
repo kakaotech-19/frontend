@@ -6,10 +6,15 @@ export interface SignupState {
   nickname: string;
   signupId: string;
   password: string;
-  otp: string;
   reEnterPassword: string;
-  isEmailVerified: boolean;
+  otp: string;
   isSignup: boolean;
+  verify: {
+    isEmailVerified: boolean;
+    isOtpVerified: boolean;
+    isNicknameVerified: boolean;
+    isSignupIdVerified: boolean;
+  };
   loading: any;
   error: any;
 }
@@ -21,8 +26,13 @@ export const initialState = {
   password: "",
   otp: "",
   reEnterPassword: "",
-  isEmailVerified: false,
   isSignup: false,
+  verify: {
+    isEmailVerified: false,
+    isOtpVerified: false,
+    isNicknameVerified: false,
+    isSignupIdVerified: false,
+  },
   loading: false,
   error: "",
 };
