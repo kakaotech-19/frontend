@@ -2,7 +2,7 @@
 
 import { RootState } from "@/feature/redux";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Checkbox, HR, Label, TextInput } from "flowbite-react";
+import { Button, Checkbox, HR, Label, Modal, TextInput } from "flowbite-react";
 import Link from "next/link";
 import {
   resetSignupState,
@@ -11,6 +11,7 @@ import {
   setIsOtpVerified,
   setIsSignupIdVerified,
   setIsTermsAgreed,
+  setIsTermsModalView,
   setOTP,
   setSignupEmail,
   setSignupId,
@@ -36,6 +37,7 @@ import {
 import { useRouter } from "next/navigation";
 import path from "@/feature/routes";
 import { setIsEmailFormView } from "@/feature/redux/slices/login/loginSlice";
+import TermsAndConditionsModal from "@/components/auth/TermsAndConditionsModal";
 
 const Page = () => {
   const dispatch = useDispatch();
@@ -257,12 +259,13 @@ const Page = () => {
         />
         <Label htmlFor="agree" className="flex">
           I agree with the&nbsp;
-          <Link
-            href="#"
-            className="text-cyan-600 hover:underline dark:text-cyan-500"
+          <p
+            onClick={() => dispatch(setIsTermsModalView(true))}
+            className="text-cyan-600 hover:underline dark:text-cyan-500 underline"
           >
             terms and conditions
-          </Link>
+          </p>
+          <TermsAndConditionsModal />
         </Label>
       </div>
       <Button type="submit" onClick={handlePostSignup}>
