@@ -35,7 +35,7 @@ import {
 } from "@/utils/types/dto";
 import { useRouter } from "next/navigation";
 import path from "@/feature/routes";
-import { setIsEmailFormView } from "@/feature/redux/slices/login/loginSlice";
+import { setIsIdLoginFormView } from "@/feature/redux/slices/login/loginSlice";
 import TermsAndConditionsModal from "@/components/auth/TermsAndConditionsModal";
 
 const Page = () => {
@@ -57,7 +57,7 @@ const Page = () => {
       alert("회원가입이 완료되었습니다. 로그인해주세요.");
       router.push(path.LOGIN);
       dispatch(resetSignupState());
-      dispatch(setIsEmailFormView(true));
+      dispatch(setIsIdLoginFormView(true));
     }
   }, [isSignup]);
 

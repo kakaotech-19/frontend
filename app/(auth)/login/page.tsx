@@ -1,53 +1,22 @@
 "use client";
 
-import { Button, HR } from "flowbite-react";
-import { useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "@/feature/redux";
-import { setIsEmailFormView } from "@/feature/redux/slices/login/loginSlice";
-import {
-  GoogleLoginButton,
-  KakaoLoginButton,
-  LoginForm,
-} from "@/components/auth";
-import path from "@/feature/routes";
+import { LoginForm, OauthLoginGroup } from "@/components/auth";
 
 const Page = () => {
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const isEmailFormView = useSelector(
-    (state: RootState) => state.login.isEmailFormView
+  const isIdLoginFormView = useSelector(
+    (state: RootState) => state.login.isIdLoginFormView
   );
   return (
     <>
-      {isEmailFormView ? (
+      {!isIdLoginFormView ? (
         <>
-          <LoginForm />
+          <OauthLoginGroup />
         </>
       ) : (
         <>
-          <KakaoLoginButton onClick={() => {}} />
-          <br />
-          <GoogleLoginButton onClick={() => {}} />
-          <div className="inline-flex items-center justify-center w-full">
-            <HR className="w-60 h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-            <span className="absolute px-3 font-sm text-gray-400 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900">
-              or
-            </span>
-          </div>
-          <Button
-            className="w-full"
-            onClick={() => dispatch(setIsEmailFormView(true))}
-          >
-            Sign in with ID
-          </Button>
-          <br />
-          <Button
-            className="w-full bg-white border border-gray-300 text-cyan-600 hover:text-white"
-            onClick={() => router.push(path.SIGNUP)}
-          >
-            Create Account
-          </Button>
+          <LoginForm />
         </>
       )}
     </>

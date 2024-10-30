@@ -5,7 +5,7 @@ export interface LoginState {
   loginId: string;
   password: string;
   isLogin: boolean;
-  isEmailFormView: boolean;
+  isIdLoginFormView: boolean;
   loading: any;
   error: any;
 }
@@ -14,7 +14,7 @@ export const initialState = {
   password: "",
   loginId: "",
   isLogin: false,
-  isEmailFormView: false,
+  isIdLoginFormView: false,
   loading: false,
   error: "",
 };
@@ -29,8 +29,11 @@ const loginSlice = createSlice({
     setLoginPassword: (state: LoginState, action: PayloadAction<string>) => {
       state.password = action.payload;
     },
-    setIsEmailFormView: (state: LoginState, action: PayloadAction<boolean>) => {
-      state.isEmailFormView = action.payload;
+    setIsIdLoginFormView: (
+      state: LoginState,
+      action: PayloadAction<boolean>
+    ) => {
+      state.isIdLoginFormView = action.payload;
     },
     resetLoginState: () => initialState,
   },
@@ -40,7 +43,7 @@ const loginSlice = createSlice({
 export const {
   setLoginId,
   setLoginPassword,
-  setIsEmailFormView,
+  setIsIdLoginFormView,
   resetLoginState,
 } = loginSlice.actions;
 export const extraReducers = loginSlice.reducer;
