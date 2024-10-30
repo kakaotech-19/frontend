@@ -13,12 +13,16 @@ import {
   setSignupReEnterPassword,
 } from "@/feature/redux/slices/signup/signupSlice";
 import {
+  checkIdDuplicate,
+  checkNicknameDuplicate,
   confirmEmailCode,
   registerUser,
   verifyEmail,
 } from "@/feature/redux/slices/signup/signupExtraReducers";
 import { useEffect, useState } from "react";
 import {
+  CheckIdDuplicateType,
+  CheckNicknameDuplicateType,
   ConfirmEmailCodeType,
   RegisterUserType,
   VerifyEmailType,
@@ -69,6 +73,13 @@ const Page = () => {
     dispatch<any>(confirmEmailCode(data));
   };
 
+  const handleCheckNicknameDuplicate = () => {
+    const data: CheckNicknameDuplicateType = {
+      nickname: nickname,
+    };
+    dispatch<any>(checkNicknameDuplicate(data));
+  };
+
   return (
     <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
       <div>
@@ -110,29 +121,35 @@ const Page = () => {
         <div className="mb-2 block">
           <Label htmlFor="nickname" value="Nickname" />
         </div>
-        <TextInput
-          id="nickname"
-          type="text"
-          value={nickname}
-          onInput={(e) => dispatch(setSignupNickname(e.currentTarget.value))}
-          placeholder=""
-          required
-          shadow
-        />
+        <div className="flex justify-between">
+          <TextInput
+            id="nickname"
+            type="text"
+            value={nickname}
+            onInput={(e) => dispatch(setSignupNickname(e.currentTarget.value))}
+            placeholder=""
+            required
+            shadow
+          />
+          <Button onClick={handleCheckNicknameDuplicate}>check</Button>
+        </div>
       </div>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="signup-id" value="Login ID" />
         </div>
-        <TextInput
-          id="signup-id"
-          type="text"
-          value={signupId}
-          onInput={(e) => dispatch(setSignupId(e.currentTarget.value))}
-          placeholder=""
-          required
-          shadow
-        />
+        <div className="flex justify-between">
+          <TextInput
+            id="signup-id"
+            type="text"
+            value={signupId}
+            onInput={(e) => dispatch(setSignupId(e.currentTarget.value))}
+            placeholder=""
+            required
+            shadow
+          />
+          <Button>check</Button>
+        </div>
       </div>
       <div>
         <div className="mb-2 block">
