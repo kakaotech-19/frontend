@@ -13,11 +13,16 @@ import {
   setSignupReEnterPassword,
 } from "@/feature/redux/slices/signup/signupSlice";
 import {
-  registerUser,
   confirmEmailCode,
+  registerUser,
+  verifyEmail,
 } from "@/feature/redux/slices/signup/signupExtraReducers";
 import { useEffect, useState } from "react";
-import { RegisterUserType } from "@/utils/types/dto";
+import {
+  ConfirmEmailCodeType,
+  RegisterUserType,
+  VerifyEmailType,
+} from "@/utils/types/dto";
 
 const Page = () => {
   const dispatch = useDispatch();
@@ -31,24 +36,38 @@ const Page = () => {
   );
   const [isSame, setIsSame] = useState(false);
 
+  useEffect(() => {
+    if (password.length && password === reEnterPassword) setIsSame(true);
+    else setIsSame(false);
+  }, [password, reEnterPassword]);
+
   const handlePostSignup = () => {
     if (password !== reEnterPassword) {
       alert("Passwords do not match");
       return;
     }
-    const data = {
-      email: "String",
-      nickname: "String",
-      loginId: "String",
-      password: "String",
+    const data: RegisterUserType = {
+      email: email,
+      nickname: nickname,
+      loginId: signupId,
+      password: password,
     };
     dispatch<any>(registerUser(data));
   };
 
-  useEffect(() => {
-    if (password.length && password === reEnterPassword) setIsSame(true);
-    else setIsSame(false);
-  }, [password, reEnterPassword]);
+  const handleVerifyEmail = () => {
+    const data: VerifyEmailType = {
+      email: email,
+    };
+    dispatch<any>(verifyEmail(data));
+  };
+
+  const handleConfirmEmailCode = () => {
+    const data: ConfirmEmailCodeType = {
+      emailOtp: otp,
+    };
+    dispatch<any>(confirmEmailCode(data));
+  };
 
   return (
     <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
@@ -66,7 +85,7 @@ const Page = () => {
             required
             shadow
           />
-          <Button onClick={() => {}}>verify</Button>
+          <Button onClick={handleVerifyEmail}>verify</Button>
         </div>
       </div>
       <div>
@@ -78,12 +97,12 @@ const Page = () => {
             id="otp"
             type="text"
             value={otp}
-            onInput={() => {}}
+            onInput={(e) => dispatch(setOTP(e.currentTarget.value))}
             placeholder="******"
             required
             shadow
           />
-          <Button onClick={() => {}}>check</Button>
+          <Button onClick={handleConfirmEmailCode}>check</Button>
         </div>
       </div>
       <HR className="mt-0" />
