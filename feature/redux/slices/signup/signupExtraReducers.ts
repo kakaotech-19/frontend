@@ -155,7 +155,6 @@ const addDeleteAccount = (builder: ActionReducerMapBuilder<SignupState>) => {
     state.loading = false;
   });
   builder.addCase(deleteAccount.rejected, (state, action) => {
-    state.isEmailVerified = false;
     state.loading = false;
     state.error = action.error.message ?? null;
   });
@@ -180,7 +179,6 @@ const addReissueToken = (builder: ActionReducerMapBuilder<SignupState>) => {
     state.loading = false;
   });
   builder.addCase(reissueToken.rejected, (state, action) => {
-    state.isEmailVerified = false;
     state.loading = false;
     state.error = action.error.message ?? null;
   });
