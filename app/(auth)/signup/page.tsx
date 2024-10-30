@@ -32,6 +32,8 @@ import {
   RegisterUserType,
   VerifyEmailType,
 } from "@/utils/types/dto";
+import { useRouter } from "next/navigation";
+import path from "@/feature/routes";
 
 const Page = () => {
   const dispatch = useDispatch();
@@ -43,6 +45,15 @@ const Page = () => {
   const reEnterPassword = useSelector(
     (state: RootState) => state.signup.reEnterPassword
   );
+
+  // 회원가입 성공시 유저 라우팅
+  const router = useRouter();
+  const isSignup = useSelector((state: RootState) => state.signup.isSignup);
+  useEffect(() => {
+    if (isSignup) {
+      router.push(path.LOGIN);
+    }
+  }, [isSignup]);
 
   // 화면에 같은지 표시해주기 위한 상태
   const [isSame, setIsSame] = useState(false);
