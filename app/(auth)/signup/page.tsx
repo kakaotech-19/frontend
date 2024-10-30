@@ -3,7 +3,6 @@
 import { RootState } from "@/feature/redux";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Checkbox, HR, Label, Modal, TextInput } from "flowbite-react";
-import Link from "next/link";
 import {
   resetSignupState,
   setIsEmailVerified,
