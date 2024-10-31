@@ -1,7 +1,7 @@
 "use client";
 
 import UploadFileLabel from "@/components/my/UploadFileLabel";
-import { Accordion, Button, Label } from "flowbite-react";
+import { Accordion, Button, HR, Label, TextInput } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -14,7 +14,42 @@ const Page: React.FC = () => {
           <Accordion>
             <Accordion.Panel>
               <Accordion.Title>내 정보</Accordion.Title>
-              <Accordion.Content></Accordion.Content>
+              <Accordion.Content>
+                <div>
+                  <div className="mb-2 block">
+                    <Label htmlFor="modi-email" value="Email" />
+                  </div>
+                  <div className="flex justify-between">
+                    <TextInput
+                      id="modi-email"
+                      type="email"
+                      value={"asdf"}
+                      onInput={(e) => {}}
+                      placeholder="name@email.com"
+                      required
+                      shadow
+                    />
+                    <Button onClick={() => {}}>변경하기</Button>
+                  </div>
+                </div>
+                <HR></HR>
+                <div>
+                  <div className="mb-2 block">
+                    <Label htmlFor="modi-nickname" value="Nickname" />
+                  </div>
+                  <div className="flex justify-between">
+                    <TextInput
+                      id="modi-nickname"
+                      type="text"
+                      value={"asdf"}
+                      onInput={(e) => {}}
+                      required
+                      shadow
+                    />
+                    <Button onClick={() => {}}>변경하기</Button>
+                  </div>
+                </div>
+              </Accordion.Content>
             </Accordion.Panel>
             <Accordion.Panel>
               <Accordion.Title>캐릭터 생성하기</Accordion.Title>
