@@ -1,5 +1,5 @@
 interface ButtonType {
-  onClick: () => void;
+  onClick?: () => void;
   type?: string;
   className?: string;
   text?: string;
