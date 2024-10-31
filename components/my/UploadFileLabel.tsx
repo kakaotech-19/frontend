@@ -1,42 +1,30 @@
 "use client";
 
+import { setSelectedFile } from "@/feature/redux/slices/member/memberSlice";
+import { encodeFileToBase64 } from "@/utils/function";
 import React, { useState } from "react";
-import axiosInstance from "@/utils/lib/axios";
+import { useDispatch } from "react-redux";
 
 const UploadFileLabel: React.FC = () => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const dispatch = useDispatch();
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
-    if (file) {
-      setSelectedFile(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+    if (!file) {
+      return;
     }
-  };
+    const base64File = await encodeFileToBase64(file);
+    dispatch(setSelectedFile(base64File as string));
 
-  const handleUpload = async () => {
-    if (selectedFile) {
-      const formData = new FormData();
-      formData.append("file", selectedFile);
-
-      try {
-        const response = await axiosInstance.post("/api/upload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        console.log("파일 업로드 성공:", response.data);
-        // 여기에 업로드 성공 후 처리 로직을 추가하세요
-      } catch (error) {
-        console.error("파일 업로드 실패:", error);
-        // 여기에 에러 처리 로직을 추가하세요
-      }
-    }
+    // 파일 미리보기
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewUrl(reader.result as string);
+    };
+    reader.readAsDataURL(file);
   };
 
   return (

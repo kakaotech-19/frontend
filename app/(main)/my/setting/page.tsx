@@ -4,10 +4,12 @@ import UploadFileLabel from "@/components/my/UploadFileLabel";
 import { RootState } from "@/feature/redux";
 import {
   changeNickname,
+  createCharacter,
   fetchMemberInfo,
 } from "@/feature/redux/slices/member/memberExtraReducers";
 import { setNickname } from "@/feature/redux/slices/member/memberSlice";
-import { ChangeNicknameType } from "@/utils/types/dto";
+import { encodeFileToBase64 } from "@/utils/function";
+import { ChangeNicknameType, CreateCharacterType } from "@/utils/types/dto";
 import { Accordion, Button, HR, Label, TextInput } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
@@ -18,6 +20,9 @@ const Page: React.FC = () => {
   const dispatch = useDispatch();
   const email = useSelector((state: RootState) => state.member.email);
   const nickname = useSelector((state: RootState) => state.member.nickname);
+  const selectedFile = useSelector(
+    (state: RootState) => state.member.selectedFile
+  );
 
   const handleChangeNickname = () => {
     const data: ChangeNicknameType = {
@@ -29,6 +34,13 @@ const Page: React.FC = () => {
   useEffect(() => {
     dispatch<any>(fetchMemberInfo());
   }, []);
+
+  const handleCreateCharacter = async () => {
+    const data: CreateCharacterType = {
+      image: selectedFile,
+    };
+    dispatch<any>(createCharacter(data));
+  };
 
   return (
     <div className="w-full h-screen justify-center">
@@ -86,7 +98,10 @@ const Page: React.FC = () => {
                       - 얼굴이 선명하게 나온 사진을 사용해주세요. <br />
                     </Label>
                   </div>
-                  <Button className="mt-4"> 캐릭터 생성하기 </Button>
+                  <Button className="mt-4" onClick={handleCreateCharacter}>
+                    {" "}
+                    캐릭터 생성하기{" "}
+                  </Button>
                 </div>
               </Accordion.Content>
             </Accordion.Panel>

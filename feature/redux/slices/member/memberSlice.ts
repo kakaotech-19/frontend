@@ -6,7 +6,7 @@ export interface MemberState {
   email: string;
   characterImageUrl: string;
 
-  selectedFile: File | null;
+  selectedFile: string;
   loading: boolean;
   error: string | null;
 }
@@ -16,7 +16,7 @@ const initialState: MemberState = {
   email: "",
   characterImageUrl: "",
 
-  selectedFile: null,
+  selectedFile: "",
   loading: false,
   error: null,
 };
@@ -28,7 +28,7 @@ const memberSlice = createSlice({
     setNickname: (state: MemberState, action: PayloadAction<string>) => {
       state.nickname = action.payload;
     },
-    setSelectedFile: (state: MemberState, action: PayloadAction<File>) => {
+    setSelectedFile: (state: MemberState, action: PayloadAction<string>) => {
       state.selectedFile = action.payload;
     },
   },
