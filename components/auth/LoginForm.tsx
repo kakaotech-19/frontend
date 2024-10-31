@@ -3,7 +3,7 @@
 import { RootState } from "@/feature/redux";
 import {
   resetLoginState,
-  setIsEmailFormView,
+  setIsIdLoginFormView,
   setLoginId,
   setLoginPassword,
 } from "@/feature/redux/slices/login/loginSlice";
@@ -52,7 +52,7 @@ const LoginForm: React.FC = () => {
   return (
     <>
       <Label
-        onClick={() => dispatch(setIsEmailFormView(false))}
+        onClick={() => dispatch(setIsIdLoginFormView(false))}
         className="fixed flex top-4 left-4 items-center text-cyan-600 hover:underline dark:text-cyan-500 text-sm"
       >
         <DirectionSVG />
