@@ -1,7 +1,9 @@
 "use client";
 
+import path from "@/feature/routes";
 import { ButtonType } from "@/utils/types/common";
 import { Button } from "flowbite-react";
+import Link from "next/link";
 import React from "react";
 
 const KakaoLoginButton: React.FC<ButtonType> = ({ onClick }) => {
@@ -34,7 +36,7 @@ const KakaoLoginButton: React.FC<ButtonType> = ({ onClick }) => {
           clipRule="evenodd"
         ></path>
       </svg>
-      <p className="ml-1">Sign in with Kakao</p>
+      <p className="ml-1">Log in with Kakao</p>
     </Button>
   );
 };
