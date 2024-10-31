@@ -2,10 +2,12 @@
 
 import UploadFileLabel from "@/components/my/UploadFileLabel";
 import { RootState } from "@/feature/redux";
+import { changeNickname } from "@/feature/redux/slices/member/memberExtraReducers";
 import {
   setEmail,
   setNickname,
 } from "@/feature/redux/slices/member/memberSlice";
+import { ChangeNicknameType } from "@/utils/types/dto";
 import { Accordion, Button, HR, Label, TextInput } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -16,6 +18,13 @@ const Page: React.FC = () => {
   const dispatch = useDispatch();
   const email = useSelector((state: RootState) => state.member.email);
   const nickname = useSelector((state: RootState) => state.member.nickname);
+
+  const handleChangeNickname = () => {
+    const data: ChangeNicknameType = {
+      nickname: nickname,
+    };
+    dispatch<any>(changeNickname(data));
+  };
   return (
     <div className="w-full h-screen justify-center">
       <div className="w-full flex justify-center items-center">
@@ -57,7 +66,7 @@ const Page: React.FC = () => {
                       required
                       shadow
                     />
-                    <Button onClick={() => {}}>변경하기</Button>
+                    <Button onClick={handleChangeNickname}>변경하기</Button>
                   </div>
                 </div>
               </Accordion.Content>
