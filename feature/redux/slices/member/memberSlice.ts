@@ -26,8 +26,8 @@ const memberSlice = createSlice({
     setNickname: (state: MemberState, action: PayloadAction<string>) => {
       state.nickname = action.payload;
     },
-    extraReducers: (builder: any) => addMemberExtraReducers(builder),
   },
+  extraReducers: (builder: any) => addMemberExtraReducers(builder),
 });
 
 export const { setNickname } = memberSlice.actions;

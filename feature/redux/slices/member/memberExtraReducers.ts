@@ -18,7 +18,6 @@ const addFetchMemberInfo = (builder: ActionReducerMapBuilder<MemberState>) => {
     state.error = null;
   });
   builder.addCase(fetchMemberInfo.fulfilled, (state, action) => {
-    console.log(action.payload);
     state.email = action.payload.email;
     state.nickname = action.payload.nickname;
     state.characterImageUrl = action.payload.characterImageUrl;
