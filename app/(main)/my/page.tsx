@@ -47,8 +47,6 @@ const Page: React.FC = () => {
     }, 100);
   };
 
-  useEffect(() => {}, []);
-
   return (
     <div className="w-full h-screen justify-center">
       <div className="flex">

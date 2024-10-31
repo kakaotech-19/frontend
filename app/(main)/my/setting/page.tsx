@@ -2,7 +2,10 @@
 
 import UploadFileLabel from "@/components/my/UploadFileLabel";
 import { RootState } from "@/feature/redux";
-import { changeNickname } from "@/feature/redux/slices/member/memberExtraReducers";
+import {
+  changeNickname,
+  fetchMemberInfo,
+} from "@/feature/redux/slices/member/memberExtraReducers";
 import {
   setEmail,
   setNickname,
@@ -10,7 +13,7 @@ import {
 import { ChangeNicknameType } from "@/utils/types/dto";
 import { Accordion, Button, HR, Label, TextInput } from "flowbite-react";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const Page: React.FC = () => {
@@ -25,6 +28,13 @@ const Page: React.FC = () => {
     };
     dispatch<any>(changeNickname(data));
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch<any>(fetchMemberInfo());
+    }, 1000);
+  }, []);
+
   return (
     <div className="w-full h-screen justify-center">
       <div className="w-full flex justify-center items-center">
@@ -42,12 +52,11 @@ const Page: React.FC = () => {
                       id="modi-email"
                       type="email"
                       value={email}
-                      onInput={(e) => dispatch(setEmail(e.currentTarget.value))}
                       placeholder="name@email.com"
                       required
                       shadow
+                      readOnly
                     />
-                    <Button onClick={() => {}}>변경하기</Button>
                   </div>
                 </div>
                 <HR></HR>
