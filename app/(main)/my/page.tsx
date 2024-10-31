@@ -9,14 +9,15 @@ import path from "@/feature/routes";
 import Image from "next/image";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SettingSVG from "@/components/svg/SettingSVG";
-import { HR } from "flowbite-react";
+import { Button, HR, Modal } from "flowbite-react";
+import { Feed } from "@/components/home";
 
 interface Post {
   id: number;
   imageUrl: string;
 }
 
-const dummyPosts: Post[] = Array(100)
+const dummyPosts: Post[] = Array(12)
   .fill(null)
   .map((_, index) => ({
     id: index + 1,
@@ -26,6 +27,7 @@ const dummyPosts: Post[] = Array(100)
 const Page: React.FC = () => {
   const date = useSelector((state: RootState) => state.diary.date);
   const router = useRouter();
+  const [openModal, setOpenModal] = useState(false);
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [hasMore, setHasMore] = useState(true);
@@ -44,6 +46,8 @@ const Page: React.FC = () => {
       }
     }, 100);
   };
+
+  useEffect(() => {}, []);
 
   return (
     <div className="w-full h-screen justify-center">
@@ -79,7 +83,11 @@ const Page: React.FC = () => {
               {" "}
               {/* grid-cols-3에서 grid-cols-2로 변경 */}
               {posts.map((item) => (
-                <div key={item.id} className="aspect-square relative">
+                <div
+                  key={item.id}
+                  className="aspect-square relative"
+                  onClick={() => setOpenModal(true)}
+                >
                   <Image
                     src={item.imageUrl}
                     alt={`게시물 이미지 ${item.id}`}
@@ -93,6 +101,17 @@ const Page: React.FC = () => {
           </InfiniteScroll>
         </div>
       </div>
+      <Modal show={openModal} onClose={() => setOpenModal(false)}>
+        <Modal.Header>토닥토닥</Modal.Header>
+        <Button onClick={() => router.push(path.READ)}>
+          ► 2024-10-13 원본 보러가기{" "}
+        </Button>
+        <Modal.Body>
+          <div className="space-y-6">
+            <Feed />
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
