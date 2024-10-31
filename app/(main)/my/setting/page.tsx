@@ -6,10 +6,7 @@ import {
   changeNickname,
   fetchMemberInfo,
 } from "@/feature/redux/slices/member/memberExtraReducers";
-import {
-  setEmail,
-  setNickname,
-} from "@/feature/redux/slices/member/memberSlice";
+import { setNickname } from "@/feature/redux/slices/member/memberSlice";
 import { ChangeNicknameType } from "@/utils/types/dto";
 import { Accordion, Button, HR, Label, TextInput } from "flowbite-react";
 import { useRouter } from "next/navigation";
@@ -30,9 +27,7 @@ const Page: React.FC = () => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      dispatch<any>(fetchMemberInfo());
-    }, 1000);
+    dispatch<any>(fetchMemberInfo());
   }, []);
 
   return (
