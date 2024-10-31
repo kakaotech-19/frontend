@@ -1,4 +1,10 @@
 const enum path {
+  // OAUTH ------------------------------
+  OAUTH = "/oauth2/authorization",
+  KAKAO = `${OAUTH}/kakao`,
+  NAVER = `${OAUTH}/naver`,
+  GOOGLE = `${OAUTH}/google`,
+
   // AUTH ------------------------------
   LOGIN = "/login",
   SIGNUP = "/signup",
