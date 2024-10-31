@@ -1,12 +1,21 @@
 "use client";
 
 import UploadFileLabel from "@/components/my/UploadFileLabel";
+import { RootState } from "@/feature/redux";
+import {
+  setEmail,
+  setNickname,
+} from "@/feature/redux/slices/member/memberSlice";
 import { Accordion, Button, HR, Label, TextInput } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Page: React.FC = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const email = useSelector((state: RootState) => state.member.email);
+  const nickname = useSelector((state: RootState) => state.member.nickname);
   return (
     <div className="w-full h-screen justify-center">
       <div className="w-full flex justify-center items-center">
@@ -23,8 +32,8 @@ const Page: React.FC = () => {
                     <TextInput
                       id="modi-email"
                       type="email"
-                      value={"asdf"}
-                      onInput={(e) => {}}
+                      value={email}
+                      onInput={(e) => dispatch(setEmail(e.currentTarget.value))}
                       placeholder="name@email.com"
                       required
                       shadow
@@ -41,8 +50,10 @@ const Page: React.FC = () => {
                     <TextInput
                       id="modi-nickname"
                       type="text"
-                      value={"asdf"}
-                      onInput={(e) => {}}
+                      value={nickname}
+                      onInput={(e) =>
+                        dispatch(setNickname(e.currentTarget.value))
+                      }
                       required
                       shadow
                     />
