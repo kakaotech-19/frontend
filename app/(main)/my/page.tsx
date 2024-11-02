@@ -10,42 +10,24 @@ import Image from "next/image";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SettingSVG from "@/components/svg/SettingSVG";
 import { Button, HR, Modal } from "flowbite-react";
-import { Feed } from "@/components/home";
 import { fetchMemberInfo } from "@/feature/redux/slices/member/memberExtraReducers";
-
-interface Post {
-  id: number;
-  imageUrl: string;
-}
-
-const dummyPosts: Post[] = Array(12)
-  .fill(null)
-  .map((_, index) => ({
-    id: index + 1,
-    imageUrl: "/cat.png",
-  }));
-
+import { fetchMyFeedEntries } from "@/feature/redux/slices/feed/feedExtraReducers";
+import { MyFeed } from "@/utils/types/dto";
 const Page: React.FC = () => {
-  const date = useSelector((state: RootState) => state.diary.date);
   const router = useRouter();
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
-  const [posts, setPosts] = useState<Post[]>([]);
+  const myFeedList = useSelector((state: RootState) => state.feed.myFeedList);
+
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
     fetchMoreData();
   }, []);
 
+  const myFeedAfter = useSelector((state: RootState) => state.feed.myFeedAfter);
   const fetchMoreData = () => {
-    setTimeout(() => {
-      const currentLength = posts.length;
-      const nextPosts = dummyPosts.slice(currentLength, currentLength + 12);
-      setPosts((prevPosts) => [...prevPosts, ...nextPosts]);
-      if (posts.length + nextPosts.length >= dummyPosts.length) {
-        setHasMore(false);
-      }
-    }, 100);
+    dispatch<any>(fetchMyFeedEntries(myFeedAfter));
   };
 
   const handleFetchMemberInfo = () => {
@@ -80,7 +62,7 @@ const Page: React.FC = () => {
         <h2 className="text-lg font-bold mb-4"> 나의 게시물 </h2>
         <div className="w-full">
           <InfiniteScroll
-            dataLength={posts.length}
+            dataLength={myFeedList.length}
             next={fetchMoreData}
             hasMore={hasMore}
             loader={<h4>로딩중 ...</h4>}
@@ -94,15 +76,15 @@ const Page: React.FC = () => {
             <div className="w-full grid grid-cols-2 gap-4">
               {" "}
               {/* grid-cols-3에서 grid-cols-2로 변경 */}
-              {posts.map((item) => (
+              {myFeedList.map((myFeed: MyFeed) => (
                 <div
-                  key={item.id}
+                  key={myFeed.publicDiaryId}
                   className="aspect-square relative"
                   onClick={() => setOpenModal(true)}
                 >
                   <Image
-                    src={item.imageUrl}
-                    alt={`게시물 이미지 ${item.id}`}
+                    src={myFeed.webtoonImageUrl}
+                    alt={`게시물 이미지 ${myFeed.publicDiaryId}`}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover rounded-md shadow-md"
