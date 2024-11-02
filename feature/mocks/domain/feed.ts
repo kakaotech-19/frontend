@@ -51,6 +51,30 @@ export const feedMockups = [
     return new HttpResponse(null, { status: 204 });
   }),
 
+  // 나의 공개 일기 불러오기(무한 스크롤)
+  http.get(url + "/diary/my/shared", () => {
+    return HttpResponse.json({
+      diaries: [
+        {
+          publicDiaryId: 13, // public diary,
+          webtoonImageUrl: "/minion2.png", // diary
+          createdDate: "2024-09-21", // public diary
+        },
+        {
+          publicDiaryId: 12, // public diary,
+          webtoonImageUrl: "/minion3.png", // diary
+          createdDate: "2024-09-20", // public diary
+        },
+        {
+          publicDiaryId: 11, // public diary,
+          webtoonImageUrl: "/minion4.png", // diary
+          createdDate: "2024-09-19", // public diary
+        },
+      ], // 총 12개 데이터 전달
+      after: 11,
+    });
+  }),
+
   // 나의 공개 일기 상세 조회
   http.get(url + "/diary/my/shared/detail", () => {
     return HttpResponse.json({
