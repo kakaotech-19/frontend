@@ -36,6 +36,9 @@ const Page: React.FC = () => {
   }, []);
 
   const handleCreateCharacter = async () => {
+    if (!selectedFile) {
+      return;
+    }
     const data: CreateCharacterType = {
       image: selectedFile,
     };

@@ -67,6 +67,7 @@ const addCreateCharacter = (builder: ActionReducerMapBuilder<MemberState>) => {
     state.error = null;
   });
   builder.addCase(createCharacter.fulfilled, (state, action) => {
+    state.characterImageUrl = action.payload.characterImageUrl;
     state.loading = false;
   });
   builder.addCase(createCharacter.rejected, (state, action) => {
