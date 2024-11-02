@@ -1,8 +1,22 @@
 "use client";
 
+import { ReactionType } from "@/utils/types/dto";
 import React, { useState } from "react";
 
-const EmojiSelector: React.FC = () => {
+interface ReactionCount {
+  reactionCount: ReactionType;
+}
+
+interface MyReaction {
+  myReaction: string[];
+}
+
+interface EmojiSelectorProps extends ReactionCount, MyReaction {}
+
+const EmojiSelector: React.FC<EmojiSelectorProps> = ({
+  reactionCount,
+  myReaction,
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {

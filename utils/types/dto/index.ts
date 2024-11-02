@@ -21,8 +21,8 @@ export type {
 import { ReactionFeedType, UploadFeedType } from "./feedRequestType";
 export type { ReactionFeedType, UploadFeedType };
 
-import { FeedType } from "./feedResponseType";
-export type { FeedType };
+import { FeedType, ReactionType } from "./feedResponseType";
+export type { FeedType, ReactionType };
 
 // 다이어리 도메인 -------------------------------------
 import { CreateDiaryEntryType } from "./diaryRequestType";

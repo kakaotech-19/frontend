@@ -10,6 +10,8 @@ const Feed: React.FC<FeedType> = ({
   date,
   webtoonImageUrls,
   bgmUrl,
+  reactionCount,
+  myReaction,
 }) => {
   return (
     <div className="flex-col w-full max-w-md border-b border-gray-200">
@@ -29,7 +31,7 @@ const Feed: React.FC<FeedType> = ({
           className="rounded-md shadow-md"
         />
         <AudioModule src={bgmUrl} />
-        <EmojiSelector />
+        <EmojiSelector reactionCount={reactionCount} myReaction={myReaction} />
       </div>
       <div className="mb-10">
         <p className="w-full border-none text-sm bg-white font-mono m-2">
