@@ -11,15 +11,20 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import SettingSVG from "@/components/svg/SettingSVG";
 import { Button, HR, Modal } from "flowbite-react";
 import { fetchMemberInfo } from "@/feature/redux/slices/member/memberExtraReducers";
-import { fetchMyFeedEntries } from "@/feature/redux/slices/feed/feedExtraReducers";
-import { MyFeed } from "@/utils/types/dto";
+import {
+  fetchMyFeedDetail,
+  fetchMyFeedEntries,
+} from "@/feature/redux/slices/feed/feedExtraReducers";
+import { MyFeedType } from "@/utils/types/dto";
 const Page: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const myFeedList = useSelector((state: RootState) => state.feed.myFeedList);
-
   const [hasMore, setHasMore] = useState(true);
+  const selectedFeed = useSelector(
+    (state: RootState) => state.feed.selectedFeed
+  );
 
   useEffect(() => {
     fetchMoreData();
@@ -78,11 +83,14 @@ const Page: React.FC = () => {
             style={{ overflow: "visible" }} // 세로 스크롤을 위해 추가
           >
             <div className="w-full grid grid-cols-2 gap-4">
-              {myFeedList.map((myFeed: MyFeed) => (
+              {myFeedList.map((myFeed: MyFeedType) => (
                 <div
                   key={myFeed.publicDiaryId}
                   className="aspect-square relative"
-                  onClick={() => setOpenModal(true)}
+                  onClick={() => {
+                    setOpenModal(true);
+                    dispatch<any>(fetchMyFeedDetail(myFeed.createdDate));
+                  }}
                 >
                   <Image
                     src={myFeed.webtoonImageUrl}
@@ -99,8 +107,12 @@ const Page: React.FC = () => {
       </div>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>토닥토닥</Modal.Header>
-        <Button onClick={() => router.push(path.READ)}>
-          ► 2024-10-13 원본 보러가기{" "}
+        <Button
+          onClick={() =>
+            router.push(`${path.READ}/?date=${selectedFeed.diaryCreatedDate}`)
+          }
+        >
+          ► {selectedFeed.diaryCreatedDate} 원본 보러가기{" "}
         </Button>
         <Modal.Body>
           <div className="space-y-6">{/* <Feed /> */}</div>

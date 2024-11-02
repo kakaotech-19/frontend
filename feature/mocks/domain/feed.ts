@@ -90,7 +90,7 @@ export const feedMockups = [
         cheering: 6,
       },
       myReaction: ["like", "cheering"], // reaction
-      diaryCreatedDate: "2024-10-30", // diary
+      diaryCreatedDate: "2024-10-31", // diary
     });
   }),
 ];
