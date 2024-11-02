@@ -119,9 +119,7 @@ const Page: React.FC = () => {
           ► 2024-10-13 원본 보러가기{" "}
         </Button>
         <Modal.Body>
-          <div className="space-y-6">
-            <Feed />
-          </div>
+          <div className="space-y-6">{/* <Feed /> */}</div>
         </Modal.Body>
       </Modal>
     </div>

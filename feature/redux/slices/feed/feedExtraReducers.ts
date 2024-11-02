@@ -19,6 +19,7 @@ const addFetchFeedEntries = (builder: ActionReducerMapBuilder<FeedState>) => {
   });
   builder.addCase(fetchFeedEntries.fulfilled, (state, action) => {
     state.feedList = [...state.feedList, ...action.payload.diaries];
+    state.feedAfter = action.payload.after;
     state.loading = false;
   });
   builder.addCase(fetchFeedEntries.rejected, (state, action) => {
@@ -32,7 +33,7 @@ const addFetchFeedEntries = (builder: ActionReducerMapBuilder<FeedState>) => {
 export const reactionFeed = createAsyncThunk(
   "feed/reactionFeed",
   async (data: ReactionFeedType) => {
-    const response = await axiosInstance.post("/diary/public/1/reaction", data);
+    const response = await axiosInstance.post("/diary/public/reaction", data);
     return response.data;
   }
 );

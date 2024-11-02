@@ -1,15 +1,17 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { addFeedExtraReducers } from "./feedExtraReducers";
 import { FeedType } from "@/utils/types/dto";
 
 export interface FeedState {
   feedList: FeedType[];
+  feedAfter: number;
   loading?: boolean;
   error?: string | null;
 }
 
 const initialState: FeedState = {
   feedList: [],
+  feedAfter: 0,
   loading: false,
   error: null,
 };

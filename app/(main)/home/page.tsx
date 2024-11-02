@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Page: React.FC = () => {
   const feedList = useSelector((state: RootState) => state.feed.feedList);
+  const feedAfter = useSelector((state: RootState) => state.feed.feedAfter);
   const [hasMore, setHasMore] = useState(true);
   const dispatch = useDispatch();
 
@@ -17,11 +18,7 @@ const Page: React.FC = () => {
   }, []);
 
   const fetchMoreData = () => {
-    // feedList가 비어있으면 0을, 그렇지 않으면 마지막 요소의 publicDiaryId를 사용
-    const lastId =
-      feedList.length > 0 ? feedList[feedList.length - 1].publicDiaryId : 0;
-
-    dispatch<any>(fetchFeedEntries(lastId));
+    dispatch<any>(fetchFeedEntries(feedAfter));
 
     if (feedList.length >= 50) {
       setHasMore(false);
