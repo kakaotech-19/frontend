@@ -2,26 +2,33 @@ import { UserAvatarWithLabel } from "../my";
 import Image from "next/image";
 import AudioModule from "./AudioModule";
 import EmojiSelector from "./EmojiSelector";
+import { FeedType } from "@/utils/types/dto";
 
-const Feed: React.FC = () => {
+const Feed: React.FC<FeedType> = ({
+  nickname,
+  characterImageUrl,
+  date,
+  webtoonImageUrls,
+  bgmUrl,
+}) => {
   return (
     <div className="flex-col w-full max-w-md border-b border-gray-200">
       <UserAvatarWithLabel
-        imageUrl="/cat.png"
-        nickname="King cat"
-        description="2024-10-10"
+        imageUrl={characterImageUrl}
+        nickname={nickname}
+        description={date}
       />
       <div className="w-full relative">
         <Image
           width={500}
           height={500}
-          src={"/cat.png"}
-          alt={"게시물 이미지"}
+          src={webtoonImageUrls[0]}
+          alt={"public-feed" + date + nickname}
           sizes="100vw"
           style={{ width: "100%", height: "auto" }}
           className="rounded-md shadow-md"
         />
-        <AudioModule src="https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3" />
+        <AudioModule src={bgmUrl} />
         <EmojiSelector />
       </div>
       <div className="mb-10">

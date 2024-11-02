@@ -6,7 +6,7 @@ import { ReactionFeedType, UploadFeedType } from "@/utils/types/dto";
 // 일기장 불러오기 (무한 스크롤) -----------------------------------------------------
 export const fetchFeedEntries = createAsyncThunk(
   "feed/fetchFeedEntries",
-  async (params: number) => {
+  async (params?: number) => {
     const response = await axiosInstance.get(`/diary/public?after=${params}`);
     return response.data;
   }
@@ -18,6 +18,7 @@ const addFetchFeedEntries = (builder: ActionReducerMapBuilder<FeedState>) => {
     state.error = null;
   });
   builder.addCase(fetchFeedEntries.fulfilled, (state, action) => {
+    state.feedList = [...state.feedList, ...action.payload.diaries];
     state.loading = false;
   });
   builder.addCase(fetchFeedEntries.rejected, (state, action) => {

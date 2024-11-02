@@ -17,14 +17,9 @@ const initialState: FeedState = {
 const feedSlice = createSlice({
   name: "feed",
   initialState,
-  reducers: {
-    actionName: (state, action: PayloadAction<FeedState>) => {
-      // 상태 업데이트 로직
-    },
-    // 추가 리듀서
-    extraReducers: (builder: any) => addFeedExtraReducers(builder),
-  },
+  reducers: {},
+  extraReducers: (builder: any) => addFeedExtraReducers(builder),
 });
 
-export const { actionName } = feedSlice.actions;
+export const {} = feedSlice.actions;
 export default feedSlice.reducer;
