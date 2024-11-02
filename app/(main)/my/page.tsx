@@ -58,9 +58,7 @@ const Page: React.FC = () => {
   );
   const email = useSelector((state: RootState) => state.member.email);
   useEffect(() => {
-    setTimeout(() => {
-      handleFetchMemberInfo();
-    }, 1000);
+    handleFetchMemberInfo();
   }, []);
 
   return (

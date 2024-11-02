@@ -12,12 +12,12 @@ export const memberMockups = [
   }),
 
   // 회원 정보 축약
-  http.get(url + "/member/summary", () => {
-    return HttpResponse.json({
-      nickname: "todak",
-      characterImageUrl: "/minion2.png",
-    });
-  }),
+  // http.get(url + "/member/summary", () => {
+  //   return HttpResponse.json({
+  //     nickname: "todak",
+  //     characterImageUrl: "/minion2.png",
+  //   });
+  // }),
 
   // 캐릭터 불러오기
   http.get(url + "/member/image", () => {
