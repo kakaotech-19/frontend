@@ -37,7 +37,7 @@ export const feedMockups = [
   }),
 
   // 일기장 반응 이벤트
-  http.post(url + "/diary/public/1/reaction", () => {
+  http.post(url + "/diary/public/reaction", () => {
     return new HttpResponse(null, { status: 204 });
   }),
 
