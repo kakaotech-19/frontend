@@ -1,108 +1,43 @@
 import { HttpResponse, http } from "msw";
 
 const url = process.env.NEXT_PUBLIC_API_URL;
+
+// 목업 데이터 생성을 위한 헬퍼 함수
+const createMockDiary = (id: number) => ({
+  publicDiaryId: id,
+  diaryId: id + 8,
+  characterImageUrl: "/minion1.png",
+  nickname: "todak",
+  publicContent: "blah blah",
+  webtoonImageUrls: [
+    "/minion1.png",
+    "/minion2.png",
+    "minion3.png",
+    "minion4.png",
+  ],
+  bgmUrl:
+    "https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3",
+  date: "2024-09-21",
+  reactionCount: {
+    like: 0,
+    surprised: 0,
+    empathize: 1,
+    cheering: 0,
+  },
+  myReaction: ["like", "cheering"],
+});
+
 export const feedMockups = [
   // 일기장 불러오기 (무한 스크롤)
   http.get(url + "/diary/public", () => {
     return HttpResponse.json({
-      diaries: [
-        {
-          publicDiaryId: 5, // public diary,
-          diaryId: 13, // diary,
-          characterImageUrl: "https://s3-url.com", // member
-          nickname: "todak", // member
-          publicContent: "blah blah", // public diary
-          webtoonImageUrls: ["cut1_url", "cur2_url", "cut3_url", "cur4_url"], // diary
-          bgmUrl: "https://s3-bgm-url.com", // diary
-          date: "2024-09-21", // diary
-          reactionCount: {
-            // reaction
-            like: 0, // 좋아요
-            surprised: 0, // 놀랐어요
-            empathize: 1, // 공감해요
-            cheering: 0, // 응원해요
-          },
-          myReaction: ["like", "cheering"], // reaction
-        },
-        {
-          publicDiaryId: 4, // public diary,
-          diaryId: 11, // diary,
-          characterImageUrl: "https://s3-url.com", // member
-          nickname: "todak", // member
-          publicContent: "blah blah", // public diary
-          webtoonImageUrls: ["cut1_url", "cur2_url", "cut3_url", "cur4_url"], // diary
-          bgmUrl: "https://s3-bgm-url.com", // diary
-          date: "2024-09-21",
-          reactionCount: {
-            // reaction
-            like: 0, // 좋아요
-            surprised: 0, // 놀랐어요
-            empathize: 1, // 공감해요
-            cheering: 0, // 응원해요
-          },
-          myReaction: ["like", "cheering"], // reaction
-        },
-        {
-          publicDiaryId: 3, // public diary,
-          diaryId: 10, // diary,
-          characterImageUrl: "https://s3-url.com", // member
-          nickname: "todak", // member
-          publicContent: "blah blah", // public diary
-          webtoonImageUrls: ["cut1_url", "cur2_url", "cut3_url", "cur4_url"], // diary
-          bgmUrl: "https://s3-bgm-url.com", // diary
-          date: "2024-09-21",
-          reactionCount: {
-            // reaction
-            like: 0, // 좋아요
-            surprised: 0, // 놀랐어요
-            empathize: 1, // 공감해요
-            cheering: 0, // 응원해요
-          },
-          myReaction: ["like", "cheering"], // reaction
-        },
-        {
-          publicDiaryId: 2, // public diary,
-          diaryId: 9, // diary,
-          characterImageUrl: "https://s3-url.com", // member
-          nickname: "todak", // member
-          publicContent: "blah blah", // public diary
-          webtoonImageUrls: ["cut1_url", "cur2_url", "cut3_url", "cur4_url"], // diary
-          bgmUrl: "https://s3-bgm-url.com", // diary
-          date: "2024-09-21",
-          reactionCount: {
-            // reaction
-            like: 0, // 좋아요
-            surprised: 0, // 놀랐어요
-            empathize: 1, // 공감해요
-            cheering: 0, // 응원해요
-          },
-          myReaction: ["like", "cheering"], // reaction
-        },
-        {
-          publicDiaryId: 1, // public diary,
-          diaryId: 8, // diary,
-          characterImageUrl: "https://s3-url.com", // member
-          nickname: "todak", // member
-          publicContent: "blah blah", // public diary
-          webtoonImageUrls: ["cut1_url", "cur2_url", "cut3_url", "cur4_url"], // diary
-          bgmUrl: "https://s3-bgm-url.com", // diary
-          date: "2024-09-21",
-          reactionCount: {
-            // reaction
-            like: 0, // 좋아요
-            surprised: 0, // 놀랐어요
-            empathize: 1, // 공감해요
-            cheering: 0, // 응원해요
-          },
-          myReaction: ["like", "cheering"], // reaction
-        },
-      ],
+      diaries: [5, 4, 3, 2, 1].map(createMockDiary),
       after: 1,
     });
   }),
 
   // 일기장 반응 이벤트
-  http.post(url + "/diary/public/1/reaction", () => {
+  http.post(url + "/diary/public/reaction", () => {
     return new HttpResponse(null, { status: 204 });
   }),
 
@@ -116,11 +51,55 @@ export const feedMockups = [
     return new HttpResponse(null, { status: 204 });
   }),
 
+  // 나의 공개 일기 불러오기(무한 스크롤)
+  http.get(url + "/diary/my/shared", () => {
+    return HttpResponse.json({
+      diaries: [
+        {
+          publicDiaryId: 13, // public diary,
+          webtoonImageUrl: "/minion2.png", // diary
+          createdDate: "2024-09-21", // public diary
+        },
+        {
+          publicDiaryId: 12, // public diary,
+          webtoonImageUrl: "/minion3.png", // diary
+          createdDate: "2024-09-20", // public diary
+        },
+        {
+          publicDiaryId: 11, // public diary,
+          webtoonImageUrl: "/minion4.png", // diary
+          createdDate: "2024-09-19", // public diary
+        },
+        {
+          publicDiaryId: 10, // public diary,
+          webtoonImageUrl: "/minion4.png", // diary
+          createdDate: "2024-09-19", // public diary
+        },
+        {
+          publicDiaryId: 9, // public diary,
+          webtoonImageUrl: "/minion4.png", // diary
+          createdDate: "2024-09-19", // public diary
+        },
+        {
+          publicDiaryId: 8, // public diary,
+          webtoonImageUrl: "/minion4.png", // diary
+          createdDate: "2024-09-19", // public diary
+        },
+      ], // 총 12개 데이터 전달
+      after: 8,
+    });
+  }),
+
   // 나의 공개 일기 상세 조회
   http.get(url + "/diary/my/shared/detail", () => {
     return HttpResponse.json({
       publicDiaryId: 3, // public diary
-      webtoonImageUrls: ["url-1", "url-2", "url-3", "url-4"], // diary
+      webtoonImageUrls: [
+        "/minion1.png",
+        "/minion2.png",
+        "minion3.png",
+        "minion4.png",
+      ],
       publicContent: "this is public String content", // public diary
       bgmUrl: "https://s3-url", // diary
       reactionCount: {
@@ -131,7 +110,7 @@ export const feedMockups = [
         cheering: 6,
       },
       myReaction: ["like", "cheering"], // reaction
-      diaryCreatedDate: "2024-10-30", // diary
+      diaryCreatedDate: "2024-10-31", // diary
     });
   }),
 ];

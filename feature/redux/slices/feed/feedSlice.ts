@@ -1,15 +1,36 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { extraReducers } from "../signup/signupSlice";
+import { createSlice } from "@reduxjs/toolkit";
 import { addFeedExtraReducers } from "./feedExtraReducers";
+import { FeedType, MyFeedDetailType, MyFeedType } from "@/utils/types/dto";
 
 export interface FeedState {
-  // 상태 타입 정의
+  feedList: FeedType[];
+  feedAfter: number;
+  myFeedList: MyFeedType[];
+  myFeedAfter: number;
+  selectedFeed: MyFeedDetailType;
   loading?: boolean;
   error?: string | null;
 }
 
 const initialState: FeedState = {
-  // 초기 상태 값
+  feedList: [],
+  feedAfter: 0,
+  myFeedList: [],
+  myFeedAfter: 0,
+  selectedFeed: {
+    publicDiaryId: 0,
+    webtoonImageUrls: [],
+    publicContent: "",
+    bgmUrl: "",
+    reactionCount: {
+      like: 0,
+      surprised: 0,
+      empathize: 0,
+      cheering: 0,
+    },
+    myReaction: [],
+    diaryCreatedDate: "",
+  },
   loading: false,
   error: null,
 };
@@ -17,14 +38,9 @@ const initialState: FeedState = {
 const feedSlice = createSlice({
   name: "feed",
   initialState,
-  reducers: {
-    actionName: (state, action: PayloadAction<FeedState>) => {
-      // 상태 업데이트 로직
-    },
-    // 추가 리듀서
-    extraReducers: (builder: any) => addFeedExtraReducers(builder),
-  },
+  reducers: {},
+  extraReducers: (builder: any) => addFeedExtraReducers(builder),
 });
 
-export const { actionName } = feedSlice.actions;
+export const {} = feedSlice.actions;
 export default feedSlice.reducer;

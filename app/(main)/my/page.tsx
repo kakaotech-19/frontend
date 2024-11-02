@@ -1,55 +1,40 @@
 "use client";
 
-import { UserAvatarWithLabel } from "@/components/my";
-import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { RootState } from "@/feature/redux";
-import { useDispatch, useSelector } from "react-redux";
 import path from "@/feature/routes";
 import Image from "next/image";
-import InfiniteScroll from "react-infinite-scroll-component";
-import SettingSVG from "@/components/svg/SettingSVG";
-import { Button, HR, Modal } from "flowbite-react";
-import { Feed } from "@/components/home";
 import { fetchMemberInfo } from "@/feature/redux/slices/member/memberExtraReducers";
+import {
+  fetchMyFeedDetail,
+  fetchMyFeedEntries,
+} from "@/feature/redux/slices/feed/feedExtraReducers";
+import { MyFeedType } from "@/utils/types/dto";
+import { UserAvatarWithLabel } from "@/components/my";
+import SettingSVG from "@/components/svg/SettingSVG";
+import EmojiSelector from "@/components/home/EmojiSelector";
+import AudioModule from "@/components/home/AudioModule";
+import { useDispatch, useSelector } from "react-redux";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { Button, Modal } from "flowbite-react";
 
-interface Post {
-  id: number;
-  imageUrl: string;
-}
-
-const dummyPosts: Post[] = Array(12)
-  .fill(null)
-  .map((_, index) => ({
-    id: index + 1,
-    imageUrl: "/cat.png",
-  }));
-
-const Page: React.FC = () => {
-  const date = useSelector((state: RootState) => state.diary.date);
+const Page = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
-  const [posts, setPosts] = useState<Post[]>([]);
+  const myFeedList = useSelector((state: RootState) => state.feed.myFeedList);
   const [hasMore, setHasMore] = useState(true);
-
-  useEffect(() => {
-    fetchMoreData();
-  }, []);
+  const selectedFeed = useSelector(
+    (state: RootState) => state.feed.selectedFeed
+  );
+  const myFeedAfter = useSelector((state: RootState) => state.feed.myFeedAfter);
 
   const fetchMoreData = () => {
-    setTimeout(() => {
-      const currentLength = posts.length;
-      const nextPosts = dummyPosts.slice(currentLength, currentLength + 12);
-      setPosts((prevPosts) => [...prevPosts, ...nextPosts]);
-      if (posts.length + nextPosts.length >= dummyPosts.length) {
-        setHasMore(false);
-      }
-    }, 100);
-  };
-
-  const handleFetchMemberInfo = () => {
-    dispatch<any>(fetchMemberInfo());
+    dispatch<any>(fetchMyFeedEntries(myFeedAfter));
+    if (myFeedList.length >= 50) {
+      setHasMore(false);
+    }
   };
 
   const nickname = useSelector((state: RootState) => state.member.nickname);
@@ -57,13 +42,15 @@ const Page: React.FC = () => {
     (state: RootState) => state.member.characterImageUrl
   );
   const email = useSelector((state: RootState) => state.member.email);
+
   useEffect(() => {
-    handleFetchMemberInfo();
-  }, []);
+    dispatch<any>(fetchMemberInfo());
+    fetchMoreData();
+  }, []); // useEffect가 잘 닫히는지 확인
 
   return (
-    <div className="w-full h-screen justify-center">
-      <div className="flex">
+    <div className="w-full h-screen">
+      <div className="flex justify-center">
         <div className="flex w-full items-center justify-between mt-14">
           <UserAvatarWithLabel
             imageUrl={characterImageUrl}
@@ -75,12 +62,11 @@ const Page: React.FC = () => {
           </div>
         </div>
       </div>
-      <HR className="mt-0 mb-0" />
       <div className="flex flex-col md:flex-row justify-center items-start mt-8 px-4">
         <h2 className="text-lg font-bold mb-4"> 나의 게시물 </h2>
         <div className="w-full">
           <InfiniteScroll
-            dataLength={posts.length}
+            dataLength={myFeedList.length}
             next={fetchMoreData}
             hasMore={hasMore}
             loader={<h4>로딩중 ...</h4>}
@@ -89,24 +75,29 @@ const Page: React.FC = () => {
                 <b>모든 게시물을 불러왔습니다.</b>
               </p>
             }
-            style={{ overflow: "visible" }} // 세로 스크롤을 위해 추가
+            style={{ overflow: "visible" }}
           >
             <div className="w-full grid grid-cols-2 gap-4">
-              {" "}
-              {/* grid-cols-3에서 grid-cols-2로 변경 */}
-              {posts.map((item) => (
-                <div
-                  key={item.id}
-                  className="aspect-square relative"
-                  onClick={() => setOpenModal(true)}
-                >
-                  <Image
-                    src={item.imageUrl}
-                    alt={`게시물 이미지 ${item.id}`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover rounded-md shadow-md"
-                  />
+              {myFeedList.map((myFeed: MyFeedType) => (
+                <div key={myFeed.publicDiaryId}>
+                  <div
+                    className="aspect-square relative"
+                    onClick={() => {
+                      setOpenModal(true);
+                      dispatch<any>(fetchMyFeedDetail(myFeed.createdDate));
+                    }}
+                  >
+                    <Image
+                      src={myFeed.webtoonImageUrl}
+                      alt={`게시물 이미지 ${myFeed.publicDiaryId}`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover rounded-md shadow-md"
+                    />
+                  </div>
+                  <p className="w-full mt-1 flex text-xs text-gray-400">
+                    Posted on: {myFeed.createdDate}
+                  </p>
                 </div>
               ))}
             </div>
@@ -115,13 +106,31 @@ const Page: React.FC = () => {
       </div>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>토닥토닥</Modal.Header>
-        <Button onClick={() => router.push(path.READ)}>
-          ► 2024-10-13 원본 보러가기{" "}
+        <Button
+          onClick={() =>
+            router.push(`${path.READ}/?date=${selectedFeed.diaryCreatedDate}`)
+          }
+        >
+          ► 원본 일기 ({selectedFeed.diaryCreatedDate}) 보러가기{" "}
         </Button>
         <Modal.Body>
-          <div className="space-y-6">
-            <Feed />
+          <div className="aspect-square relative">
+            <Image
+              src="/minion2.png"
+              alt={`게시물 이미지 test`}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover rounded-md shadow-md"
+            />
+            <EmojiSelector
+              myReaction={selectedFeed.myReaction}
+              reactionCount={selectedFeed.reactionCount}
+              diaryId={selectedFeed.publicDiaryId}
+              readonly={true}
+            />
+            <AudioModule src={selectedFeed.bgmUrl} />
           </div>
+          <p className="p-1">{selectedFeed.publicContent}</p>
         </Modal.Body>
       </Modal>
     </div>
