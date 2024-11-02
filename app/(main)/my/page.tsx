@@ -86,21 +86,25 @@ const Page: React.FC = () => {
           >
             <div className="w-full grid grid-cols-2 gap-4">
               {myFeedList.map((myFeed: MyFeedType) => (
-                <div
-                  key={myFeed.publicDiaryId}
-                  className="aspect-square relative"
-                  onClick={() => {
-                    setOpenModal(true);
-                    dispatch<any>(fetchMyFeedDetail(myFeed.createdDate));
-                  }}
-                >
-                  <Image
-                    src={myFeed.webtoonImageUrl}
-                    alt={`게시물 이미지 ${myFeed.publicDiaryId}`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover rounded-md shadow-md"
-                  />
+                <div key={myFeed.publicDiaryId}>
+                  <div
+                    className="aspect-square relative"
+                    onClick={() => {
+                      setOpenModal(true);
+                      dispatch<any>(fetchMyFeedDetail(myFeed.createdDate));
+                    }}
+                  >
+                    <Image
+                      src={myFeed.webtoonImageUrl}
+                      alt={`게시물 이미지 ${myFeed.publicDiaryId}`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover rounded-md shadow-md"
+                    />
+                  </div>
+                  <p className="w-full flex text-sm text-gray-400">
+                    Posted on: {myFeed.createdDate}
+                  </p>
                 </div>
               ))}
             </div>
@@ -117,7 +121,8 @@ const Page: React.FC = () => {
           ► {selectedFeed.diaryCreatedDate} 원본 보러가기{" "}
         </Button>
         <Modal.Body>
-          <div className="space-y-6">{/* <Feed /> */}</div>
+          {/* <Feed /> */}
+
           <div className="aspect-square relative">
             <Image
               src={selectedFeed.webtoonImageUrls[0]}
