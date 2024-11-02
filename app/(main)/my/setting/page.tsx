@@ -8,7 +8,6 @@ import {
   fetchMemberInfo,
 } from "@/feature/redux/slices/member/memberExtraReducers";
 import { setNickname } from "@/feature/redux/slices/member/memberSlice";
-import { encodeFileToBase64 } from "@/utils/function";
 import { ChangeNicknameType, CreateCharacterType } from "@/utils/types/dto";
 import { Accordion, Button, HR, Label, TextInput } from "flowbite-react";
 import { useRouter } from "next/navigation";

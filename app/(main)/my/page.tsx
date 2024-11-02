@@ -4,13 +4,14 @@ import { UserAvatarWithLabel } from "@/components/my";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { RootState } from "@/feature/redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import path from "@/feature/routes";
 import Image from "next/image";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SettingSVG from "@/components/svg/SettingSVG";
 import { Button, HR, Modal } from "flowbite-react";
 import { Feed } from "@/components/home";
+import { fetchMemberInfo } from "@/feature/redux/slices/member/memberExtraReducers";
 
 interface Post {
   id: number;
@@ -27,8 +28,8 @@ const dummyPosts: Post[] = Array(12)
 const Page: React.FC = () => {
   const date = useSelector((state: RootState) => state.diary.date);
   const router = useRouter();
+  const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
-
   const [posts, setPosts] = useState<Post[]>([]);
   const [hasMore, setHasMore] = useState(true);
 
@@ -47,14 +48,29 @@ const Page: React.FC = () => {
     }, 100);
   };
 
+  const handleFetchMemberInfo = () => {
+    dispatch<any>(fetchMemberInfo());
+  };
+
+  const nickname = useSelector((state: RootState) => state.member.nickname);
+  const characterImageUrl = useSelector(
+    (state: RootState) => state.member.characterImageUrl
+  );
+  const email = useSelector((state: RootState) => state.member.email);
+  useEffect(() => {
+    setTimeout(() => {
+      handleFetchMemberInfo();
+    }, 1000);
+  }, []);
+
   return (
     <div className="w-full h-screen justify-center">
       <div className="flex">
         <div className="flex w-full items-center justify-between mt-14">
           <UserAvatarWithLabel
-            imageUrl="/cat.png"
-            nickname="user"
-            description="name@email.com"
+            imageUrl={characterImageUrl}
+            nickname={nickname}
+            description={email}
           />
           <div onClick={() => router.push(path.SETTING)}>
             <SettingSVG />
