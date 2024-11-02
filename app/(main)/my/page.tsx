@@ -28,6 +28,10 @@ const Page: React.FC = () => {
   const myFeedAfter = useSelector((state: RootState) => state.feed.myFeedAfter);
   const fetchMoreData = () => {
     dispatch<any>(fetchMyFeedEntries(myFeedAfter));
+
+    if (myFeedList.length >= 50) {
+      setHasMore(false);
+    }
   };
 
   const handleFetchMemberInfo = () => {
@@ -74,8 +78,6 @@ const Page: React.FC = () => {
             style={{ overflow: "visible" }} // 세로 스크롤을 위해 추가
           >
             <div className="w-full grid grid-cols-2 gap-4">
-              {" "}
-              {/* grid-cols-3에서 grid-cols-2로 변경 */}
               {myFeedList.map((myFeed: MyFeed) => (
                 <div
                   key={myFeed.publicDiaryId}
