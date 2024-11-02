@@ -29,7 +29,6 @@ const addFetchFeedEntries = (builder: ActionReducerMapBuilder<FeedState>) => {
 };
 
 // 일기장 반응 이벤트 -----------------------------------------------------
-
 export const reactionFeed = createAsyncThunk(
   "feed/reactionFeed",
   async (data: ReactionFeedType) => {
@@ -75,6 +74,33 @@ const addUploadFeed = (builder: ActionReducerMapBuilder<FeedState>) => {
   });
 };
 
+// 나의 공개 일기 불러오기(무한스크롤)  -----------------------------------------------------
+export const fetchMyFeedEntries = createAsyncThunk(
+  "Feed/fetchMyFeedEntries",
+  async (params: number) => {
+    const response = await axiosInstance.get(
+      `/diary/my/shared?after=${params}`
+    );
+    return response.data;
+  }
+);
+
+const addFetchMyFeedEntries = (builder: ActionReducerMapBuilder<FeedState>) => {
+  builder.addCase(fetchMyFeedEntries.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  });
+  builder.addCase(fetchMyFeedEntries.fulfilled, (state, action) => {
+    state.myFeedList = [...state.myFeedList, ...action.payload.diaries];
+    state.myFeedAfter = action.payload.after;
+    state.loading = false;
+  });
+  builder.addCase(fetchMyFeedEntries.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.error.message ?? null;
+  });
+};
+
 // extra reducers 추가 -----------------------------------------------------
 export const addFeedExtraReducers = (
   builder: ActionReducerMapBuilder<FeedState>
@@ -82,4 +108,5 @@ export const addFeedExtraReducers = (
   addFetchFeedEntries(builder);
   addReactionFeed(builder);
   addUploadFeed(builder);
+  addFetchMyFeedEntries(builder);
 };

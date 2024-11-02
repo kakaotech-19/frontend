@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addFeedExtraReducers } from "./feedExtraReducers";
-import { FeedType } from "@/utils/types/dto";
+import { FeedType, MyFeed } from "@/utils/types/dto";
 
 export interface FeedState {
   feedList: FeedType[];
   feedAfter: number;
+  myFeedList: MyFeed[];
+  myFeedAfter: number;
   loading?: boolean;
   error?: string | null;
 }
@@ -12,6 +14,8 @@ export interface FeedState {
 const initialState: FeedState = {
   feedList: [],
   feedAfter: 0,
+  myFeedList: [],
+  myFeedAfter: 0,
   loading: false,
   error: null,
 };
