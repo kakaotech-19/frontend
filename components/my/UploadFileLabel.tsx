@@ -1,12 +1,16 @@
 "use client";
 
+import { RootState } from "@/feature/redux";
 import { setSelectedFile } from "@/feature/redux/slices/member/memberSlice";
 import { encodeFileToBase64 } from "@/utils/function";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const UploadFileLabel: React.FC = () => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const characterImageUrl = useSelector(
+    (state: RootState) => state.member.characterImageUrl
+  );
   const dispatch = useDispatch();
 
   const handleFileChange = async (
@@ -26,6 +30,13 @@ const UploadFileLabel: React.FC = () => {
     };
     reader.readAsDataURL(file);
   };
+
+  // 캐릭터 이미지 URL이 변경되면 미리보기 URL 변경
+  useEffect(() => {
+    if (characterImageUrl) {
+      setPreviewUrl(characterImageUrl);
+    }
+  }, [characterImageUrl]);
 
   return (
     <div>
