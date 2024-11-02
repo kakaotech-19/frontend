@@ -70,8 +70,23 @@ export const feedMockups = [
           webtoonImageUrl: "/minion4.png", // diary
           createdDate: "2024-09-19", // public diary
         },
+        {
+          publicDiaryId: 10, // public diary,
+          webtoonImageUrl: "/minion4.png", // diary
+          createdDate: "2024-09-19", // public diary
+        },
+        {
+          publicDiaryId: 9, // public diary,
+          webtoonImageUrl: "/minion4.png", // diary
+          createdDate: "2024-09-19", // public diary
+        },
+        {
+          publicDiaryId: 8, // public diary,
+          webtoonImageUrl: "/minion4.png", // diary
+          createdDate: "2024-09-19", // public diary
+        },
       ], // 총 12개 데이터 전달
-      after: 11,
+      after: 8,
     });
   }),
 

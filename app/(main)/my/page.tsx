@@ -68,7 +68,6 @@ const Page: React.FC = () => {
           </div>
         </div>
       </div>
-      <HR className="mt-0 mb-0" />
       <div className="flex flex-col md:flex-row justify-center items-start mt-8 px-4">
         <h2 className="text-lg font-bold mb-4"> 나의 게시물 </h2>
         <div className="w-full">
@@ -102,7 +101,7 @@ const Page: React.FC = () => {
                       className="object-cover rounded-md shadow-md"
                     />
                   </div>
-                  <p className="w-full flex text-sm text-gray-400">
+                  <p className="w-full mt-1 flex text-xs text-gray-400">
                     Posted on: {myFeed.createdDate}
                   </p>
                 </div>
@@ -118,7 +117,7 @@ const Page: React.FC = () => {
             router.push(`${path.READ}/?date=${selectedFeed.diaryCreatedDate}`)
           }
         >
-          ► {selectedFeed.diaryCreatedDate} 원본 보러가기{" "}
+          ► 원본 일기 ({selectedFeed.diaryCreatedDate}) 보러가기{" "}
         </Button>
         <Modal.Body>
           {/* <Feed /> */}
