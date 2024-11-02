@@ -17,10 +17,11 @@ import {
 } from "@/feature/redux/slices/feed/feedExtraReducers";
 import { MyFeedType } from "@/utils/types/dto";
 import EmojiSelector from "@/components/home/EmojiSelector";
+import AudioModule from "@/components/home/AudioModule";
 const Page: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const [openModal, setOpenModal] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
   const myFeedList = useSelector((state: RootState) => state.feed.myFeedList);
   const [hasMore, setHasMore] = useState(true);
   const selectedFeed = useSelector(
@@ -131,7 +132,9 @@ const Page: React.FC = () => {
               diaryId={selectedFeed.publicDiaryId}
               readonly={true}
             />
+            <AudioModule src={selectedFeed.bgmUrl} />
           </div>
+          <p className="p-1">{selectedFeed.publicContent}</p>
         </Modal.Body>
       </Modal>
     </div>
