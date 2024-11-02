@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { extraReducers } from "../signup/signupSlice";
 import { addFeedExtraReducers } from "./feedExtraReducers";
+import { FeedType } from "@/utils/types/dto";
 
 export interface FeedState {
-  // 상태 타입 정의
+  feedList: FeedType[];
   loading?: boolean;
   error?: string | null;
 }
 
 const initialState: FeedState = {
-  // 초기 상태 값
+  feedList: [],
   loading: false,
   error: null,
 };
