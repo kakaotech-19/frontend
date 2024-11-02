@@ -101,6 +101,32 @@ const addFetchMyFeedEntries = (builder: ActionReducerMapBuilder<FeedState>) => {
   });
 };
 
+// 나의 공개 일기 상세 조회 -----------------------------------------------------
+export const fetchMyFeedDetail = createAsyncThunk(
+  "Feed/fetchMyFeedDetail",
+  async (params: string) => {
+    const response = await axiosInstance.get(
+      `/diary/my/shared/detail?date=${params}`
+    );
+    return response.data;
+  }
+);
+
+const addFetchMyFeedDetail = (builder: ActionReducerMapBuilder<FeedState>) => {
+  builder.addCase(fetchMyFeedDetail.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  });
+  builder.addCase(fetchMyFeedDetail.fulfilled, (state, action) => {
+    state.selectedFeed = action.payload;
+    state.loading = false;
+  });
+  builder.addCase(fetchMyFeedDetail.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.error.message ?? null;
+  });
+};
+
 // extra reducers 추가 -----------------------------------------------------
 export const addFeedExtraReducers = (
   builder: ActionReducerMapBuilder<FeedState>
@@ -109,4 +135,5 @@ export const addFeedExtraReducers = (
   addReactionFeed(builder);
   addUploadFeed(builder);
   addFetchMyFeedEntries(builder);
+  addFetchMyFeedDetail(builder);
 };
