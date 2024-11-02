@@ -16,10 +16,11 @@ import {
   fetchMyFeedEntries,
 } from "@/feature/redux/slices/feed/feedExtraReducers";
 import { MyFeedType } from "@/utils/types/dto";
+import EmojiSelector from "@/components/home/EmojiSelector";
 const Page: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState(true);
   const myFeedList = useSelector((state: RootState) => state.feed.myFeedList);
   const [hasMore, setHasMore] = useState(true);
   const selectedFeed = useSelector(
@@ -116,6 +117,21 @@ const Page: React.FC = () => {
         </Button>
         <Modal.Body>
           <div className="space-y-6">{/* <Feed /> */}</div>
+          <div className="aspect-square relative">
+            <Image
+              src={selectedFeed.webtoonImageUrls[0]}
+              alt={`게시물 이미지 test`}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover rounded-md shadow-md"
+            />
+            <EmojiSelector
+              myReaction={selectedFeed.myReaction}
+              reactionCount={selectedFeed.reactionCount}
+              diaryId={selectedFeed.publicDiaryId}
+              readonly={true}
+            />
+          </div>
         </Modal.Body>
       </Modal>
     </div>

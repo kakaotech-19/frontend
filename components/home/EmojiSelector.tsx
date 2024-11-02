@@ -15,12 +15,14 @@ interface MyReaction {
 
 interface EmojiSelectorProps extends ReactionCount, MyReaction {
   diaryId: number;
+  readonly?: boolean;
 }
 
 const EmojiSelector: React.FC<EmojiSelectorProps> = ({
   diaryId,
   reactionCount: initialReactionCount,
   myReaction: initialMyReaction,
+  readonly = false,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [localReactionCount, setLocalReactionCount] =
@@ -33,6 +35,9 @@ const EmojiSelector: React.FC<EmojiSelectorProps> = ({
   };
 
   const handleReaction = (reactionType: keyof ReactionType) => {
+    if (readonly) {
+      return;
+    }
     // 서버상태랑 별개로 UI 표시
     setLocalReactionCount((prev) => {
       const newCount = localMyReaction.includes(reactionType)
