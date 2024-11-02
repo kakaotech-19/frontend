@@ -1,43 +1,42 @@
 "use client";
 
-import React, { useState } from "react";
-import axiosInstance from "@/utils/lib/axios";
+import { RootState } from "@/feature/redux";
+import { setSelectedFile } from "@/feature/redux/slices/member/memberSlice";
+import { encodeFileToBase64 } from "@/utils/function";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const UploadFileLabel: React.FC = () => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const characterImageUrl = useSelector(
+    (state: RootState) => state.member.characterImageUrl
+  );
+  const dispatch = useDispatch();
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
-    if (file) {
-      setSelectedFile(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+    if (!file) {
+      return;
     }
+    const base64File = await encodeFileToBase64(file);
+    dispatch(setSelectedFile(base64File as string));
+
+    // 파일 미리보기
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewUrl(reader.result as string);
+    };
+    reader.readAsDataURL(file);
   };
 
-  const handleUpload = async () => {
-    if (selectedFile) {
-      const formData = new FormData();
-      formData.append("file", selectedFile);
-
-      try {
-        const response = await axiosInstance.post("/api/upload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        console.log("파일 업로드 성공:", response.data);
-        // 여기에 업로드 성공 후 처리 로직을 추가하세요
-      } catch (error) {
-        console.error("파일 업로드 실패:", error);
-        // 여기에 에러 처리 로직을 추가하세요
-      }
+  // 캐릭터 이미지 URL이 변경되면 미리보기 URL 변경
+  useEffect(() => {
+    if (characterImageUrl) {
+      setPreviewUrl(characterImageUrl);
     }
-  };
+  }, [characterImageUrl]);
 
   return (
     <div>

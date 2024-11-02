@@ -7,29 +7,29 @@ export const memberMockups = [
     return HttpResponse.json({
       nickname: "todak",
       email: "ktb@gmail.com",
-      characterImageUrl: "/minion1",
+      characterImageUrl: "/minion1.png",
     });
   }),
 
   // 회원 정보 축약
-  http.get(url + "/member/summary", () => {
-    return HttpResponse.json({
-      nickname: "todak",
-      characterImageUrl: "/minion2",
-    });
-  }),
+  // http.get(url + "/member/summary", () => {
+  //   return HttpResponse.json({
+  //     nickname: "todak",
+  //     characterImageUrl: "/minion2.png",
+  //   });
+  // }),
 
   // 캐릭터 불러오기
   http.get(url + "/member/image", () => {
     return HttpResponse.json({
-      characterImageUrl: "/minion3",
+      characterImageUrl: "/minion3.png",
     });
   }),
 
   // 캐릭터 생성
   http.post(url + "/member/image", () => {
     return HttpResponse.json({
-      characterImageUrl: "minion4",
+      characterImageUrl: "/minion4.png",
     });
   }),
 

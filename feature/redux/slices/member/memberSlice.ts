@@ -2,13 +2,21 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { addMemberExtraReducers } from "./memberExtraReducers";
 
 export interface MemberState {
-  // 상태 타입 정의
+  nickname: string;
+  email: string;
+  characterImageUrl: string;
+
+  selectedFile: string;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: MemberState = {
-  // 초기 상태 값
+  nickname: "",
+  email: "",
+  characterImageUrl: "",
+
+  selectedFile: "",
   loading: false,
   error: null,
 };
@@ -17,13 +25,15 @@ const memberSlice = createSlice({
   name: "member",
   initialState,
   reducers: {
-    actionName: (state, action: PayloadAction<MemberState>) => {
-      // 상태 업데이트 로직
+    setNickname: (state: MemberState, action: PayloadAction<string>) => {
+      state.nickname = action.payload;
     },
-    // 추가 리듀서
-    extraReducers: (builder: any) => addMemberExtraReducers(builder),
+    setSelectedFile: (state: MemberState, action: PayloadAction<string>) => {
+      state.selectedFile = action.payload;
+    },
   },
+  extraReducers: (builder: any) => addMemberExtraReducers(builder),
 });
 
-export const { actionName } = memberSlice.actions;
+export const { setNickname, setSelectedFile } = memberSlice.actions;
 export default memberSlice.reducer;

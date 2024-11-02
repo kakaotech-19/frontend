@@ -18,34 +18,12 @@ const addFetchMemberInfo = (builder: ActionReducerMapBuilder<MemberState>) => {
     state.error = null;
   });
   builder.addCase(fetchMemberInfo.fulfilled, (state, action) => {
+    state.email = action.payload.email;
+    state.nickname = action.payload.nickname;
+    state.characterImageUrl = action.payload.characterImageUrl;
     state.loading = false;
   });
   builder.addCase(fetchMemberInfo.rejected, (state, action) => {
-    state.loading = false;
-    state.error = action.error.message ?? null;
-  });
-};
-
-// 회원 정보 축약 -----------------------------------------------------
-export const fetchSummaryMemberInfo = createAsyncThunk(
-  "diary/fetchSummaryMemberInfo",
-  async () => {
-    const response = await axiosInstance.get("/member/summary");
-    return response.data;
-  }
-);
-
-const addFetchSummaryMemberInfo = (
-  builder: ActionReducerMapBuilder<MemberState>
-) => {
-  builder.addCase(fetchSummaryMemberInfo.pending, (state) => {
-    state.loading = true;
-    state.error = null;
-  });
-  builder.addCase(fetchSummaryMemberInfo.fulfilled, (state, action) => {
-    state.loading = false;
-  });
-  builder.addCase(fetchSummaryMemberInfo.rejected, (state, action) => {
     state.loading = false;
     state.error = action.error.message ?? null;
   });
@@ -89,6 +67,7 @@ const addCreateCharacter = (builder: ActionReducerMapBuilder<MemberState>) => {
     state.error = null;
   });
   builder.addCase(createCharacter.fulfilled, (state, action) => {
+    state.characterImageUrl = action.payload.characterImageUrl;
     state.loading = false;
   });
   builder.addCase(createCharacter.rejected, (state, action) => {
@@ -150,7 +129,6 @@ export const addMemberExtraReducers = (
   builder: ActionReducerMapBuilder<MemberState>
 ) => {
   addFetchMemberInfo(builder);
-  addFetchSummaryMemberInfo(builder);
   addCreateCharacter(builder);
   addFetchCharacter(builder);
   addRegisterCharacter(builder);
