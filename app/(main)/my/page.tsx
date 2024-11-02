@@ -1,24 +1,25 @@
 "use client";
 
-import { UserAvatarWithLabel } from "@/components/my";
-import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { RootState } from "@/feature/redux";
-import { useDispatch, useSelector } from "react-redux";
 import path from "@/feature/routes";
 import Image from "next/image";
-import InfiniteScroll from "react-infinite-scroll-component";
-import SettingSVG from "@/components/svg/SettingSVG";
-import { Button, HR, Modal } from "flowbite-react";
 import { fetchMemberInfo } from "@/feature/redux/slices/member/memberExtraReducers";
 import {
   fetchMyFeedDetail,
   fetchMyFeedEntries,
 } from "@/feature/redux/slices/feed/feedExtraReducers";
 import { MyFeedType } from "@/utils/types/dto";
+import { UserAvatarWithLabel } from "@/components/my";
+import SettingSVG from "@/components/svg/SettingSVG";
 import EmojiSelector from "@/components/home/EmojiSelector";
 import AudioModule from "@/components/home/AudioModule";
-const Page: React.FC = () => {
+import { useDispatch, useSelector } from "react-redux";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { Button, Modal } from "flowbite-react";
+
+const Page = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
@@ -27,22 +28,13 @@ const Page: React.FC = () => {
   const selectedFeed = useSelector(
     (state: RootState) => state.feed.selectedFeed
   );
-
-  useEffect(() => {
-    fetchMoreData();
-  }, []);
-
   const myFeedAfter = useSelector((state: RootState) => state.feed.myFeedAfter);
+
   const fetchMoreData = () => {
     dispatch<any>(fetchMyFeedEntries(myFeedAfter));
-
     if (myFeedList.length >= 50) {
       setHasMore(false);
     }
-  };
-
-  const handleFetchMemberInfo = () => {
-    dispatch<any>(fetchMemberInfo());
   };
 
   const nickname = useSelector((state: RootState) => state.member.nickname);
@@ -50,13 +42,15 @@ const Page: React.FC = () => {
     (state: RootState) => state.member.characterImageUrl
   );
   const email = useSelector((state: RootState) => state.member.email);
+
   useEffect(() => {
-    handleFetchMemberInfo();
-  }, []);
+    dispatch<any>(fetchMemberInfo());
+    fetchMoreData();
+  }, []); // useEffect가 잘 닫히는지 확인
 
   return (
-    <div className="w-full h-screen justify-center">
-      <div className="flex">
+    <div className="w-full h-screen">
+      <div className="flex justify-center">
         <div className="flex w-full items-center justify-between mt-14">
           <UserAvatarWithLabel
             imageUrl={characterImageUrl}
@@ -81,7 +75,7 @@ const Page: React.FC = () => {
                 <b>모든 게시물을 불러왔습니다.</b>
               </p>
             }
-            style={{ overflow: "visible" }} // 세로 스크롤을 위해 추가
+            style={{ overflow: "visible" }}
           >
             <div className="w-full grid grid-cols-2 gap-4">
               {myFeedList.map((myFeed: MyFeedType) => (
@@ -120,11 +114,9 @@ const Page: React.FC = () => {
           ► 원본 일기 ({selectedFeed.diaryCreatedDate}) 보러가기{" "}
         </Button>
         <Modal.Body>
-          {/* <Feed /> */}
-
           <div className="aspect-square relative">
             <Image
-              src={selectedFeed.webtoonImageUrls[0]}
+              src="/minion2.png"
               alt={`게시물 이미지 test`}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

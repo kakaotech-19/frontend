@@ -25,7 +25,7 @@ const Feed: React.FC<FeedType> = ({
         <Image
           width={500}
           height={500}
-          src={webtoonImageUrls[0]}
+          src={"/minion1.png"}
           alt={"public-feed" + date + nickname}
           sizes="100vw"
           style={{ width: "100%", height: "auto" }}
