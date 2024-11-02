@@ -17,3 +17,19 @@ export type FeedType = {
   reactionCount: ReactionType;
   myReaction: []; // reaction
 };
+
+export type MyFeed = {
+  publicDiaryId: number;
+  webtoonImageUrl: string;
+  createdDate: string;
+};
+
+export type MyFeedDetail = {
+  publicDiaryId: number; // public diary
+  webtoonImageUrls: []; // diary
+  publicContent: string; // public diary
+  bgmUrl: string; // diary
+  reactionCount: ReactionType;
+  myReaction: []; // reaction
+  diaryCreatedDate: string; // diary
+};
