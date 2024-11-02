@@ -18,13 +18,13 @@ export type FeedType = {
   myReaction: []; // reaction
 };
 
-export type MyFeed = {
+export type MyFeedType = {
   publicDiaryId: number;
   webtoonImageUrl: string;
   createdDate: string;
 };
 
-export type MyFeedDetail = {
+export type MyFeedDetailType = {
   publicDiaryId: number; // public diary
   webtoonImageUrls: []; // diary
   publicContent: string; // public diary

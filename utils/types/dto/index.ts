@@ -24,10 +24,10 @@ export type { ReactionFeedType, UploadFeedType };
 import {
   FeedType,
   ReactionType,
-  MyFeed,
-  MyFeedDetail,
+  MyFeedType,
+  MyFeedDetailType,
 } from "./feedResponseType";
-export type { FeedType, ReactionType, MyFeed, MyFeedDetail };
+export type { FeedType, ReactionType, MyFeedType, MyFeedDetailType };
 
 // 다이어리 도메인 -------------------------------------
 import { CreateDiaryEntryType } from "./diaryRequestType";
