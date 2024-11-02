@@ -79,7 +79,12 @@ export const feedMockups = [
   http.get(url + "/diary/my/shared/detail", () => {
     return HttpResponse.json({
       publicDiaryId: 3, // public diary
-      webtoonImageUrls: ["url-1", "url-2", "url-3", "url-4"], // diary
+      webtoonImageUrls: [
+        "/minion1.png",
+        "/minion2.png",
+        "minion3.png",
+        "minion4.png",
+      ],
       publicContent: "this is public String content", // public diary
       bgmUrl: "https://s3-url", // diary
       reactionCount: {
