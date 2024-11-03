@@ -4,7 +4,6 @@ import { DiaryResponseType } from "@/utils/types/dto";
 import { DEFAULT_DIARY } from "@/utils/constants";
 
 export interface DiaryState {
-  date: Date;
   commentView: boolean;
   queriedDiary: DiaryResponseType;
   loading: any;
@@ -12,7 +11,6 @@ export interface DiaryState {
 }
 
 export const initialState = {
-  date: new Date(),
   commentView: false,
   queriedDiary: DEFAULT_DIARY,
   loading: false,
@@ -23,9 +21,6 @@ const diarySlice = createSlice({
   name: "diarySlice",
   initialState,
   reducers: {
-    setDate: (state, action: PayloadAction<Date>) => {
-      state.date = action.payload;
-    },
     setCommentView: (state, action: PayloadAction<boolean>) => {
       state.commentView = action.payload;
     },
@@ -33,6 +28,6 @@ const diarySlice = createSlice({
   extraReducers: (builder: any) => addDiaryExtraReducers(builder),
 });
 
-export const { setDate, setCommentView } = diarySlice.actions;
+export const { setCommentView } = diarySlice.actions;
 export const extraReducers = diarySlice.reducer;
 export default diarySlice.reducer;

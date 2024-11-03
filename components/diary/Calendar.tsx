@@ -1,23 +1,16 @@
 "use client";
 
-import { RootState } from "@/feature/redux";
-import { useDispatch, useSelector } from "react-redux";
-import { setDate } from "@/feature/redux/slices/dairy/diarySlice";
 import { useRouter } from "next/navigation";
 import path from "@/feature/routes";
 import Calendar from "react-calendar";
 import "@/utils/lib/react-calendar/Calendar.css";
 
 const MyCalendar: React.FC = () => {
-  const date = useSelector((state: RootState) => state.diary.date);
+  const date = new Date();
   const router = useRouter();
 
-  const dispatch = useDispatch();
   const onChange = (newDate: any) => {
-    if (newDate instanceof Date) {
-      dispatch(setDate(newDate));
-    }
-    router.push(path.READ);
+    router.push(`${path.READ}?date=${newDate.toISOString()}`);
   };
 
   return (
