@@ -48,7 +48,7 @@ const Page: React.FC = () => {
             <Accordion.Panel>
               <Accordion.Title>공유하기</Accordion.Title>
               <Accordion.Content>
-                <div className="flex-col mb-2 w-full max-w-md border-b border-gray-200">
+                <div className="flex-col mb-2 w-full max-w-md min-h-96 border-b border-gray-200">
                   <ShareDiary />
                 </div>
               </Accordion.Content>
