@@ -8,7 +8,7 @@ export const diaryMockups = [
       diaryId: 6,
       content: "blah blah",
       // "publicContent" : "public content",
-      webtoonImageUrl: "https://s3-url.com",
+      webtoonImageUrl: "/minion1.png",
       bgmUrl: "https://s3-url.com",
       reactionCount: {
         like: 0,
