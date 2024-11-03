@@ -5,14 +5,19 @@ import path from "@/feature/routes";
 import Calendar from "react-calendar";
 import "@/utils/lib/react-calendar/Calendar.css";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchDiaryStatus } from "@/feature/redux/slices/dairy/diaryExtraReducers";
+import { RootState } from "@/feature/redux";
+import { DiaryStatusType } from "@/utils/types/dto";
 
 const MyCalendar: React.FC = () => {
   const date = new Date();
   const [viewDate, setViewDate] = useState(date);
   const router = useRouter();
   const dispatch = useDispatch();
+  const diaryStatusList = useSelector(
+    (state: RootState) => state.diary.diaryStatusList
+  );
 
   const onChange = (newDate: any) => {
     router.push(`${path.READ}?date=${newDate.toISOString()}`);
@@ -33,6 +38,12 @@ const MyCalendar: React.FC = () => {
     dispatch<any>(fetchDiaryStatus(data));
   }, [viewDate]);
 
+  const isIncludeDiaryStatusList = (date: Date) => {
+    return diaryStatusList.some(
+      (status: DiaryStatusType) =>
+        date.toISOString().split("T")[0] === status.date
+    );
+  };
   return (
     <Calendar
       prev2Label={null} // 연도 앞으로 이동
@@ -51,9 +62,11 @@ const MyCalendar: React.FC = () => {
           })}
         </span>
       )}
-      tileContent={({ date }) => (
-        <span className="flex justify-center items-center w-1 h-1 rounded-full bg-cyan-500 text-white animate-pulse"></span>
-      )}
+      tileContent={({ date }) =>
+        isIncludeDiaryStatusList(date) ? (
+          <div className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />
+        ) : null
+      }
     />
   );
 };
