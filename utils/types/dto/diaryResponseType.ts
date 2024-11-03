@@ -11,3 +11,8 @@ export type DiaryResponseType = {
   emotion: string;
   date: string;
 };
+
+export type DiaryStatusType = {
+  diaryId: number;
+  date: string;
+};

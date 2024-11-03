@@ -31,8 +31,8 @@ export type { FeedType, ReactionType, MyFeedType, MyFeedDetailType };
 
 // 다이어리 도메인 -------------------------------------
 import { CreateDiaryEntryType } from "./diaryRequestType";
-import { DiaryResponseType } from "./diaryResponseType";
-export type { CreateDiaryEntryType, DiaryResponseType };
+import { DiaryResponseType, DiaryStatusType } from "./diaryResponseType";
+export type { CreateDiaryEntryType, DiaryResponseType, DiaryStatusType };
 
 // 회원 도메인 -------------------------------------
 import { CreateCharacterType, ChangeNicknameType } from "./memberRequestType";
