@@ -54,7 +54,7 @@ const Page: React.FC = () => {
   const handleCreateDiaryEntry = () => {
     const data: CreateDiaryEntryType = {
       date: date.toISOString(),
-      emotion: selectedMood ?? "기쁨",
+      emotion: selectedMood ?? "기뻐요",
       content: text,
     };
     dispatch<any>(createDiaryEntry(data));
