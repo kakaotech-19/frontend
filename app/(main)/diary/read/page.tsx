@@ -1,15 +1,15 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import Image from "next/image";
-import { Button, Modal } from "flowbite-react";
+import { Modal } from "flowbite-react";
 import { useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDiaryDetail } from "@/feature/redux/slices/dairy/diaryExtraReducers";
 import { RootState } from "@/feature/redux";
 import AudioModule from "@/components/home/AudioModule";
 
-const Page: React.FC = () => {
+const DiaryReadPage: React.FC = () => {
   const dispatch = useDispatch();
   const queriedDiary = useSelector(
     (state: RootState) => state.diary.queriedDiary
@@ -62,6 +62,14 @@ const Page: React.FC = () => {
         </Modal>
       </div>
     </div>
+  );
+};
+
+const Page: React.FC = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DiaryReadPage />
+    </Suspense>
   );
 };
 

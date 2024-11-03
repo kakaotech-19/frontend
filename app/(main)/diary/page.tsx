@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/feature/redux";
 import { setCommentView } from "@/feature/redux/slices/dairy/diarySlice";
-import { useState } from "react";
 import { ShareDiary } from "@/components/diary";
 
 const Page: React.FC = () => {
