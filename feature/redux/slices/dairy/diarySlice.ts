@@ -14,7 +14,7 @@ export interface DiaryState {
 export const initialState = {
   date: new Date(),
   commentView: false,
-  quiredDiary: DEFAULT_DIARY,
+  queriedDiary: DEFAULT_DIARY,
   loading: false,
   error: "",
 };
