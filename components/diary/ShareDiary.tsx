@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Datepicker, Modal, Textarea } from "flowbite-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ShareSVG } from "../svg";
 import AudioModule from "../home/AudioModule";
 import Image from "next/image";
@@ -30,14 +30,30 @@ const ShareDiary: React.FC = () => {
       publicContent: text,
     };
     dispatch<any>(uploadFeed(data));
+    setIsShare(false);
+    localStorage.removeItem("shareText");
   };
+
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newText = e.currentTarget.value;
+    setText(newText);
+    // 텍스트가 변경될 때마다 로컬 스토리지에 저장합니다.
+    localStorage.setItem("shareText", newText);
+  };
+
+  useEffect(() => {
+    const savedText = localStorage.getItem("shareText");
+    if (savedText) {
+      setText(savedText);
+    }
+  }, []);
 
   return (
     <>
       <div className="flex justify-between items-center mb-2">
         <Datepicker className="z-50" onChange={handleChage} autoHide={true} />
         <Button
-          onClick={() => setIsShare(true)}
+          onClick={() => (queriedDiary.diaryId ? setIsShare(true) : null)}
           className="flex justify-end items-center h-10"
         >
           업로드
@@ -72,7 +88,7 @@ const ShareDiary: React.FC = () => {
                 rows={4}
                 placeholder="설명을 추가하세요."
                 value={text}
-                onChange={(e) => setText(e.target.value)}
+                onChange={handleTextChange}
               ></Textarea>
             </p>
             <div className="flex justify-end items-center">
