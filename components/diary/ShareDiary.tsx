@@ -9,11 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchDiaryDetail } from "@/feature/redux/slices/dairy/diaryExtraReducers";
 import { DiaryResponseType, UploadFeedType } from "@/utils/types/dto";
 import { uploadFeed } from "@/feature/redux/slices/feed/feedExtraReducers";
+import { useSaveTextLocalStorage } from "@/utils/hooks";
 
 const ShareDiary: React.FC = () => {
   const dispatch = useDispatch();
   const [isShare, setIsShare] = useState(false);
-  const [text, setText] = useState("");
+  const [text, handleChageText, removeText] = useSaveTextLocalStorage({
+    key: "shareText",
+  });
 
   const queriedDiary: DiaryResponseType = useSelector(
     (state: any) => state.diary.queriedDiary
@@ -31,22 +34,8 @@ const ShareDiary: React.FC = () => {
     };
     dispatch<any>(uploadFeed(data));
     setIsShare(false);
-    localStorage.removeItem("shareText");
+    removeText();
   };
-
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newText = e.currentTarget.value;
-    setText(newText);
-    // 텍스트가 변경될 때마다 로컬 스토리지에 저장합니다.
-    localStorage.setItem("shareText", newText);
-  };
-
-  useEffect(() => {
-    const savedText = localStorage.getItem("shareText");
-    if (savedText) {
-      setText(savedText);
-    }
-  }, []);
 
   return (
     <>
@@ -88,7 +77,7 @@ const ShareDiary: React.FC = () => {
                 rows={4}
                 placeholder="설명을 추가하세요."
                 value={text}
-                onChange={handleTextChange}
+                onChange={handleChageText}
               ></Textarea>
             </p>
             <div className="flex justify-end items-center">

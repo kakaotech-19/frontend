@@ -1,34 +1,20 @@
 "use client";
 
 import { Button, HR, Label, Textarea } from "flowbite-react";
-import { useRouter } from "next/navigation";
-import { useState, useLayoutEffect } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { CreateDiaryEntryType } from "@/utils/types/dto";
 import { createDiaryEntry } from "@/feature/redux/slices/dairy/diaryExtraReducers";
+import { useSaveTextLocalStorage } from "@/utils/hooks";
 
 const Page: React.FC = () => {
-  const [isPublic, setIsPublic] = useState(true);
-  const [text, setText] = useState("");
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
+  const [text, handleChangeText, removeText] = useSaveTextLocalStorage({
+    key: "diaryText",
+  });
 
-  const router = useRouter();
   const dispatch = useDispatch();
   const date = new Date();
-
-  useLayoutEffect(() => {
-    const savedText = localStorage.getItem("diaryText");
-    if (savedText) {
-      setText(savedText);
-    }
-  }, []);
-
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newText = e.currentTarget.value;
-    setText(newText);
-    // 텍스트가 변경될 때마다 로컬 스토리지에 저장합니다.
-    localStorage.setItem("diaryText", newText);
-  };
 
   const handleMoodSelect = (mood: string) => {
     setSelectedMood(mood === selectedMood ? null : mood);
@@ -58,6 +44,7 @@ const Page: React.FC = () => {
       content: text,
     };
     dispatch<any>(createDiaryEntry(data));
+    removeText();
   };
 
   return (
@@ -106,7 +93,7 @@ const Page: React.FC = () => {
             className="h-96 text-md"
             maxLength={3000}
             value={text}
-            onChange={handleTextChange}
+            onChange={handleChangeText}
             placeholder="Write your thoughts here..."
           />
           <div className="absolute bottom-4 right-4 text-sm text-gray-500">
