@@ -17,8 +17,6 @@ const Page: React.FC = () => {
     (state: RootState) => state.diary.commentView
   );
 
-  const [isShare, setIsShare] = useState(false);
-
   return (
     <div className="w-full min-h-screen flex justify-center items-start">
       <div className="w-full mt-14 overflow-y-auto">
@@ -65,20 +63,6 @@ const Page: React.FC = () => {
               <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                 여기에 모달 내용을 넣으세요.
               </p>
-            </div>
-          </Modal.Body>
-        </Modal>
-        <Modal show={isShare} onClose={() => setIsShare(false)}>
-          <Modal.Header>토닥토닥</Modal.Header>
-          <Modal.Body>
-            <div className="space-y-6">
-              <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                게시물을 소개해주세요.
-                <Textarea rows={4} placeholder="설명을 추가하세요."></Textarea>
-              </p>
-              <div className="flex justify-end items-center">
-                <Button className="flex items-center h-8">완료</Button>
-              </div>
             </div>
           </Modal.Body>
         </Modal>

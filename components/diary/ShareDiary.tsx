@@ -1,7 +1,7 @@
 "use client";
 
-import { Button, Datepicker } from "flowbite-react";
-import React from "react";
+import { Button, Datepicker, Modal, Textarea } from "flowbite-react";
+import React, { useState } from "react";
 import { ShareSVG } from "../svg";
 import AudioModule from "../home/AudioModule";
 import Image from "next/image";
@@ -11,6 +11,8 @@ import { DiaryResponseType } from "@/utils/types/dto";
 
 const ShareDiary: React.FC = () => {
   const dispatch = useDispatch();
+  const [isShare, setIsShare] = useState(false);
+
   const queriedDiary: DiaryResponseType = useSelector(
     (state: any) => state.diary.queriedDiary
   );
@@ -20,14 +22,12 @@ const ShareDiary: React.FC = () => {
     dispatch<any>(fetchDiaryDetail(date!.toISOString()));
   };
 
-  const handleUpload = () => {};
-
   return (
     <>
       <div className="flex justify-between items-center mb-2">
         <Datepicker className="z-50" onChange={handleChage} autoHide={true} />
         <Button
-          onClick={() => {}}
+          onClick={() => setIsShare(true)}
           className="flex justify-end items-center h-10"
         >
           업로드
@@ -52,6 +52,20 @@ const ShareDiary: React.FC = () => {
           </>
         ) : null}
       </div>
+      <Modal show={isShare} onClose={() => setIsShare(false)}>
+        <Modal.Header>토닥토닥</Modal.Header>
+        <Modal.Body>
+          <div className="space-y-6">
+            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+              게시물을 소개해주세요.
+              <Textarea rows={4} placeholder="설명을 추가하세요."></Textarea>
+            </p>
+            <div className="flex justify-end items-center">
+              <Button className="flex items-center h-8">완료</Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };
