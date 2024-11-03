@@ -101,7 +101,8 @@ export const feedMockups = [
         "minion4.png",
       ],
       publicContent: "this is public String content", // public diary
-      bgmUrl: "https://s3-url", // diary
+      bgmUrl:
+        "https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3",
       reactionCount: {
         // reaction
         like: 4,

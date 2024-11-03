@@ -9,7 +9,8 @@ export const diaryMockups = [
       content: "blah blah",
       // "publicContent" : "public content",
       webtoonImageUrl: "/minion1.png",
-      bgmUrl: "https://s3-url.com",
+      bgmUrl:
+        "https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3",
       reactionCount: {
         like: 0,
         surprised: 0,
