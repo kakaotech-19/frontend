@@ -1,11 +1,11 @@
 "use client";
 
-import path from "@/feature/routes";
-import { setCommentView } from "@/feature/redux/slices/dairy/diarySlice";
 import { Button, HR, Label, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useState, useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
+import { CreateDiaryEntryType } from "@/utils/types/dto";
+import { createDiaryEntry } from "@/feature/redux/slices/dairy/diaryExtraReducers";
 
 const Page: React.FC = () => {
   const [isPublic, setIsPublic] = useState(true);
@@ -51,6 +51,15 @@ const Page: React.FC = () => {
     }
   };
 
+  const handleCreateDiaryEntry = () => {
+    const data: CreateDiaryEntryType = {
+      date: date.toISOString(),
+      emotion: selectedMood ?? "기쁨",
+      content: text,
+    };
+    dispatch<any>(createDiaryEntry(data));
+  };
+
   return (
     <div className="flex flex-col h-relative justify-between p-4">
       <div className="mt-14">
@@ -65,10 +74,7 @@ const Page: React.FC = () => {
           <div className="flex justify-center items-center space-x-2">
             <Button
               className="h-8 justify-center items-center"
-              onClick={() => {
-                router.push(path.DIARY);
-                dispatch(setCommentView(true));
-              }}
+              onClick={handleCreateDiaryEntry}
             >
               저장
             </Button>
