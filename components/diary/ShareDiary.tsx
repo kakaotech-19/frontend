@@ -7,11 +7,13 @@ import AudioModule from "../home/AudioModule";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDiaryDetail } from "@/feature/redux/slices/dairy/diaryExtraReducers";
-import { DiaryResponseType } from "@/utils/types/dto";
+import { DiaryResponseType, UploadFeedType } from "@/utils/types/dto";
+import { uploadFeed } from "@/feature/redux/slices/feed/feedExtraReducers";
 
 const ShareDiary: React.FC = () => {
   const dispatch = useDispatch();
   const [isShare, setIsShare] = useState(false);
+  const [text, setText] = useState("");
 
   const queriedDiary: DiaryResponseType = useSelector(
     (state: any) => state.diary.queriedDiary
@@ -20,6 +22,14 @@ const ShareDiary: React.FC = () => {
   const handleChage = (date: Date | null) => {
     if (!date) return;
     dispatch<any>(fetchDiaryDetail(date!.toISOString()));
+  };
+
+  const handleUpload = () => {
+    const data: UploadFeedType = {
+      diaryId: queriedDiary.diaryId,
+      publicContent: text,
+    };
+    dispatch<any>(uploadFeed(data));
   };
 
   return (
@@ -58,10 +68,17 @@ const ShareDiary: React.FC = () => {
           <div className="space-y-6">
             <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
               게시물을 소개해주세요.
-              <Textarea rows={4} placeholder="설명을 추가하세요."></Textarea>
+              <Textarea
+                rows={4}
+                placeholder="설명을 추가하세요."
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+              ></Textarea>
             </p>
             <div className="flex justify-end items-center">
-              <Button className="flex items-center h-8">완료</Button>
+              <Button className="flex items-center h-8" onClick={handleUpload}>
+                완료
+              </Button>
             </div>
           </div>
         </Modal.Body>
