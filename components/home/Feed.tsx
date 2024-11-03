@@ -23,7 +23,7 @@ const Feed: React.FC<FeedType> = ({
         description={date}
       />
       <div className="w-full relative">
-        <Carousel slide={false}>
+        <Carousel slide={false} draggable={true}>
           {webtoonImageUrls.map((imageUrl, index) => (
             <div className="w-full relative">
               <Image
