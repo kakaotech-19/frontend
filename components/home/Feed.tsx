@@ -3,6 +3,7 @@ import Image from "next/image";
 import AudioModule from "./AudioModule";
 import EmojiSelector from "./EmojiSelector";
 import { FeedType } from "@/utils/types/dto";
+import { Carousel } from "flowbite-react";
 
 const Feed: React.FC<FeedType> = ({
   nickname,
@@ -22,15 +23,22 @@ const Feed: React.FC<FeedType> = ({
         description={date}
       />
       <div className="w-full relative">
-        <Image
-          width={500}
-          height={500}
-          src={"/minion1.png"}
-          alt={"public-feed" + date + nickname}
-          sizes="100vw"
-          style={{ width: "100%", height: "auto" }}
-          className="rounded-md shadow-md"
-        />
+        <Carousel slide={false} draggable={true}>
+          {webtoonImageUrls.map((imageUrl, index) => (
+            <div className="w-full relative">
+              <Image
+                key={index}
+                width={500}
+                height={500}
+                src={imageUrl}
+                alt={`public-feed-${date}-${nickname}-${index}`}
+                sizes="100vw"
+                style={{ width: "100%", height: "auto" }}
+                className="rounded-md shadow-md object-cover"
+              />
+            </div>
+          ))}
+        </Carousel>
         <AudioModule src={bgmUrl} />
         <EmojiSelector
           reactionCount={reactionCount}

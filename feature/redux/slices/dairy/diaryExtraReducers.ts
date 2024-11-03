@@ -6,10 +6,8 @@ import { CreateDiaryEntryType } from "@/utils/types/dto";
 // 나의 일기 상세 조회 -----------------------------------------------------
 export const fetchDiaryDetail = createAsyncThunk(
   "diary/fetchDiaryDetail",
-  async (params: Date) => {
-    const response = await axiosInstance.get(
-      `/diary/my/detail?date=${params.toISOString()}`
-    );
+  async (params: string) => {
+    const response = await axiosInstance.get(`/diary/my/detail?date=${params}`);
     return response.data;
   }
 );
@@ -20,6 +18,7 @@ const addFetchDiaryDetail = (builder: ActionReducerMapBuilder<DiaryState>) => {
     state.error = null;
   });
   builder.addCase(fetchDiaryDetail.fulfilled, (state, action) => {
+    state.queriedDiary = action.payload;
     state.loading = false;
   });
   builder.addCase(fetchDiaryDetail.rejected, (state, action) => {
@@ -31,10 +30,8 @@ const addFetchDiaryDetail = (builder: ActionReducerMapBuilder<DiaryState>) => {
 // 연월 일기 작성 현황 확인 -----------------------------------------------------
 export const fetchDiaryStatus = createAsyncThunk(
   "diary/fetchDiaryStatus",
-  async (params: Date) => {
-    const response = await axiosInstance.get(
-      `/diary/my?yearMonth=${params.toISOString()}`
-    );
+  async (params: string) => {
+    const response = await axiosInstance.get(`/diary/my?yearMonth=${params}`);
     return response.data;
   }
 );
@@ -45,6 +42,7 @@ const addFetchDiaryStatus = (builder: ActionReducerMapBuilder<DiaryState>) => {
     state.error = null;
   });
   builder.addCase(fetchDiaryStatus.fulfilled, (state, action) => {
+    state.diaryStatusList = [...action.payload.diaryIndexes];
     state.loading = false;
   });
   builder.addCase(fetchDiaryStatus.rejected, (state, action) => {

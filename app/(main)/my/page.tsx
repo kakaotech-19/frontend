@@ -17,7 +17,7 @@ import EmojiSelector from "@/components/home/EmojiSelector";
 import AudioModule from "@/components/home/AudioModule";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Button, Modal } from "flowbite-react";
+import { Button, Carousel, Modal } from "flowbite-react";
 
 const Page = () => {
   const router = useRouter();
