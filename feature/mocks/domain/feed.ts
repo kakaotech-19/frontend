@@ -12,8 +12,8 @@ const createMockDiary = (id: number) => ({
   webtoonImageUrls: [
     "/minion1.png",
     "/minion2.png",
-    "minion3.png",
-    "minion4.png",
+    "/minion3.png",
+    "/minion4.png",
   ],
   bgmUrl:
     "https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3",
