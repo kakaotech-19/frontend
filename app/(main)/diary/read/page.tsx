@@ -3,9 +3,22 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { Button, Modal } from "flowbite-react";
+import { useSearchParams } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { fetchDiaryDetail } from "@/feature/redux/slices/dairy/diaryExtraReducers";
 
 const Page: React.FC = () => {
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = React.useState(false);
+  const searchParams = useSearchParams();
+  const date = searchParams.get("date");
+
+  useEffect(() => {
+    if (date) {
+      dispatch<any>(fetchDiaryDetail(date));
+    }
+  }, [date]);
+
   return (
     <div className="w-full min-h-screen flex justify-center items-center">
       <div className="w-full max-w-md flex flex-col items-center mt-14">
