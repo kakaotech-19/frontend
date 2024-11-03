@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addFeedExtraReducers } from "./feedExtraReducers";
 import { FeedType, MyFeedDetailType, MyFeedType } from "@/utils/types/dto";
+import { DEFAULT_FEED } from "@/utils/constants";
 
 export interface FeedState {
   feedList: FeedType[];
@@ -17,20 +18,7 @@ const initialState: FeedState = {
   feedAfter: 0,
   myFeedList: [],
   myFeedAfter: 0,
-  selectedFeed: {
-    publicDiaryId: 0,
-    webtoonImageUrls: [],
-    publicContent: "",
-    bgmUrl: "",
-    reactionCount: {
-      like: 0,
-      surprised: 0,
-      empathize: 0,
-      cheering: 0,
-    },
-    myReaction: [],
-    diaryCreatedDate: "",
-  },
+  selectedFeed: DEFAULT_FEED,
   loading: false,
   error: null,
 };

@@ -1,3 +1,7 @@
-import { DEFAULT_DIARY, DEFAULT_REACTIONS } from "./initialConstants";
+import {
+  DEFAULT_DIARY,
+  DEFAULT_REACTIONS,
+  DEFAULT_FEED,
+} from "./initialConstants";
 
-export { DEFAULT_DIARY, DEFAULT_REACTIONS };
+export { DEFAULT_DIARY, DEFAULT_REACTIONS, DEFAULT_FEED };
