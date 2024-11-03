@@ -7,10 +7,8 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/feature/redux";
 import { setCommentView } from "@/feature/redux/slices/dairy/diarySlice";
-import Image from "next/image";
-import AudioModule from "@/components/home/AudioModule";
-import { ShareSVG } from "@/components/svg";
 import { useState } from "react";
+import { ShareDiary } from "@/components/diary";
 
 const Page: React.FC = () => {
   const router = useRouter();
@@ -51,30 +49,7 @@ const Page: React.FC = () => {
               <Accordion.Title>공유하기</Accordion.Title>
               <Accordion.Content>
                 <div className="flex-col mb-2 w-full max-w-md border-b border-gray-200">
-                  <div className="flex justify-between items-center mb-2">
-                    <Datepicker className="" autoHide={false} />
-                    <Button
-                      onClick={() => setIsShare(true)}
-                      className="flex justify-end items-center h-10"
-                    >
-                      업로드
-                      <div className="ml-2">
-                        <ShareSVG />
-                      </div>
-                    </Button>
-                  </div>
-                  <div className="w-full relative">
-                    <Image
-                      width={500}
-                      height={500}
-                      src={"/cat.png"}
-                      alt={"게시물 이미지"}
-                      sizes="100vw"
-                      style={{ width: "100%", height: "auto" }}
-                      className="rounded-md shadow-md"
-                    />
-                    <AudioModule src="https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3" />
-                  </div>
+                  <ShareDiary />
                 </div>
               </Accordion.Content>
             </Accordion.Panel>
