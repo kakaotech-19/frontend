@@ -1,4 +1,4 @@
-import { ButtonType } from "@/utils/types/common";
+import { ButtonType } from "@/domain/shared/types/common";
 
 function NaverLoginButton({ onClick }: ButtonType) {
   return (

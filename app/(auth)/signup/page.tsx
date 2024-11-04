@@ -34,7 +34,7 @@ import {
   VerifyEmailType,
 } from "@/utils/types/dto";
 import { useRouter } from "next/navigation";
-import path from "@/routes";
+import path from "@/domain/shared/constants/routes";
 import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
 import TermsAndConditionsModal from "@/components/auth/TermsAndConditionsModal";
 

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { CreateDiaryEntryType } from "@/utils/types/dto";
 import { createDiaryEntry } from "@/domain/diary/slices/dairy/diaryExtraReducers";
-import { useSaveTextLocalStorage } from "@/utils/hooks";
+import { useSaveTextLocalStorage } from "@/domain/shared/hooks";
 
 const Page: React.FC = () => {
   const [selectedMood, setSelectedMood] = useState<string | null>(null);

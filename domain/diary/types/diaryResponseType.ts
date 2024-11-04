@@ -1,4 +1,4 @@
-import { ReactionType } from "./feedResponseType";
+import { ReactionType } from "../../feed/types/feedResponseType";
 
 export type DiaryResponseType = {
   diaryId: number;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useHideOnScroll } from "@/utils/hooks";
+import { useHideOnScroll } from "@/domain/shared/hooks";
 import { HR } from "flowbite-react";
 import Link from "next/link";
 

@@ -1,7 +1,7 @@
 "use client";
 
-import path from "@/routes";
-import { ButtonType } from "@/utils/types/common";
+import path from "@/domain/shared/constants/routes";
+import { ButtonType } from "@/domain/shared/types/common";
 import { Button } from "flowbite-react";
 import Link from "next/link";
 import React from "react";

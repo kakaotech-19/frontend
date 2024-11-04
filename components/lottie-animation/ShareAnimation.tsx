@@ -2,7 +2,7 @@
 
 import Lottie from "lottie-react";
 import ShareAnimationData from "@/public/lottie-animation/share.json";
-import { AnimationType } from "@/utils/types/common";
+import { AnimationType } from "@/domain/shared/types/common";
 
 const ShareAnimation: React.FC<AnimationType> = ({ style }) => {
   return (

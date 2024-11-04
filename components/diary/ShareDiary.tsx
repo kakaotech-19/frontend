@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchDiaryDetail } from "@/domain/diary/slices/dairy/diaryExtraReducers";
 import { DiaryResponseType, UploadFeedType } from "@/utils/types/dto";
 import { uploadFeed } from "@/redux/slices/feed/feedExtraReducers";
-import { useSaveTextLocalStorage } from "@/utils/hooks";
+import { useSaveTextLocalStorage } from "@/domain/shared/hooks";
 
 const ShareDiary: React.FC = () => {
   const dispatch = useDispatch();

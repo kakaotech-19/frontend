@@ -1,6 +1,6 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { DiaryState } from "./diarySlice";
-import axiosInstance from "@/utils/lib/axios";
+import axiosInstance from "@/domain/shared/lib/axios";
 import { CreateDiaryEntryType } from "@/utils/types/dto";
 
 // 나의 일기 상세 조회 -----------------------------------------------------

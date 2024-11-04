@@ -1,7 +1,7 @@
 "use client";
 
 import MyCalendar from "@/components/diary/Calendar";
-import path from "@/routes";
+import path from "@/domain/shared/constants/routes";
 import { Modal, Accordion, Button, Datepicker, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";

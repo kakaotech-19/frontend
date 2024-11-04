@@ -1,9 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import path from "@/routes";
+import path from "@/domain/shared/constants/routes";
 import { HomeSVG, PencilSVG, UserSVG } from "../svg";
-import { useHideOnScroll } from "@/utils/hooks";
+import { useHideOnScroll } from "@/domain/shared/hooks";
 
 const BottomNavigation: React.FC = () => {
   const router = useRouter();

@@ -2,7 +2,7 @@
 
 import { BottomNavigation, HeaderNavigation } from "@/components/layout";
 import store from "@/redux";
-import { useMocking } from "@/utils/hooks";
+import { useMocking } from "@/domain/shared/hooks";
 import React from "react";
 import { Provider } from "react-redux";
 

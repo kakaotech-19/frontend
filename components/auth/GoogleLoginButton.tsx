@@ -1,4 +1,4 @@
-import { ButtonType } from "@/utils/types/common";
+import { ButtonType } from "@/domain/shared/types/common";
 import { Button } from "flowbite-react";
 
 const GoogleLoginButton: React.FC<ButtonType> = () => {

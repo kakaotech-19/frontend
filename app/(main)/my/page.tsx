@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { RootState } from "@/redux";
-import path from "@/routes";
+import path from "@/domain/shared/constants/routes";
 import Image from "next/image";
 import { fetchMemberInfo } from "@/redux/slices/member/memberExtraReducers";
 import {
