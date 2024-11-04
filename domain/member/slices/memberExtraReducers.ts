@@ -5,6 +5,10 @@ import {
   ChangeNicknameType,
   CreateCharacterType,
 } from "../types/memberRequestType";
+import {
+  ChangeNicknameRequestDto,
+  CreateCharacterRequestDto,
+} from "../dto/request";
 
 // 회원 정보 -----------------------------------------------------
 export const fetchMemberInfo = createAsyncThunk(
@@ -59,7 +63,11 @@ const addFetchCharacter = (builder: ActionReducerMapBuilder<MemberState>) => {
 export const createCharacter = createAsyncThunk(
   "member/createCharacter",
   async (data: CreateCharacterType) => {
-    const response = await axiosInstance.post("/member/image", data);
+    const createCharacterDto = new CreateCharacterRequestDto(data);
+    const response = await axiosInstance.post(
+      "/member/image",
+      createCharacterDto.toObject()
+    );
     return response.data;
   }
 );
@@ -108,7 +116,11 @@ const addRegisterCharacter = (
 export const changeNickname = createAsyncThunk(
   "member/changeNickname",
   async (data: ChangeNicknameType) => {
-    const response = await axiosInstance.patch("/member/nickname", data);
+    const changeNicknameDto = new ChangeNicknameRequestDto(data);
+    const response = await axiosInstance.patch(
+      "/member/nickname",
+      changeNicknameDto.toObject()
+    );
     return response.data;
   }
 );

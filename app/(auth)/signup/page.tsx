@@ -29,14 +29,14 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
 import path from "@/domain/shared/routes";
+import { TermsAndConditionsModal } from "@/domain/auth/components";
 import {
   CheckIdDuplicateType,
   CheckNicknameDuplicateType,
   ConfirmEmailCodeType,
   RegisterUserType,
   VerifyEmailType,
-} from "@/domain/auth/types/authRequestType";
-import { TermsAndConditionsModal } from "@/domain/auth/components";
+} from "@/domain/auth/dto/request";
 
 const Page = () => {
   const dispatch = useDispatch();

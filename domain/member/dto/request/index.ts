@@ -2,6 +2,10 @@ import {
   CreateCharacterRequestDto,
   CreateCharacterType,
 } from "./createCharacterDto";
+import {
+  ChangeNicknameRequestDto,
+  ChangeNicknameType,
+} from "./chageNicknameDto";
 
-export { CreateCharacterRequestDto };
-export type { CreateCharacterType };
+export { CreateCharacterRequestDto, ChangeNicknameRequestDto };
+export type { CreateCharacterType, ChangeNicknameType };
