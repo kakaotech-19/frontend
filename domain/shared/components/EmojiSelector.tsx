@@ -66,7 +66,7 @@ const EmojiSelector: React.FC<EmojiSelectorProps> = ({
     <>
       <button
         onClick={toggleMenu}
-        className="absolute bottom-2 left-2 bg-gray-100 text-gray-800 text-xs font-medium px-1 py-1 rounded-full dark:bg-gray-700 dark:text-gray-300 opacity-75"
+        className="absolute bottom-2 left-2 bg-gray-100 text-gray-800 text-xs font-medium px-1 py-1 rounded-full dark:bg-gray-700 dark:text-gray-300 opacity-75 border shadow-md"
       >
         😄
       </button>

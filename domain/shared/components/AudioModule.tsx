@@ -25,7 +25,7 @@ const AudioModule: React.FC<AudioModuleProps> = ({ src }) => {
     <>
       <div
         onClick={handleClickAudio}
-        className="absolute bottom-2 right-2 text-sm font-semibold rounded-full pl-2 pr-2 bg-white opacity-75"
+        className="absolute bottom-2 right-2 text-sm font-semibold rounded-full pl-2 pr-2 bg-white opacity-75 border shadow-md"
       >
         {isPlaying ? <VolumeUpSVG /> : <MuteSVG />}
       </div>
