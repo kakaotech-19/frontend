@@ -1,4 +1,8 @@
-import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  ActionReducerMapBuilder,
+  createAsyncThunk,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import { DiaryState } from "./diarySlice";
 import axiosInstance from "@/domain/shared/axios";
 import {
@@ -7,13 +11,15 @@ import {
   DeleteDiaryEntryRequestDto,
   DeleteDiaryEntryType,
 } from "../dto/request";
+import { DiaryResponseDto, DiaryResponseType } from "../dto/response";
 
 // 나의 일기 상세 조회 -----------------------------------------------------
 export const fetchDiaryDetail = createAsyncThunk(
   "diary/fetchDiaryDetail",
   async (params: string) => {
     const response = await axiosInstance.get(`/diary/my/detail?date=${params}`);
-    return response.data;
+    const responseData = new DiaryResponseDto(response.data);
+    return responseData.toObject();
   }
 );
 
@@ -22,10 +28,13 @@ const addFetchDiaryDetail = (builder: ActionReducerMapBuilder<DiaryState>) => {
     state.loading = true;
     state.error = null;
   });
-  builder.addCase(fetchDiaryDetail.fulfilled, (state, action) => {
-    state.queriedDiary = action.payload;
-    state.loading = false;
-  });
+  builder.addCase(
+    fetchDiaryDetail.fulfilled,
+    (state, action: PayloadAction<DiaryResponseType>) => {
+      state.queriedDiary = action.payload;
+      state.loading = false;
+    }
+  );
   builder.addCase(fetchDiaryDetail.rejected, (state, action) => {
     state.loading = false;
     state.error = action.error.message ?? null;

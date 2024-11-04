@@ -4,8 +4,8 @@ import { Button, HR, Label, Textarea } from "flowbite-react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSaveTextLocalStorage } from "@/domain/shared/hooks";
-import { CreateDiaryEntryType } from "@/domain/diary/types/diaryRequestType";
 import { createDiaryEntry } from "@/domain/diary/slices/diaryExtraReducers";
+import { CreateDiaryEntryType } from "@/domain/diary/dto/request";
 
 const Page: React.FC = () => {
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
