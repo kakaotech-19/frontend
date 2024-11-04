@@ -4,6 +4,7 @@ import diarySlice from "@/domain/diary/slices/diarySlice";
 import feedSlice from "@/domain/feed/slices/feedSlice";
 import memberSlice from "@/domain/member/slices/memberSlice";
 import { loginSlice, signupSlice } from "@/domain/auth/slices";
+import notiSlice from "@/domain/noti/slices/notiSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     diary: diarySlice,
     feed: feedSlice,
     member: memberSlice,
+    noti: notiSlice,
   },
   middleware: (
     getDefaultMiddleware: (arg0: {

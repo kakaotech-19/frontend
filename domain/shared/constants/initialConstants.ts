@@ -27,3 +27,9 @@ export const DEFAULT_FEED: MyFeedDetailType = {
   myReaction: [],
   diaryCreatedDate: "",
 };
+
+export const INIT_ALERT = {
+  title: "",
+  message: "",
+  color: "",
+};

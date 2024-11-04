@@ -2,6 +2,7 @@
 
 import { Feed } from "@/domain/feed/components";
 import { fetchFeedEntries } from "@/domain/feed/slices/feedExtraReducers";
+import { setAlert } from "@/domain/noti/slices/notiSlice";
 import { RootState } from "@/redux";
 import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";

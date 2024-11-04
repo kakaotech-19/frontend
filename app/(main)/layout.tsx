@@ -7,14 +7,15 @@ import { Provider } from "react-redux";
 import {
   BottomNavigation,
   HeaderNavigation,
+  MyAlert,
 } from "@/domain/shared/components/layout";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   useMocking();
   return (
     <>
-      {/* Your component code here */}
       <HeaderNavigation />
+      <MyAlert />
       {children}
       <BottomNavigation />
     </>
