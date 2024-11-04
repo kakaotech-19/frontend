@@ -58,6 +58,8 @@ const addLogoutUser = (builder: ActionReducerMapBuilder<LoginState>) => {
     state.error = null;
   });
   builder.addCase(logoutUser.fulfilled, (state, action) => {
+    state.isLogin = false;
+    localStorage.removeItem("accessToken");
     state.loading = false;
   });
   builder.addCase(logoutUser.rejected, (state, action) => {

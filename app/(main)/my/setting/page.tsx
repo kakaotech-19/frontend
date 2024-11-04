@@ -1,5 +1,6 @@
 "use client";
 
+import { logoutUser } from "@/domain/auth/slices/login/loginExtraReducers";
 import UploadFileLabel from "@/domain/member/components/UploadFileLabel";
 import {
   changeNickname,
@@ -12,7 +13,7 @@ import {
   CreateCharacterType,
 } from "@/domain/member/types/memberRequestType";
 import { RootState } from "@/redux";
-import { Accordion, Button, HR, Label, TextInput } from "flowbite-react";
+import { Accordion, Button, HR, Label, Modal, TextInput } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +26,7 @@ const Page: React.FC = () => {
   const selectedFile = useSelector(
     (state: RootState) => state.member.selectedFile
   );
+  const [openModal, setOpenModal] = React.useState(false);
 
   const handleChangeNickname = () => {
     const data: ChangeNicknameType = {
@@ -89,6 +91,30 @@ const Page: React.FC = () => {
                     />
                     <Button onClick={handleChangeNickname}>변경하기</Button>
                   </div>
+                </div>
+                <HR />
+                <div className="flex justify-end">
+                  <Button id="logout-button" onClick={() => setOpenModal(true)}>
+                    로그아웃
+                  </Button>
+                  <Modal
+                    show={openModal}
+                    onClose={() => {
+                      setOpenModal(false);
+                    }}
+                  >
+                    <Modal.Header>토닥토닥</Modal.Header>
+                    <Modal.Body>
+                      <div className="flex justify-between items-center">
+                        <p className="font-semibold text-red-600">
+                          정말 로그아웃 하시겠습니까?
+                        </p>
+                        <Button onClick={() => dispatch<any>(logoutUser())}>
+                          로그아웃
+                        </Button>
+                      </div>
+                    </Modal.Body>
+                  </Modal>
                 </div>
               </Accordion.Content>
             </Accordion.Panel>
