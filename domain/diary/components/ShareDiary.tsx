@@ -3,14 +3,13 @@
 import { Button, Datepicker, Modal, Textarea } from "flowbite-react";
 import React, { useState } from "react";
 import { ShareSVG } from "../../shared/components/svg";
-import AudioModule from "../../shared/components/AudioModule";
-import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { useSaveTextLocalStorage } from "@/domain/shared/hooks";
 import { fetchDiaryDetail } from "../slices/diaryExtraReducers";
 import { uploadFeed } from "@/domain/feed/slices/feedExtraReducers";
 import { DiaryResponseType } from "../dto/response";
 import { UploadFeedType } from "@/domain/feed/dto/request";
+import { CarouselAudioEmoji } from "@/domain/shared/components";
 
 const ShareDiary: React.FC = () => {
   const dispatch = useDispatch();
@@ -52,22 +51,15 @@ const ShareDiary: React.FC = () => {
           </div>
         </Button>
       </div>
-      <div className="w-full h-auto relative">
+      <>
         {queriedDiary.diaryId ? (
-          <>
-            <Image
-              width={500}
-              height={500}
-              src={queriedDiary.webtoonImageUrl}
-              alt={"게시물 이미지"}
-              sizes="100vw"
-              style={{ width: "100%", height: "auto" }}
-              className="rounded-md shadow-md"
-            />
-            <AudioModule src={queriedDiary.bgmUrl} />
-          </>
+          <CarouselAudioEmoji
+            webtoonImageUrls={queriedDiary.webtoonImageUrls}
+            bgmUrl={queriedDiary.bgmUrl}
+            diaryId={queriedDiary.diaryId}
+          />
         ) : null}
-      </div>
+      </>
       <Modal show={isShare} onClose={() => setIsShare(false)}>
         <Modal.Header>토닥토닥</Modal.Header>
         <Modal.Body>

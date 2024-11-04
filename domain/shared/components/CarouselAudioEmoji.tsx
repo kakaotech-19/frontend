@@ -10,9 +10,10 @@ import { ReactionType } from "@/domain/feed/types/feedResponseType";
 interface CarouselAudioEmojiProps {
   webtoonImageUrls: string[];
   bgmUrl: string;
-  reactionCount: ReactionType;
-  myReaction: [];
+  reactionCount?: ReactionType;
+  myReaction?: [];
   diaryId: number;
+  emojiReadonly?: boolean;
 }
 
 const CarouselAudioEmoji: React.FC<CarouselAudioEmojiProps> = ({
@@ -21,14 +22,14 @@ const CarouselAudioEmoji: React.FC<CarouselAudioEmojiProps> = ({
   reactionCount,
   myReaction,
   diaryId,
+  emojiReadonly,
 }) => {
   return (
     <div className="w-full relative">
       <Carousel slide={false} draggable={true}>
-        {webtoonImageUrls.map((imageUrl, index) => (
-          <div className="w-full relative">
+        {webtoonImageUrls?.map((imageUrl, index) => (
+          <div key={index} className="w-full relative">
             <Image
-              key={index}
               width={500}
               height={500}
               src={imageUrl}
@@ -41,11 +42,14 @@ const CarouselAudioEmoji: React.FC<CarouselAudioEmojiProps> = ({
         ))}
       </Carousel>
       <AudioModule src={bgmUrl} />
-      <EmojiSelector
-        reactionCount={reactionCount}
-        myReaction={myReaction}
-        diaryId={diaryId}
-      />
+      {reactionCount && myReaction && (
+        <EmojiSelector
+          reactionCount={reactionCount}
+          myReaction={myReaction}
+          diaryId={diaryId}
+          readonly={emojiReadonly ?? false}
+        />
+      )}
     </div>
   );
 };
