@@ -2,6 +2,7 @@ import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { FeedState } from "./feedSlice";
 import axiosInstance from "@/domain/shared/axios";
 import { ReactionFeedType, UploadFeedType } from "../types/feedRequestType";
+import { ReactionFeedRequestDto, UploadFeedRequestDto } from "../dto/request";
 
 // 일기장 불러오기 (무한 스크롤) -----------------------------------------------------
 export const fetchFeedEntries = createAsyncThunk(
@@ -32,7 +33,11 @@ const addFetchFeedEntries = (builder: ActionReducerMapBuilder<FeedState>) => {
 export const reactionFeed = createAsyncThunk(
   "feed/reactionFeed",
   async (data: ReactionFeedType) => {
-    const response = await axiosInstance.post("/diary/public/reaction", data);
+    const reactionFeedDto = new ReactionFeedRequestDto(data);
+    const response = await axiosInstance.post(
+      "/diary/public/reaction",
+      reactionFeedDto.toObject()
+    );
     return response.data;
   }
 );
@@ -55,7 +60,11 @@ const addReactionFeed = (builder: ActionReducerMapBuilder<FeedState>) => {
 export const uploadFeed = createAsyncThunk(
   "Feed/uploadFeed",
   async (data: UploadFeedType) => {
-    const response = await axiosInstance.post("/diary/public", data);
+    const uploadFeedDto = new UploadFeedRequestDto(data);
+    const response = await axiosInstance.post(
+      "/diary/public",
+      uploadFeedDto.toObject()
+    );
     return response.data;
   }
 );
