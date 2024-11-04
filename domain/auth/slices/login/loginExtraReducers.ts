@@ -34,7 +34,7 @@ const addLoginUser = (builder: ActionReducerMapBuilder<LoginState>) => {
   builder.addCase(
     loginUser.fulfilled,
     (state, action: PayloadAction<LoginResponseType>) => {
-      state.accessToken = action.payload.accessToken;
+      localStorage.setItem("accessToken", action.payload.accessToken);
       state.isLogin = true;
       state.loading = false;
     }
@@ -84,7 +84,7 @@ const addReissueToken = (builder: ActionReducerMapBuilder<LoginState>) => {
   builder.addCase(
     reissueToken.fulfilled,
     (state, action: PayloadAction<ReIssueTokenType>) => {
-      state.accessToken = action.payload.accessToken;
+      localStorage.setItem("accessToken", action.payload.accessToken);
       state.loading = false;
     }
   );

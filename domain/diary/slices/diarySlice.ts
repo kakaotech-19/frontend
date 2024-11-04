@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { addDiaryExtraReducers } from "./diaryExtraReducers";
-import { DiaryResponseType, DiaryStatusType } from "../types/diaryResponseType";
 import { DEFAULT_DIARY } from "@/domain/shared/constants";
+import { DiaryResponseType } from "../dto/response";
+import { DiaryStatusType } from "../types";
 
 export interface DiaryState {
   commentView: boolean;

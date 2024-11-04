@@ -26,7 +26,13 @@ export class ReactionFeedRequestDto implements ReactionFeedType {
 
   // reactionType 유효성 검증 메서드
   private isValidReactionType(reactionType: string): boolean {
-    const validReactions = ["like", "love", "laugh", "sad", "angry"];
+    const validReactions = [
+      "happy",
+      "peaceful",
+      "thoughtful",
+      "regretful",
+      "bitter",
+    ];
     return validReactions.includes(reactionType);
   }
 
