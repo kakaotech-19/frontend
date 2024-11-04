@@ -5,20 +5,30 @@ import { useMocking } from "@/domain/shared/hooks";
 import React from "react";
 import { Provider } from "react-redux";
 import {
+  AccessTokenReissue,
   BottomNavigation,
   HeaderNavigation,
 } from "@/domain/shared/components/layout";
 
-const layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   useMocking();
   return (
-    <Provider store={store}>
+    <>
       {/* Your component code here */}
+      <AccessTokenReissue />
       <HeaderNavigation />
       {children}
       <BottomNavigation />
+    </>
+  );
+};
+
+const CustomProvider = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <Provider store={store}>
+      <Layout>{children}</Layout>
     </Provider>
   );
 };
 
-export default layout;
+export default CustomProvider;

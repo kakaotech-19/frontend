@@ -32,7 +32,7 @@ export const authMockups = [
     return HttpResponse.json({
       username: "string",
       accessToken:
-        "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwidXNlcm5hbWUiOiJzdHJpbmciLCJyb2xlIjoiUk9MRV9URU1QIiwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTczMDQyOTE5OSwiZXhwIjoxNzMwNDMwOTk5fQ.qlCFLaCRn4kLbitgZCk5S6VyPLhhFmZF0DttcjT2WX1WnvrpiPWieL61ABafWV3h8PVod8C5lBSGdwbJ1_0syg",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
     });
   }),
 
@@ -50,7 +50,7 @@ export const authMockups = [
   http.post(url + "/auth/refresh-token", () => {
     return HttpResponse.json({
       accessToken:
-        "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwidXNlcm5hbWUiOiJzdHJpbmciLCJyb2xlIjoiUk9MRV9URU1QIiwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTczMDQyOTE5OSwiZXhwIjoxNzMwNDMwOTk5fQ.qlCFLaCRn4kLbitgZCk5S6VyPLhhFmZF0DttcjT2WX1WnvrpiPWieL61ABafWV3h8PVod8C5lBSGdwbJ1_0syg",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
     });
   }),
 ];

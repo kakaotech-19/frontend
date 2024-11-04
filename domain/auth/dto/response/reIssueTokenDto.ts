@@ -9,7 +9,7 @@ export type ReIssueTokenType = {
 export class ReIssueTokenResponseDto implements ReIssueTokenType {
   public accessToken: string;
 
-  constructor(accessToken: string) {
+  constructor({ accessToken }: ReIssueTokenType) {
     if (!isValidAccessToken(accessToken)) {
       throw new Error("Invalid access token format.");
     }
