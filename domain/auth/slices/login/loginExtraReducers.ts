@@ -92,7 +92,7 @@ const addReissueToken = (builder: ActionReducerMapBuilder<LoginState>) => {
   );
   builder.addCase(reissueToken.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.error.message ?? "";
   });
 };
 
