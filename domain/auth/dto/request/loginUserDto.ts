@@ -10,8 +10,8 @@ export class LoginUserRequestDto implements LoginUserType {
   public password: string;
 
   constructor(params: LoginUserType) {
-    if (!params.loginId) throw new Error("Login ID is required.");
-    if (!params.password) throw new Error("Password is required.");
+    if (!params.loginId) throw new Error("로그인 아이디를 입력해주세요.");
+    if (!params.password) throw new Error("패스워드를 입력해주세요.");
 
     this.loginId = params.loginId.trim().toLowerCase();
     this.password = params.password;

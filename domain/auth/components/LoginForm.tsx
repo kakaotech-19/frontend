@@ -16,6 +16,8 @@ import { useRouter } from "next/navigation";
 import path from "@/domain/shared/routes";
 import { DirectionSVG } from "@/domain/shared/components/svg";
 import { LoginUserType } from "../dto/request";
+import { AlertType } from "@/domain/noti/types";
+import { setAlert } from "@/domain/noti/slices/notiSlice";
 
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -27,6 +29,12 @@ const LoginForm: React.FC = () => {
   const isLogin = useSelector((state: RootState) => state.login.isLogin);
   useEffect(() => {
     if (isLogin) {
+      const data: AlertType = {
+        title: "알림",
+        message: `로그인 일시: ${new Date().toLocaleString()}`,
+        color: "success",
+      };
+      dispatch(setAlert(data));
       router.push(path.HOME);
       dispatch(resetLoginState());
     }

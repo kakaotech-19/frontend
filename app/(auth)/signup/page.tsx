@@ -37,6 +37,8 @@ import {
   RegisterUserType,
   VerifyEmailType,
 } from "@/domain/auth/dto/request";
+import { AlertType } from "@/domain/noti/types";
+import { setAlert } from "@/domain/noti/slices/notiSlice";
 
 const Page = () => {
   const dispatch = useDispatch();
@@ -54,7 +56,12 @@ const Page = () => {
   const isSignup = useSelector((state: RootState) => state.signup.isSignup);
   useEffect(() => {
     if (isSignup) {
-      alert("회원가입이 완료되었습니다. 로그인해주세요.");
+      const data: AlertType = {
+        title: "알림",
+        message: "회원가입이 완료되었습니다. 로그인해주세요.",
+        color: "green",
+      };
+      dispatch(setAlert(data));
       router.push(path.LOGIN);
       dispatch(resetSignupState());
       dispatch(setIsIdLoginFormView(true));
@@ -84,7 +91,13 @@ const Page = () => {
   // 회원가입
   const handlePostSignup = () => {
     if (!validateSignup()) {
-      return alert("Please check your information");
+      const data: AlertType = {
+        title: "알림",
+        message: "모든 항목을 확인해주세요.",
+        color: "red",
+      };
+      dispatch(setAlert(data));
+      return;
     }
     const data: RegisterUserType = {
       email: email,

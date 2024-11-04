@@ -9,7 +9,7 @@ export class CheckIdDuplicateRequestDto implements CheckIdDuplicateType {
 
   constructor(loginId: string) {
     if (!this.isValidLoginId(loginId)) {
-      throw new Error("Invalid login ID format.");
+      throw new Error("5 ~ 15자리 영문, 숫자, 한글을 입력해주세요.");
     }
 
     this.loginId = loginId.trim(); // loginId의 앞뒤 공백 제거

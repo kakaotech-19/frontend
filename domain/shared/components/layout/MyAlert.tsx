@@ -33,7 +33,7 @@ const MyAlert: React.FC = () => {
       icon={HiInformationCircle}
     >
       <span>
-        <span className="font-medium">{alert.title}</span> {alert.message}
+        <span className="font-bold">{alert.title}</span> {alert.message}
       </span>
     </Alert>
   );

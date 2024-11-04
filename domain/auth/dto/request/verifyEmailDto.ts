@@ -11,7 +11,7 @@ export class VerifyEmailRequestDto implements VerifyEmailType {
 
   constructor(email: string) {
     if (!isValidEmail(email)) {
-      throw new Error("Invalid email format.");
+      throw new Error("이메일 형식이 올바르지 않습니다.");
     }
 
     this.email = email.trim().toLowerCase(); // 이메일을 소문자로 변환
