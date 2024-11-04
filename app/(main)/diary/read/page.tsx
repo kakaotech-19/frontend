@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux";
 import { fetchDiaryDetail } from "@/domain/diary/slices/diaryExtraReducers";
-import { AudioModule, CarouselAudioEmoji } from "@/domain/shared/components";
+import { CarouselAudioEmoji } from "@/domain/shared/components";
 
 const DiaryReadPage: React.FC = () => {
   const dispatch = useDispatch();

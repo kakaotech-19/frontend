@@ -4,6 +4,8 @@ import isValidAccessToken from "./isValidAccessToken";
 import isValidDate from "./isValidDate";
 import isValidNickname from "./isValidNickname";
 import isValidDiaryId from "./isValidDiaryId";
+import toKSTISOString from "./toKSTISOString";
+
 export {
   encodeFileToBase64,
   isValidEmail,
@@ -11,4 +13,5 @@ export {
   isValidDate,
   isValidNickname,
   isValidDiaryId,
+  toKSTISOString,
 };

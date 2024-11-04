@@ -13,7 +13,7 @@ export class CheckNicknameDuplicateRequestDto
 
   constructor(nickname: string) {
     if (!isValidNickname(nickname)) {
-      throw new Error("Invalid nickname format.");
+      throw new Error("5 ~ 15자리 영문, 숫자, 한글을 입력해주세요.");
     }
 
     this.nickname = nickname.trim(); // 닉네임의 앞뒤 공백 제거

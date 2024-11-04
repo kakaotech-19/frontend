@@ -10,7 +10,7 @@ export class CreateCharacterRequestDto implements CreateCharacterType {
   // 네임드 파라미터 방식의 생성자
   constructor({ image }: CreateCharacterType) {
     if (!this.isValidBase64Image(image)) {
-      throw new Error("Invalid image format. Expected Base64 encoded string.");
+      throw new Error("허용하지 않는 이미지 포맷입니다.");
     }
 
     this.image = image.trim();
@@ -20,7 +20,7 @@ export class CreateCharacterRequestDto implements CreateCharacterType {
   private isValidBase64Image(image: string): boolean {
     // 이미지의 MIME 타입이 포함된 Base64 형식의 시작 부분 예시: data:image/png;base64, 또는 data:image/jpeg;base64,
     const base64Regex =
-      /^data:image\/(png|jpeg|jpg);base64,[A-Za-z0-9+/]+={0,2}$/;
+      /^data:image\/[a-zA-Z0-9+.-]+;base64,[A-Za-z0-9+/]+={0,2}$/;
     return base64Regex.test(image);
   }
 

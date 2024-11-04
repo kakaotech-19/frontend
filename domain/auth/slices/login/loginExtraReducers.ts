@@ -58,6 +58,8 @@ const addLogoutUser = (builder: ActionReducerMapBuilder<LoginState>) => {
     state.error = null;
   });
   builder.addCase(logoutUser.fulfilled, (state, action) => {
+    state.isLogin = false;
+    localStorage.removeItem("accessToken");
     state.loading = false;
   });
   builder.addCase(logoutUser.rejected, (state, action) => {
@@ -90,7 +92,7 @@ const addReissueToken = (builder: ActionReducerMapBuilder<LoginState>) => {
   );
   builder.addCase(reissueToken.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.error.message ?? "";
   });
 };
 

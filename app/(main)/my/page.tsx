@@ -5,10 +5,9 @@ import { useRouter } from "next/navigation";
 import { RootState } from "@/redux";
 import Image from "next/image";
 import SettingSVG from "@/domain/shared/components/svg/SettingSVG";
-import EmojiSelector from "@/domain/shared/components/EmojiSelector";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Button, Carousel, Modal } from "flowbite-react";
+import { Button, Modal } from "flowbite-react";
 import {
   fetchMyFeedDetail,
   fetchMyFeedEntries,

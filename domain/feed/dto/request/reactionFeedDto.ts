@@ -14,26 +14,11 @@ export class ReactionFeedRequestDto implements ReactionFeedType {
   // 네임드 파라미터 방식의 생성자
   constructor({ diaryId, reactionType }: ReactionFeedType) {
     if (!isValidDiaryId(diaryId)) {
-      throw new Error("Invalid diary ID.");
-    }
-    if (!this.isValidReactionType(reactionType)) {
-      throw new Error("Invalid reaction type.");
+      throw new Error("유효하지 않은 다이어리 아이디입니다.");
     }
 
     this.diaryId = diaryId;
     this.reactionType = reactionType.trim();
-  }
-
-  // reactionType 유효성 검증 메서드
-  private isValidReactionType(reactionType: string): boolean {
-    const validReactions = [
-      "happy",
-      "peaceful",
-      "thoughtful",
-      "regretful",
-      "bitter",
-    ];
-    return validReactions.includes(reactionType);
   }
 
   // 객체 형태로 반환

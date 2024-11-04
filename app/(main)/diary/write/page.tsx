@@ -22,15 +22,15 @@ const Page: React.FC = () => {
 
   const getMoodColor = (mood: string) => {
     switch (mood) {
-      case "기뻐요":
-        return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
-      case "재밌어요":
-        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-700 dark:text-yellow-300";
       case "행복해요":
+        return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
+      case "평온해요":
+        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-700 dark:text-yellow-300";
+      case "생각이많아요":
         return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
-      case "슬퍼요":
+      case "아쉬워요":
         return "bg-gray-500 text-gray-100 dark:bg-gray-900 dark:text-gray-300";
-      case "화나요":
+      case "씁쓸해요":
         return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
       default:
         return "";
@@ -40,7 +40,7 @@ const Page: React.FC = () => {
   const handleCreateDiaryEntry = () => {
     const data: CreateDiaryEntryType = {
       date: date.toISOString(),
-      emotion: selectedMood ?? "기뻐요",
+      emotion: selectedMood!,
       content: text,
     };
     dispatch<any>(createDiaryEntry(data));
@@ -71,21 +71,25 @@ const Page: React.FC = () => {
         <Label className="mb-4">
           <p className="mb-2">기분을 알려주세요.</p>
           <div>
-            {["기뻐요", "재밌어요", "행복해요", "슬퍼요", "화나요"].map(
-              (mood) => (
-                <span
-                  key={mood}
-                  className={`text-xs font-medium me-2 px-3 py-1 rounded-full cursor-pointer ${
-                    selectedMood === mood
-                      ? getMoodColor(mood)
-                      : "bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-300"
-                  }`}
-                  onClick={() => handleMoodSelect(mood)}
-                >
-                  {mood}
-                </span>
-              )
-            )}
+            {[
+              "행복해요",
+              "평온해요",
+              "생각이많아요",
+              "아쉬워요",
+              "씁쓸해요",
+            ].map((mood) => (
+              <span
+                key={mood}
+                className={`text-xs font-medium me-2 px-3 py-1 rounded-full cursor-pointer ${
+                  selectedMood === mood
+                    ? getMoodColor(mood)
+                    : "bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-300"
+                }`}
+                onClick={() => handleMoodSelect(mood)}
+              >
+                {mood}
+              </span>
+            ))}
           </div>
         </Label>
         <div className="relative mt-4">

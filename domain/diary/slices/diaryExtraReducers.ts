@@ -12,12 +12,14 @@ import {
   DeleteDiaryEntryType,
 } from "../dto/request";
 import { DiaryResponseDto, DiaryResponseType } from "../dto/response";
+import { toKSTISOString } from "@/domain/shared/function";
 
 // 나의 일기 상세 조회 -----------------------------------------------------
 export const fetchDiaryDetail = createAsyncThunk(
   "diary/fetchDiaryDetail",
   async (params: string) => {
-    const response = await axiosInstance.get(`/diary/my/detail?date=${params}`);
+    const date = toKSTISOString(new Date(params));
+    const response = await axiosInstance.get(`/diary/my/detail?date=${date}`);
     const responseData = new DiaryResponseDto(response.data);
     return responseData.toObject();
   }

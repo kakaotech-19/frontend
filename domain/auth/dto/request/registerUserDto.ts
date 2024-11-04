@@ -18,11 +18,12 @@ export class RegisterUserRequestDto implements RegisterUserType {
   constructor(params: RegisterUserType) {
     const { email, nickname, loginId, password } = params;
 
-    if (!isValidEmail(email)) throw new Error("Invalid email format.");
-    if (!nickname) throw new Error("Nickname is required.");
-    if (!loginId) throw new Error("Login ID is required.");
+    if (!isValidEmail(email))
+      throw new Error("이메일 형식이 올바르지 않습니다.");
+    if (!nickname) throw new Error("닉네임을 필수로 입력해주세요.");
+    if (!loginId) throw new Error("로그인 아이디를 필수로 입력해주세요.");
     if (!password || password.length < 8)
-      throw new Error("Password must be at least 8 characters long.");
+      throw new Error("패스워드는 8자 이상이어야 합니다.");
 
     this.email = email.trim().toLowerCase();
     this.nickname = nickname.trim();

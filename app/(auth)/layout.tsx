@@ -1,26 +1,50 @@
 "use client";
 
-import store from "@/redux";
+import store, { RootState } from "@/redux";
 import { useMocking } from "@/domain/shared/hooks";
 import { HR } from "flowbite-react";
-import { Provider } from "react-redux";
-import { Logo } from "@/domain/shared/components/layout";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { Logo, MyAlert } from "@/domain/shared/components/layout";
+import { useEffect } from "react";
+import { AlertType } from "@/domain/noti/types";
+import { setAlert } from "@/domain/noti/slices/notiSlice";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   useMocking();
+
+  const dispatch = useDispatch();
+  const signupError = useSelector((state: RootState) => state.signup.error);
+  const loginError = useSelector((state: RootState) => state.login.error);
+
+  useEffect(() => {
+    if (signupError || loginError) {
+      const data: AlertType = {
+        title: "알림",
+        message: signupError || loginError,
+        color: "red",
+      };
+      dispatch(setAlert(data));
+    }
+  }, [signupError, loginError]);
+
+  return (
+    <div className="w-full min-h-screen flex justify-center items-center">
+      <div className="flex flex-col items-center my-10">
+        <MyAlert />
+        <Logo />
+        <HR />
+        {children}
+      </div>
+    </div>
+  );
+};
+
+const CustomProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <Provider store={store}>
-      <div className="w-full min-h-screen flex justify-center items-center">
-        <div className="flex flex-col items-center my-10">
-          <Logo />
-          <HR />
-          {children}
-        </div>
-      </div>
+      <Layout>{children}</Layout>
     </Provider>
   );
-}
+};
+
+export default CustomProvider;

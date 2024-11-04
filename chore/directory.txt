@@ -1,0 +1,120 @@
+리팩토링 전 폴더구조
+
+.
+├── Dockerfile
+├── LICENSE
+├── README.md
+├── app
+│   ├── (auth)
+│   │   ├── layout.tsx
+│   │   ├── login
+│   │   └── signup
+│   ├── (main)
+│   │   ├── diary
+│   │   ├── home
+│   │   ├── layout.tsx
+│   │   └── my
+│   ├── favicon.ico
+│   ├── fonts
+│   │   ├── GeistMonoVF.woff
+│   │   └── GeistVF.woff
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── components
+│   ├── auth
+│   │   ├── GoogleLoginButton.tsx
+│   │   ├── KakaoLoginButton.tsx
+│   │   ├── LoginForm.tsx
+│   │   ├── NaverLoginButton.tsx
+│   │   ├── OauthLoginGroup.tsx
+│   │   ├── SignupForm.tsx
+│   │   ├── TermsAndConditionsModal.tsx
+│   │   └── index.ts
+│   ├── diary
+│   │   ├── Calendar.tsx
+│   │   ├── DiaryDetail.tsx
+│   │   ├── DiaryEntry.tsx
+│   │   ├── FeedMessageForm.tsx
+│   │   ├── ShareDiary.tsx
+│   │   └── index.ts
+│   ├── home
+│   │   ├── AudioModule.tsx
+│   │   ├── EmojiSelector.tsx
+│   │   ├── Feed.tsx
+│   │   └── index.ts
+│   ├── layout
+│   │   ├── BottomNavigation.tsx
+│   │   ├── HeaderNavigation.tsx
+│   │   ├── Logo.tsx
+│   │   └── index.ts
+│   ├── lottie-animation
+│   │   ├── GraphicAnimation.tsx
+│   │   ├── MusicAnimation.tsx
+│   │   ├── ShareAnimation.tsx
+│   │   ├── WritingAnimation.tsx
+│   │   └── index.ts
+│   ├── my
+│   │   ├── CharacterCreation.tsx
+│   │   ├── UploadFileLabel.tsx
+│   │   ├── UserAvatarWithLabel.tsx
+│   │   └── index.ts
+│   └── svg
+│       ├── DirectionSVG.tsx
+│       ├── HomeSVG.tsx
+│       ├── PencilSVG.tsx
+│       ├── SettingSVG.tsx
+│       ├── ShareSVG.tsx
+│       ├── UserSVG.tsx
+│       ├── VolumeSVG.tsx
+│       └── index.ts
+├── feature
+│   ├── mocks
+│   │   ├── config
+│   │   ├── domain
+│   │   └── index.ts
+│   ├── redux
+│   │   ├── index.ts
+│   │   ├── provider.tsx
+│   │   └── slices
+│   └── routes
+│       └── index.ts
+├── init_environment.sh
+├── next-env.d.ts
+├── next.config.mjs
+├── package.json
+├── pnpm-lock.yaml
+├── postcss.config.mjs
+├── public
+│   ├── cat.png
+│   ├── lottie-animation
+│   │   ├── graphic.json
+│   │   ├── music.json
+│   │   ├── share.json
+│   │   └── writing.json
+│   ├── minion1.png
+│   ├── minion2.png
+│   ├── minion3.png
+│   ├── minion4.png
+│   └── mockServiceWorker.js
+├── tailwind.config.ts
+├── todo.txt
+├── tsconfig.json
+└── utils
+    ├── constants
+    │   ├── index.ts
+    │   └── initialConstants.ts
+    ├── function
+    │   ├── encodeBase64.ts
+    │   └── index.ts
+    ├── hooks
+    │   ├── index.ts
+    │   ├── useHideOnScroll.tsx
+    │   ├── useMocking.tsx
+    │   └── useSaveTextLocalStorage.ts
+    ├── lib
+    │   ├── axios
+    │   └── react-calendar
+    └── types
+        ├── common
+        └── dto

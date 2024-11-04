@@ -1,30 +1,39 @@
 "use client";
 
+import { logoutUser } from "@/domain/auth/slices/login/loginExtraReducers";
 import UploadFileLabel from "@/domain/member/components/UploadFileLabel";
 import {
   changeNickname,
   createCharacter,
   fetchMemberInfo,
+  registerCharacter,
 } from "@/domain/member/slices/memberExtraReducers";
-import { setNickname } from "@/domain/member/slices/memberSlice";
+import {
+  clearCharacter,
+  setNickname,
+} from "@/domain/member/slices/memberSlice";
 import {
   ChangeNicknameType,
   CreateCharacterType,
 } from "@/domain/member/types/memberRequestType";
+import { setAlert } from "@/domain/noti/slices/notiSlice";
+import { AlertType } from "@/domain/noti/types";
+import path from "@/domain/shared/routes";
 import { RootState } from "@/redux";
-import { Accordion, Button, HR, Label, TextInput } from "flowbite-react";
+import { Accordion, Button, HR, Label, Modal, TextInput } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const Page: React.FC = () => {
-  const router = useRouter();
   const dispatch = useDispatch();
+  const router = useRouter();
   const email = useSelector((state: RootState) => state.member.email);
   const nickname = useSelector((state: RootState) => state.member.nickname);
   const selectedFile = useSelector(
     (state: RootState) => state.member.selectedFile
   );
+  const [openModal, setOpenModal] = React.useState(false);
 
   const handleChangeNickname = () => {
     const data: ChangeNicknameType = {
@@ -39,13 +48,49 @@ const Page: React.FC = () => {
 
   const handleCreateCharacter = async () => {
     if (!selectedFile) {
-      return;
+      const data: AlertType = {
+        title: "알림",
+        message: "이미지를 업로드해주세요.",
+        color: "red",
+      };
+      dispatch;
     }
     const data: CreateCharacterType = {
       image: selectedFile,
     };
     dispatch<any>(createCharacter(data));
   };
+
+  const isCreateCharacter = useSelector(
+    (state: RootState) => state.member.isCreateCharacter
+  );
+  const handleSaveCharacter = () => {
+    if (!isCreateCharacter) {
+      const data: AlertType = {
+        title: "알림",
+        message: "캐릭터를 생성해주세요.",
+        color: "red",
+      };
+      dispatch(setAlert(data));
+    }
+    dispatch<any>(registerCharacter());
+  };
+
+  const isRegisterCharacter = useSelector(
+    (state: RootState) => state.member.isRegisterCharacter
+  );
+  useEffect(() => {
+    if (isRegisterCharacter) {
+      const data: AlertType = {
+        title: "알림",
+        message: "캐릭터가 등록되었습니다.",
+        color: "success",
+      };
+      dispatch(setAlert(data));
+      router.push(path.MY);
+      dispatch(clearCharacter());
+    }
+  }, [isRegisterCharacter]);
 
   return (
     <div className="w-full h-screen justify-center">
@@ -90,6 +135,30 @@ const Page: React.FC = () => {
                     <Button onClick={handleChangeNickname}>변경하기</Button>
                   </div>
                 </div>
+                <HR />
+                <div className="flex justify-end">
+                  <Button id="logout-button" onClick={() => setOpenModal(true)}>
+                    로그아웃
+                  </Button>
+                  <Modal
+                    show={openModal}
+                    onClose={() => {
+                      setOpenModal(false);
+                    }}
+                  >
+                    <Modal.Header>토닥토닥</Modal.Header>
+                    <Modal.Body>
+                      <div className="flex justify-between items-center">
+                        <p className="font-semibold text-red-600">
+                          정말 로그아웃 하시겠습니까?
+                        </p>
+                        <Button onClick={() => dispatch<any>(logoutUser())}>
+                          로그아웃
+                        </Button>
+                      </div>
+                    </Modal.Body>
+                  </Modal>
+                </div>
               </Accordion.Content>
             </Accordion.Panel>
             <Accordion.Panel>
@@ -103,10 +172,22 @@ const Page: React.FC = () => {
                       - 얼굴이 선명하게 나온 사진을 사용해주세요. <br />
                     </Label>
                   </div>
-                  <Button className="mt-4" onClick={handleCreateCharacter}>
-                    {" "}
-                    캐릭터 생성하기{" "}
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button
+                      size="md"
+                      className="mt-4"
+                      onClick={handleCreateCharacter}
+                    >
+                      캐릭터 생성하기{" "}
+                    </Button>
+                    <Button
+                      size="md"
+                      className="mt-4"
+                      onClick={handleSaveCharacter}
+                    >
+                      캐릭터 등록하기{" "}
+                    </Button>
+                  </div>
                 </div>
               </Accordion.Content>
             </Accordion.Panel>

@@ -79,6 +79,7 @@ const addCreateCharacter = (builder: ActionReducerMapBuilder<MemberState>) => {
   });
   builder.addCase(createCharacter.fulfilled, (state, action) => {
     state.characterImageUrl = action.payload.characterImageUrl;
+    state.isCreateCharacter = true; // 캐릭터 등록에 의존성 걸려있음
     state.loading = false;
   });
   builder.addCase(createCharacter.rejected, (state, action) => {
@@ -104,6 +105,7 @@ const addRegisterCharacter = (
     state.error = null;
   });
   builder.addCase(registerCharacter.fulfilled, (state, action) => {
+    state.isRegisterCharacter = true;
     state.loading = false;
   });
   builder.addCase(registerCharacter.rejected, (state, action) => {
