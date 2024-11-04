@@ -2,18 +2,27 @@ import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { SignupState } from "./signupSlice";
 import axiosInstance from "@/domain/shared/axios";
 import {
+  CheckIdDuplicateRequestDto,
   CheckIdDuplicateType,
+  CheckNicknameDuplicateRequestDto,
   CheckNicknameDuplicateType,
+  ConfirmEmailCodeRequestDto,
   ConfirmEmailCodeType,
+  RegisterUserRequestDto,
   RegisterUserType,
+  VerifyEmailRequestDto,
   VerifyEmailType,
-} from "../../types/authRequestType";
+} from "../../dto/request";
 
 // 이메일 인증 -----------------------------------------------------
 export const verifyEmail = createAsyncThunk(
   "signup/verifyEmail",
   async (data: VerifyEmailType) => {
-    const response = await axiosInstance.post("/auth/email", data);
+    const verifyEmailDto = new VerifyEmailRequestDto(data.email);
+    const response = await axiosInstance.post(
+      "/auth/email",
+      verifyEmailDto.toObject()
+    );
     return response.data;
   }
 );
@@ -38,7 +47,11 @@ const addVerifyEmail = (builder: ActionReducerMapBuilder<SignupState>) => {
 export const confirmEmailCode = createAsyncThunk(
   "signup/confirmEmailCode",
   async (data: ConfirmEmailCodeType) => {
-    const response = await axiosInstance.post("/auth/email/otp", data);
+    const confirmEmailCodeDto = new ConfirmEmailCodeRequestDto(data.emailOtp);
+    const response = await axiosInstance.post(
+      "/auth/email/otp",
+      confirmEmailCodeDto.toObject()
+    );
     return response.data;
   }
 );
@@ -63,7 +76,13 @@ const addConfirmEmailCode = (builder: ActionReducerMapBuilder<SignupState>) => {
 export const checkNicknameDuplicate = createAsyncThunk(
   "signup/checkNicknameDuplicate",
   async (data: CheckNicknameDuplicateType) => {
-    const response = await axiosInstance.post("/auth/nickname", data);
+    const checkNickNameDuplicateDto = new CheckNicknameDuplicateRequestDto(
+      data.nickname
+    );
+    const response = await axiosInstance.post(
+      "/auth/nickname",
+      checkNickNameDuplicateDto.toObject()
+    );
     return response.data;
   }
 );
@@ -90,7 +109,11 @@ const addCheckNicknameDuplicate = (
 export const checkIdDuplicate = createAsyncThunk(
   "signup/checkIdDuplicate",
   async (data: CheckIdDuplicateType) => {
-    const response = await axiosInstance.post("/auth/login-id", data);
+    const checkIdDuplicateDto = new CheckIdDuplicateRequestDto(data.loginId);
+    const response = await axiosInstance.post(
+      "/auth/login-id",
+      checkIdDuplicateDto.toObject()
+    );
     return response.data;
   }
 );
@@ -115,7 +138,11 @@ const addcheckIdDuplicate = (builder: ActionReducerMapBuilder<SignupState>) => {
 export const registerUser = createAsyncThunk(
   "signup/registerUser",
   async (data: RegisterUserType) => {
-    const response = await axiosInstance.post("/auth/signup", data);
+    const registerUserDto = new RegisterUserRequestDto(data);
+    const response = await axiosInstance.post(
+      "/auth/signup",
+      registerUserDto.toObject()
+    );
     return response.data;
   }
 );
@@ -160,30 +187,6 @@ const addDeleteAccount = (builder: ActionReducerMapBuilder<SignupState>) => {
   });
 };
 
-// 토큰 재발급 -----------------------------------------------------
-export const reissueToken = createAsyncThunk(
-  "signup/reissueToken",
-  async () => {
-    const response = await axiosInstance.post("/auth/refresh-token");
-    return response.data;
-  }
-);
-
-const addReissueToken = (builder: ActionReducerMapBuilder<SignupState>) => {
-  builder.addCase(reissueToken.pending, (state) => {
-    state.loading = true;
-    state.error = null;
-  });
-  builder.addCase(reissueToken.fulfilled, (state, action) => {
-    state.isSignup = true;
-    state.loading = false;
-  });
-  builder.addCase(reissueToken.rejected, (state, action) => {
-    state.loading = false;
-    state.error = action.error.message ?? null;
-  });
-};
-
 // extra reducers 추가 -----------------------------------------------------
 export const addSignupExtraReducers = (
   builder: ActionReducerMapBuilder<SignupState>
@@ -194,5 +197,4 @@ export const addSignupExtraReducers = (
   addVerifyEmail(builder);
   addConfirmEmailCode(builder);
   addDeleteAccount(builder);
-  addReissueToken(builder);
 };

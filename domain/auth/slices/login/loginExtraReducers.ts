@@ -1,14 +1,28 @@
-import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  ActionReducerMapBuilder,
+  createAsyncThunk,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import { LoginState } from "./loginSlice";
 import axiosInstance from "@/domain/shared/axios";
-import { LoginUserType } from "../../types/authRequestType";
+import { LoginUserRequestDto, LoginUserType } from "@/domain/auth/dto/request";
+import { LoginResponseDto, LoginResponseType } from "../../dto/response";
+import {
+  ReIssueTokenResponseDto,
+  ReIssueTokenType,
+} from "../../dto/response/reIssueTokenDto";
 
 // 로그인 -----------------------------------------------------
 export const loginUser = createAsyncThunk(
-  "login/login",
+  "login/loginUser",
   async (data: LoginUserType) => {
-    const response = await axiosInstance.post("/auth/login", data);
-    return response.data;
+    const loginUserDto = new LoginUserRequestDto(data);
+    const response = await axiosInstance.post(
+      "/auth/login",
+      loginUserDto.toObject()
+    );
+    const responseData = new LoginResponseDto(response.data);
+    return responseData.toObject();
   }
 );
 
@@ -17,10 +31,14 @@ const addLoginUser = (builder: ActionReducerMapBuilder<LoginState>) => {
     state.loading = true;
     state.error = null;
   });
-  builder.addCase(loginUser.fulfilled, (state, action) => {
-    state.isLogin = true;
-    state.loading = false;
-  });
+  builder.addCase(
+    loginUser.fulfilled,
+    (state, action: PayloadAction<LoginResponseType>) => {
+      state.accessToken = action.payload.accessToken;
+      state.isLogin = true;
+      state.loading = false;
+    }
+  );
   builder.addCase(loginUser.rejected, (state, action) => {
     state.isLogin = false;
     state.loading = false;
@@ -48,10 +66,39 @@ const addLogoutUser = (builder: ActionReducerMapBuilder<LoginState>) => {
   });
 };
 
+// 토큰 재발급 -----------------------------------------------------
+export const reissueToken = createAsyncThunk(
+  "signup/reissueToken",
+  async () => {
+    const response = await axiosInstance.post("/auth/refresh-token");
+    const responseData = new ReIssueTokenResponseDto(response.data);
+    return responseData.toObject();
+  }
+);
+
+const addReissueToken = (builder: ActionReducerMapBuilder<LoginState>) => {
+  builder.addCase(reissueToken.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  });
+  builder.addCase(
+    reissueToken.fulfilled,
+    (state, action: PayloadAction<ReIssueTokenType>) => {
+      state.accessToken = action.payload.accessToken;
+      state.loading = false;
+    }
+  );
+  builder.addCase(reissueToken.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.error.message ?? null;
+  });
+};
+
 // extra reducers 추가 -----------------------------------------------------
 export const addLoginExtraReducers = (
   builder: ActionReducerMapBuilder<LoginState>
 ) => {
   addLoginUser(builder);
   addLogoutUser(builder);
+  addReissueToken(builder);
 };
