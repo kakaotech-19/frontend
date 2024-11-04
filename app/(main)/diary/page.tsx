@@ -8,6 +8,9 @@ import { ShareDiary } from "@/domain/diary/components";
 import path from "@/domain/shared/routes";
 import MyCalendar from "@/domain/diary/components/Calendar";
 import { setCommentView } from "@/domain/diary/slices/diarySlice";
+import { useEffect } from "react";
+import { setAlert } from "@/domain/noti/slices/notiSlice";
+import { AlertType } from "@/domain/noti/types";
 
 const Page: React.FC = () => {
   const router = useRouter();

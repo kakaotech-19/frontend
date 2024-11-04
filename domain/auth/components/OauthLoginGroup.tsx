@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, HR } from "flowbite-react";
 import { useDispatch } from "react-redux";
 import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
@@ -13,17 +13,21 @@ const OauthLoginGroup: React.FC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const url = process.env.NEXT_PUBLIC_API_URL;
+  const kakaoUrl = url + path.KAKAO;
+  const googleUrl = url + path.GOOGLE;
+  const naverUrl = url + path.NAVER;
+
   return (
     <>
-      <Link href={`${url}${path.KAKAO}`} passHref>
+      <Link href={kakaoUrl} passHref>
         <KakaoLoginButton />
       </Link>
       <br />
-      <Link href={`${url}${path.GOOGLE}`} passHref>
+      <Link href={googleUrl} passHref>
         <GoogleLoginButton />
       </Link>
       <br />
-      <Link href={`${url}${path.NAVER}`} passHref>
+      <Link href={naverUrl} passHref>
         <NaverLoginButton />
       </Link>
       <div className="inline-flex items-center justify-center w-full">
