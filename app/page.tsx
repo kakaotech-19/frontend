@@ -1,101 +1,137 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { Button } from "flowbite-react";
+import Link from "next/link";
+import dynamic from "next/dynamic";
+import { Logo } from "@/domain/shared/components/layout";
+import path from "@/domain/shared/routes";
+
+const DynamicGraphicAnimation = dynamic(
+  () => import("@/domain/shared/components/lottie-animation/GraphicAnimation"),
+  {
+    ssr: false,
+  }
+);
+const DynamicMusicAnimation = dynamic(
+  () => import("@/domain/shared/components/lottie-animation/MusicAnimation"),
+  {
+    ssr: false,
+  }
+);
+const DynamicShareAnimation = dynamic(
+  () => import("@/domain/shared/components/lottie-animation/ShareAnimation"),
+  {
+    ssr: false,
+  }
+);
+const DynamicWritingAnimation = dynamic(
+  () => import("@/domain/shared/components/lottie-animation/WritingAnimation"),
+  {
+    ssr: false,
+  }
+);
+
+const page = () => {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+    <div className="w-full flex flex-col min-h-screen justify-center items-center bg-gray-50">
+      <main className="flex-1 w-full">
+        <section className="w-full min-h-screen py-16 bg-white">
+          <h1 className=" w-full flex justify-center bg-white">
+            <Logo />
+          </h1>{" "}
+          <div className="w-full px-4 mt-10">
+            <div className="flex flex-col items-center space-y-6 text-center">
+              <div className="space-y-3">
+                <h1 className="text-2xl font-bold tracking-tighter text-black">
+                  당신의 이야기를 공유하세요.
+                </h1>
+                <p className="mx-auto max-w-[700px] text-black text-md">
+                  토닥토닥은 일상 경험을 공유하고 <br />
+                  다양한 삶을 살아가는 사람들과 소통할 수 있는 <br />
+                  소셜 다이어리 플랫폼입니다.
+                </p>
+              </div>
+              <Link href={path.LOGIN}>
+                {" "}
+                <Button size="md">시작하기</Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+        <section className="w-full py-16 bg-white">
+          <div className="w-full px-4">
+            <div className="space-y-10 mt-20">
+              <h2 className="text-3xl font-bold tracking-tighter text-center text-gray-800">
+                이용 방법
+              </h2>
+              <div className="h-screen mb-80 flex flex-col items-center space-y-4 text-center">
+                <div className="flex flex-col items-center space-y-4 text-center">
+                  <div className="w-80">
+                    <DynamicWritingAnimation />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-800">
+                    당신의 이야기를 작성하세요
+                  </h3>
+                  <p className="text-gray-600">
+                    언제 어디서든 하고싶은 이야기, <br />
+                    느낀 감정을 들어드릴게요.
+                  </p>
+                </div>
+              </div>
+              <div className="h-screen mb-80 flex flex-col items-center space-y-4 text-center">
+                <div className="w-80">
+                  <DynamicMusicAnimation />
+                </div>
+                <h3 className="text-xl font-bold text-gray-800">
+                  일상이 웹툰과 음악으로 재탄생합니다
+                </h3>
+                <p className="text-gray-600">
+                  일상을 마치 만화 속 한 장면처럼 <br />
+                  더욱 생생하게 공유하세요.
+                </p>
+              </div>
+              <div className="h-screen mb-80 flex flex-col items-center space-y-4 text-center">
+                <div className="w-64 relative">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-12 bg-white">
+                      <DynamicShareAnimation />
+                    </div>
+                  </div>
+                  <DynamicGraphicAnimation />
+                </div>
+                <h3 className="text-xl font-bold text-gray-800">
+                  스토리의 주인공이 되어보세요
+                </h3>
+                <p className="text-gray-600">
+                  다른 사용자들의 이야기를 발견하고 <br />
+                  소통하며 의미 있는 관계를 만드세요.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      <footer className="w-full flex flex-col gap-2 py-6 shrink-0 items-center px-4 border-t bg-white">
+        <p className="text-xs text-gray-600">
+          © 2024 todaktoday. All rights reserved.
+        </p>
+        <nav className="flex gap-4">
+          <Link
+            className="text-xs hover:underline underline-offset-4 text-gray-600"
+            href="#"
+          >
+            서비스 약관
+          </Link>
+          <Link
+            className="text-xs hover:underline underline-offset-4 text-gray-600"
+            href="#"
+          >
+            개인정보 처리방침
+          </Link>
+        </nav>
       </footer>
     </div>
   );
-}
+};
+
+export default page;

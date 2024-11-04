@@ -1,14 +1,26 @@
 "use client";
 
-import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux";
+import { LoginForm, OauthLoginGroup } from "@/domain/auth/components";
 
-const page: React.FC = () => {
+const Page = () => {
+  const isIdLoginFormView = useSelector(
+    (state: RootState) => state.login.isIdLoginFormView
+  );
   return (
     <>
-      {/* Your component code here */}
-      <></>
+      {!isIdLoginFormView ? (
+        <>
+          <OauthLoginGroup />
+        </>
+      ) : (
+        <>
+          <LoginForm />
+        </>
+      )}
     </>
   );
 };
 
-export default page;
+export default Page;
