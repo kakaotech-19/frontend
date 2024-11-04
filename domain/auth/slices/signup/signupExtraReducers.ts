@@ -1,13 +1,13 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { SignupState } from "./signupSlice";
-import axiosInstance from "@/domain/shared/lib/axios";
+import axiosInstance from "@/domain/shared/axios";
 import {
   CheckIdDuplicateType,
   CheckNicknameDuplicateType,
   ConfirmEmailCodeType,
   RegisterUserType,
   VerifyEmailType,
-} from "@/utils/types/dto";
+} from "../../types/authRequestType";
 
 // 이메일 인증 -----------------------------------------------------
 export const verifyEmail = createAsyncThunk(

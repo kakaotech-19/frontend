@@ -11,11 +11,11 @@ import { Label, TextInput, Button, HR } from "flowbite-react";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DirectionSVG } from "../svg";
-import { LoginUserType } from "@/utils/types/dto";
 import { loginUser } from "@/domain/auth/slices/login/loginExtraReducers";
 import { useRouter } from "next/navigation";
-import path from "@/domain/shared/constants/routes";
+import path from "@/domain/shared/routes";
+import { LoginUserType } from "../types/authRequestType";
+import { DirectionSVG } from "@/domain/shared/components/svg";
 
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch();

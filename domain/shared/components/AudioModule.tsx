@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { MuteSVG, VolumeUpSVG } from "../svg";
+import { MuteSVG, VolumeUpSVG } from "./svg";
 
 interface AudioModuleProps {
   src: string;

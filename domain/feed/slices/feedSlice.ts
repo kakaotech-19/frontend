@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addFeedExtraReducers } from "./feedExtraReducers";
-import { FeedType, MyFeedDetailType, MyFeedType } from "@/utils/types/dto";
-import { DEFAULT_FEED } from "@/utils/constants";
+import {
+  FeedType,
+  MyFeedDetailType,
+  MyFeedType,
+} from "../types/feedResponseType";
+import { DEFAULT_FEED } from "@/domain/shared/constants";
 
 export interface FeedState {
   feedList: FeedType[];

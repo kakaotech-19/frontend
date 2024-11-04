@@ -1,9 +1,9 @@
-import { UserAvatarWithLabel } from "../my";
+import { UserAvatarWithLabel } from "../../member/components";
 import Image from "next/image";
-import AudioModule from "./AudioModule";
-import EmojiSelector from "./EmojiSelector";
-import { FeedType } from "@/utils/types/dto";
+import AudioModule from "../../shared/components/AudioModule";
+import EmojiSelector from "../../shared/components/EmojiSelector";
 import { Carousel } from "flowbite-react";
+import { FeedType } from "../types/feedResponseType";
 
 const Feed: React.FC<FeedType> = ({
   nickname,

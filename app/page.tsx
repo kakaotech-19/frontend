@@ -1,31 +1,31 @@
 "use client";
 
-import { Logo } from "@/components/layout";
-import path from "@/domain/shared/constants/routes";
 import { Button } from "flowbite-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { Logo } from "@/domain/shared/components/layout";
+import path from "@/domain/shared/routes";
 
 const DynamicGraphicAnimation = dynamic(
-  () => import("@/components/lottie-animation/GraphicAnimation"),
+  () => import("@/domain/shared/components/lottie-animation/GraphicAnimation"),
   {
     ssr: false,
   }
 );
 const DynamicMusicAnimation = dynamic(
-  () => import("@/components/lottie-animation/MusicAnimation"),
+  () => import("@/domain/shared/components/lottie-animation/MusicAnimation"),
   {
     ssr: false,
   }
 );
 const DynamicShareAnimation = dynamic(
-  () => import("@/components/lottie-animation/ShareAnimation"),
+  () => import("@/domain/shared/components/lottie-animation/ShareAnimation"),
   {
     ssr: false,
   }
 );
 const DynamicWritingAnimation = dynamic(
-  () => import("@/components/lottie-animation/WritingAnimation"),
+  () => import("@/domain/shared/components/lottie-animation/WritingAnimation"),
   {
     ssr: false,
   }

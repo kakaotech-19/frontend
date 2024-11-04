@@ -2,6 +2,7 @@ import GoogleLoginButton from "./GoogleLoginButton";
 import KakaoLoginButton from "./KakaoLoginButton";
 import OauthLoginGroup from "./OauthLoginGroup";
 import TermsAndConditionsModal from "./TermsAndConditionsModal";
+import NaverLoginButton from "./NaverLoginButton";
 import LoginForm from "./LoginForm";
 
 export {
@@ -10,4 +11,5 @@ export {
   LoginForm,
   TermsAndConditionsModal,
   OauthLoginGroup,
+  NaverLoginButton,
 };

@@ -1,10 +1,10 @@
 "use client";
 
 import { RootState } from "@/redux";
-import { setSelectedFile } from "@/redux/slices/member/memberSlice";
 import { encodeFileToBase64 } from "@/domain/shared/function";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { setSelectedFile } from "../slices/memberSlice";
 
 const UploadFileLabel: React.FC = () => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);

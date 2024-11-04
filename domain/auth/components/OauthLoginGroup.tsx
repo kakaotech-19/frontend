@@ -1,15 +1,13 @@
 "use client";
 
 import React from "react";
-import KakaoLoginButton from "./KakaoLoginButton";
-import GoogleLoginButton from "./GoogleLoginButton";
 import { Button, HR } from "flowbite-react";
 import { useDispatch } from "react-redux";
 import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
 import { useRouter } from "next/navigation";
-import path from "@/domain/shared/constants/routes";
-import NaverLoginButton from "./NaverLoginButton";
+import path from "@/domain/shared/routes";
 import Link from "next/link";
+import { GoogleLoginButton, KakaoLoginButton, NaverLoginButton } from ".";
 
 const OauthLoginGroup: React.FC = () => {
   const dispatch = useDispatch();

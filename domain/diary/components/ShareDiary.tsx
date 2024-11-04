@@ -1,15 +1,16 @@
 "use client";
 
 import { Button, Datepicker, Modal, Textarea } from "flowbite-react";
-import React, { useEffect, useState } from "react";
-import { ShareSVG } from "../svg";
-import AudioModule from "../home/AudioModule";
+import React, { useState } from "react";
+import { ShareSVG } from "../../shared/components/svg";
+import AudioModule from "../../shared/components/AudioModule";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDiaryDetail } from "@/domain/diary/slices/dairy/diaryExtraReducers";
-import { DiaryResponseType, UploadFeedType } from "@/utils/types/dto";
-import { uploadFeed } from "@/redux/slices/feed/feedExtraReducers";
 import { useSaveTextLocalStorage } from "@/domain/shared/hooks";
+import { DiaryResponseType } from "../types/diaryResponseType";
+import { fetchDiaryDetail } from "../slices/diaryExtraReducers";
+import { UploadFeedType } from "@/domain/feed/types/feedRequestType";
+import { uploadFeed } from "@/domain/feed/slices/feedExtraReducers";
 
 const ShareDiary: React.FC = () => {
   const dispatch = useDispatch();

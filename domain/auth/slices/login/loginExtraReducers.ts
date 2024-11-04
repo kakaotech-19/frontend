@@ -1,7 +1,7 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { LoginState } from "./loginSlice";
-import axiosInstance from "@/domain/shared/lib/axios";
-import { LoginUserType } from "@/utils/types/dto";
+import axiosInstance from "@/domain/shared/axios";
+import { LoginUserType } from "../../types/authRequestType";
 
 // 로그인 -----------------------------------------------------
 export const loginUser = createAsyncThunk(

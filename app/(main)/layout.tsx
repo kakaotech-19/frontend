@@ -1,10 +1,13 @@
 "use client";
 
-import { BottomNavigation, HeaderNavigation } from "@/components/layout";
 import store from "@/redux";
 import { useMocking } from "@/domain/shared/hooks";
 import React from "react";
 import { Provider } from "react-redux";
+import {
+  BottomNavigation,
+  HeaderNavigation,
+} from "@/domain/shared/components/layout";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   useMocking();

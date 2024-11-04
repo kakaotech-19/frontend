@@ -1,7 +1,8 @@
 "use client";
 
-import { reactionFeed } from "@/redux/slices/feed/feedExtraReducers";
-import { ReactionFeedType, ReactionType } from "@/utils/types/dto";
+import { reactionFeed } from "@/domain/feed/slices/feedExtraReducers";
+import { ReactionFeedType } from "@/domain/feed/types/feedRequestType";
+import { ReactionType } from "@/domain/feed/types/feedResponseType";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 

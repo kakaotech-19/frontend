@@ -1,8 +1,8 @@
 "use client";
 
-import { Feed } from "@/components/home";
+import { Feed } from "@/domain/feed/components";
+import { fetchFeedEntries } from "@/domain/feed/slices/feedExtraReducers";
 import { RootState } from "@/redux";
-import { fetchFeedEntries } from "@/redux/slices/feed/feedExtraReducers";
 import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from "react-redux";

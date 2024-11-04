@@ -3,21 +3,21 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { RootState } from "@/redux";
-import path from "@/domain/shared/constants/routes";
 import Image from "next/image";
-import { fetchMemberInfo } from "@/redux/slices/member/memberExtraReducers";
-import {
-  fetchMyFeedDetail,
-  fetchMyFeedEntries,
-} from "@/redux/slices/feed/feedExtraReducers";
-import { MyFeedType } from "@/utils/types/dto";
-import { UserAvatarWithLabel } from "@/components/my";
-import SettingSVG from "@/components/svg/SettingSVG";
-import EmojiSelector from "@/components/home/EmojiSelector";
-import AudioModule from "@/components/home/AudioModule";
+import SettingSVG from "@/domain/shared/components/svg/SettingSVG";
+import EmojiSelector from "@/domain/shared/components/EmojiSelector";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Button, Carousel, Modal } from "flowbite-react";
+import {
+  fetchMyFeedDetail,
+  fetchMyFeedEntries,
+} from "@/domain/feed/slices/feedExtraReducers";
+import { fetchMemberInfo } from "@/domain/member/slices/memberExtraReducers";
+import { UserAvatarWithLabel } from "@/domain/member/components";
+import path from "@/domain/shared/routes";
+import { MyFeedType } from "@/domain/feed/types/feedResponseType";
+import { AudioModule } from "@/domain/shared/components";
 
 const Page = () => {
   const router = useRouter();

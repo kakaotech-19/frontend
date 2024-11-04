@@ -1,4 +1,5 @@
-import { DiaryResponseType, MyFeedDetailType } from "../types/dto";
+import { DiaryResponseType } from "@/domain/diary/types/diaryResponseType";
+import { MyFeedDetailType } from "@/domain/feed/types/feedResponseType";
 
 export const DEFAULT_REACTIONS = {
   like: 0,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import path from "@/domain/shared/constants/routes";
+import path from "@/domain/shared/routes";
 import { HomeSVG, PencilSVG, UserSVG } from "../svg";
 import { useHideOnScroll } from "@/domain/shared/hooks";
 

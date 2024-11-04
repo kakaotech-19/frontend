@@ -1,10 +1,10 @@
 "use client";
 
-import { Logo } from "@/components/layout";
 import store from "@/redux";
 import { useMocking } from "@/domain/shared/hooks";
 import { HR } from "flowbite-react";
 import { Provider } from "react-redux";
+import { Logo } from "@/domain/shared/components/layout";
 
 export default function RootLayout({
   children,

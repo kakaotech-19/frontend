@@ -2,7 +2,7 @@
 
 import { RootState } from "@/redux";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Checkbox, HR, Label, Modal, TextInput } from "flowbite-react";
+import { Button, Checkbox, HR, Label, TextInput } from "flowbite-react";
 import {
   resetSignupState,
   setIsEmailVerified,
@@ -26,17 +26,17 @@ import {
   verifyEmail,
 } from "@/domain/auth/slices/signup/signupExtraReducers";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
+import path from "@/domain/shared/routes";
 import {
   CheckIdDuplicateType,
   CheckNicknameDuplicateType,
   ConfirmEmailCodeType,
   RegisterUserType,
   VerifyEmailType,
-} from "@/utils/types/dto";
-import { useRouter } from "next/navigation";
-import path from "@/domain/shared/constants/routes";
-import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
-import TermsAndConditionsModal from "@/components/auth/TermsAndConditionsModal";
+} from "@/domain/auth/types/authRequestType";
+import { TermsAndConditionsModal } from "@/domain/auth/components";
 
 const Page = () => {
   const dispatch = useDispatch();

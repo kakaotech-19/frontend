@@ -1,14 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import path from "@/domain/shared/constants/routes";
 import Calendar from "react-calendar";
-import "@/utils/lib/react-calendar/Calendar.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDiaryStatus } from "@/domain/diary/slices/dairy/diaryExtraReducers";
 import { RootState } from "@/redux";
-import { DiaryStatusType } from "@/utils/types/dto";
+import path from "@/domain/shared/routes";
+import { fetchDiaryStatus } from "../slices/diaryExtraReducers";
+import { DiaryStatusType } from "../types/diaryResponseType";
+import "./Calendar.css";
 
 const MyCalendar: React.FC = () => {
   const date = new Date();
