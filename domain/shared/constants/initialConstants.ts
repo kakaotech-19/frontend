@@ -1,4 +1,4 @@
-import { DiaryResponseType } from "@/domain/diary/types/diaryResponseType";
+import { DiaryResponseType } from "@/domain/diary/dto/response";
 import { MyFeedDetailType } from "@/domain/feed/types/feedResponseType";
 
 export const DEFAULT_REACTIONS = {
@@ -11,9 +11,8 @@ export const DEFAULT_REACTIONS = {
 export const DEFAULT_DIARY: DiaryResponseType = {
   diaryId: 0,
   content: "",
-  webtoonImageUrl: "",
+  webtoonImageUrls: [],
   bgmUrl: "",
-  reactionCount: DEFAULT_REACTIONS,
   aiComment: "",
   emotion: "",
   date: "",
