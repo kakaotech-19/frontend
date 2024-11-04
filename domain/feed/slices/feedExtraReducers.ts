@@ -7,6 +7,7 @@ import {
   UploadFeedRequestDto,
   UploadFeedType,
 } from "../dto/request";
+import { toKSTISOString } from "@/domain/shared/function";
 
 // 일기장 불러오기 (무한 스크롤) -----------------------------------------------------
 export const fetchFeedEntries = createAsyncThunk(
@@ -118,8 +119,9 @@ const addFetchMyFeedEntries = (builder: ActionReducerMapBuilder<FeedState>) => {
 export const fetchMyFeedDetail = createAsyncThunk(
   "Feed/fetchMyFeedDetail",
   async (params: string) => {
+    const date = toKSTISOString(new Date(params));
     const response = await axiosInstance.get(
-      `/diary/my/shared/detail?date=${params}`
+      `/diary/my/shared/detail?date=${date}`
     );
     return response.data;
   }
