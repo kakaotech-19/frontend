@@ -29,7 +29,11 @@ export const authMockups = [
 
   // 로그인
   http.post(url + "/auth/login", () => {
-    return new HttpResponse(null, { status: 204 });
+    return HttpResponse.json({
+      username: "string",
+      accessToken:
+        "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwidXNlcm5hbWUiOiJzdHJpbmciLCJyb2xlIjoiUk9MRV9URU1QIiwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTczMDQyOTE5OSwiZXhwIjoxNzMwNDMwOTk5fQ.qlCFLaCRn4kLbitgZCk5S6VyPLhhFmZF0DttcjT2WX1WnvrpiPWieL61ABafWV3h8PVod8C5lBSGdwbJ1_0syg",
+    });
   }),
 
   // 로그아웃
@@ -44,6 +48,9 @@ export const authMockups = [
 
   // 토큰 재발급
   http.post(url + "/auth/refresh-token", () => {
-    return new HttpResponse("ok", { status: 200 });
+    return HttpResponse.json({
+      accessToken:
+        "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwidXNlcm5hbWUiOiJzdHJpbmciLCJyb2xlIjoiUk9MRV9URU1QIiwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTczMDQyOTE5OSwiZXhwIjoxNzMwNDMwOTk5fQ.qlCFLaCRn4kLbitgZCk5S6VyPLhhFmZF0DttcjT2WX1WnvrpiPWieL61ABafWV3h8PVod8C5lBSGdwbJ1_0syg",
+    });
   }),
 ];
