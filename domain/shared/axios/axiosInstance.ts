@@ -1,4 +1,5 @@
 import axios from "axios";
+import store from "@/redux"; // store import 추가
 
 // Axios 인스턴스 생성
 const axiosInstance = axios.create({
@@ -13,7 +14,7 @@ const axiosInstance = axios.create({
 // Axios 요청 전에 위치 정보를 추가하기 위한 인터셉터 추가
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("accessToken");
+    const token = store.getState().login.accessToken;
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }

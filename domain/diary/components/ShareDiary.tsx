@@ -7,10 +7,10 @@ import AudioModule from "../../shared/components/AudioModule";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { useSaveTextLocalStorage } from "@/domain/shared/hooks";
-import { DiaryResponseType } from "../types/diaryResponseType";
 import { fetchDiaryDetail } from "../slices/diaryExtraReducers";
-import { UploadFeedType } from "@/domain/feed/types/feedRequestType";
 import { uploadFeed } from "@/domain/feed/slices/feedExtraReducers";
+import { DiaryResponseType } from "../dto/response";
+import { UploadFeedType } from "@/domain/feed/dto/request";
 
 const ShareDiary: React.FC = () => {
   const dispatch = useDispatch();

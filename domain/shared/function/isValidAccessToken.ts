@@ -1,7 +1,6 @@
-// accessToken 형식 검증 메서드 (JWT 형식 검증 예시)
-const isValidAccessToken = (token: string): boolean => {
-  const jwtRegex = /^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+$/;
-  return jwtRegex.test(token);
+// accessToken 형식 검증 메서드 (빈 값만 확인)
+const isValidAccessToken = (token: unknown): boolean => {
+  return typeof token === "string" && token.trim().length > 0;
 };
 
 export default isValidAccessToken;
