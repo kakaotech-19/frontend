@@ -97,8 +97,8 @@ export const feedMockups = [
       webtoonImageUrls: [
         "/minion1.png",
         "/minion2.png",
-        "minion3.png",
-        "minion4.png",
+        "/minion3.png",
+        "/minion4.png",
       ],
       publicContent: "this is public String content", // public diary
       bgmUrl:
