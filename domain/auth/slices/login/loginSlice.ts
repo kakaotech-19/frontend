@@ -5,6 +5,7 @@ export interface LoginState {
   loginId: string;
   password: string;
   isLogin: boolean;
+  accessToken: string;
   isIdLoginFormView: boolean;
   loading: any;
   error: any;
@@ -14,6 +15,7 @@ export const initialState = {
   password: "",
   loginId: "",
   isLogin: false,
+  accessToken: "",
   isIdLoginFormView: false,
   loading: false,
   error: "",
