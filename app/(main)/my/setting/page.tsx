@@ -1,14 +1,17 @@
 "use client";
 
-import UploadFileLabel from "@/components/my/UploadFileLabel";
-import { RootState } from "@/feature/redux";
+import UploadFileLabel from "@/domain/member/components/UploadFileLabel";
 import {
   changeNickname,
   createCharacter,
   fetchMemberInfo,
-} from "@/feature/redux/slices/member/memberExtraReducers";
-import { setNickname } from "@/feature/redux/slices/member/memberSlice";
-import { ChangeNicknameType, CreateCharacterType } from "@/utils/types/dto";
+} from "@/domain/member/slices/memberExtraReducers";
+import { setNickname } from "@/domain/member/slices/memberSlice";
+import {
+  ChangeNicknameType,
+  CreateCharacterType,
+} from "@/domain/member/types/memberRequestType";
+import { RootState } from "@/redux";
 import { Accordion, Button, HR, Label, TextInput } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";

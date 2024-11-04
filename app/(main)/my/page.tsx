@@ -2,22 +2,22 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { RootState } from "@/feature/redux";
-import path from "@/feature/routes";
+import { RootState } from "@/redux";
 import Image from "next/image";
-import { fetchMemberInfo } from "@/feature/redux/slices/member/memberExtraReducers";
-import {
-  fetchMyFeedDetail,
-  fetchMyFeedEntries,
-} from "@/feature/redux/slices/feed/feedExtraReducers";
-import { MyFeedType } from "@/utils/types/dto";
-import { UserAvatarWithLabel } from "@/components/my";
-import SettingSVG from "@/components/svg/SettingSVG";
-import EmojiSelector from "@/components/home/EmojiSelector";
-import AudioModule from "@/components/home/AudioModule";
+import SettingSVG from "@/domain/shared/components/svg/SettingSVG";
+import EmojiSelector from "@/domain/shared/components/EmojiSelector";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Button, Carousel, Modal } from "flowbite-react";
+import {
+  fetchMyFeedDetail,
+  fetchMyFeedEntries,
+} from "@/domain/feed/slices/feedExtraReducers";
+import { fetchMemberInfo } from "@/domain/member/slices/memberExtraReducers";
+import { UserAvatarWithLabel } from "@/domain/member/components";
+import path from "@/domain/shared/routes";
+import { MyFeedType } from "@/domain/feed/types/feedResponseType";
+import { CarouselAudioEmoji } from "@/domain/shared/components";
 
 const Page = () => {
   const router = useRouter();
@@ -114,22 +114,14 @@ const Page = () => {
           ► 원본 일기 ({selectedFeed.diaryCreatedDate}) 보러가기{" "}
         </Button>
         <Modal.Body>
-          <div className="aspect-square relative">
-            <Image
-              src="/minion2.png"
-              alt={`게시물 이미지 test`}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover rounded-md shadow-md"
-            />
-            <EmojiSelector
-              myReaction={selectedFeed.myReaction}
-              reactionCount={selectedFeed.reactionCount}
-              diaryId={selectedFeed.publicDiaryId}
-              readonly={true}
-            />
-            <AudioModule src={selectedFeed.bgmUrl} />
-          </div>
+          <CarouselAudioEmoji
+            webtoonImageUrls={selectedFeed.webtoonImageUrls}
+            bgmUrl={selectedFeed.bgmUrl}
+            reactionCount={selectedFeed.reactionCount}
+            myReaction={selectedFeed.myReaction}
+            diaryId={selectedFeed.publicDiaryId}
+            emojiReadonly={true}
+          />
           <p className="p-1">{selectedFeed.publicContent}</p>
         </Modal.Body>
       </Modal>

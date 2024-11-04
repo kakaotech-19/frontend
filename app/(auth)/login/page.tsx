@@ -1,8 +1,8 @@
 "use client";
 
 import { useSelector } from "react-redux";
-import { RootState } from "@/feature/redux";
-import { LoginForm, OauthLoginGroup } from "@/components/auth";
+import { RootState } from "@/redux";
+import { LoginForm, OauthLoginGroup } from "@/domain/auth/components";
 
 const Page = () => {
   const isIdLoginFormView = useSelector(

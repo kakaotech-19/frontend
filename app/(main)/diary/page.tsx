@@ -1,13 +1,13 @@
 "use client";
 
-import MyCalendar from "@/components/diary/Calendar";
-import path from "@/feature/routes";
 import { Modal, Accordion, Button, Datepicker, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/feature/redux";
-import { setCommentView } from "@/feature/redux/slices/dairy/diarySlice";
-import { ShareDiary } from "@/components/diary";
+import { RootState } from "@/redux";
+import { ShareDiary } from "@/domain/diary/components";
+import path from "@/domain/shared/routes";
+import MyCalendar from "@/domain/diary/components/Calendar";
+import { setCommentView } from "@/domain/diary/slices/diarySlice";
 
 const Page: React.FC = () => {
   const router = useRouter();

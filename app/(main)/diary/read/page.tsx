@@ -5,9 +5,9 @@ import Image from "next/image";
 import { Modal } from "flowbite-react";
 import { useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDiaryDetail } from "@/feature/redux/slices/dairy/diaryExtraReducers";
-import { RootState } from "@/feature/redux";
-import AudioModule from "@/components/home/AudioModule";
+import { RootState } from "@/redux";
+import { fetchDiaryDetail } from "@/domain/diary/slices/diaryExtraReducers";
+import { AudioModule, CarouselAudioEmoji } from "@/domain/shared/components";
 
 const DiaryReadPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -28,19 +28,14 @@ const DiaryReadPage: React.FC = () => {
     <div className="w-full min-h-screen flex justify-center items-start">
       <div className="w-full max-w-md flex flex-col items-center mt-14">
         <div className="flex w-full max-w-md relative" onClick={() => {}}>
-          <Image
-            width={500}
-            height={500}
-            src={queriedDiary.webtoonImageUrl}
-            alt={"게시물 이미지"}
-            sizes="100vw"
-            style={{ width: "100%", height: "auto" }}
-            className="rounded-md shadow-md"
+          <CarouselAudioEmoji
+            webtoonImageUrls={queriedDiary.webtoonImageUrls}
+            bgmUrl={queriedDiary.bgmUrl}
+            diaryId={queriedDiary.diaryId}
           />
-          <AudioModule src={queriedDiary.bgmUrl} />
           <div
             onClick={() => setShowModal(true)}
-            className="absolute bottom-2 left-2 text-sm font-semibold rounded-full pl-2 pr-2 bg-white opacity-75"
+            className="absolute bottom-2 left-2 text-sm font-semibold rounded-full pl-2 pr-2 bg-white opacity-75 border shadow-md"
           >
             AI 코멘트
           </div>
