@@ -1,6 +1,6 @@
 "use client";
 
-import { RootState } from "@/feature/redux";
+import { RootState } from "@/redux";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Checkbox, HR, Label, Modal, TextInput } from "flowbite-react";
 import {
@@ -17,14 +17,14 @@ import {
   setSignupNickname,
   setSignupPassword,
   setSignupReEnterPassword,
-} from "@/feature/redux/slices/signup/signupSlice";
+} from "@/domain/auth/slices/signup/signupSlice";
 import {
   checkIdDuplicate,
   checkNicknameDuplicate,
   confirmEmailCode,
   registerUser,
   verifyEmail,
-} from "@/feature/redux/slices/signup/signupExtraReducers";
+} from "@/domain/auth/slices/signup/signupExtraReducers";
 import { useEffect, useState } from "react";
 import {
   CheckIdDuplicateType,
@@ -35,7 +35,7 @@ import {
 } from "@/utils/types/dto";
 import { useRouter } from "next/navigation";
 import path from "@/feature/routes";
-import { setIsIdLoginFormView } from "@/feature/redux/slices/login/loginSlice";
+import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
 import TermsAndConditionsModal from "@/components/auth/TermsAndConditionsModal";
 
 const Page = () => {

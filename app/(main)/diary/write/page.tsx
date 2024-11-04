@@ -4,7 +4,7 @@ import { Button, HR, Label, Textarea } from "flowbite-react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { CreateDiaryEntryType } from "@/utils/types/dto";
-import { createDiaryEntry } from "@/feature/redux/slices/dairy/diaryExtraReducers";
+import { createDiaryEntry } from "@/domain/diary/slices/dairy/diaryExtraReducers";
 import { useSaveTextLocalStorage } from "@/utils/hooks";
 
 const Page: React.FC = () => {

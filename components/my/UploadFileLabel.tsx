@@ -1,7 +1,7 @@
 "use client";
 
-import { RootState } from "@/feature/redux";
-import { setSelectedFile } from "@/feature/redux/slices/member/memberSlice";
+import { RootState } from "@/redux";
+import { setSelectedFile } from "@/redux/slices/member/memberSlice";
 import { encodeFileToBase64 } from "@/utils/function";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

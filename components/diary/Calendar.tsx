@@ -6,8 +6,8 @@ import Calendar from "react-calendar";
 import "@/utils/lib/react-calendar/Calendar.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDiaryStatus } from "@/feature/redux/slices/dairy/diaryExtraReducers";
-import { RootState } from "@/feature/redux";
+import { fetchDiaryStatus } from "@/domain/diary/slices/dairy/diaryExtraReducers";
+import { RootState } from "@/redux";
 import { DiaryStatusType } from "@/utils/types/dto";
 
 const MyCalendar: React.FC = () => {

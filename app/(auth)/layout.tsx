@@ -1,7 +1,7 @@
 "use client";
 
 import { Logo } from "@/components/layout";
-import store from "@/feature/redux";
+import store from "@/redux";
 import { useMocking } from "@/utils/hooks";
 import { HR } from "flowbite-react";
 import { Provider } from "react-redux";

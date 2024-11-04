@@ -1,6 +1,6 @@
 "use client";
 
-import { reactionFeed } from "@/feature/redux/slices/feed/feedExtraReducers";
+import { reactionFeed } from "@/redux/slices/feed/feedExtraReducers";
 import { ReactionFeedType, ReactionType } from "@/utils/types/dto";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";

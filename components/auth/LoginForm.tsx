@@ -1,19 +1,19 @@
 "use client";
 
-import { RootState } from "@/feature/redux";
+import { RootState } from "@/redux";
 import {
   resetLoginState,
   setIsIdLoginFormView,
   setLoginId,
   setLoginPassword,
-} from "@/feature/redux/slices/login/loginSlice";
+} from "@/domain/auth/slices/login/loginSlice";
 import { Label, TextInput, Button, HR } from "flowbite-react";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DirectionSVG } from "../svg";
 import { LoginUserType } from "@/utils/types/dto";
-import { loginUser } from "@/feature/redux/slices/login/loginExtraReducers";
+import { loginUser } from "@/domain/auth/slices/login/loginExtraReducers";
 import { useRouter } from "next/navigation";
 import path from "@/feature/routes";
 

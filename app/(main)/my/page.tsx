@@ -2,14 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { RootState } from "@/feature/redux";
+import { RootState } from "@/redux";
 import path from "@/feature/routes";
 import Image from "next/image";
-import { fetchMemberInfo } from "@/feature/redux/slices/member/memberExtraReducers";
+import { fetchMemberInfo } from "@/redux/slices/member/memberExtraReducers";
 import {
   fetchMyFeedDetail,
   fetchMyFeedEntries,
-} from "@/feature/redux/slices/feed/feedExtraReducers";
+} from "@/redux/slices/feed/feedExtraReducers";
 import { MyFeedType } from "@/utils/types/dto";
 import { UserAvatarWithLabel } from "@/components/my";
 import SettingSVG from "@/components/svg/SettingSVG";

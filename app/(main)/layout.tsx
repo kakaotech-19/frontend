@@ -1,7 +1,7 @@
 "use client";
 
 import { BottomNavigation, HeaderNavigation } from "@/components/layout";
-import store from "@/feature/redux";
+import store from "@/redux";
 import { useMocking } from "@/utils/hooks";
 import React from "react";
 import { Provider } from "react-redux";

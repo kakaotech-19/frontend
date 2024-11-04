@@ -6,9 +6,9 @@ import { ShareSVG } from "../svg";
 import AudioModule from "../home/AudioModule";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDiaryDetail } from "@/feature/redux/slices/dairy/diaryExtraReducers";
+import { fetchDiaryDetail } from "@/domain/diary/slices/dairy/diaryExtraReducers";
 import { DiaryResponseType, UploadFeedType } from "@/utils/types/dto";
-import { uploadFeed } from "@/feature/redux/slices/feed/feedExtraReducers";
+import { uploadFeed } from "@/redux/slices/feed/feedExtraReducers";
 import { useSaveTextLocalStorage } from "@/utils/hooks";
 
 const ShareDiary: React.FC = () => {

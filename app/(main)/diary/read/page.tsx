@@ -5,8 +5,8 @@ import Image from "next/image";
 import { Modal } from "flowbite-react";
 import { useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDiaryDetail } from "@/feature/redux/slices/dairy/diaryExtraReducers";
-import { RootState } from "@/feature/redux";
+import { fetchDiaryDetail } from "@/domain/diary/slices/dairy/diaryExtraReducers";
+import { RootState } from "@/redux";
 import AudioModule from "@/components/home/AudioModule";
 
 const DiaryReadPage: React.FC = () => {

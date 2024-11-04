@@ -1,10 +1,9 @@
 import logger from "redux-logger";
 import { configureStore } from "@reduxjs/toolkit";
-import signupSlice from "./slices/signup/signupSlice";
-import loginSlice from "./slices/login/loginSlice";
-import diarySlice from "./slices/dairy/diarySlice";
-import feedSlice from "./slices/feed/feedSlice";
-import memberSlice from "./slices/member/memberSlice";
+import diarySlice from "@/domain/diary/slices/diarySlice";
+import feedSlice from "@/domain/feed/slices/feedSlice";
+import memberSlice from "@/domain/member/slices/memberSlice";
+import { loginSlice, signupSlice } from "@/domain/auth/slices";
 
 const store = configureStore({
   reducer: {

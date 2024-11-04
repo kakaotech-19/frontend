@@ -5,7 +5,7 @@ import KakaoLoginButton from "./KakaoLoginButton";
 import GoogleLoginButton from "./GoogleLoginButton";
 import { Button, HR } from "flowbite-react";
 import { useDispatch } from "react-redux";
-import { setIsIdLoginFormView } from "@/feature/redux/slices/login/loginSlice";
+import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
 import { useRouter } from "next/navigation";
 import path from "@/feature/routes";
 import NaverLoginButton from "./NaverLoginButton";

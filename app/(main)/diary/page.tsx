@@ -5,8 +5,8 @@ import path from "@/feature/routes";
 import { Modal, Accordion, Button, Datepicker, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/feature/redux";
-import { setCommentView } from "@/feature/redux/slices/dairy/diarySlice";
+import { RootState } from "@/redux";
+import { setCommentView } from "@/domain/diary/slices/dairy/diarySlice";
 import { ShareDiary } from "@/components/diary";
 
 const Page: React.FC = () => {

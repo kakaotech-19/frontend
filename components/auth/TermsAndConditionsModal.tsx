@@ -1,7 +1,7 @@
 "use client";
 
-import { RootState } from "@/feature/redux";
-import { setIsTermsModalView } from "@/feature/redux/slices/signup/signupSlice";
+import { RootState } from "@/redux";
+import { setIsTermsModalView } from "@/domain/auth/slices/signup/signupSlice";
 import { Modal } from "flowbite-react";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
