@@ -17,7 +17,7 @@ import { fetchMemberInfo } from "@/domain/member/slices/memberExtraReducers";
 import { UserAvatarWithLabel } from "@/domain/member/components";
 import path from "@/domain/shared/routes";
 import { MyFeedType } from "@/domain/feed/types/feedResponseType";
-import { AudioModule } from "@/domain/shared/components";
+import { CarouselAudioEmoji } from "@/domain/shared/components";
 
 const Page = () => {
   const router = useRouter();
@@ -114,22 +114,13 @@ const Page = () => {
           ► 원본 일기 ({selectedFeed.diaryCreatedDate}) 보러가기{" "}
         </Button>
         <Modal.Body>
-          <div className="aspect-square relative">
-            <Image
-              src="/minion2.png"
-              alt={`게시물 이미지 test`}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover rounded-md shadow-md"
-            />
-            <EmojiSelector
-              myReaction={selectedFeed.myReaction}
-              reactionCount={selectedFeed.reactionCount}
-              diaryId={selectedFeed.publicDiaryId}
-              readonly={true}
-            />
-            <AudioModule src={selectedFeed.bgmUrl} />
-          </div>
+          <CarouselAudioEmoji
+            webtoonImageUrls={selectedFeed.webtoonImageUrls}
+            bgmUrl={selectedFeed.bgmUrl}
+            reactionCount={selectedFeed.reactionCount}
+            myReaction={selectedFeed.myReaction}
+            diaryId={selectedFeed.publicDiaryId}
+          />
           <p className="p-1">{selectedFeed.publicContent}</p>
         </Modal.Body>
       </Modal>
