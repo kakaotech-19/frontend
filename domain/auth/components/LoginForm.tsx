@@ -14,8 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "@/domain/auth/slices/login/loginExtraReducers";
 import { useRouter } from "next/navigation";
 import path from "@/domain/shared/routes";
-import { LoginUserType } from "../types/authRequestType";
 import { DirectionSVG } from "@/domain/shared/components/svg";
+import { LoginUserType } from "../dto/request";
 
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -32,16 +32,8 @@ const LoginForm: React.FC = () => {
     }
   }, [isLogin]);
 
-  // 로그인 상태 검사
-  const validateLogin = () => {
-    return loginId.trim().length > 0 && password.trim().length > 0;
-  };
-
   // 로그인
   const handleLogin = () => {
-    if (!validateLogin()) {
-      return;
-    }
     const data: LoginUserType = {
       loginId: loginId.trim(),
       password: password.trim(),

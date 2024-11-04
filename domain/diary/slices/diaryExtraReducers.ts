@@ -1,7 +1,12 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { DiaryState } from "./diarySlice";
 import axiosInstance from "@/domain/shared/axios";
-import { CreateDiaryEntryType } from "../types/diaryRequestType";
+import {
+  CreateDiaryEntryRequestDto,
+  CreateDiaryEntryType,
+  DeleteDiaryEntryRequestDto,
+  DeleteDiaryEntryType,
+} from "../dto/request";
 
 // 나의 일기 상세 조회 -----------------------------------------------------
 export const fetchDiaryDetail = createAsyncThunk(
@@ -55,7 +60,11 @@ const addFetchDiaryStatus = (builder: ActionReducerMapBuilder<DiaryState>) => {
 export const createDiaryEntry = createAsyncThunk(
   "diary/createDiaryEntry",
   async (data: CreateDiaryEntryType) => {
-    const response = await axiosInstance.post("/diary/my", data);
+    const createDiaryEntryDto = new CreateDiaryEntryRequestDto(data);
+    const response = await axiosInstance.post(
+      "/diary/my",
+      createDiaryEntryDto.toObject()
+    );
     return response.data;
   }
 );
@@ -77,8 +86,11 @@ const addCreateDiaryEntry = (builder: ActionReducerMapBuilder<DiaryState>) => {
 // 일기 삭제 -----------------------------------------------------
 export const deleteDiaryEntry = createAsyncThunk(
   "diary/deleteDiaryEntry",
-  async () => {
-    const response = await axiosInstance.delete("/diary/my/1");
+  async (data: DeleteDiaryEntryType) => {
+    const deleteDiaryEntryDto = new DeleteDiaryEntryRequestDto(data);
+    const response = await axiosInstance.delete("/diary/my/1", {
+      data: deleteDiaryEntryDto.toObject(),
+    });
     return response.data;
   }
 );
