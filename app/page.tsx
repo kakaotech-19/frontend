@@ -1,7 +1,7 @@
 "use client";
 
 import { Logo } from "@/components/layout";
-import path from "@/feature/routes";
+import path from "@/routes";
 import { Button } from "flowbite-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";

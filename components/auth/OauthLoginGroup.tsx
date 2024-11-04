@@ -7,7 +7,7 @@ import { Button, HR } from "flowbite-react";
 import { useDispatch } from "react-redux";
 import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
 import { useRouter } from "next/navigation";
-import path from "@/feature/routes";
+import path from "@/routes";
 import NaverLoginButton from "./NaverLoginButton";
 import Link from "next/link";
 

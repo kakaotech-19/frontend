@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import path from "@/feature/routes";
+import path from "@/routes";
 import Calendar from "react-calendar";
 import "@/utils/lib/react-calendar/Calendar.css";
 import { useEffect, useState } from "react";

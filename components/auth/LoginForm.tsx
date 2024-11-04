@@ -15,7 +15,7 @@ import { DirectionSVG } from "../svg";
 import { LoginUserType } from "@/utils/types/dto";
 import { loginUser } from "@/domain/auth/slices/login/loginExtraReducers";
 import { useRouter } from "next/navigation";
-import path from "@/feature/routes";
+import path from "@/routes";
 
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
