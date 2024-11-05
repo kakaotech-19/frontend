@@ -11,7 +11,12 @@ import {
   DeleteDiaryEntryRequestDto,
   DeleteDiaryEntryType,
 } from "../dto/request";
-import { DiaryResponseDto, DiaryResponseType } from "../dto/response";
+import {
+  DiaryResponseDto,
+  DiaryResponseType,
+  DiaryWriteResponseDto,
+  DiaryWriteResponseType,
+} from "../dto/response";
 import { toKSTISOString } from "@/domain/shared/function";
 
 // 나의 일기 상세 조회 -----------------------------------------------------
@@ -76,7 +81,9 @@ export const createDiaryEntry = createAsyncThunk(
       "/diary/my",
       createDiaryEntryDto.toObject()
     );
-    return response.data;
+
+    const responseData = new DiaryWriteResponseDto(response.data);
+    return responseData.toObject();
   }
 );
 
@@ -85,9 +92,14 @@ const addCreateDiaryEntry = (builder: ActionReducerMapBuilder<DiaryState>) => {
     state.loading = true;
     state.error = null;
   });
-  builder.addCase(createDiaryEntry.fulfilled, (state, action) => {
-    state.loading = false;
-  });
+  builder.addCase(
+    createDiaryEntry.fulfilled,
+    (state, action: PayloadAction<DiaryWriteResponseType>) => {
+      state.isDiarySaved = true;
+      state.aiComment = action.payload.comment;
+      state.loading = false;
+    }
+  );
   builder.addCase(createDiaryEntry.rejected, (state, action) => {
     state.loading = false;
     state.error = action.error.message ?? null;

@@ -1,4 +1,5 @@
 import { DiaryResponseDto, DiaryResponseType } from "./diaryDetailDto";
+import { DiaryWriteResponseType, DiaryWriteResponseDto } from "./diaryWriteDto";
 
-export { DiaryResponseDto };
-export type { DiaryResponseType };
+export { DiaryResponseDto, DiaryWriteResponseDto };
+export type { DiaryResponseType, DiaryWriteResponseType };

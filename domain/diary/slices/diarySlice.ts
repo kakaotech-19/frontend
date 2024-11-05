@@ -8,6 +8,8 @@ export interface DiaryState {
   commentView: boolean;
   queriedDiary: DiaryResponseType;
   diaryStatusList: DiaryStatusType[];
+  isDiarySaved: boolean;
+  aiComment: string;
   loading: any;
   error: any;
 }
@@ -16,6 +18,8 @@ export const initialState = {
   commentView: false,
   queriedDiary: DEFAULT_DIARY,
   diaryStatusList: [],
+  isDiarySaved: false,
+  aiComment: "",
   loading: false,
   error: "",
 };
@@ -27,10 +31,13 @@ const diarySlice = createSlice({
     setCommentView: (state, action: PayloadAction<boolean>) => {
       state.commentView = action.payload;
     },
+    clearAiCommet: (state) => {
+      state.aiComment = "";
+    },
   },
   extraReducers: (builder: any) => addDiaryExtraReducers(builder),
 });
 
-export const { setCommentView } = diarySlice.actions;
+export const { clearAiCommet, setCommentView } = diarySlice.actions;
 export const extraReducers = diarySlice.reducer;
 export default diarySlice.reducer;
