@@ -63,7 +63,7 @@ const addFetchDiaryStatus = (builder: ActionReducerMapBuilder<DiaryState>) => {
   });
   builder.addCase(fetchDiaryStatus.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = "일기 작성 현황을 불러오는데 실패했습니다.";
   });
 };
 

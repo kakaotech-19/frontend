@@ -12,7 +12,7 @@ export class ChangeNicknameRequestDto implements ChangeNicknameType {
   // 네임드 파라미터 방식의 생성자
   constructor({ nickname }: ChangeNicknameType) {
     if (!isValidNickname(nickname)) {
-      throw new Error("Invalid nickname format.");
+      throw new Error("닉네임은 5 ~ 15자리 영문, 숫자, 한글을 입력해주세요. ");
     }
 
     this.nickname = nickname.trim();

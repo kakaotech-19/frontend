@@ -4,5 +4,7 @@ import {
   DEFAULT_FEED,
   INIT_ALERT,
 } from "./initialConstants";
-
 export { DEFAULT_DIARY, DEFAULT_REACTIONS, DEFAULT_FEED, INIT_ALERT };
+
+import { JWT_ROLE } from "./serverConstants";
+export { JWT_ROLE };

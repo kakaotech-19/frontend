@@ -32,7 +32,7 @@ export const authMockups = [
     return HttpResponse.json({
       username: "string",
       accessToken:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJyb2xlIjoiUk9MRV9URU1QIiwidHlwZSI6InRlc3QifQ.4iope02veEACrzccndit10BsHTCfQIpgJ8OxufYj0lo",
     });
   }),
 
@@ -50,7 +50,7 @@ export const authMockups = [
   http.post(url + "/auth/refresh-token", () => {
     return HttpResponse.json({
       accessToken:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJyb2xlIjoiUk9MRV9URU1QIiwidHlwZSI6InRlc3QifQ.4iope02veEACrzccndit10BsHTCfQIpgJ8OxufYj0lo",
     });
   }),
 ];

@@ -17,7 +17,7 @@ const createMockDiary = (id: number) => ({
   ],
   bgmUrl:
     "https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3",
-  date: "2024-09-21",
+  createdDate: "2024-09-21",
   reactionCount: {
     like: 0,
     surprised: 0,
