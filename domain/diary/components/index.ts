@@ -1,4 +1,5 @@
 import ShareDiary from "./ShareDiary";
 import Calendar from "react-calendar";
 import FeedMessageForm from "./FeedMessageForm";
-export { Calendar, ShareDiary, FeedMessageForm };
+import RedirectCharacterButton from "./redirectCharacterButton";
+export { Calendar, ShareDiary, FeedMessageForm, RedirectCharacterButton };

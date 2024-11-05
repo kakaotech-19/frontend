@@ -2,7 +2,6 @@
 
 import store, { RootState } from "@/redux";
 import {
-  useAuth,
   useEmptyTokenRedirect,
   useMocking,
   useReissueToken,

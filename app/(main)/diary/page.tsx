@@ -4,15 +4,13 @@ import { Modal, Accordion, Button, Datepicker, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux";
-import { ShareDiary } from "@/domain/diary/components";
+import { RedirectCharacterButton, ShareDiary } from "@/domain/diary/components";
 import path from "@/domain/shared/routes";
 import MyCalendar from "@/domain/diary/components/Calendar";
 import { setCommentView } from "@/domain/diary/slices/diarySlice";
-import { useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
-import { JWT_ROLE } from "@/domain/shared/constants";
 import { AlertType } from "@/domain/noti/types";
+import checkWriteRole from "@/domain/diary/function/checkRole";
 
 const Page: React.FC = () => {
   const router = useRouter();
@@ -21,34 +19,14 @@ const Page: React.FC = () => {
     (state: RootState) => state.diary.commentView
   );
 
-  const token = localStorage.getItem("accessToken");
-  const checkCreateRole = (): boolean => {
-    if (!token) return false;
-    try {
-      const decodedToken = jwtDecode(token as string);
-      return decodedToken.role !== JWT_ROLE.ROLE_TEMP;
-    } catch (error) {
-      console.error("Failed to decode token", error);
-      return false;
-    }
-  };
-
   const handleRedirectWritePage = () => {
-    if (!checkCreateRole()) {
+    if (!checkWriteRole()) {
       const data: AlertType = {
         title: "알림",
         message: "일기를 작성하려면 캐릭터 등록이 필요합니다.",
         color: "info",
         callback: (
-          <div className="flex justify-end">
-            <Button
-              size="xs"
-              className="mt-2"
-              onClick={() => router.push(path.SETTING)}
-            >
-              캐릭터 만들러 가기
-            </Button>
-          </div>
+          <RedirectCharacterButton onClick={() => router.push(path.SETTING)} />
         ),
       };
       dispatch(setAlert(data));
