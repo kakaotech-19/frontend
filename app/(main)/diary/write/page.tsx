@@ -1,11 +1,20 @@
 "use client";
 
 import { Button, HR, Label, Textarea } from "flowbite-react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useSaveTextLocalStorage } from "@/domain/shared/hooks";
 import { createDiaryEntry } from "@/domain/diary/slices/diaryExtraReducers";
 import { CreateDiaryEntryType } from "@/domain/diary/dto/request";
+import { checkWriteRole } from "@/domain/diary/function";
+import { RedirectCharacterButton } from "@/domain/diary/components";
+import { CHARACTER_REQUIRED_ALERT } from "@/domain/shared/constants";
+import { AlertType } from "@/domain/noti/types";
+import path from "@/domain/shared/routes";
+import { useRouter } from "next/navigation";
+import { setAlert } from "@/domain/noti/slices/notiSlice";
+import { setCommentView } from "@/domain/diary/slices/diarySlice";
+import { RootState } from "@/redux";
 
 const Page: React.FC = () => {
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
@@ -13,6 +22,7 @@ const Page: React.FC = () => {
     key: "diaryText",
   });
 
+  const router = useRouter();
   const dispatch = useDispatch();
   const date = new Date();
 
@@ -38,14 +48,50 @@ const Page: React.FC = () => {
   };
 
   const handleCreateDiaryEntry = () => {
-    const data: CreateDiaryEntryType = {
+    if (!checkWriteRole()) {
+      dispatch(
+        setAlert({
+          ...CHARACTER_REQUIRED_ALERT,
+          callback: (
+            <RedirectCharacterButton
+              onClick={() => router.push(path.SETTING)}
+            />
+          ),
+        })
+      );
+      return;
+    }
+
+    if (!selectedMood) {
+      dispatch(
+        setAlert({
+          title: "알림",
+          message: "기분을 선택해주세요",
+          color: "warning",
+        })
+      );
+      return;
+    }
+
+    const diaryEntry: CreateDiaryEntryType = {
       date: date.toISOString(),
-      emotion: selectedMood!,
+      emotion: selectedMood,
       content: text,
     };
-    dispatch<any>(createDiaryEntry(data));
-    removeText();
+
+    dispatch<any>(createDiaryEntry(diaryEntry));
   };
+
+  const isDiarySaved = useSelector(
+    (state: RootState) => state.diary.isDiarySaved
+  );
+  useEffect(() => {
+    if (isDiarySaved) {
+      removeText();
+      router.push(path.DIARY);
+      dispatch(setCommentView(true));
+    }
+  }, [isDiarySaved]);
 
   return (
     <div className="flex flex-col h-relative justify-between p-4">

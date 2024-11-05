@@ -45,7 +45,10 @@ export const diaryMockups = [
 
   // 나의 일기 작성
   http.post(url + "/diary/my", () => {
-    return new HttpResponse("created", { status: 201 });
+    return HttpResponse.json({
+      comment:
+        "이 편지는 영국으로부터 시작되었다. 100명의 다른사람에게 전달되었다.이 편지는 영국으로부터 시작되었다. 100명의 다른사람에게 전달되었다.이 편지는 영국으로부터 시작되었다. 100명의 다른사람에게 전달되었다.이 편지는 영국으로부터 시작되었다. 100명의 다른사람에게 전달되었다.이 편지는 영국으로부터 시작되었다. 100명의 다른사람에게 전달되었다.",
+    });
   }),
 
   // 일기장 삭제

@@ -4,27 +4,48 @@ import { Modal, Accordion, Button, Datepicker, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux";
-import { RedirectCharacterButton, ShareDiary } from "@/domain/diary/components";
+import {
+  RedirectCharacterButton,
+  ShareDiary,
+  TypingText,
+} from "@/domain/diary/components";
 import path from "@/domain/shared/routes";
 import MyCalendar from "@/domain/diary/components/Calendar";
-import { setCommentView } from "@/domain/diary/slices/diarySlice";
+import {
+  clearAiCommet,
+  setCommentView,
+} from "@/domain/diary/slices/diarySlice";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
 import { AlertType } from "@/domain/noti/types";
 import checkWriteRole from "@/domain/diary/function/checkRole";
+import { CHARACTER_REQUIRED_ALERT } from "@/domain/shared/constants";
 
 const Page: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const aiComment = useSelector((state: RootState) => state.diary.aiComment);
   const commentView = useSelector(
     (state: RootState) => state.diary.commentView
   );
 
+  const isDiarySaved = useSelector(
+    (state: RootState) => state.diary.isDiarySaved
+  );
   const handleRedirectWritePage = () => {
+    if (isDiarySaved) {
+      dispatch(
+        setAlert({
+          title: "알림",
+          message: "이미 오늘의 일기를 작성하셨습니다.",
+          color: "info",
+        })
+      );
+      return;
+    }
+
     if (!checkWriteRole()) {
       const data: AlertType = {
-        title: "알림",
-        message: "일기를 작성하려면 캐릭터 등록이 필요합니다.",
-        color: "info",
+        ...CHARACTER_REQUIRED_ALERT,
         callback: (
           <RedirectCharacterButton onClick={() => router.push(path.SETTING)} />
         ),
@@ -73,13 +94,16 @@ const Page: React.FC = () => {
         </div>
         <Modal
           show={commentView}
-          onClose={() => dispatch(setCommentView(false))}
+          onClose={() => {
+            dispatch(setCommentView(false));
+            dispatch(clearAiCommet());
+          }}
         >
           <Modal.Header>토닥토닥</Modal.Header>
           <Modal.Body>
             <div className="space-y-6">
               <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                여기에 모달 내용을 넣으세요.
+                <TypingText text={aiComment} />
               </p>
             </div>
           </Modal.Body>
