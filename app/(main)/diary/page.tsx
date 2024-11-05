@@ -9,7 +9,9 @@ import path from "@/domain/shared/routes";
 import MyCalendar from "@/domain/diary/components/Calendar";
 import { setCommentView } from "@/domain/diary/slices/diarySlice";
 import { useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
+import { JWT_ROLE } from "@/domain/shared/constants";
 import { AlertType } from "@/domain/noti/types";
 
 const Page: React.FC = () => {
@@ -19,6 +21,42 @@ const Page: React.FC = () => {
     (state: RootState) => state.diary.commentView
   );
 
+  const token = localStorage.getItem("accessToken");
+  const checkCreateRole = (): boolean => {
+    if (!token) return false;
+    try {
+      const decodedToken = jwtDecode(token as string);
+      return decodedToken.role !== JWT_ROLE.ROLE_TEMP;
+    } catch (error) {
+      console.error("Failed to decode token", error);
+      return false;
+    }
+  };
+
+  const handleRedirectWritePage = () => {
+    if (!checkCreateRole()) {
+      const data: AlertType = {
+        title: "알림",
+        message: "일기를 작성하려면 캐릭터 등록이 필요합니다.",
+        color: "info",
+        callback: (
+          <div className="flex justify-end">
+            <Button
+              size="xs"
+              className="mt-2"
+              onClick={() => router.push(path.SETTING)}
+            >
+              캐릭터 만들러 가기
+            </Button>
+          </div>
+        ),
+      };
+      dispatch(setAlert(data));
+      return;
+    }
+    router.push(path.WRITE);
+  };
+
   return (
     <div className="w-full min-h-screen flex justify-center items-start">
       <div className="w-full mt-14 overflow-y-auto">
@@ -27,7 +65,7 @@ const Page: React.FC = () => {
             <p className="text-lg">오늘의 일기를 작성해보세요~</p>
             <Button
               className="h-8 justify-center items-center"
-              onClick={() => router.push(path.WRITE)}
+              onClick={handleRedirectWritePage}
             >
               작성하기
             </Button>
