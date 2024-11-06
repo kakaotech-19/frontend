@@ -7,14 +7,16 @@ export const diaryMockups = [
     return HttpResponse.json({
       diaryId: 6,
       content: "blah blah",
-      webtoonImageUrls: [
-        "/minion1.png",
-        "/minion2.png",
-        "/minion3.png",
-        "/minion4.png",
-      ],
+      // webtoonImageUrls: [
+      //   "/minion1.png",
+      //   "/minion2.png",
+      //   "/minion3.png",
+      //   "/minion4.png",
+      // ],
+      webtoonImageUrls: ["", "/minion2.png", "/minion3.png", "/minion4.png"],
       bgmUrl:
         "https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3",
+      // bgmUrl: "",
       reactionCount: {
         like: 0,
         surprised: 0,
