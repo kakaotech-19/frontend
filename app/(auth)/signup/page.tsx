@@ -42,6 +42,8 @@ import {
 } from "@/domain/auth/dto/request";
 import { AlertType } from "@/domain/noti/types";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
+import SignupStepper from "@/domain/auth/components/SignupStepper";
+import { SIGNUP_STEP } from "@/domain/auth/constants";
 
 const Page = () => {
   const dispatch = useDispatch();
@@ -147,12 +149,18 @@ const Page = () => {
     dispatch<any>(checkIdDuplicate(data));
   };
 
+  const signupStep = useSelector((state: RootState) => state.signup.steps);
   return (
     <form
       className="w-80 flex flex-col gap-4"
       onSubmit={(e) => e.preventDefault()}
     >
-      <div>
+      <SignupStepper />
+      <section
+        className={`${
+          signupStep >= SIGNUP_STEP.PERSONAL ? "" : "hidden"
+        } space-y-2`}
+      >
         <div className="mb-2 block">
           <Label htmlFor="email2" value="Email" />
         </div>
@@ -173,8 +181,6 @@ const Page = () => {
             {verify.isEmailVerified ? "✅" : "verify"}
           </Button>
         </div>
-      </div>
-      <div>
         <div className="mb-2 block">
           <Label htmlFor="otp" value="OTP" />
         </div>
@@ -195,124 +201,136 @@ const Page = () => {
             {verify.isOtpVerified ? "✅" : "check"}
           </Button>
         </div>
-      </div>
+      </section>
       <HR className="mt-0" />
-      <div>
-        <div className="mb-2 block">
-          <Label htmlFor="nickname" value="Nickname" />
+      <section
+        className={`${
+          signupStep >= SIGNUP_STEP.ACCOUNT ? "" : "hidden"
+        } space-y-2`}
+      >
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="nickname" value="Nickname" />
+          </div>
+          <div className="flex justify-between">
+            <TextInput
+              id="nickname"
+              type="text"
+              value={nickname}
+              onInput={(e) => {
+                dispatch(setSignupNickname(e.currentTarget.value));
+                dispatch(setIsNicknameVerified(false));
+              }}
+              placeholder=""
+              required
+              shadow
+            />
+            <Button onClick={handleCheckNicknameDuplicate}>
+              {verify.isNicknameVerified ? "✅" : "check"}
+            </Button>
+          </div>
         </div>
-        <div className="flex justify-between">
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="signup-id" value="Login ID" />
+          </div>
+          <div className="flex justify-between">
+            <TextInput
+              id="signup-id"
+              type="text"
+              value={signupId}
+              onInput={(e) => {
+                dispatch(setSignupId(e.currentTarget.value));
+                dispatch(setIsSignupIdVerified(false));
+              }}
+              placeholder=""
+              required
+              shadow
+            />
+            <Button onClick={handleCheckIdDuplicate}>
+              {verify.isSignupIdVerified ? "✅" : "check"}
+            </Button>
+          </div>
+        </div>
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="password2" value="Password" />
+          </div>
           <TextInput
-            id="nickname"
-            type="text"
-            value={nickname}
-            onInput={(e) => {
-              dispatch(setSignupNickname(e.currentTarget.value));
-              dispatch(setIsNicknameVerified(false));
-            }}
-            placeholder=""
+            id="password2"
+            type="password"
+            onInput={(e) => dispatch(setSignupPassword(e.currentTarget.value))}
+            value={password}
             required
             shadow
           />
-          <Button onClick={handleCheckNicknameDuplicate}>
-            {verify.isNicknameVerified ? "✅" : "check"}
-          </Button>
         </div>
-      </div>
-      <div>
-        <div className="mb-2 block">
-          <Label htmlFor="signup-id" value="Login ID" />
-        </div>
-        <div className="flex justify-between">
+        <div>
+          <div className="mb-2 block">
+            <Label
+              htmlFor="repeat-password"
+              value={`Repeat password ${isSame ? "✅" : "❌"}`}
+            />
+          </div>
           <TextInput
-            id="signup-id"
-            type="text"
-            value={signupId}
-            onInput={(e) => {
-              dispatch(setSignupId(e.currentTarget.value));
-              dispatch(setIsSignupIdVerified(false));
-            }}
-            placeholder=""
+            id="repeat-password"
+            type="password"
+            onInput={(e) =>
+              dispatch(setSignupReEnterPassword(e.currentTarget.value))
+            }
+            value={reEnterPassword}
             required
             shadow
           />
-          <Button onClick={handleCheckIdDuplicate}>
-            {verify.isSignupIdVerified ? "✅" : "check"}
-          </Button>
         </div>
-      </div>
-      <div>
-        <div className="mb-2 block">
-          <Label htmlFor="password2" value="Password" />
-        </div>
-        <TextInput
-          id="password2"
-          type="password"
-          onInput={(e) => dispatch(setSignupPassword(e.currentTarget.value))}
-          value={password}
-          required
-          shadow
-        />
-      </div>
-      <div>
-        <div className="mb-2 block">
-          <Label
-            htmlFor="repeat-password"
-            value={`Repeat password ${isSame ? "✅" : "❌"}`}
-          />
-        </div>
-        <TextInput
-          id="repeat-password"
-          type="password"
-          onInput={(e) =>
-            dispatch(setSignupReEnterPassword(e.currentTarget.value))
-          }
-          value={reEnterPassword}
-          required
-          shadow
-        />
-      </div>
+      </section>
       <HR className="mt-0 mb-2" />
-      <div className="flex items-center gap-2">
-        <Checkbox
-          id="agree"
-          onChange={(e) => dispatch(setIsTermsAgreed(e.target.checked))}
-          required
-        />
-        <Label htmlFor="agree" className="flex">
-          I agree with the&nbsp;
-          <p
-            onClick={() => setOpenTermsModal(true)}
-            className="text-cyan-600 hover:underline dark:text-cyan-500 underline"
-          >
-            terms and conditions
-          </p>
-          <TermsAndConditionsModal
-            open={openTermsModal}
-            onClose={() => setOpenTermsModal(false)}
+      <section
+        className={`${
+          signupStep >= SIGNUP_STEP.POLICY ? "" : "hidden"
+        } space-y-2`}
+      >
+        <div className="flex items-center gap-2">
+          <Checkbox
+            id="agree"
+            onChange={(e) => dispatch(setIsTermsAgreed(e.target.checked))}
+            required
           />
-        </Label>
-      </div>
-      <div className="flex items-center gap-2">
-        <Checkbox
-          id="agree"
-          onChange={(e) => dispatch(setIsPrivacyAgreed(e.target.checked))}
-          required
-        />
-        <Label htmlFor="agree" className="flex">
-          I agree with the&nbsp;
-          <p
-            onClick={() => setOpenPrivacyModal(true)}
-            className="text-cyan-600 hover:underline dark:text-cyan-500 underline"
-          >
-            privacy policy
-          </p>
-          <PrivacyPolicyModal
-            open={openPrivacyModal}
-            onClose={() => setOpenPrivacyModal(false)}
+          <Label htmlFor="agree" className="flex">
+            I agree with the&nbsp;
+            <p
+              onClick={() => setOpenTermsModal(true)}
+              className="text-cyan-600 hover:underline dark:text-cyan-500 underline"
+            >
+              terms and conditions
+            </p>
+            <TermsAndConditionsModal
+              open={openTermsModal}
+              onClose={() => setOpenTermsModal(false)}
+            />
+          </Label>
+        </div>
+        <div className="flex items-center gap-2">
+          <Checkbox
+            id="agree"
+            onChange={(e) => dispatch(setIsPrivacyAgreed(e.target.checked))}
+            required
           />
-        </Label>
-      </div>
+          <Label htmlFor="agree" className="flex">
+            I agree with the&nbsp;
+            <p
+              onClick={() => setOpenPrivacyModal(true)}
+              className="text-cyan-600 hover:underline dark:text-cyan-500 underline"
+            >
+              privacy policy
+            </p>
+            <PrivacyPolicyModal
+              open={openPrivacyModal}
+              onClose={() => setOpenPrivacyModal(false)}
+            />
+          </Label>
+        </div>
+      </section>
       <Button type="submit" onClick={handlePostSignup}>
         Register new account
       </Button>

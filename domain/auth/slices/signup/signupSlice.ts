@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { addSignupExtraReducers } from "./signupExtraReducers";
+import { SIGNUP_STEP } from "../../constants";
 
 export interface SignupState {
   email: string;
@@ -17,6 +18,7 @@ export interface SignupState {
     isTermsAgreed: boolean;
     isPrivacyAgreed: boolean;
   };
+  steps: SIGNUP_STEP;
   loading: any;
   error: any;
 }
@@ -37,6 +39,7 @@ export const initialState = {
     isTermsAgreed: false,
     isPrivacyAgreed: false,
   },
+  steps: SIGNUP_STEP.PERSONAL,
   loading: false,
   error: "",
 };
@@ -99,6 +102,11 @@ const signupSlice = createSlice({
       state.verify.isPrivacyAgreed = action.payload;
     },
 
+    // signup steps --------------------------------
+    setSignupStep: (state: SignupState, action: PayloadAction<SIGNUP_STEP>) => {
+      state.steps = action.payload;
+    },
+
     // all reset --------------------------------
     resetSignupState: () => initialState,
   },
@@ -119,6 +127,7 @@ export const {
   setIsTermsAgreed,
   setIsPrivacyAgreed,
   resetSignupState,
+  setSignupStep,
 } = signupSlice.actions;
 export const extraReducers = signupSlice.reducer;
 export default signupSlice.reducer;

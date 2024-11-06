@@ -5,8 +5,10 @@ import TermsAndConditionsModal from "./TermsAndConditionsModal";
 import PrivacyPolicyModal from "./PrivacyPolicyModal";
 import NaverLoginButton from "./NaverLoginButton";
 import LoginForm from "./LoginForm";
+import SignupStepper from "./SignupStepper";
 
 export {
+  SignupStepper,
   GoogleLoginButton,
   KakaoLoginButton,
   LoginForm,
