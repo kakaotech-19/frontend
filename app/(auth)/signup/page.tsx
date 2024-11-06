@@ -31,6 +31,7 @@ import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
 import path from "@/domain/shared/routes";
 import {
   PrivacyPolicyModal,
+  SignupStepper,
   TermsAndConditionsModal,
 } from "@/domain/auth/components";
 import {
@@ -42,7 +43,6 @@ import {
 } from "@/domain/auth/dto/request";
 import { AlertType } from "@/domain/noti/types";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
-import SignupStepper from "@/domain/auth/components/SignupStepper";
 import { SIGNUP_STEP } from "@/domain/auth/constants";
 
 const Page = () => {

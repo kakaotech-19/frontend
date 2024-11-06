@@ -4,7 +4,7 @@ import { RedirectSVG } from "@/domain/shared/components/svg";
 import { RootState } from "@/redux";
 import React from "react";
 import { useSelector } from "react-redux";
-import { SIGNUP_STEP } from "../constants";
+import { SIGNUP_STEP } from "../../constants";
 
 const SignupStepper: React.FC = () => {
   const signupStep = useSelector((state: RootState) => state.signup.steps);

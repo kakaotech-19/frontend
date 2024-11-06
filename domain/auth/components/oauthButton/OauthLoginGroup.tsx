@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
 import { useRouter } from "next/navigation";
 import path from "@/domain/shared/routes";
-import { GoogleLoginButton, KakaoLoginButton, NaverLoginButton } from ".";
+import { GoogleLoginButton, KakaoLoginButton, NaverLoginButton } from "..";
 
 const OauthLoginGroup: React.FC = () => {
   const dispatch = useDispatch();
