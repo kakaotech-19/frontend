@@ -9,17 +9,17 @@ const Page = () => {
     (state: RootState) => state.login.isIdLoginFormView
   );
   return (
-    <>
-      {!isIdLoginFormView ? (
-        <>
+    <div className="w-full flex justify-center">
+      <div className="flex w-64 justify-center">
+        {!isIdLoginFormView ? (
           <OauthLoginGroup />
-        </>
-      ) : (
-        <>
-          <LoginForm />
-        </>
-      )}
-    </>
+        ) : (
+          <>
+            <LoginForm />
+          </>
+        )}
+      </div>
+    </div>
   );
 };
 

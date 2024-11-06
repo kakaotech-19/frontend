@@ -23,12 +23,14 @@ const OauthLoginGroup: React.FC = () => {
   };
 
   return (
-    <>
-      <KakaoLoginButton onClick={() => handleOAuthClick(path.KAKAO)} />
-      <br />
-      <GoogleLoginButton onClick={() => handleOAuthClick(path.GOOGLE)} />
-      <br />
-      <NaverLoginButton onClick={() => handleOAuthClick(path.NAVER)} />
+    <div className="w-80">
+      <div className="space-y-4 max-w-96">
+        <KakaoLoginButton onClick={() => handleOAuthClick(path.KAKAO)} />
+        <br />
+        <GoogleLoginButton onClick={() => handleOAuthClick(path.GOOGLE)} />
+        <br />
+        <NaverLoginButton onClick={() => handleOAuthClick(path.NAVER)} />
+      </div>
       <div className="inline-flex items-center justify-center w-full">
         <HR className="w-60 h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
         <span className="absolute px-3 font-sm text-gray-400 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900">
@@ -48,7 +50,7 @@ const OauthLoginGroup: React.FC = () => {
       >
         Create Account
       </Button>
-    </>
+    </div>
   );
 };
 

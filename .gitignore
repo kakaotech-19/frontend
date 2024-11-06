@@ -134,3 +134,4 @@ dist
 
 android/
 
+.DS_Store

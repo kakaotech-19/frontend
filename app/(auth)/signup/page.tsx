@@ -148,7 +148,10 @@ const Page = () => {
   };
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
+    <form
+      className="w-80 flex flex-col gap-4"
+      onSubmit={(e) => e.preventDefault()}
+    >
       <div>
         <div className="mb-2 block">
           <Label htmlFor="email2" value="Email" />
