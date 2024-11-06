@@ -2,21 +2,24 @@
 
 import { RootState } from "@/redux";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, HR } from "flowbite-react";
+import { Button, HR, Label } from "flowbite-react";
 import { resetSignupState } from "@/domain/auth/slices/signup/signupSlice";
 import { registerUser } from "@/domain/auth/slices/signup/signupExtraReducers";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
 import path from "@/domain/shared/routes";
-import { SignupStepper } from "@/domain/auth/components";
 import { AlertType } from "@/domain/noti/types";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
-import PersonalSection from "@/domain/auth/components/signupSteps/PersonalSection";
-import AccountSection from "@/domain/auth/components/signupSteps/AccountSection";
-import PolicySection from "@/domain/auth/components/signupSteps/PolicySection";
 import { SIGNUP_STEP } from "@/domain/auth/constants";
 import { handleSwitchSignupStep } from "@/domain/auth/function";
+import {
+  AccountSection,
+  PersonalSection,
+  PolicySection,
+  SignupStepper,
+} from "@/domain/auth/components";
+import { DirectionSVG } from "@/domain/shared/components/svg";
 
 const Page = () => {
   const dispatch = useDispatch();
@@ -64,6 +67,12 @@ const Page = () => {
       className="w-80 flex flex-col gap-4"
       onSubmit={(e) => e.preventDefault()}
     >
+      <Label
+        onClick={() => router.push(path.LOGIN)}
+        className="fixed flex top-4 left-4 items-center text-cyan-600 hover:underline dark:text-cyan-500 text-sm"
+      >
+        <DirectionSVG />
+      </Label>
       <SignupStepper />
       <PersonalSection />
       <AccountSection />

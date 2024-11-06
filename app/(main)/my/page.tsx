@@ -121,7 +121,6 @@ const Page = () => {
             reactionCount={selectedFeed.reactionCount}
             myReaction={selectedFeed.myReaction}
             diaryId={selectedFeed.publicDiaryId}
-            emojiReadonly={true}
           />
           <p className="p-1">{selectedFeed.publicContent}</p>
         </Modal.Body>
