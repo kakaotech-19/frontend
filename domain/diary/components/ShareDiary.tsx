@@ -10,10 +10,11 @@ import { uploadFeed } from "@/domain/feed/slices/feedExtraReducers";
 import { DiaryResponseType } from "../dto/response";
 import { UploadFeedType } from "@/domain/feed/dto/request";
 import { CarouselAudioEmoji } from "@/domain/shared/components";
+import { setAlert } from "@/domain/noti/slices/notiSlice";
 
 const ShareDiary: React.FC = () => {
   const dispatch = useDispatch();
-  const [isShare, setIsShare] = useState(false);
+  const [openShareModal, setOpenShareModal] = useState(false);
   const [text, handleChageText, removeText] = useSaveTextLocalStorage({
     key: "shareText",
   });
@@ -33,8 +34,28 @@ const ShareDiary: React.FC = () => {
       publicContent: text,
     };
     dispatch<any>(uploadFeed(data));
-    setIsShare(false);
+    setOpenShareModal(false);
     removeText();
+  };
+
+  const isAiContentGenerated = () => {
+    return (
+      queriedDiary.bgmUrl !== "" && queriedDiary.webtoonImageUrls.length > 0
+    );
+  };
+
+  const handleOpenShareModal = () => {
+    if (!isAiContentGenerated()) {
+      dispatch(
+        setAlert({
+          title: "알림",
+          message: "게시물이 아직 생성되지 않았습니다. 조금만 기다려주세요.",
+          color: "info",
+        })
+      );
+      return;
+    }
+    setOpenShareModal(true);
   };
 
   return (
@@ -42,7 +63,7 @@ const ShareDiary: React.FC = () => {
       <div className="flex justify-between items-center mb-2">
         <Datepicker className="z-50" onChange={handleChage} autoHide={true} />
         <Button
-          onClick={() => (queriedDiary.diaryId ? setIsShare(true) : null)}
+          onClick={handleOpenShareModal}
           className="flex justify-end items-center h-10"
         >
           업로드
@@ -60,7 +81,7 @@ const ShareDiary: React.FC = () => {
           />
         ) : null}
       </>
-      <Modal show={isShare} onClose={() => setIsShare(false)}>
+      <Modal show={openShareModal} onClose={() => setOpenShareModal(false)}>
         <Modal.Header>토닥토닥</Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
