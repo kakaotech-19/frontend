@@ -7,6 +7,7 @@ import { Logo } from "@/domain/shared/components/layout";
 import path from "@/domain/shared/routes";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { WritingAnimation } from "@/domain/shared/components/lottie-animation";
 
 const DynamicGraphicAnimation = dynamic(
   () => import("@/domain/shared/components/lottie-animation/GraphicAnimation"),
@@ -34,19 +35,6 @@ const DynamicWritingAnimation = dynamic(
 );
 
 const page = () => {
-  const [index, setIndex] = useState(0);
-  const animationImages = [
-    <DynamicWritingAnimation />,
-    <DynamicMusicAnimation />,
-    <DynamicGraphicAnimation />,
-  ];
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIndex((index + 1) % animationImages.length);
-    }, 10000);
-  }, [index]);
-
   return (
     <div className="w-full flex flex-col min-h-screen justify-center items-center overflow-x-hidden">
       <main className="w-full min-h-screen">
@@ -76,7 +64,7 @@ const page = () => {
             <Link href={path.LOGIN} className="flex justify-center">
               <Button size="md">시작하기</Button>
             </Link>
-            {animationImages[index]}
+            <WritingAnimation />
           </div>
         </div>
       </main>
