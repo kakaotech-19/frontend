@@ -28,7 +28,10 @@ const CarouselAudioEmoji: React.FC<CarouselAudioEmojiProps> = ({
     <div className="w-full relative">
       <Carousel slide={false} draggable={true}>
         {webtoonImageUrls?.map((imageUrl, index) => (
-          <div key={index} className="w-full relative">
+          <div
+            key={index}
+            className="w-full h-full flex justify-center items-center relative bg-gray-500"
+          >
             {imageUrl ? (
               <Image
                 width={500}
@@ -36,11 +39,11 @@ const CarouselAudioEmoji: React.FC<CarouselAudioEmojiProps> = ({
                 src={imageUrl}
                 alt={`public-feed-${diaryId}-${index}`}
                 sizes="100vw"
-                style={{ width: "100%", height: "auto" }}
+                style={{ width: "100%", height: "100%" }}
                 className="rounded-md shadow-md object-cover"
               />
             ) : (
-              <div className="w-full h-[500px] flex items-center justify-center">
+              <div className="w-full h-full flex items-center justify-center">
                 <Spinner size="xl" />
               </div>
             )}
