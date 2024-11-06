@@ -29,11 +29,13 @@ const Page = () => {
   );
   const myFeedAfter = useSelector((state: RootState) => state.feed.myFeedAfter);
 
+  const myFeedEnd = useSelector((state: RootState) => state.feed.myFeedEnd);
   const fetchMoreData = () => {
-    dispatch<any>(fetchMyFeedEntries(myFeedAfter));
-    if (myFeedList.length >= 50) {
+    if (myFeedEnd) {
       setHasMore(false);
+      return;
     }
+    dispatch<any>(fetchMyFeedEntries(myFeedAfter));
   };
 
   const nickname = useSelector((state: RootState) => state.member.nickname);
