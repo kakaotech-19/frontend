@@ -2,8 +2,8 @@
 
 import { Feed } from "@/domain/feed/components";
 import { fetchFeedEntries } from "@/domain/feed/slices/feedExtraReducers";
-import { setAlert } from "@/domain/noti/slices/notiSlice";
 import { RootState } from "@/redux";
+import { Spinner } from "flowbite-react";
 import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,12 +18,13 @@ const Page: React.FC = () => {
     fetchMoreData();
   }, []);
 
+  const feedEnd = useSelector((state: RootState) => state.feed.feedEnd);
   const fetchMoreData = () => {
-    dispatch<any>(fetchFeedEntries(feedAfter));
-
-    if (feedList.length >= 50) {
+    if (feedEnd) {
       setHasMore(false);
+      return;
     }
+    dispatch<any>(fetchFeedEntries(feedAfter));
   };
 
   return (
