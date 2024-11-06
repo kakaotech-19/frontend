@@ -106,13 +106,21 @@ const DiaryWritePage: React.FC = () => {
     <div className="flex flex-col h-relative justify-between p-4">
       <div className="mt-14">
         <div className="flex justify-between items-center">
-          <p className="text-xl">
-            {date.toLocaleDateString("ko-KR", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </p>
+          <div className="flex">
+            <p className="text-xl">
+              {date.toLocaleDateString("ko-KR", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </p>
+            <div>
+              <p className="text-xs text-gray-500 ml-2">임시저장</p>
+              <p className="text-xs text-gray-500 ml-2">
+                {toKSTISOString(date).split("T")[1].split(".")[0]}
+              </p>
+            </div>
+          </div>
           <Button
             className="h-8 justify-center items-center"
             onClick={handleSaveDiary}
