@@ -18,7 +18,7 @@ export interface SignupState {
     isTermsAgreed: boolean;
     isPrivacyAgreed: boolean;
   };
-  steps: SIGNUP_STEP;
+  step: SIGNUP_STEP;
   loading: any;
   error: any;
 }
@@ -39,7 +39,7 @@ export const initialState = {
     isTermsAgreed: false,
     isPrivacyAgreed: false,
   },
-  steps: SIGNUP_STEP.PERSONAL,
+  step: SIGNUP_STEP.PERSONAL,
   loading: false,
   error: "",
 };
@@ -102,9 +102,9 @@ const signupSlice = createSlice({
       state.verify.isPrivacyAgreed = action.payload;
     },
 
-    // signup steps --------------------------------
+    // signup step --------------------------------
     setSignupStep: (state: SignupState, action: PayloadAction<SIGNUP_STEP>) => {
-      state.steps = action.payload;
+      state.step = action.payload;
     },
 
     // all reset --------------------------------
