@@ -10,8 +10,10 @@ import { DEFAULT_FEED } from "@/domain/shared/constants";
 export interface FeedState {
   feedList: FeedType[];
   feedAfter: number;
+  feedEnd?: boolean;
   myFeedList: MyFeedType[];
   myFeedAfter: number;
+  myFeedEnd?: boolean;
   selectedFeed: MyFeedDetailType;
   loading?: boolean;
   error?: string | null;
@@ -20,8 +22,10 @@ export interface FeedState {
 const initialState: FeedState = {
   feedList: [],
   feedAfter: 0,
+  feedEnd: false,
   myFeedList: [],
   myFeedAfter: 0,
+  myFeedEnd: false,
   selectedFeed: DEFAULT_FEED,
   loading: false,
   error: null,

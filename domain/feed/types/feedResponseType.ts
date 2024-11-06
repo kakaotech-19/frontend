@@ -16,6 +16,7 @@ export type FeedType = {
   createdDate: string;
   reactionCount: ReactionType;
   myReaction: []; // reaction
+  isEnd: boolean;
 };
 
 export type MyFeedType = {

@@ -33,6 +33,7 @@ export const feedMockups = [
     return HttpResponse.json({
       diaries: [5, 4, 3, 2, 1].map(createMockDiary),
       after: 1,
+      isEnd: true,
     });
   }),
 
