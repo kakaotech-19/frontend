@@ -4,17 +4,9 @@ import { Modal, Accordion, Button, Datepicker, Textarea } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux";
-import {
-  RedirectCharacterButton,
-  ShareDiary,
-  TypingText,
-} from "@/domain/diary/components";
+import { RedirectCharacterButton, ShareDiary } from "@/domain/diary/components";
 import path from "@/domain/shared/routes";
 import MyCalendar from "@/domain/diary/components/Calendar";
-import {
-  clearAiCommet,
-  setCommentView,
-} from "@/domain/diary/slices/diarySlice";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
 import { AlertType } from "@/domain/noti/types";
 import checkWriteRole from "@/domain/diary/function/checkRole";
@@ -23,10 +15,6 @@ import { CHARACTER_REQUIRED_ALERT } from "@/domain/shared/constants";
 const Page: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const aiComment = useSelector((state: RootState) => state.diary.aiComment);
-  const commentView = useSelector(
-    (state: RootState) => state.diary.commentView
-  );
 
   const isDiarySaved = useSelector(
     (state: RootState) => state.diary.isDiarySaved
@@ -92,22 +80,6 @@ const Page: React.FC = () => {
             </Accordion.Panel>
           </Accordion>
         </div>
-        <Modal
-          show={commentView}
-          onClose={() => {
-            dispatch(setCommentView(false));
-            dispatch(clearAiCommet());
-          }}
-        >
-          <Modal.Header>토닥토닥</Modal.Header>
-          <Modal.Body>
-            <div className="space-y-6">
-              <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                <TypingText text={aiComment} />
-              </p>
-            </div>
-          </Modal.Body>
-        </Modal>
       </div>
     </div>
   );

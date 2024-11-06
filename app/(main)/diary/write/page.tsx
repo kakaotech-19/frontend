@@ -1,19 +1,21 @@
 "use client";
 
-import { Button, HR, Label, Textarea } from "flowbite-react";
+import { Button, HR, Label, Modal, Textarea } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSaveTextLocalStorage } from "@/domain/shared/hooks";
 import { createDiaryEntry } from "@/domain/diary/slices/diaryExtraReducers";
 import { CreateDiaryEntryType } from "@/domain/diary/dto/request";
 import { checkWriteRole } from "@/domain/diary/function";
-import { RedirectCharacterButton } from "@/domain/diary/components";
+import { RedirectCharacterButton, TypingText } from "@/domain/diary/components";
 import { CHARACTER_REQUIRED_ALERT } from "@/domain/shared/constants";
-import { AlertType } from "@/domain/noti/types";
 import path from "@/domain/shared/routes";
 import { useRouter } from "next/navigation";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
-import { setCommentView } from "@/domain/diary/slices/diarySlice";
+import {
+  clearAiCommet,
+  setCommentView,
+} from "@/domain/diary/slices/diarySlice";
 import { RootState } from "@/redux";
 
 const Page: React.FC = () => {
@@ -21,6 +23,10 @@ const Page: React.FC = () => {
   const [text, handleChangeText, removeText] = useSaveTextLocalStorage({
     key: "diaryText",
   });
+  const aiComment = useSelector((state: RootState) => state.diary.aiComment);
+  const commentView = useSelector(
+    (state: RootState) => state.diary.commentView
+  );
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -88,7 +94,6 @@ const Page: React.FC = () => {
   useEffect(() => {
     if (isDiarySaved) {
       removeText();
-      router.push(path.DIARY);
       dispatch(setCommentView(true));
     }
   }, [isDiarySaved]);
@@ -151,6 +156,22 @@ const Page: React.FC = () => {
           </div>
         </div>
       </div>
+      <Modal
+        show={commentView}
+        onClose={() => {
+          dispatch(setCommentView(false));
+          dispatch(clearAiCommet());
+        }}
+      >
+        <Modal.Header>토닥토닥</Modal.Header>
+        <Modal.Body>
+          <div className="space-y-6">
+            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+              <TypingText text={aiComment} />
+            </p>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
