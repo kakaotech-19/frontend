@@ -9,7 +9,6 @@ export interface SignupState {
   reEnterPassword: string;
   otp: string;
   isSignup: boolean;
-  isTermsModalView: boolean;
   verify: {
     isEmailVerified: boolean;
     isOtpVerified: boolean;
@@ -29,7 +28,6 @@ export const initialState = {
   otp: "",
   reEnterPassword: "",
   isSignup: false,
-  isTermsModalView: false,
   verify: {
     isEmailVerified: false,
     isOtpVerified: false,
@@ -65,12 +63,6 @@ const signupSlice = createSlice({
     },
     setOTP: (state: SignupState, action: PayloadAction<string>) => {
       state.otp = action.payload;
-    },
-    setIsTermsModalView: (
-      state: SignupState,
-      action: PayloadAction<boolean>
-    ) => {
-      state.isTermsModalView = action.payload;
     },
 
     // verify state --------------------------------
@@ -118,7 +110,6 @@ export const {
   setIsSignupIdVerified,
   setIsTermsAgreed,
   resetSignupState,
-  setIsTermsModalView,
 } = signupSlice.actions;
 export const extraReducers = signupSlice.reducer;
 export default signupSlice.reducer;

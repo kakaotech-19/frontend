@@ -1,17 +1,17 @@
 "use client";
 
 import { Modal } from "flowbite-react";
-import { TERMS_AND_CONDITIONS } from "../constants";
 import { Fragment } from "react";
 import { ModalType } from "@/domain/shared/types/common";
+import { PRIVACY_POLICY } from "../constants";
 
-const TermsAndConditionsModal: React.FC<ModalType> = ({ open, onClose }) => {
+const PrivacyPolicyModal: React.FC<ModalType> = ({ open, onClose }) => {
   return (
     <Modal show={open} onClose={onClose}>
-      <Modal.Header>{TERMS_AND_CONDITIONS.TITLE}</Modal.Header>
+      <Modal.Header>{PRIVACY_POLICY.TITLE}</Modal.Header>
       <Modal.Body>
         <div className="space-y-6">
-          {TERMS_AND_CONDITIONS.SECTIONS.map((section, index) => (
+          {PRIVACY_POLICY.SECTIONS.map((section, index) => (
             <p
               key={index}
               className="text-base leading-relaxed text-gray-500 dark:text-gray-400"
@@ -32,4 +32,4 @@ const TermsAndConditionsModal: React.FC<ModalType> = ({ open, onClose }) => {
   );
 };
 
-export default TermsAndConditionsModal;
+export default PrivacyPolicyModal;

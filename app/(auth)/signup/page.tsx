@@ -10,7 +10,6 @@ import {
   setIsOtpVerified,
   setIsSignupIdVerified,
   setIsTermsAgreed,
-  setIsTermsModalView,
   setOTP,
   setSignupEmail,
   setSignupId,
@@ -87,6 +86,8 @@ const Page = () => {
       password === reEnterPassword
     );
   };
+
+  const [openModal, setOpenModal] = useState(false);
 
   // 회원가입
   const handlePostSignup = () => {
@@ -272,12 +273,15 @@ const Page = () => {
         <Label htmlFor="agree" className="flex">
           I agree with the&nbsp;
           <p
-            onClick={() => dispatch(setIsTermsModalView(true))}
+            onClick={() => setOpenModal(true)}
             className="text-cyan-600 hover:underline dark:text-cyan-500 underline"
           >
             terms and conditions
           </p>
-          <TermsAndConditionsModal />
+          <TermsAndConditionsModal
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+          />
         </Label>
       </div>
       <Button type="submit" onClick={handlePostSignup}>

@@ -27,10 +27,13 @@ const Logo: React.FC = () => {
     <div>
       <Label htmlFor="todak-title" className="flex items-center justify-center">
         <h1 id="todak-title" className="text-3xl font-bold text-cyan-800">
-          {title[titleIndex]}
+          <div className="flex gap-2">
+            <img src="/todak-logo.svg" />
+            {title[titleIndex]}
+          </div>
         </h1>
       </Label>
-      <HR className="mt-0 mb-2" />
+      <HR className="mt-1 mb-2" />
       <Label className="text-sm font-medium text-cyan-700 animate-pulse flex justify-center">
         {keyword[index]}
       </Label>

@@ -5,9 +5,13 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { Logo } from "@/domain/shared/components/layout";
 import path from "@/domain/shared/routes";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { WritingAnimation } from "@/domain/shared/components/lottie-animation";
+import {
+  PrivacyPolicyModal,
+  TermsAndConditionsModal,
+} from "@/domain/auth/components";
 
 const DynamicGraphicAnimation = dynamic(
   () => import("@/domain/shared/components/lottie-animation/GraphicAnimation"),
@@ -35,6 +39,8 @@ const DynamicWritingAnimation = dynamic(
 );
 
 const page = () => {
+  const [openTermsModal, setOpenTermsModal] = useState(false);
+  const [openPrivacyModal, setOpenPrivacyModal] = useState(false);
   return (
     <div className="w-full flex flex-col min-h-screen justify-center items-center overflow-x-hidden">
       <main className="w-full min-h-screen">
@@ -73,18 +79,26 @@ const page = () => {
           © 2024 todaktoday. All rights reserved.
         </p>
         <nav className="flex gap-4">
-          <Link
+          <p
             className="text-xs hover:underline underline-offset-4 text-gray-600"
-            href="#"
+            onClick={() => setOpenTermsModal(true)}
           >
             서비스 약관
-          </Link>
-          <Link
+          </p>
+          <TermsAndConditionsModal
+            open={openTermsModal}
+            onClose={() => setOpenTermsModal(false)}
+          />
+          <p
             className="text-xs hover:underline underline-offset-4 text-gray-600"
-            href="#"
+            onClick={() => setOpenPrivacyModal(true)}
           >
             개인정보 처리방침
-          </Link>
+          </p>
+          <PrivacyPolicyModal
+            open={openPrivacyModal}
+            onClose={() => setOpenPrivacyModal(false)}
+          />
         </nav>
       </footer>
     </div>
