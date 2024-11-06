@@ -13,6 +13,9 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        gamja: ["Gamja", "sans-serif"], // 커스텀 폰트 추가
+      },
     },
   },
   plugins: [flowbite.plugin(), require("flowbite-typography")],

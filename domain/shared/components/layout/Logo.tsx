@@ -29,7 +29,7 @@ const Logo: React.FC = () => {
         <h1 id="todak-title" className="text-3xl font-bold text-cyan-800">
           <div className="flex gap-2">
             <img src="/todak-logo.svg" />
-            {title[titleIndex]}
+            <p className="font-gamja text-6xl">{title[titleIndex]}</p>
           </div>
         </h1>
       </Label>
