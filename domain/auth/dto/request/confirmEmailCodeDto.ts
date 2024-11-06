@@ -8,17 +8,7 @@ export class ConfirmEmailCodeRequestDto implements ConfirmEmailCodeType {
   public emailOtp: string;
 
   constructor(emailOtp: string) {
-    if (!this.isValidOtp(emailOtp)) {
-      throw new Error("6자리 숫자를 입력해주세요.");
-    }
-
     this.emailOtp = emailOtp.trim(); // OTP의 앞뒤 공백 제거
-  }
-
-  // OTP 형식 검증 메서드
-  private isValidOtp(emailOtp: string): boolean {
-    const otpRegex = /^[0-9]{6}$/; // 예시: 6자리 숫자로 구성된 OTP
-    return otpRegex.test(emailOtp);
   }
 
   // 객체 형태로 반환

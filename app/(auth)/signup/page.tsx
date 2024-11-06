@@ -8,6 +8,7 @@ import {
   setIsEmailVerified,
   setIsNicknameVerified,
   setIsOtpVerified,
+  setIsPrivacyAgreed,
   setIsSignupIdVerified,
   setIsTermsAgreed,
   setOTP,
@@ -28,7 +29,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
 import path from "@/domain/shared/routes";
-import { TermsAndConditionsModal } from "@/domain/auth/components";
+import {
+  PrivacyPolicyModal,
+  TermsAndConditionsModal,
+} from "@/domain/auth/components";
 import {
   CheckIdDuplicateType,
   CheckNicknameDuplicateType,
@@ -83,11 +87,13 @@ const Page = () => {
       verify.isNicknameVerified &&
       verify.isSignupIdVerified &&
       verify.isTermsAgreed &&
+      verify.isPrivacyAgreed &&
       password === reEnterPassword
     );
   };
 
-  const [openModal, setOpenModal] = useState(false);
+  const [openTermsModal, setOpenTermsModal] = useState(false);
+  const [openPrivacyModal, setOpenPrivacyModal] = useState(false);
 
   // 회원가입
   const handlePostSignup = () => {
@@ -263,7 +269,7 @@ const Page = () => {
           shadow
         />
       </div>
-      <HR className="mt-0" />
+      <HR className="mt-0 mb-2" />
       <div className="flex items-center gap-2">
         <Checkbox
           id="agree"
@@ -273,14 +279,34 @@ const Page = () => {
         <Label htmlFor="agree" className="flex">
           I agree with the&nbsp;
           <p
-            onClick={() => setOpenModal(true)}
+            onClick={() => setOpenTermsModal(true)}
             className="text-cyan-600 hover:underline dark:text-cyan-500 underline"
           >
             terms and conditions
           </p>
           <TermsAndConditionsModal
-            open={openModal}
-            onClose={() => setOpenModal(false)}
+            open={openTermsModal}
+            onClose={() => setOpenTermsModal(false)}
+          />
+        </Label>
+      </div>
+      <div className="flex items-center gap-2">
+        <Checkbox
+          id="agree"
+          onChange={(e) => dispatch(setIsPrivacyAgreed(e.target.checked))}
+          required
+        />
+        <Label htmlFor="agree" className="flex">
+          I agree with the&nbsp;
+          <p
+            onClick={() => setOpenPrivacyModal(true)}
+            className="text-cyan-600 hover:underline dark:text-cyan-500 underline"
+          >
+            privacy policy
+          </p>
+          <PrivacyPolicyModal
+            open={openPrivacyModal}
+            onClose={() => setOpenPrivacyModal(false)}
           />
         </Label>
       </div>

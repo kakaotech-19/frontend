@@ -15,6 +15,7 @@ export interface SignupState {
     isNicknameVerified: boolean;
     isSignupIdVerified: boolean;
     isTermsAgreed: boolean;
+    isPrivacyAgreed: boolean;
   };
   loading: any;
   error: any;
@@ -34,6 +35,7 @@ export const initialState = {
     isNicknameVerified: false,
     isSignupIdVerified: false,
     isTermsAgreed: false,
+    isPrivacyAgreed: false,
   },
   loading: false,
   error: "",
@@ -90,6 +92,12 @@ const signupSlice = createSlice({
     setIsTermsAgreed: (state: SignupState, action: PayloadAction<boolean>) => {
       state.verify.isTermsAgreed = action.payload;
     },
+    setIsPrivacyAgreed: (
+      state: SignupState,
+      action: PayloadAction<boolean>
+    ) => {
+      state.verify.isPrivacyAgreed = action.payload;
+    },
 
     // all reset --------------------------------
     resetSignupState: () => initialState,
@@ -109,6 +117,7 @@ export const {
   setIsNicknameVerified,
   setIsSignupIdVerified,
   setIsTermsAgreed,
+  setIsPrivacyAgreed,
   resetSignupState,
 } = signupSlice.actions;
 export const extraReducers = signupSlice.reducer;
