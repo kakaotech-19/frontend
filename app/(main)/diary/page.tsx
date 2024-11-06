@@ -1,10 +1,10 @@
 "use client";
 
-import { Modal, Accordion, Button, Datepicker, Textarea } from "flowbite-react";
+import { Accordion, Button } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux";
-import { RedirectCharacterButton, ShareDiary } from "@/domain/diary/components";
+import { AlertButton, ShareDiary } from "@/domain/diary/components";
 import path from "@/domain/shared/routes";
 import MyCalendar from "@/domain/diary/components/Calendar";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
@@ -35,7 +35,10 @@ const Page: React.FC = () => {
       const data: AlertType = {
         ...CHARACTER_REQUIRED_ALERT,
         callback: (
-          <RedirectCharacterButton onClick={() => router.push(path.SETTING)} />
+          <AlertButton
+            onClick={() => router.push(path.SETTING)}
+            text="캐릭터 만들러 가기"
+          />
         ),
       };
       dispatch(setAlert(data));

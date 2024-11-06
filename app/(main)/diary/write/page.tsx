@@ -1,70 +1,57 @@
 "use client";
 
-import { Button, HR, Label, Modal, Textarea } from "flowbite-react";
+import { Alert, Button, HR, Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 import { useSaveTextLocalStorage } from "@/domain/shared/hooks";
 import { createDiaryEntry } from "@/domain/diary/slices/diaryExtraReducers";
-import { CreateDiaryEntryType } from "@/domain/diary/dto/request";
 import { checkWriteRole } from "@/domain/diary/function";
-import { RedirectCharacterButton, TypingText } from "@/domain/diary/components";
+import { AlertButton, TypingText } from "@/domain/diary/components";
 import { CHARACTER_REQUIRED_ALERT } from "@/domain/shared/constants";
-import path from "@/domain/shared/routes";
-import { useRouter } from "next/navigation";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
 import {
   clearAiCommet,
   setCommentView,
 } from "@/domain/diary/slices/diarySlice";
 import { RootState } from "@/redux";
+import path from "@/domain/shared/routes";
+import { MoodSelector } from "@/domain/diary/components/MoodSelector";
+import { DiaryTextArea } from "@/domain/diary/components/DiaryTextArea";
+import { AlertType } from "@/domain/noti/types";
+import { toKSTISOString } from "@/domain/shared/function";
 
-const Page: React.FC = () => {
+const DiaryWritePage: React.FC = () => {
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
-  const [text, handleChangeText, removeText] = useSaveTextLocalStorage({
-    key: "diaryText",
-  });
-  const aiComment = useSelector((state: RootState) => state.diary.aiComment);
-  const commentView = useSelector(
-    (state: RootState) => state.diary.commentView
-  );
+  const [text, handleChangeText, removeTextLocalStorage] =
+    useSaveTextLocalStorage({
+      key: "diaryText",
+    });
 
-  const router = useRouter();
   const dispatch = useDispatch();
+  const router = useRouter();
   const date = new Date();
+
+  const { aiComment, commentView, isDiarySaved } = useSelector(
+    (state: RootState) => state.diary
+  );
 
   const handleMoodSelect = (mood: string) => {
     setSelectedMood(mood === selectedMood ? null : mood);
   };
 
-  const getMoodColor = (mood: string) => {
-    switch (mood) {
-      case "행복해요":
-        return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
-      case "평온해요":
-        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-700 dark:text-yellow-300";
-      case "생각이많아요":
-        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
-      case "아쉬워요":
-        return "bg-gray-500 text-gray-100 dark:bg-gray-900 dark:text-gray-300";
-      case "씁쓸해요":
-        return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
-      default:
-        return "";
-    }
-  };
-
-  const handleCreateDiaryEntry = () => {
+  const handleSaveDiary = () => {
     if (!checkWriteRole()) {
-      dispatch(
-        setAlert({
-          ...CHARACTER_REQUIRED_ALERT,
-          callback: (
-            <RedirectCharacterButton
-              onClick={() => router.push(path.SETTING)}
-            />
-          ),
-        })
-      );
+      const data: AlertType = {
+        ...CHARACTER_REQUIRED_ALERT,
+        callback: (
+          <AlertButton
+            onClick={() => router.push(path.SETTING)}
+            text="캐릭터 만들러 가기"
+          />
+        ),
+      };
+      dispatch(setAlert(data));
       return;
     }
 
@@ -79,24 +66,41 @@ const Page: React.FC = () => {
       return;
     }
 
-    const diaryEntry: CreateDiaryEntryType = {
-      date: date.toISOString(),
-      emotion: selectedMood,
-      content: text,
-    };
-
-    dispatch<any>(createDiaryEntry(diaryEntry));
+    dispatch<any>(
+      createDiaryEntry({
+        date: date.toISOString(),
+        emotion: selectedMood,
+        content: text,
+      })
+    );
   };
 
-  const isDiarySaved = useSelector(
-    (state: RootState) => state.diary.isDiarySaved
-  );
+  const handleCloseModal = () => {
+    dispatch(setCommentView(false));
+    dispatch(clearAiCommet());
+  };
+
   useEffect(() => {
     if (isDiarySaved) {
-      removeText();
-      dispatch(setCommentView(true));
+      removeTextLocalStorage();
+      router.push(path.DIARY);
+      dispatch(
+        setAlert({
+          title: "알림",
+          message: "일기가 저장되었습니다.",
+          color: "success",
+          callback: (
+            <AlertButton
+              onClick={() =>
+                router.push(`${path.READ}?date=${toKSTISOString(date)}`)
+              }
+              text="작성된 일기 보러가기"
+            />
+          ),
+        })
+      );
     }
-  }, [isDiarySaved]);
+  }, [isDiarySaved, removeTextLocalStorage, dispatch]);
 
   return (
     <div className="flex flex-col h-relative justify-between p-4">
@@ -109,60 +113,23 @@ const Page: React.FC = () => {
               day: "numeric",
             })}
           </p>
-          <div className="flex justify-center items-center space-x-2">
-            <Button
-              className="h-8 justify-center items-center"
-              onClick={handleCreateDiaryEntry}
-            >
-              저장
-            </Button>
-          </div>
+          <Button
+            className="h-8 justify-center items-center"
+            onClick={handleSaveDiary}
+          >
+            저장
+          </Button>
         </div>
         <HR className="mb-2 mt-2" />
-        <Label className="mb-4">
-          <p className="mb-2">기분을 알려주세요.</p>
-          <div>
-            {[
-              "행복해요",
-              "평온해요",
-              "생각이많아요",
-              "아쉬워요",
-              "씁쓸해요",
-            ].map((mood) => (
-              <span
-                key={mood}
-                className={`text-xs font-medium me-2 px-3 py-1 rounded-full cursor-pointer ${
-                  selectedMood === mood
-                    ? getMoodColor(mood)
-                    : "bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-300"
-                }`}
-                onClick={() => handleMoodSelect(mood)}
-              >
-                {mood}
-              </span>
-            ))}
-          </div>
-        </Label>
-        <div className="relative mt-4">
-          <Textarea
-            className="h-96 text-md"
-            maxLength={3000}
-            value={text}
-            onChange={handleChangeText}
-            placeholder="Write your thoughts here..."
-          />
-          <div className="absolute bottom-4 right-4 text-sm text-gray-500">
-            {text.length} / 3000
-          </div>
-        </div>
+
+        <MoodSelector
+          selectedMood={selectedMood}
+          onMoodSelect={handleMoodSelect}
+        />
+        <DiaryTextArea text={text} onChange={handleChangeText} />
       </div>
-      <Modal
-        show={commentView}
-        onClose={() => {
-          dispatch(setCommentView(false));
-          dispatch(clearAiCommet());
-        }}
-      >
+
+      <Modal show={commentView} onClose={handleCloseModal}>
         <Modal.Header>토닥토닥</Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
@@ -176,4 +143,4 @@ const Page: React.FC = () => {
   );
 };
 
-export default Page;
+export default DiaryWritePage;
