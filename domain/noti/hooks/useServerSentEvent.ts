@@ -2,22 +2,42 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setAlert } from "../slices/notiSlice";
 
-const useServerSentEvent = () => {
+// endpoint: /api/v1/event
+// {
+//  event: diary
+//   data: "일기 콘텐츠 생성이 완료되었습니다."
+//   id: number
+// }
+// {
+//   event: character
+//    data: "캐릭터 생성이 완료되었습니다."
+//    id: number
+//  }
+
+interface useServerSentEventProps {
+  trigger: any;
+}
+
+const useServerSentEvent = ({ trigger }: useServerSentEventProps) => {
   const dispatch = useDispatch();
   const url = process.env.NEXT_PUBLIC_API_URL;
-  useEffect(() => {
-    const eventSource = new EventSource(url + "/sse-endpoint");
 
+  useEffect(() => {
+    if (!trigger) {
+      return;
+    }
+
+    const eventSource = new EventSource(url + "/event");
     eventSource.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      console.log("받은 메시지:", data);
       dispatch(
         setAlert({
           title: "알림",
-          message: "이미지 생성이 완료되었습니다.",
+          message: data.data,
           color: "green",
         })
       );
+      eventSource.close();
     };
 
     eventSource.onerror = (error) => {
@@ -28,7 +48,7 @@ const useServerSentEvent = () => {
     return () => {
       eventSource.close();
     };
-  }, [url]);
+  }, [trigger]);
 };
 
 export default useServerSentEvent;

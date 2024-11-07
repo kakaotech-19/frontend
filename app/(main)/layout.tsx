@@ -15,14 +15,12 @@ import {
 } from "@/domain/shared/components/layout";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
 import { AlertType } from "@/domain/noti/types";
-import { useServerSentEvent } from "@/domain/noti/hooks";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   // hooks
   useMocking();
   useReissueToken();
   useEmptyTokenRedirect();
-  useServerSentEvent();
 
   const dispatch = useDispatch();
 
