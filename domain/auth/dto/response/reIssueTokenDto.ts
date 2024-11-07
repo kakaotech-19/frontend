@@ -11,7 +11,7 @@ export class ReIssueTokenResponseDto implements ReIssueTokenType {
 
   constructor({ accessToken }: ReIssueTokenType) {
     if (!isValidAccessToken(accessToken)) {
-      throw new Error("Invalid access token format.");
+      throw new Error("토큰 재발급 응답이 올바르지 않습니다.");
     }
 
     this.accessToken = accessToken;

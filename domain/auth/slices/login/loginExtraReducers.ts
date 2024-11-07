@@ -34,6 +34,10 @@ const addLoginUser = (builder: ActionReducerMapBuilder<LoginState>) => {
   builder.addCase(
     loginUser.fulfilled,
     (state, action: PayloadAction<LoginResponseType>) => {
+      // 서버사이드에서는 localStorage에 접근할 수 없으므로 반환
+      if (typeof window === "undefined") {
+        return;
+      }
       localStorage.setItem("accessToken", action.payload.accessToken);
       state.isLogin = true;
       state.loading = false;

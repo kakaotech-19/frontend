@@ -1,6 +1,6 @@
 "use client";
 
-import { Carousel } from "flowbite-react";
+import { Carousel, Spinner } from "flowbite-react";
 import React from "react";
 import AudioModule from "./AudioModule";
 import Image from "next/image";
@@ -28,16 +28,25 @@ const CarouselAudioEmoji: React.FC<CarouselAudioEmojiProps> = ({
     <div className="w-full relative">
       <Carousel slide={false} draggable={true}>
         {webtoonImageUrls?.map((imageUrl, index) => (
-          <div key={index} className="w-full relative">
-            <Image
-              width={500}
-              height={500}
-              src={imageUrl}
-              alt={`public-feed-${diaryId}-${index}`}
-              sizes="100vw"
-              style={{ width: "100%", height: "auto" }}
-              className="rounded-md shadow-md object-cover"
-            />
+          <div
+            key={index}
+            className="w-full h-full flex justify-center items-center relative bg-gray-500"
+          >
+            {imageUrl ? (
+              <Image
+                width={500}
+                height={500}
+                src={imageUrl}
+                alt={`public-feed-${diaryId}-${index}`}
+                sizes="100vw"
+                style={{ width: "100%", height: "100%" }}
+                className="rounded-md shadow-md object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <Spinner size="xl" />
+              </div>
+            )}
           </div>
         ))}
       </Carousel>

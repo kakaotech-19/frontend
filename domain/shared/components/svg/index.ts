@@ -4,6 +4,7 @@ import UserSVG from "./UserSVG";
 import DirectionSVG from "./DirectionSVG";
 import { VolumeUpSVG, MuteSVG } from "./VolumeSVG";
 import ShareSVG from "./ShareSVG";
+import RedirectSVG from "./RedirectSVG";
 
 export {
   HomeSVG,
@@ -13,4 +14,5 @@ export {
   VolumeUpSVG,
   MuteSVG,
   ShareSVG,
+  RedirectSVG,
 };

@@ -2,7 +2,7 @@
 
 import { clearAlert } from "@/domain/noti/slices/notiSlice";
 import { RootState } from "@/redux";
-import { Alert } from "flowbite-react";
+import { Alert, Button } from "flowbite-react";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { HiInformationCircle } from "react-icons/hi";
@@ -47,6 +47,7 @@ const MyAlert: React.FC = () => {
       <span>
         <span className="font-bold">{alert.title}</span> {alert.message}
       </span>
+      {alert.callback}
     </Alert>
   );
 };

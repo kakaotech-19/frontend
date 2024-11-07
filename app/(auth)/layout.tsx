@@ -29,7 +29,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="w-full min-h-screen flex justify-center items-center">
-      <div className="flex flex-col items-center my-10">
+      <div className="w-full flex flex-col items-center my-10">
         <MyAlert />
         <Logo />
         <HR />

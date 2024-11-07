@@ -1,23 +1,51 @@
 "use client";
 
-import { Modal, Accordion, Button, Datepicker, Textarea } from "flowbite-react";
+import { Accordion, Button } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux";
-import { ShareDiary } from "@/domain/diary/components";
+import { AlertButton, ShareDiary } from "@/domain/diary/components";
 import path from "@/domain/shared/routes";
 import MyCalendar from "@/domain/diary/components/Calendar";
-import { setCommentView } from "@/domain/diary/slices/diarySlice";
-import { useEffect } from "react";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
 import { AlertType } from "@/domain/noti/types";
+import checkWriteRole from "@/domain/diary/function/checkRole";
+import { CHARACTER_REQUIRED_ALERT } from "@/domain/shared/constants";
 
 const Page: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const commentView = useSelector(
-    (state: RootState) => state.diary.commentView
+
+  const isDiarySaved = useSelector(
+    (state: RootState) => state.diary.isDiarySaved
   );
+  const handleRedirectWritePage = () => {
+    if (isDiarySaved) {
+      dispatch(
+        setAlert({
+          title: "알림",
+          message: "이미 오늘의 일기를 작성하셨습니다.",
+          color: "info",
+        })
+      );
+      return;
+    }
+
+    if (!checkWriteRole()) {
+      const data: AlertType = {
+        ...CHARACTER_REQUIRED_ALERT,
+        callback: (
+          <AlertButton
+            onClick={() => router.push(path.SETTING)}
+            text="캐릭터 만들러 가기"
+          />
+        ),
+      };
+      dispatch(setAlert(data));
+      return;
+    }
+    router.push(path.WRITE);
+  };
 
   return (
     <div className="w-full min-h-screen flex justify-center items-start">
@@ -27,7 +55,7 @@ const Page: React.FC = () => {
             <p className="text-lg">오늘의 일기를 작성해보세요~</p>
             <Button
               className="h-8 justify-center items-center"
-              onClick={() => router.push(path.WRITE)}
+              onClick={handleRedirectWritePage}
             >
               작성하기
             </Button>
@@ -55,19 +83,6 @@ const Page: React.FC = () => {
             </Accordion.Panel>
           </Accordion>
         </div>
-        <Modal
-          show={commentView}
-          onClose={() => dispatch(setCommentView(false))}
-        >
-          <Modal.Header>토닥토닥</Modal.Header>
-          <Modal.Body>
-            <div className="space-y-6">
-              <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                여기에 모달 내용을 넣으세요.
-              </p>
-            </div>
-          </Modal.Body>
-        </Modal>
       </div>
     </div>
   );

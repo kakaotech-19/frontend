@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { addSignupExtraReducers } from "./signupExtraReducers";
+import { SIGNUP_STEP } from "../../constants";
 
 export interface SignupState {
   email: string;
@@ -9,14 +10,15 @@ export interface SignupState {
   reEnterPassword: string;
   otp: string;
   isSignup: boolean;
-  isTermsModalView: boolean;
   verify: {
     isEmailVerified: boolean;
     isOtpVerified: boolean;
     isNicknameVerified: boolean;
     isSignupIdVerified: boolean;
     isTermsAgreed: boolean;
+    isPrivacyAgreed: boolean;
   };
+  step: SIGNUP_STEP;
   loading: any;
   error: any;
 }
@@ -29,14 +31,15 @@ export const initialState = {
   otp: "",
   reEnterPassword: "",
   isSignup: false,
-  isTermsModalView: false,
   verify: {
     isEmailVerified: false,
     isOtpVerified: false,
     isNicknameVerified: false,
     isSignupIdVerified: false,
     isTermsAgreed: false,
+    isPrivacyAgreed: false,
   },
+  step: SIGNUP_STEP.PERSONAL,
   loading: false,
   error: "",
 };
@@ -66,12 +69,6 @@ const signupSlice = createSlice({
     setOTP: (state: SignupState, action: PayloadAction<string>) => {
       state.otp = action.payload;
     },
-    setIsTermsModalView: (
-      state: SignupState,
-      action: PayloadAction<boolean>
-    ) => {
-      state.isTermsModalView = action.payload;
-    },
 
     // verify state --------------------------------
     setIsEmailVerified: (
@@ -98,6 +95,17 @@ const signupSlice = createSlice({
     setIsTermsAgreed: (state: SignupState, action: PayloadAction<boolean>) => {
       state.verify.isTermsAgreed = action.payload;
     },
+    setIsPrivacyAgreed: (
+      state: SignupState,
+      action: PayloadAction<boolean>
+    ) => {
+      state.verify.isPrivacyAgreed = action.payload;
+    },
+
+    // signup step --------------------------------
+    setSignupStep: (state: SignupState, action: PayloadAction<SIGNUP_STEP>) => {
+      state.step = action.payload;
+    },
 
     // all reset --------------------------------
     resetSignupState: () => initialState,
@@ -117,8 +125,9 @@ export const {
   setIsNicknameVerified,
   setIsSignupIdVerified,
   setIsTermsAgreed,
+  setIsPrivacyAgreed,
   resetSignupState,
-  setIsTermsModalView,
+  setSignupStep,
 } = signupSlice.actions;
 export const extraReducers = signupSlice.reducer;
 export default signupSlice.reducer;

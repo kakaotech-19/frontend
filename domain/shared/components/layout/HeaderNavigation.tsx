@@ -18,12 +18,8 @@ const HeaderNavigation: React.FC = () => {
           href="/home"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
-          <img
-            src="https://flowbite.com/docs/images/logo.svg"
-            className="h-6 ml-2"
-            alt="Flowbite Logo"
-          />
-          <h1 className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+          <img src="/todak-logo.svg" className="h-6 ml-2" alt="Flowbite Logo" />
+          <h1 className="self-center text-2xl font-gamja whitespace-nowrap dark:text-white">
             TODAK
           </h1>
         </Link>

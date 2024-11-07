@@ -7,14 +7,16 @@ export const diaryMockups = [
     return HttpResponse.json({
       diaryId: 6,
       content: "blah blah",
-      webtoonImageUrls: [
-        "/minion1.png",
-        "/minion2.png",
-        "/minion3.png",
-        "/minion4.png",
-      ],
+      // webtoonImageUrls: [
+      //   "/minion1.png",
+      //   "/minion2.png",
+      //   "/minion3.png",
+      //   "/minion4.png",
+      // ],
+      webtoonImageUrls: ["", "/minion2.png", "/minion3.png", "/minion4.png"],
       bgmUrl:
         "https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3",
+      // bgmUrl: "",
       reactionCount: {
         like: 0,
         surprised: 0,
@@ -45,7 +47,10 @@ export const diaryMockups = [
 
   // 나의 일기 작성
   http.post(url + "/diary/my", () => {
-    return new HttpResponse("created", { status: 201 });
+    return HttpResponse.json({
+      comment:
+        "이 편지는 영국으로부터 시작되었다. 100명의 다른사람에게 전달되었다.이 편지는 영국으로부터 시작되었다. 100명의 다른사람에게 전달되었다.이 편지는 영국으로부터 시작되었다. 100명의 다른사람에게 전달되었다.이 편지는 영국으로부터 시작되었다. 100명의 다른사람에게 전달되었다.이 편지는 영국으로부터 시작되었다. 100명의 다른사람에게 전달되었다.",
+    });
   }),
 
   // 일기장 삭제

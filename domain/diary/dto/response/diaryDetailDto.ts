@@ -33,7 +33,7 @@ export class DiaryResponseDto implements DiaryResponseType {
     } = data;
 
     if (!isValidDate(date)) {
-      throw new Error("Invalid date format. Expected format: YYYY-MM-DD.");
+      throw new Error("유효하지 않은 날짜 형식입니다.");
     }
 
     this.diaryId = diaryId;

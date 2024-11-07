@@ -13,9 +13,10 @@ export type FeedType = {
   publicContent: string;
   webtoonImageUrls: [];
   bgmUrl: string;
-  date: string;
+  createdDate: string;
   reactionCount: ReactionType;
   myReaction: []; // reaction
+  isEnd: boolean;
 };
 
 export type MyFeedType = {

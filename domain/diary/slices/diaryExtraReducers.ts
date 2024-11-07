@@ -11,15 +11,18 @@ import {
   DeleteDiaryEntryRequestDto,
   DeleteDiaryEntryType,
 } from "../dto/request";
-import { DiaryResponseDto, DiaryResponseType } from "../dto/response";
-import { toKSTISOString } from "@/domain/shared/function";
+import {
+  DiaryResponseDto,
+  DiaryResponseType,
+  DiaryWriteResponseDto,
+  DiaryWriteResponseType,
+} from "../dto/response";
 
 // 나의 일기 상세 조회 -----------------------------------------------------
 export const fetchDiaryDetail = createAsyncThunk(
   "diary/fetchDiaryDetail",
   async (params: string) => {
-    const date = toKSTISOString(new Date(params));
-    const response = await axiosInstance.get(`/diary/my/detail?date=${date}`);
+    const response = await axiosInstance.get(`/diary/my/detail?date=${params}`);
     const responseData = new DiaryResponseDto(response.data);
     return responseData.toObject();
   }
@@ -63,7 +66,7 @@ const addFetchDiaryStatus = (builder: ActionReducerMapBuilder<DiaryState>) => {
   });
   builder.addCase(fetchDiaryStatus.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    // state.error = "일기 작성 현황을 불러오는데 실패했습니다.";
   });
 };
 
@@ -76,7 +79,9 @@ export const createDiaryEntry = createAsyncThunk(
       "/diary/my",
       createDiaryEntryDto.toObject()
     );
-    return response.data;
+
+    const responseData = new DiaryWriteResponseDto(response.data);
+    return responseData.toObject();
   }
 );
 
@@ -85,9 +90,14 @@ const addCreateDiaryEntry = (builder: ActionReducerMapBuilder<DiaryState>) => {
     state.loading = true;
     state.error = null;
   });
-  builder.addCase(createDiaryEntry.fulfilled, (state, action) => {
-    state.loading = false;
-  });
+  builder.addCase(
+    createDiaryEntry.fulfilled,
+    (state, action: PayloadAction<DiaryWriteResponseType>) => {
+      state.isDiarySaved = true;
+      state.aiComment = action.payload.comment;
+      state.loading = false;
+    }
+  );
   builder.addCase(createDiaryEntry.rejected, (state, action) => {
     state.loading = false;
     state.error = action.error.message ?? null;

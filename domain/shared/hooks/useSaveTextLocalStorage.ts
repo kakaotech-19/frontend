@@ -8,6 +8,7 @@ interface UseSaveTextLocalStorageProps {
 
 const useSaveTextLocalStorage = ({ key }: UseSaveTextLocalStorageProps) => {
   const [text, setText] = useState("");
+
   useEffect(() => {
     const savedText = localStorage.getItem(key);
     if (savedText) {

@@ -6,30 +6,31 @@ import { useDispatch } from "react-redux";
 import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
 import { useRouter } from "next/navigation";
 import path from "@/domain/shared/routes";
-import Link from "next/link";
-import { GoogleLoginButton, KakaoLoginButton, NaverLoginButton } from ".";
+import { GoogleLoginButton, KakaoLoginButton, NaverLoginButton } from "..";
 
 const OauthLoginGroup: React.FC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const url = process.env.NEXT_PUBLIC_API_URL;
-  const kakaoUrl = url + path.KAKAO;
-  const googleUrl = url + path.GOOGLE;
-  const naverUrl = url + path.NAVER;
+
+  const handleOAuthClick = (provider: string) => {
+    if (!url) {
+      console.error("API URL is not configured");
+      return;
+    }
+    const authUrl = url + provider;
+    window.location.href = authUrl;
+  };
 
   return (
-    <>
-      <Link href={kakaoUrl} passHref>
-        <KakaoLoginButton />
-      </Link>
-      <br />
-      <Link href={googleUrl} passHref>
-        <GoogleLoginButton />
-      </Link>
-      <br />
-      <Link href={naverUrl} passHref>
-        <NaverLoginButton />
-      </Link>
+    <div className="w-80">
+      <div className="space-y-4 max-w-96">
+        <KakaoLoginButton onClick={() => handleOAuthClick(path.KAKAO)} />
+        <br />
+        <GoogleLoginButton onClick={() => handleOAuthClick(path.GOOGLE)} />
+        <br />
+        <NaverLoginButton onClick={() => handleOAuthClick(path.NAVER)} />
+      </div>
       <div className="inline-flex items-center justify-center w-full">
         <HR className="w-60 h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
         <span className="absolute px-3 font-sm text-gray-400 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900">
@@ -49,7 +50,7 @@ const OauthLoginGroup: React.FC = () => {
       >
         Create Account
       </Button>
-    </>
+    </div>
   );
 };
 

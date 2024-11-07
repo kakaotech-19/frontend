@@ -15,11 +15,11 @@ export class LoginResponseDto implements LoginResponseType {
     const { username, accessToken } = data;
 
     if (!username) {
-      throw new Error("Username is required.");
+      throw new Error("유저 이름이 없습니다.");
     }
 
     if (!isValidAccessToken(accessToken)) {
-      throw new Error("Invalid access token format.");
+      throw new Error("유효하지 않은 엑세스 토큰입니다.");
     }
 
     this.username = username;

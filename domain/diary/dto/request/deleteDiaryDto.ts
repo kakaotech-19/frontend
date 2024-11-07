@@ -16,13 +16,13 @@ export class DeleteDiaryEntryRequestDto implements DeleteDiaryEntryType {
   // 네임드 파라미터 방식의 생성자
   constructor({ date, emotion, content }: DeleteDiaryEntryType) {
     if (!isValidDate(date)) {
-      throw new Error("Invalid date format. Expected format: YYYY-MM-DD.");
+      throw new Error("유효하지 않은 날짜 형식입니다.");
     }
     if (!emotion) {
-      throw new Error("Emotion is required.");
+      throw new Error("감정표현 내용이 필요합니다.");
     }
     if (!content) {
-      throw new Error("Content is required.");
+      throw new Error("일기 내용이 필요합니다.");
     }
 
     this.date = date;

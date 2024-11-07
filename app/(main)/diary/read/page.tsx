@@ -1,7 +1,6 @@
 "use client";
 
 import React, { Suspense, useEffect } from "react";
-import Image from "next/image";
 import { Modal } from "flowbite-react";
 import { useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +21,7 @@ const DiaryReadPage: React.FC = () => {
     if (date) {
       dispatch<any>(fetchDiaryDetail(date));
     }
-  }, [date]);
+  }, []);
 
   return (
     <div className="w-full min-h-screen flex justify-center items-start">

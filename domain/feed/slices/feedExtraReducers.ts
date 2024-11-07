@@ -26,6 +26,7 @@ const addFetchFeedEntries = (builder: ActionReducerMapBuilder<FeedState>) => {
   builder.addCase(fetchFeedEntries.fulfilled, (state, action) => {
     state.feedList = [...state.feedList, ...action.payload.diaries];
     state.feedAfter = action.payload.after;
+    state.feedEnd = action.payload.isEnd;
     state.loading = false;
   });
   builder.addCase(fetchFeedEntries.rejected, (state, action) => {
@@ -107,6 +108,7 @@ const addFetchMyFeedEntries = (builder: ActionReducerMapBuilder<FeedState>) => {
   builder.addCase(fetchMyFeedEntries.fulfilled, (state, action) => {
     state.myFeedList = [...state.myFeedList, ...action.payload.diaries];
     state.myFeedAfter = action.payload.after;
+    state.myFeedEnd = action.payload.isEnd;
     state.loading = false;
   });
   builder.addCase(fetchMyFeedEntries.rejected, (state, action) => {

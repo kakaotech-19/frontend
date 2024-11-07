@@ -21,7 +21,6 @@ const enum path {
   // MY ------------------------------
   MY = "/my",
   SETTING = `${MY}/setting`,
-  CHARACTER = `${MY}/character`,
 }
 
 export default path;

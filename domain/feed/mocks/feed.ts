@@ -17,7 +17,7 @@ const createMockDiary = (id: number) => ({
   ],
   bgmUrl:
     "https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3",
-  date: "2024-09-21",
+  createdDate: "2024-09-21",
   reactionCount: {
     like: 0,
     surprised: 0,
@@ -33,6 +33,7 @@ export const feedMockups = [
     return HttpResponse.json({
       diaries: [5, 4, 3, 2, 1].map(createMockDiary),
       after: 1,
+      isEnd: false,
     });
   }),
 

@@ -47,7 +47,7 @@ const addVerifyEmail = (builder: ActionReducerMapBuilder<SignupState>) => {
 export const confirmEmailCode = createAsyncThunk(
   "signup/confirmEmailCode",
   async (data: ConfirmEmailCodeType) => {
-    const confirmEmailCodeDto = new ConfirmEmailCodeRequestDto(data.emailOtp);
+    const confirmEmailCodeDto = new ConfirmEmailCodeRequestDto(data);
     const response = await axiosInstance.post(
       "/auth/email/otp",
       confirmEmailCodeDto.toObject()

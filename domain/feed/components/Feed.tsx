@@ -5,7 +5,7 @@ import { FeedType } from "../types/feedResponseType";
 const Feed: React.FC<FeedType> = ({
   nickname,
   characterImageUrl,
-  date,
+  createdDate,
   webtoonImageUrls,
   bgmUrl,
   reactionCount,
@@ -17,7 +17,7 @@ const Feed: React.FC<FeedType> = ({
       <UserAvatarWithLabel
         imageUrl={characterImageUrl}
         nickname={nickname}
-        description={date}
+        description={createdDate}
       />
       <CarouselAudioEmoji
         webtoonImageUrls={webtoonImageUrls}
