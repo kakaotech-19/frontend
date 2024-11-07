@@ -2,41 +2,15 @@
 
 import { Button } from "flowbite-react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { Logo } from "@/domain/shared/components/layout";
 import path from "@/domain/shared/routes";
 import { useState } from "react";
 import Image from "next/image";
-import { WritingAnimation } from "@/domain/shared/components/lottie-animation";
+// import { WritingAnimation } from "@/domain/shared/components/lottie-animation";
 import {
   PrivacyPolicyModal,
   TermsAndConditionsModal,
 } from "@/domain/auth/components";
-
-const DynamicGraphicAnimation = dynamic(
-  () => import("@/domain/shared/components/lottie-animation/GraphicAnimation"),
-  {
-    ssr: false,
-  }
-);
-const DynamicMusicAnimation = dynamic(
-  () => import("@/domain/shared/components/lottie-animation/MusicAnimation"),
-  {
-    ssr: false,
-  }
-);
-const DynamicShareAnimation = dynamic(
-  () => import("@/domain/shared/components/lottie-animation/ShareAnimation"),
-  {
-    ssr: false,
-  }
-);
-const DynamicWritingAnimation = dynamic(
-  () => import("@/domain/shared/components/lottie-animation/WritingAnimation"),
-  {
-    ssr: false,
-  }
-);
 
 const page = () => {
   const [openTermsModal, setOpenTermsModal] = useState(false);
@@ -70,7 +44,7 @@ const page = () => {
             <Link href={path.LOGIN} className="flex justify-center">
               <Button size="md">시작하기</Button>
             </Link>
-            <WritingAnimation />
+            {/* <WritingAnimation /> */}
           </div>
         </div>
       </main>
