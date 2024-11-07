@@ -12,12 +12,8 @@ import {
   clearCharacter,
   setNickname,
 } from "@/domain/member/slices/memberSlice";
-import {
-  ChangeNicknameType,
-  CreateCharacterType,
-} from "@/domain/member/types/memberRequestType";
+import { useServerSentEvent } from "@/domain/noti/hooks";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
-import { AlertType } from "@/domain/noti/types";
 import path from "@/domain/shared/routes";
 import { RootState } from "@/redux";
 import { Accordion, Button, HR, Label, Modal, TextInput } from "flowbite-react";
@@ -35,11 +31,20 @@ const Page: React.FC = () => {
   );
   const [openModal, setOpenModal] = React.useState(false);
 
+  //SSE
+  const isCreateCharacter = useSelector(
+    (state: RootState) => state.member.isCreateCharacter
+  );
+  useServerSentEvent({
+    trigger: isCreateCharacter,
+  });
+
   const handleChangeNickname = () => {
-    const data: ChangeNicknameType = {
-      nickname: nickname,
-    };
-    dispatch<any>(changeNickname(data));
+    dispatch<any>(
+      changeNickname({
+        nickname: nickname,
+      })
+    );
   };
 
   useEffect(() => {
@@ -47,31 +52,23 @@ const Page: React.FC = () => {
   }, []);
 
   const handleCreateCharacter = async () => {
-    if (!selectedFile) {
-      const data: AlertType = {
-        title: "알림",
-        message: "이미지를 업로드해주세요.",
-        color: "red",
-      };
-      dispatch;
-    }
-    const data: CreateCharacterType = {
-      image: selectedFile,
-    };
-    dispatch<any>(createCharacter(data));
+    dispatch<any>(
+      createCharacter({
+        image: selectedFile,
+      })
+    );
   };
 
-  const isCreateCharacter = useSelector(
-    (state: RootState) => state.member.isCreateCharacter
-  );
   const handleSaveCharacter = () => {
     if (!isCreateCharacter) {
-      const data: AlertType = {
-        title: "알림",
-        message: "캐릭터를 생성해주세요.",
-        color: "red",
-      };
-      dispatch(setAlert(data));
+      dispatch(
+        setAlert({
+          title: "알림",
+          message: "캐릭터를 생성해주세요.",
+          color: "red",
+        })
+      );
+      return;
     }
     dispatch<any>(registerCharacter());
   };
@@ -80,16 +77,18 @@ const Page: React.FC = () => {
     (state: RootState) => state.member.isRegisterCharacter
   );
   useEffect(() => {
-    if (isRegisterCharacter) {
-      const data: AlertType = {
+    if (!isRegisterCharacter) {
+      return;
+    }
+    dispatch(
+      setAlert({
         title: "알림",
         message: "캐릭터가 등록되었습니다.",
         color: "success",
-      };
-      dispatch(setAlert(data));
-      router.push(path.MY);
-      dispatch(clearCharacter());
-    }
+      })
+    );
+    router.push(path.MY);
+    dispatch(clearCharacter());
   }, [isRegisterCharacter]);
 
   return (

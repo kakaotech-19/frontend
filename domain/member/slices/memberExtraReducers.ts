@@ -2,12 +2,10 @@ import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { MemberState } from "./memberSlice";
 import axiosInstance from "@/domain/shared/axios";
 import {
-  ChangeNicknameType,
-  CreateCharacterType,
-} from "../types/memberRequestType";
-import {
   ChangeNicknameRequestDto,
+  ChangeNicknameType,
   CreateCharacterRequestDto,
+  CreateCharacterType,
 } from "../dto/request";
 
 // 회원 정보 -----------------------------------------------------

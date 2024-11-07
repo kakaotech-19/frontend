@@ -9,6 +9,10 @@ export class CreateCharacterRequestDto implements CreateCharacterType {
 
   // 네임드 파라미터 방식의 생성자
   constructor({ image }: CreateCharacterType) {
+    if (image.trim() === "") {
+      throw new Error("이미지를 업로드해주세요.");
+    }
+
     if (!this.isValidBase64Image(image)) {
       throw new Error("허용하지 않는 이미지 포맷입니다.");
     }

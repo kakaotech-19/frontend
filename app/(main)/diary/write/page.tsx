@@ -20,6 +20,7 @@ import { MoodSelector } from "@/domain/diary/components/MoodSelector";
 import { DiaryTextArea } from "@/domain/diary/components/DiaryTextArea";
 import { AlertType } from "@/domain/noti/types";
 import { toKSTISOString } from "@/domain/shared/function";
+import { useServerSentEvent } from "@/domain/noti/hooks";
 
 const DiaryWritePage: React.FC = () => {
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
@@ -80,26 +81,29 @@ const DiaryWritePage: React.FC = () => {
     dispatch(clearAiCommet());
   };
 
+  // SSE
+  useServerSentEvent({ trigger: isDiarySaved });
   useEffect(() => {
-    if (isDiarySaved) {
-      removeTextLocalStorage();
-      router.push(path.DIARY);
-      dispatch(
-        setAlert({
-          title: "알림",
-          message: "일기가 저장되었습니다.",
-          color: "success",
-          callback: (
-            <AlertButton
-              onClick={() =>
-                router.push(`${path.READ}?date=${toKSTISOString(date)}`)
-              }
-              text="작성된 일기 보러가기"
-            />
-          ),
-        })
-      );
+    if (!isDiarySaved) {
+      return;
     }
+    removeTextLocalStorage();
+    router.push(path.DIARY);
+    dispatch(
+      setAlert({
+        title: "알림",
+        message: "일기가 저장되었습니다.",
+        color: "success",
+        callback: (
+          <AlertButton
+            onClick={() =>
+              router.push(`${path.READ}?date=${toKSTISOString(date)}`)
+            }
+            text="작성된 일기 보러가기"
+          />
+        ),
+      })
+    );
   }, [isDiarySaved, removeTextLocalStorage, dispatch]);
 
   return (

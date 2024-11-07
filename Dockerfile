@@ -14,4 +14,4 @@ COPY . .
 
 RUN pnpm build
 
-# CMD ["npm", "serve"]
+CMD ["pnpm", "serve"]

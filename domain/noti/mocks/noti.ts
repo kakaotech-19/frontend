@@ -8,7 +8,14 @@ export const notiMockups = [
       start(controller) {
         let count = 0;
         const interval = setInterval(() => {
-          const data = `data: {"message": "Event ${count}"}\n\n`;
+          // 번갈아가며 다른 이벤트 타입 전송
+          const eventType = count % 2 === 0 ? "diary" : "character";
+          const message =
+            eventType === "diary"
+              ? "일기 콘텐츠 생성이 완료되었습니다."
+              : "캐릭터 생성이 완료되었습니다.";
+
+          const data = `event: ${eventType}\ndata: ${message}\nid: ${count}\n\n`;
           controller.enqueue(new TextEncoder().encode(data));
           count++;
 
