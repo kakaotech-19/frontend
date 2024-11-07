@@ -1,6 +1,6 @@
 "use client";
 
-import { Alert, Button, HR, Modal } from "flowbite-react";
+import { Button, HR, Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";

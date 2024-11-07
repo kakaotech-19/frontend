@@ -1,6 +1,4 @@
-import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
-import { JWT_ROLE } from "../constants";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import path from "../routes";
@@ -9,9 +7,13 @@ import { setAlert } from "@/domain/noti/slices/notiSlice";
 import { reissueToken } from "@/domain/auth/slices/login/loginExtraReducers";
 
 export const useEmptyTokenRedirect = () => {
-  const token = localStorage.getItem("accessToken");
+  // 서버사이드에서는 localStorage에 접근할 수 없으므로 반환
+  if (typeof window === "undefined") {
+    return;
+  }
   const router = useRouter();
   const dispatch = useDispatch();
+  const token = localStorage.getItem("accessToken");
   useEffect(() => {
     if (!token) {
       const data: AlertType = {
@@ -27,6 +29,10 @@ export const useEmptyTokenRedirect = () => {
 
 export const useReissueToken = () => {
   const dispatch = useDispatch();
+  // 서버사이드에서는 localStorage에 접근할 수 없으므로 반환
+  if (typeof window === "undefined") {
+    return;
+  }
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) {

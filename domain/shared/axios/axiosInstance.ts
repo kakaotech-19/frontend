@@ -13,6 +13,10 @@ const axiosInstance = axios.create({
 // Axios 요청 전에 위치 정보를 추가하기 위한 인터셉터 추가
 axiosInstance.interceptors.request.use(
   (config) => {
+    // 서버사이드에서는 localStorage에 접근할 수 없으므로 반환
+    if (typeof window === "undefined") {
+      return config;
+    }
     const token = localStorage.getItem("accessToken");
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;

@@ -37,7 +37,7 @@
     "eslint-config-next": "14.2.13",
     "flowbite": "^2.5.2",
     "flowbite-react": "^0.10.2",
-    "msw": "^2.6.0",
+    "msw": "^2.6.1",
     "postcss": "^8.4.47",
     "react-draggable": "^4.4.6",
     "react-redux": "^9.1.2",

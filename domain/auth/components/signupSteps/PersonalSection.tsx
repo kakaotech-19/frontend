@@ -37,6 +37,7 @@ const PersonalSection: React.FC = () => {
   const handleConfirmEmailCode = () => {
     dispatch<any>(
       confirmEmailCode({
+        email: email,
         emailOtp: otp,
       })
     );
