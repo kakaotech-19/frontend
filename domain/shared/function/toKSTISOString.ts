@@ -6,7 +6,7 @@ const toKSTISOString = (date: Date): string => {
   const kstDate = new Date(date.getTime() + KST_OFFSET);
 
   // KST 시간에 대한 ISO 포맷 문자열 반환 (초 마지막의 'Z'를 제거하여 로컬 시간처럼 보이게 함)
-  return kstDate.toISOString().replace("Z", "+09:00");
+  return kstDate.toISOString().replace("Z", "");
 };
 
 export default toKSTISOString;
