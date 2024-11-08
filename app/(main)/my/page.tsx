@@ -70,7 +70,7 @@ const Page = () => {
             dataLength={myFeedList.length}
             next={fetchMoreData}
             hasMore={hasMore}
-            loader={<h4>로딩중 ...</h4>}
+            loader={<></>}
             endMessage={
               <p style={{ textAlign: "center" }}>
                 <b>모든 게시물을 불러왔습니다.</b>

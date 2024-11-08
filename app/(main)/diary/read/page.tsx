@@ -21,7 +21,7 @@ const DiaryReadPage: React.FC = () => {
     if (date) {
       dispatch<any>(fetchDiaryDetail(date));
     }
-  }, []);
+  }, [date]);
 
   return (
     <div className="w-full min-h-screen flex justify-center items-start">
@@ -40,7 +40,7 @@ const DiaryReadPage: React.FC = () => {
           </div>
         </div>
         <div className="w-full max-w-md">
-          <p className="text-md h-full p-2 rounded-none overflow-y-auto">
+          <p className="text-md h-full p-2 rounded-none overflow-y-auto whitespace-pre-wrap">
             {queriedDiary.content}
           </p>
         </div>

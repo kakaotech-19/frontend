@@ -25,7 +25,7 @@ const ShareDiary: React.FC = () => {
 
   const handleChage = (date: Date | null) => {
     if (!date) return;
-    dispatch<any>(fetchDiaryDetail(date!.toISOString()));
+    dispatch<any>(fetchDiaryDetail(date!.toISOString().slice(0, -1))); // 나중에 z를 제거하도록 포맷 통일
   };
 
   const handleUpload = () => {
@@ -45,16 +45,16 @@ const ShareDiary: React.FC = () => {
   };
 
   const handleOpenShareModal = () => {
-    if (!isAiContentGenerated()) {
-      dispatch(
-        setAlert({
-          title: "알림",
-          message: "게시물이 아직 생성되지 않았습니다. 조금만 기다려주세요.",
-          color: "info",
-        })
-      );
-      return;
-    }
+    // if (!isAiContentGenerated()) {
+    //   dispatch(
+    //     setAlert({
+    //       title: "알림",
+    //       message: "게시물이 아직 생성되지 않았습니다. 조금만 기다려주세요.",
+    //       color: "info",
+    //     })
+    //   );
+    //   return;
+    // }
     setOpenShareModal(true);
   };
 

@@ -20,8 +20,9 @@ const UploadFileLabel: React.FC = () => {
     if (!file) {
       return;
     }
-    const base64File = await encodeFileToBase64(file);
-    dispatch(setSelectedFile(base64File as string));
+    // const base64File = await encodeFileToBase64(file);
+    // 파일 객체로 저장함
+    dispatch(setSelectedFile(file));
 
     // 파일 미리보기
     const reader = new FileReader();

@@ -106,7 +106,7 @@ const addFetchMyFeedEntries = (builder: ActionReducerMapBuilder<FeedState>) => {
     state.error = null;
   });
   builder.addCase(fetchMyFeedEntries.fulfilled, (state, action) => {
-    state.myFeedList = [...state.myFeedList, ...action.payload.diaries];
+    state.myFeedList = [...state.myFeedList, ...action.payload.sharedDiaries];
     state.myFeedAfter = action.payload.after;
     state.myFeedEnd = action.payload.isEnd;
     state.loading = false;

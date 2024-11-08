@@ -33,7 +33,7 @@ const Page: React.FC = () => {
           dataLength={feedList.length}
           next={fetchMoreData}
           hasMore={hasMore}
-          loader={<h4>로딩 중...</h4>}
+          loader={<></>}
           endMessage={
             <p style={{ textAlign: "center" }}>
               <b>모든 피드를 불러왔습니다.</b>

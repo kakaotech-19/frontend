@@ -11,7 +11,7 @@ import { GoogleLoginButton, KakaoLoginButton, NaverLoginButton } from "..";
 const OauthLoginGroup: React.FC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const url = process.env.NEXT_PUBLIC_API_URL;
+  const url = "http://localhost:8080";
 
   const handleOAuthClick = (provider: string) => {
     if (!url) {

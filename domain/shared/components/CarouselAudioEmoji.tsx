@@ -26,7 +26,7 @@ const CarouselAudioEmoji: React.FC<CarouselAudioEmojiProps> = ({
 }) => {
   return (
     <div className="w-full relative">
-      <Carousel slide={false} draggable={true}>
+      <Carousel slide={true} draggable={true}>
         {webtoonImageUrls?.map((imageUrl, index) => (
           <div
             key={index}

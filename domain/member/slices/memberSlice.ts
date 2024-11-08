@@ -4,10 +4,11 @@ import { addMemberExtraReducers } from "./memberExtraReducers";
 export interface MemberState {
   nickname: string;
   email: string;
+  memberImage: File;
   characterImageUrl: string;
   isCreateCharacter: boolean;
   isRegisterCharacter: boolean;
-  selectedFile: string;
+  selectedFile: File;
   loading: boolean;
   error: string | null;
 }
@@ -15,10 +16,11 @@ export interface MemberState {
 const initialState: MemberState = {
   nickname: "",
   email: "",
+  memberImage: new File([], ""),
   characterImageUrl: "",
   isCreateCharacter: false,
   isRegisterCharacter: false,
-  selectedFile: "",
+  selectedFile: new File([], ""),
   loading: false,
   error: null,
 };
@@ -30,17 +32,20 @@ const memberSlice = createSlice({
     setNickname: (state: MemberState, action: PayloadAction<string>) => {
       state.nickname = action.payload;
     },
-    setSelectedFile: (state: MemberState, action: PayloadAction<string>) => {
+    setSelectedFile: (state: MemberState, action: PayloadAction<File>) => {
       state.selectedFile = action.payload;
     },
     clearCharacter: (state: MemberState) => {
       state.isCreateCharacter = false;
       state.isRegisterCharacter = false;
     },
+    setMemberImage: (state: MemberState, action: PayloadAction<File>) => {
+      state.memberImage = action.payload;
+    },
   },
   extraReducers: (builder: any) => addMemberExtraReducers(builder),
 });
 
-export const { setNickname, setSelectedFile, clearCharacter } =
+export const { setNickname, setSelectedFile, clearCharacter, setMemberImage } =
   memberSlice.actions;
 export default memberSlice.reducer;
