@@ -14,7 +14,7 @@ import {
 export const fetchMemberInfo = createAsyncThunk(
   "member/fetchMemberInfo",
   async () => {
-    const response = await axiosInstance.get("/member/detail");
+    const response = await axiosInstance.get("/member/profile");
     return response.data;
   }
 );
@@ -65,7 +65,7 @@ export const createCharacter = createAsyncThunk(
   async (data: CreateCharacterType) => {
     const createCharacterDto = new CreateCharacterRequestDto(data);
     const response = await axiosInstance.post(
-      "/member/image",
+      "/member/character",
       createCharacterDto.toObject()
     );
     return response.data;
@@ -92,7 +92,7 @@ const addCreateCharacter = (builder: ActionReducerMapBuilder<MemberState>) => {
 export const registerCharacter = createAsyncThunk(
   "member/registerCharacter",
   async () => {
-    const response = await axiosInstance.post("/member/image/register");
+    const response = await axiosInstance.post("/member/character/register");
     return response.data;
   }
 );
@@ -105,6 +105,7 @@ const addRegisterCharacter = (
     state.error = null;
   });
   builder.addCase(registerCharacter.fulfilled, (state, action) => {
+    localStorage.setItem("accessToken", action.payload.accessToken);
     state.isRegisterCharacter = true;
     state.loading = false;
   });
