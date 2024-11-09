@@ -10,6 +10,7 @@ export class ConfirmEmailCodeRequestDto implements ConfirmEmailCodeType {
   public emailOtp: string;
 
   constructor(params: ConfirmEmailCodeType) {
+    if (!params.emailOtp) throw new Error("otp값을 입력해주세요.");
     this.email = params.email;
     this.emailOtp = params.emailOtp.trim(); // OTP의 앞뒤 공백 제거
   }

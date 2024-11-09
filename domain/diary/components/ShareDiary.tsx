@@ -10,7 +10,7 @@ import { uploadFeed } from "@/domain/feed/slices/feedExtraReducers";
 import { DiaryResponseType } from "../dto/response";
 import { UploadFeedType } from "@/domain/feed/dto/request";
 import { CarouselAudioEmoji } from "@/domain/shared/components";
-import { setAlert } from "@/domain/noti/slices/notiSlice";
+import KoDatepicker from "./KoDatePicker";
 
 const ShareDiary: React.FC = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const ShareDiary: React.FC = () => {
     (state: any) => state.diary.queriedDiary
   );
 
-  const handleChage = (date: Date | null) => {
+  const handleDateChage = (date: Date | null) => {
     if (!date) return;
     dispatch<any>(fetchDiaryDetail(date!.toISOString().slice(0, -1))); // 나중에 z를 제거하도록 포맷 통일
   };
@@ -61,7 +61,7 @@ const ShareDiary: React.FC = () => {
   return (
     <>
       <div className="flex justify-between items-center mb-2">
-        <Datepicker className="z-50" onChange={handleChage} autoHide={true} />
+        <KoDatepicker className="z-50" onChange={handleDateChage} />
         <Button
           onClick={handleOpenShareModal}
           className="flex justify-end items-center h-10"
@@ -82,7 +82,7 @@ const ShareDiary: React.FC = () => {
         ) : null}
       </>
       <Modal show={openShareModal} onClose={() => setOpenShareModal(false)}>
-        <Modal.Header>토닥토닥</Modal.Header>
+        <Modal.Header className="font-gamja">토닥토닥</Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
             <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">

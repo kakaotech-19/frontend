@@ -79,7 +79,7 @@ const PersonalSection: React.FC = () => {
       } space-y-2`}
     >
       <div className="mb-2 block">
-        <Label htmlFor="email2" value="Email" />
+        <Label htmlFor="email2" value="이메일" />
       </div>
       <div className="flex justify-between">
         <TextInput
@@ -95,11 +95,11 @@ const PersonalSection: React.FC = () => {
           shadow
         />
         <Button onClick={handleVerifyEmail}>
-          {verify.isEmailVerified ? "v" : "verify"}
+          {verify.isEmailVerified ? "v" : "전송"}
         </Button>
       </div>
       <div className="mb-2 block">
-        <Label htmlFor="otp" value="OTP" />
+        <Label htmlFor="otp" value="인증번호" />
       </div>
       <div className="flex justify-between">
         <TextInput
@@ -115,7 +115,7 @@ const PersonalSection: React.FC = () => {
           shadow
         />
         <Button onClick={handleConfirmEmailCode}>
-          {verify.isOtpVerified ? "v" : "check"}
+          {verify.isOtpVerified ? "v" : "확인"}
         </Button>
       </div>
     </section>

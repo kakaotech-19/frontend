@@ -36,7 +36,7 @@ const DiaryReadPage: React.FC = () => {
             onClick={() => setShowModal(true)}
             className="absolute bottom-2 left-2 text-sm font-semibold rounded-full pl-2 pr-2 bg-white opacity-75 border shadow-md"
           >
-            AI 코멘트
+            AI 리뷰
           </div>
         </div>
         <div className="w-full max-w-md">
@@ -45,7 +45,7 @@ const DiaryReadPage: React.FC = () => {
           </p>
         </div>
         <Modal show={showModal} onClose={() => setShowModal(false)}>
-          <Modal.Header>AI 코멘트</Modal.Header>
+          <Modal.Header className="font-gamja">토닥토닥 AI</Modal.Header>
           <Modal.Body>
             <div className="space-y-6">
               <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">

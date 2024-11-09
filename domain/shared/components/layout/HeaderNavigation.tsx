@@ -20,7 +20,7 @@ const HeaderNavigation: React.FC = () => {
         >
           <img src="/todak-logo.svg" className="h-6 ml-2" alt="Flowbite Logo" />
           <h1 className="self-center text-2xl font-gamja whitespace-nowrap dark:text-white">
-            TODAK
+            토닥토닥
           </h1>
         </Link>
       </div>

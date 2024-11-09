@@ -63,7 +63,7 @@ const AccountSection: React.FC = () => {
     >
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="nickname" value="Nickname" />
+          <Label htmlFor="nickname" value="닉네임" />
         </div>
         <div className="flex justify-between">
           <TextInput
@@ -79,13 +79,13 @@ const AccountSection: React.FC = () => {
             shadow
           />
           <Button onClick={handleCheckNicknameDuplicate}>
-            {verify.isNicknameVerified ? "v" : "check"}
+            {verify.isNicknameVerified ? "v" : "확인"}
           </Button>
         </div>
       </div>
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="signup-id" value="Login ID" />
+          <Label htmlFor="signup-id" value="로그인 아이디" />
         </div>
         <div className="flex justify-between">
           <TextInput
@@ -101,13 +101,13 @@ const AccountSection: React.FC = () => {
             shadow
           />
           <Button onClick={handleCheckIdDuplicate}>
-            {verify.isSignupIdVerified ? "v" : "check"}
+            {verify.isSignupIdVerified ? "v" : "확인"}
           </Button>
         </div>
       </div>
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="password2" value="Password (8자 이상)" />
+          <Label htmlFor="password2" value="비밀번호 (8자 이상)" />
         </div>
         <TextInput
           id="password2"
@@ -122,7 +122,7 @@ const AccountSection: React.FC = () => {
         <div className="mb-2 block">
           <Label
             htmlFor="repeat-password"
-            value={`Repeat password ${isSame ? "v" : "x"}`}
+            value={`비밀번호 재입력 ${isSame ? "" : "일치하지 않습니다."}`}
           />
         </div>
         <TextInput

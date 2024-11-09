@@ -91,9 +91,7 @@ const Page = () => {
           })
         }
       >
-        <p>
-          {signupStep == SIGNUP_STEP.POLICY ? "Register New Account" : "Next"}
-        </p>
+        <p>{signupStep == SIGNUP_STEP.POLICY ? "회원가입 완료" : "다음"}</p>
       </Button>
     </form>
   );

@@ -22,7 +22,7 @@ const BottomNavigation: React.FC = () => {
         >
           <HomeSVG />
           <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-500">
-            Home
+            피드
           </span>
         </button>
         <button
@@ -32,7 +32,7 @@ const BottomNavigation: React.FC = () => {
         >
           <PencilSVG />
           <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-500">
-            Diary
+            내 일기
           </span>
         </button>
         <button
@@ -42,7 +42,7 @@ const BottomNavigation: React.FC = () => {
         >
           <UserSVG />
           <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-500">
-            My
+            내 정보
           </span>
         </button>
       </div>

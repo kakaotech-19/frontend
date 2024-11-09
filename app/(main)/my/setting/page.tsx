@@ -60,7 +60,7 @@ const Page: React.FC = () => {
               <Accordion.Content>
                 <div>
                   <div className="mb-2 block">
-                    <Label htmlFor="modi-email" value="Email" />
+                    <Label htmlFor="modi-email" value="이메일" />
                   </div>
                   <div className="flex justify-between">
                     <TextInput
@@ -77,7 +77,7 @@ const Page: React.FC = () => {
                 <HR></HR>
                 <div>
                   <div className="mb-2 block">
-                    <Label htmlFor="modi-nickname" value="Nickname" />
+                    <Label htmlFor="modi-nickname" value="닉네임" />
                   </div>
                   <div className="flex justify-between">
                     <TextInput
@@ -94,32 +94,54 @@ const Page: React.FC = () => {
                   </div>
                 </div>
                 <HR />
-                <div className="flex justify-end">
-                  <Button id="logout-button" onClick={() => setOpenModal(true)}>
+                <div className="flex justify-between items-center gap-2">
+                  <div className="mb-2 block">
+                    <Label value="로그아웃" />
+                  </div>
+                  <Button
+                    size="xs"
+                    id="logout-button"
+                    onClick={() => setOpenModal(true)}
+                    className="bg-white text-gray-500 border border-gray-500"
+                  >
                     로그아웃
                   </Button>
-                  <Modal
-                    show={openModal}
-                    onClose={() => {
-                      setOpenModal(false);
-                    }}
+                </div>
+                <HR />
+                <div className="flex justify-between items-center gap-2">
+                  <div className="mb-2 block">
+                    <Label value="회원탈퇴" />
+                  </div>
+                  <Button
+                    size="xs"
+                    id="memberout"
+                    onClick={() => {}}
+                    className="bg-white text-gray-500 border border-gray-500"
                   >
-                    <Modal.Header>토닥토닥</Modal.Header>
-                    <Modal.Body>
-                      <div className="flex justify-between items-center">
-                        <p className="font-semibold text-red-600">
-                          정말 로그아웃 하시겠습니까?
-                        </p>
-                        <Button onClick={() => dispatch<any>(logoutUser())}>
-                          로그아웃
-                        </Button>
-                      </div>
-                    </Modal.Body>
-                  </Modal>
+                    회원탈퇴
+                  </Button>
                 </div>
               </Accordion.Content>
             </Accordion.Panel>
           </Accordion>
+          <Modal
+            show={openModal}
+            onClose={() => {
+              setOpenModal(false);
+            }}
+          >
+            <Modal.Header className="font-gamja">토닥토닥</Modal.Header>
+            <Modal.Body>
+              <div className="flex justify-between items-center">
+                <p className="font-semibold text-red-600">
+                  정말 로그아웃 하시겠습니까?
+                </p>
+                <Button onClick={() => dispatch<any>(logoutUser())}>
+                  로그아웃
+                </Button>
+              </div>
+            </Modal.Body>
+          </Modal>
         </div>
       </div>
     </div>

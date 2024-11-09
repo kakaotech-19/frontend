@@ -30,6 +30,7 @@ const Page = () => {
           alt="background"
           sizes="100vw"
           style={{ width: "100%", height: "100%" }}
+          className="animate-slowPulse"
         />
         <h1 className="w-full flex justify-center">
           <Logo />
@@ -49,7 +50,6 @@ const Page = () => {
             <Link href={path.LOGIN} className="flex justify-center">
               <Button size="md">시작하기</Button>
             </Link>
-            {/* <WritingAnimation /> */}
           </div>
         </div>
       </main>

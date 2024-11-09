@@ -131,7 +131,7 @@ const DiaryWritePage: React.FC = () => {
       </div>
 
       <Modal show={commentView} onClose={handleCloseModal}>
-        <Modal.Header>토닥토닥</Modal.Header>
+        <Modal.Header className="font-gamja">토닥토닥 AI 코멘트</Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
             <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">

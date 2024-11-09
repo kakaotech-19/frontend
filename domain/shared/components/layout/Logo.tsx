@@ -5,9 +5,8 @@ import React, { useEffect, useState } from "react";
 
 const Logo: React.FC = () => {
   const [index, setIndex] = useState(0);
-  const [titleIndex, setTitleIndex] = useState(0);
 
-  const title = ["TODAK TODAK", "토닥토닥"];
+  const title = "토닥토닥";
 
   const keyword = [
     "일상을 나누는 일기, 마음을 따뜻하게 감싸다",
@@ -19,7 +18,6 @@ const Logo: React.FC = () => {
   useEffect(() => {
     setTimeout(() => {
       setIndex((index + 1) % keyword.length);
-      setTitleIndex((titleIndex + 1) % title.length);
     }, 10000);
   }, [index]);
 
@@ -29,7 +27,7 @@ const Logo: React.FC = () => {
         <h1 id="todak-title" className="text-3xl font-bold text-cyan-800">
           <div className="flex gap-2">
             <img src="/todak-logo.svg" />
-            <p className="font-gamja text-6xl">{title[titleIndex]}</p>
+            <p className="font-gamja text-6xl">{title}</p>
           </div>
         </h1>
       </Label>

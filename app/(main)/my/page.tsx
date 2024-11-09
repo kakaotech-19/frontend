@@ -99,7 +99,7 @@ const Page = () => {
                     />
                   </div>
                   <p className="w-full mt-1 flex text-xs text-gray-400">
-                    Posted on: {myFeed.createdDate}
+                    {myFeed.createdDate} 공유
                   </p>
                 </div>
               ))}
@@ -108,7 +108,7 @@ const Page = () => {
         </div>
       </div>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Header>토닥토닥</Modal.Header>
+        <Modal.Header className="font-gamja">토닥토닥</Modal.Header>
         <Button
           onClick={() =>
             router.push(`${path.READ}/?date=${selectedFeed.diaryCreatedDate}`)

@@ -45,10 +45,10 @@ const LoginForm: React.FC = () => {
     <>
       <Label
         onClick={() => dispatch(setIsIdLoginFormView(false))}
-        className="fixed flex top-4 left-4 items-center text-cyan-600 hover:underline dark:text-cyan-500 text-sm"
+        className="fixed flex top-4 left-4 items-center text-gray-200 hover:underline text-sm"
       >
         <DirectionSVG />
-        All sign in options
+        소셜 로그인하기
       </Label>
       <div className="flex justify-center h-full items-center">
         <div className="w-80">
@@ -58,7 +58,7 @@ const LoginForm: React.FC = () => {
           >
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="login-id" value="Login ID" />
+                <Label htmlFor="login-id" value="로그인 아이디" />
               </div>
               <TextInput
                 id="login-id"
@@ -71,7 +71,7 @@ const LoginForm: React.FC = () => {
             </div>
             <div className="mb-2">
               <div className="mb-2 block">
-                <Label htmlFor="password1" value="Password" />
+                <Label htmlFor="password1" value="비밀번호" />
               </div>
               <TextInput
                 id="password1"
@@ -87,20 +87,20 @@ const LoginForm: React.FC = () => {
                 className="text-cyan-600 hover:underline dark:text-cyan-500 text-sm"
                 onClick={() => {}}
               >
-                forgot password?
+                비밀번호를 잊으셨나요?
               </Label>
             </div>
             <Button type="submit" onClick={handleLogin}>
-              Login
+              로그인
             </Button>
             <HR className="mb-0" />
             <Label htmlFor="signup-link" className="flex">
-              Don't have an account?&nbsp;
+              아직 계정이 없으신가요?&nbsp;
               <Link
                 href="/signup"
                 className="text-cyan-600 hover:underline dark:text-cyan-500"
               >
-                Create Account
+                계정 만들기
               </Link>
             </Label>
           </form>
