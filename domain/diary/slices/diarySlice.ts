@@ -28,7 +28,7 @@ const diarySlice = createSlice({
   name: "diarySlice",
   initialState,
   reducers: {
-    setCommentView: (state, action: PayloadAction<boolean>) => {
+    setAiCommentView: (state, action: PayloadAction<boolean>) => {
       state.commentView = action.payload;
     },
     clearAiCommet: (state) => {
@@ -38,6 +38,6 @@ const diarySlice = createSlice({
   extraReducers: (builder: any) => addDiaryExtraReducers(builder),
 });
 
-export const { clearAiCommet, setCommentView } = diarySlice.actions;
+export const { clearAiCommet, setAiCommentView } = diarySlice.actions;
 export const extraReducers = diarySlice.reducer;
 export default diarySlice.reducer;
