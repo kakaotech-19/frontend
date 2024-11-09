@@ -1,7 +1,11 @@
 "use client";
 
 import store, { RootState } from "@/redux";
-import { useEmptyTokenRedirect, useMocking } from "@/domain/shared/hooks";
+import {
+  useEmptyTokenRedirect,
+  useLoginChecker,
+  useMocking,
+} from "@/domain/shared/hooks";
 import React, { useEffect } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import {
@@ -14,8 +18,8 @@ import { AlertType } from "@/domain/noti/types";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   useMocking();
-  // useReissueToken();
   useEmptyTokenRedirect();
+  useLoginChecker();
   const dispatch = useDispatch();
 
   const loginError = useSelector((state: RootState) => state.login.error);

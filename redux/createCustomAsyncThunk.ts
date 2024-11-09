@@ -29,7 +29,7 @@ const createCustomAsyncThunk = <Returned, ThunkArg = void>(
       try {
         return await payloadCreator(arg, thunkAPI);
       } catch (error: any) {
-        let message = "알 수 없는 오류가 발생했습니다.";
+        let message = "none";
         console.log(error.response.data.message);
         if (
           error.response &&

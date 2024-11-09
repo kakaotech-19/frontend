@@ -4,17 +4,22 @@ import { Button } from "flowbite-react";
 import Link from "next/link";
 import { Logo } from "@/domain/shared/components/layout";
 import path from "@/domain/shared/routes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-// import { WritingAnimation } from "@/domain/shared/components/lottie-animation";
 import {
   PrivacyPolicyModal,
   TermsAndConditionsModal,
 } from "@/domain/auth/components";
 
-const page = () => {
+const Page = () => {
   const [openTermsModal, setOpenTermsModal] = useState(false);
   const [openPrivacyModal, setOpenPrivacyModal] = useState(false);
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      window.location.href = path.HOME;
+    }
+  }, []);
   return (
     <div className="w-full flex flex-col min-h-screen justify-center items-center overflow-x-hidden">
       <main className="w-full min-h-screen">
@@ -79,4 +84,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

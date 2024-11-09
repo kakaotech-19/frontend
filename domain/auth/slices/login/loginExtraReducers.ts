@@ -8,6 +8,7 @@ import {
   ReIssueTokenType,
 } from "../../dto/response/reIssueTokenDto";
 import createCustomAsyncThunk from "@/redux/createCustomAsyncThunk";
+import path from "@/domain/shared/routes";
 
 // 로그인 -----------------------------------------------------
 export const loginUser = createCustomAsyncThunk(
@@ -61,6 +62,8 @@ const addLogoutUser = (builder: ActionReducerMapBuilder<LoginState>) => {
   builder.addCase(logoutUser.fulfilled, (state, action) => {
     state.isLogin = false;
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("lastLogin");
+    window.location.href = path.LOGIN;
     state.loading = false;
   });
   builder.addCase(logoutUser.rejected, (state, action) => {

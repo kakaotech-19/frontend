@@ -34,7 +34,7 @@ const MyAlert: React.FC = () => {
   }, [alert, dispatch]);
 
   // alert가 없거나 메시지가 비어 있을 때는 렌더링하지 않음
-  if (!alert || alert.message === "") return null;
+  if (!alert || alert.message === "" || alert.message === "none") return null;
 
   return (
     <Alert
