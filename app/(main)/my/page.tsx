@@ -38,11 +38,13 @@ const Page = () => {
     dispatch<any>(fetchMyFeedEntries(myFeedAfter));
   };
 
-  const nickname = useSelector((state: RootState) => state.member.nickname);
-  const characterImageUrl = useSelector(
-    (state: RootState) => state.member.characterImageUrl
+  const nickname = useSelector(
+    (state: RootState) => state.member.profile.nickname
   );
-  const email = useSelector((state: RootState) => state.member.email);
+  const characterImageUrl = useSelector(
+    (state: RootState) => state.member.profile.characterImageUrl
+  );
+  const email = useSelector((state: RootState) => state.member.profile.email);
 
   useEffect(() => {
     dispatch<any>(fetchMemberInfo());

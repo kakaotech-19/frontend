@@ -2,25 +2,33 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { addMemberExtraReducers } from "./memberExtraReducers";
 
 export interface MemberState {
-  nickname: string;
-  email: string;
-  memberImage: File;
-  characterImageUrl: string;
-  isCreateCharacter: boolean;
-  isRegisterCharacter: boolean;
-  selectedFile: File;
+  profile: {
+    nickname: string;
+    email: string;
+    characterImageUrl: string;
+  };
+  characterCreate: {
+    memberImageFile: File | null; // 미리보기
+    createdCharacterUrl: string; // 미리보기
+    isCreateCharacter: boolean; // 생성되었는가
+    isRegisterCharacter: boolean; // 등록했는가
+  };
   loading: boolean;
   error: string | null;
 }
 
 const initialState: MemberState = {
-  nickname: "",
-  email: "",
-  memberImage: new File([], ""),
-  characterImageUrl: "",
-  isCreateCharacter: false,
-  isRegisterCharacter: false,
-  selectedFile: new File([], ""),
+  profile: {
+    nickname: "",
+    email: "",
+    characterImageUrl: "",
+  },
+  characterCreate: {
+    memberImageFile: null,
+    createdCharacterUrl: "",
+    isCreateCharacter: false,
+    isRegisterCharacter: false,
+  },
   loading: false,
   error: null,
 };
@@ -30,22 +38,28 @@ const memberSlice = createSlice({
   initialState,
   reducers: {
     setNickname: (state: MemberState, action: PayloadAction<string>) => {
-      state.nickname = action.payload;
-    },
-    setSelectedFile: (state: MemberState, action: PayloadAction<File>) => {
-      state.selectedFile = action.payload;
+      state.profile.nickname = action.payload;
     },
     clearCharacter: (state: MemberState) => {
-      state.isCreateCharacter = false;
-      state.isRegisterCharacter = false;
+      state.characterCreate.createdCharacterUrl = "";
+      state.characterCreate.isCreateCharacter = false;
+      state.characterCreate.isRegisterCharacter = false;
     },
-    setMemberImage: (state: MemberState, action: PayloadAction<File>) => {
-      state.memberImage = action.payload;
+    setMemberImageFile: (state: MemberState, action: PayloadAction<File>) => {
+      state.characterCreate.memberImageFile = action.payload;
+    },
+    clearRegister: (state: MemberState) => {
+      state.characterCreate.isCreateCharacter = false;
+      state.characterCreate.isRegisterCharacter = false;
     },
   },
   extraReducers: (builder: any) => addMemberExtraReducers(builder),
 });
 
-export const { setNickname, setSelectedFile, clearCharacter, setMemberImage } =
-  memberSlice.actions;
+export const {
+  setNickname,
+  setMemberImageFile,
+  clearCharacter,
+  clearRegister,
+} = memberSlice.actions;
 export default memberSlice.reducer;

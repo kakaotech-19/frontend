@@ -1,37 +1,24 @@
 "use client";
 
 import { logoutUser } from "@/domain/auth/slices/login/loginExtraReducers";
+import { PreviewUrlLabel } from "@/domain/member/components";
 import UploadFileLabel from "@/domain/member/components/UploadFileLabel";
+import { ChangeNicknameType } from "@/domain/member/dto/request";
 import {
   changeNickname,
-  createCharacter,
   fetchMemberInfo,
-  registerCharacter,
 } from "@/domain/member/slices/memberExtraReducers";
-import {
-  clearCharacter,
-  setNickname,
-} from "@/domain/member/slices/memberSlice";
-import {
-  ChangeNicknameType,
-  CreateCharacterType,
-} from "@/domain/member/types/memberRequestType";
-import { setAlert } from "@/domain/noti/slices/notiSlice";
-import { AlertType } from "@/domain/noti/types";
-import path from "@/domain/shared/routes";
+import { setNickname } from "@/domain/member/slices/memberSlice";
 import { RootState } from "@/redux";
 import { Accordion, Button, HR, Label, Modal, TextInput } from "flowbite-react";
-import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const Page: React.FC = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
-  const email = useSelector((state: RootState) => state.member.email);
-  const nickname = useSelector((state: RootState) => state.member.nickname);
-  const selectedFile = useSelector(
-    (state: RootState) => state.member.selectedFile
+  const email = useSelector((state: RootState) => state.member.profile.email);
+  const nickname = useSelector(
+    (state: RootState) => state.member.profile.nickname
   );
   const [openModal, setOpenModal] = React.useState(false);
 
@@ -46,57 +33,28 @@ const Page: React.FC = () => {
     dispatch<any>(fetchMemberInfo());
   }, []);
 
-  const handleCreateCharacter = async () => {
-    if (!selectedFile) {
-      const data: AlertType = {
-        title: "알림",
-        message: "이미지를 업로드해주세요.",
-        color: "red",
-      };
-      dispatch;
-    }
-    const data: CreateCharacterType = {
-      image: selectedFile,
-    };
-    dispatch<any>(createCharacter(data));
-  };
-
-  const isCreateCharacter = useSelector(
-    (state: RootState) => state.member.isCreateCharacter
-  );
-  const handleSaveCharacter = () => {
-    if (!isCreateCharacter) {
-      const data: AlertType = {
-        title: "알림",
-        message: "캐릭터를 생성해주세요.",
-        color: "red",
-      };
-      dispatch(setAlert(data));
-    }
-    dispatch<any>(registerCharacter());
-  };
-
-  const isRegisterCharacter = useSelector(
-    (state: RootState) => state.member.isRegisterCharacter
-  );
-  useEffect(() => {
-    if (isRegisterCharacter) {
-      const data: AlertType = {
-        title: "알림",
-        message: "캐릭터가 등록되었습니다.",
-        color: "success",
-      };
-      dispatch(setAlert(data));
-      router.push(path.MY);
-      dispatch(clearCharacter());
-    }
-  }, [isRegisterCharacter]);
-
   return (
     <div className="w-full h-screen justify-center">
       <div className="w-full flex justify-center items-center">
         <div className="w-full mt-10">
           <Accordion>
+            <Accordion.Panel>
+              <Accordion.Title>캐릭터 생성하기</Accordion.Title>
+              <Accordion.Content>
+                <div className="flex flex-col justify-center items-center">
+                  <div className="flex flex-col justify-center items-start gap-2">
+                    <Label className="text-gray-500 text-xs">
+                      - 배경이 없는 이미지를 업로드해주세요. <br />
+                      - 얼굴이 선명하게 나온 사진을 사용해주세요. <br />
+                    </Label>
+                    <div className="flex gap-2">
+                      <UploadFileLabel />
+                      <PreviewUrlLabel />
+                    </div>
+                  </div>
+                </div>
+              </Accordion.Content>
+            </Accordion.Panel>
             <Accordion.Panel>
               <Accordion.Title>내 정보</Accordion.Title>
               <Accordion.Content>
@@ -158,36 +116,6 @@ const Page: React.FC = () => {
                       </div>
                     </Modal.Body>
                   </Modal>
-                </div>
-              </Accordion.Content>
-            </Accordion.Panel>
-            <Accordion.Panel>
-              <Accordion.Title>캐릭터 생성하기</Accordion.Title>
-              <Accordion.Content>
-                <div className="flex flex-col justify-center items-center mt-10">
-                  <div className="flex-col justify-center items-center gap-2">
-                    <UploadFileLabel />
-                    <Label className="text-gray-500 text-xs">
-                      - 배경이 없는 이미지를 업로드해주세요. <br />
-                      - 얼굴이 선명하게 나온 사진을 사용해주세요. <br />
-                    </Label>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button
-                      size="md"
-                      className="mt-4"
-                      onClick={handleCreateCharacter}
-                    >
-                      캐릭터 생성하기{" "}
-                    </Button>
-                    <Button
-                      size="md"
-                      className="mt-4"
-                      onClick={handleSaveCharacter}
-                    >
-                      캐릭터 등록하기{" "}
-                    </Button>
-                  </div>
                 </div>
               </Accordion.Content>
             </Accordion.Panel>

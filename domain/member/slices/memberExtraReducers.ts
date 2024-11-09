@@ -25,9 +25,9 @@ const addFetchMemberInfo = (builder: ActionReducerMapBuilder<MemberState>) => {
     state.error = null;
   });
   builder.addCase(fetchMemberInfo.fulfilled, (state, action) => {
-    state.email = action.payload.email;
-    state.nickname = action.payload.nickname;
-    state.characterImageUrl = action.payload.characterImageUrl;
+    state.profile.email = action.payload.email;
+    state.profile.nickname = action.payload.nickname;
+    state.profile.characterImageUrl = action.payload.characterImageUrl;
     state.loading = false;
   });
   builder.addCase(fetchMemberInfo.rejected, (state, action) => {
@@ -40,7 +40,7 @@ const addFetchMemberInfo = (builder: ActionReducerMapBuilder<MemberState>) => {
 export const fetchCharacter = createCustomAsyncThunk(
   "namespace/fetchCharacter",
   async () => {
-    const response = await axiosInstance.get("member/character");
+    const response = await axiosInstance.get("/member/character");
     return response.data;
   }
 );
@@ -51,6 +51,8 @@ const addFetchCharacter = (builder: ActionReducerMapBuilder<MemberState>) => {
     state.error = null;
   });
   builder.addCase(fetchCharacter.fulfilled, (state, action) => {
+    state.characterCreate.createdCharacterUrl =
+      action.payload.characterImageUrl;
     state.loading = false;
   });
   builder.addCase(fetchCharacter.rejected, (state, action) => {
@@ -83,8 +85,7 @@ const addCreateCharacter = (builder: ActionReducerMapBuilder<MemberState>) => {
     state.error = null;
   });
   builder.addCase(createCharacter.fulfilled, (state, action) => {
-    state.characterImageUrl = action.payload.characterImageUrl;
-    state.isCreateCharacter = true; // 캐릭터 등록에 의존성 걸려있음
+    state.characterCreate.isCreateCharacter = true; // 캐릭터 등록에 의존성 걸려있음
     state.loading = false;
   });
   builder.addCase(createCharacter.rejected, (state, action) => {
@@ -97,7 +98,7 @@ const addCreateCharacter = (builder: ActionReducerMapBuilder<MemberState>) => {
 export const registerCharacter = createCustomAsyncThunk(
   "member/registerCharacter",
   async () => {
-    const response = await axiosInstance.post("member/character/register");
+    const response = await axiosInstance.post("/member/character/register");
     return response.data;
   }
 );
@@ -111,7 +112,7 @@ const addRegisterCharacter = (
   });
   builder.addCase(registerCharacter.fulfilled, (state, action) => {
     localStorage.setItem("accessToken", action.payload.accessToken);
-    state.isRegisterCharacter = true;
+    state.characterCreate.isRegisterCharacter = true;
     state.loading = false;
   });
   builder.addCase(registerCharacter.rejected, (state, action) => {

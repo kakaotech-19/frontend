@@ -12,21 +12,21 @@ export const memberMockups = [
   }),
 
   // 캐릭터 불러오기
-  http.get(url + "member/character", () => {
+  http.get(url + "/member/character", () => {
     return HttpResponse.json({
       characterImageUrl: "/minion3.png",
     });
   }),
 
   // 캐릭터 생성
-  http.post(url + "/member/character", () => {
+  http.post(url + "/member/character", async () => {
     return HttpResponse.json({
       characterImageUrl: "/minion4.png",
     });
   }),
 
   // 캐릭터 등록
-  http.post(url + "member/character/register", () => {
+  http.post(url + "/member/character/register", () => {
     return new HttpResponse(null, { status: 204 });
   }),
 
