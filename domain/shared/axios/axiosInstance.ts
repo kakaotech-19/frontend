@@ -1,4 +1,11 @@
-import axios, { AxiosError } from "axios";
+import { reissueToken } from "@/domain/auth/slices/login/loginExtraReducers";
+import axios from "axios";
+
+// 순환참조 제거
+let storeRef: any;
+export const setAxiosInnerStore = (store: any) => {
+  storeRef = store;
+};
 
 // Axios 인스턴스 생성
 const axiosInstance = axios.create({
@@ -29,12 +36,22 @@ axiosInstance.interceptors.request.use(
   }
 );
 
+// 응답 인터셉터 설정
 axiosInstance.interceptors.response.use(
-  (response) => {
-    // 2xx 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
-    return response;
-  },
+  (response) => response,
   async (error) => {
+    const { response, config } = error;
+    if (response && response.status === 401 && !config._retry) {
+      config._retry = true;
+      try {
+        storeRef?.dispatch(reissueToken());
+        // 토큰 재발급 후 원래 요청 재시도
+        return axiosInstance(config);
+      } catch (err) {
+        // 재발급 실패 시 로그인 페이지로 리디렉션 등 처리
+        return Promise.reject(err);
+      }
+    }
     return Promise.reject(error);
   }
 );
