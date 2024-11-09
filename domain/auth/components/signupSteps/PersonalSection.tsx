@@ -2,7 +2,7 @@
 
 import { RootState } from "@/redux";
 import { Button, Label, TextInput } from "flowbite-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   confirmEmailCode,
@@ -15,6 +15,7 @@ import {
   setOTP,
   setSignupEmail,
 } from "../../slices/signup/signupSlice";
+import { setAlert } from "@/domain/noti/slices/notiSlice";
 
 const PersonalSection: React.FC = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,34 @@ const PersonalSection: React.FC = () => {
     );
   };
 
+  const isEmailVerified = useSelector(
+    (state: RootState) => state.signup.verify.isEmailVerified
+  );
+  useEffect(() => {
+    if (!isEmailVerified) return;
+    dispatch(
+      setAlert({
+        title: "알림",
+        message: "이메일을 전송했습니다. 확인해주세요.",
+        color: "info",
+      })
+    );
+  }, [isEmailVerified]);
+
+  const isOtpVerified = useSelector(
+    (state: RootState) => state.signup.verify.isOtpVerified
+  );
+  useEffect(() => {
+    if (!isOtpVerified) return;
+    dispatch(
+      setAlert({
+        title: "알림",
+        message: "OTP 인증에 성공했습니다.",
+        color: "success",
+      })
+    );
+  }, [isOtpVerified]);
+
   return (
     <section
       className={`${
@@ -66,7 +95,7 @@ const PersonalSection: React.FC = () => {
           shadow
         />
         <Button onClick={handleVerifyEmail}>
-          {verify.isEmailVerified ? "✅" : "verify"}
+          {verify.isEmailVerified ? "v" : "verify"}
         </Button>
       </div>
       <div className="mb-2 block">
@@ -86,7 +115,7 @@ const PersonalSection: React.FC = () => {
           shadow
         />
         <Button onClick={handleConfirmEmailCode}>
-          {verify.isOtpVerified ? "✅" : "check"}
+          {verify.isOtpVerified ? "v" : "check"}
         </Button>
       </div>
     </section>

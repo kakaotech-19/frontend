@@ -2,35 +2,60 @@ import { setAlert } from "@/domain/noti/slices/notiSlice";
 import { SIGNUP_STEP } from "../constants";
 import { setSignupStep } from "../slices/signup/signupSlice";
 
-// 각 단계별 검증 로직을 별도 함수로 분리
-const validatePersonalStep = (verify: any) => {
-  return verify.isEmailVerified && verify.isOtpVerified;
+const PERSONAL_STEP_ERRORS = {
+  email: "이메일 인증이 필요합니다",
+  otp: "OTP 인증이 필요합니다",
+} as const;
+
+const validatePersonalStep = (
+  verify: any
+): { isValid: boolean; error?: string } => {
+  if (!verify.isEmailVerified)
+    return { isValid: false, error: PERSONAL_STEP_ERRORS.email };
+  if (!verify.isOtpVerified)
+    return { isValid: false, error: PERSONAL_STEP_ERRORS.otp };
+  return { isValid: true };
 };
+
+const ACCOUNT_STEP_ERRORS = {
+  nickname: "닉네임 중복 확인이 필요합니다",
+  id: "아이디 중복 확인이 필요합니다",
+  password: "비밀번호가 일치하지 않습니다",
+  passwordSize: "비밀번호 길이는 최소 8자 이상이어야 합니다.",
+} as const;
 
 const validateAccountStep = (
   verify: any,
   password: string,
   reEnterPassword: string
-) => {
-  return (
-    verify.isNicknameVerified &&
-    verify.isSignupIdVerified &&
-    password === reEnterPassword
-  );
+): { isValid: boolean; error?: string } => {
+  if (!verify.isNicknameVerified)
+    return { isValid: false, error: ACCOUNT_STEP_ERRORS.nickname };
+  if (!verify.isSignupIdVerified)
+    return { isValid: false, error: ACCOUNT_STEP_ERRORS.id };
+  if (password !== reEnterPassword)
+    return { isValid: false, error: ACCOUNT_STEP_ERRORS.password };
+  if (password.length < 8) {
+    return { isValid: false, error: ACCOUNT_STEP_ERRORS.passwordSize };
+  }
+  return { isValid: true };
 };
 
-const validatePolicyStep = (verify: any) => {
-  return verify.isTermsAgreed && verify.isPrivacyAgreed;
-};
-
-// 알림 메시지 상수화
-const STEP_ERROR_MESSAGES = {
-  [SIGNUP_STEP.PERSONAL]: "이메일을 인증해주세요",
-  [SIGNUP_STEP.ACCOUNT]: "입력값을 확인해주세요",
-  [SIGNUP_STEP.POLICY]: "전체 약관에 동의해주세요",
+const POLICY_STEP_ERRORS = {
+  terms: "서비스 이용약관 동의가 필요합니다",
+  privacy: "개인정보 처리방침 동의가 필요합니다",
 } as const;
 
-// 메인 핸들러 함수 단순화
+const validatePolicyStep = (
+  verify: any
+): { isValid: boolean; error?: string } => {
+  if (!verify.isTermsAgreed)
+    return { isValid: false, error: POLICY_STEP_ERRORS.terms };
+  if (!verify.isPrivacyAgreed)
+    return { isValid: false, error: POLICY_STEP_ERRORS.privacy };
+  return { isValid: true };
+};
+
 const handleSwitchSignupStep = ({
   postSignup,
   verify,
@@ -46,19 +71,20 @@ const handleSwitchSignupStep = ({
   signupStep: SIGNUP_STEP;
   dispatch: any;
 }) => {
-  const stepValidators: { [key in SIGNUP_STEP]: () => boolean } = {
+  const stepValidators = {
     [SIGNUP_STEP.PERSONAL]: () => validatePersonalStep(verify),
     [SIGNUP_STEP.ACCOUNT]: () =>
       validateAccountStep(verify, password, reEnterPassword),
     [SIGNUP_STEP.POLICY]: () => validatePolicyStep(verify),
   };
-  const isValid = stepValidators[signupStep]();
 
-  if (!isValid) {
+  const validationResult = stepValidators[signupStep]();
+
+  if (!validationResult.isValid) {
     dispatch(
       setAlert({
         title: "알림",
-        message: STEP_ERROR_MESSAGES[signupStep],
+        message: validationResult.error || "",
         color: "info",
       })
     );

@@ -79,7 +79,7 @@ const AccountSection: React.FC = () => {
             shadow
           />
           <Button onClick={handleCheckNicknameDuplicate}>
-            {verify.isNicknameVerified ? "✅" : "check"}
+            {verify.isNicknameVerified ? "v" : "check"}
           </Button>
         </div>
       </div>
@@ -101,13 +101,13 @@ const AccountSection: React.FC = () => {
             shadow
           />
           <Button onClick={handleCheckIdDuplicate}>
-            {verify.isSignupIdVerified ? "✅" : "check"}
+            {verify.isSignupIdVerified ? "v" : "check"}
           </Button>
         </div>
       </div>
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="password2" value="Password" />
+          <Label htmlFor="password2" value="Password (8자 이상)" />
         </div>
         <TextInput
           id="password2"
@@ -122,7 +122,7 @@ const AccountSection: React.FC = () => {
         <div className="mb-2 block">
           <Label
             htmlFor="repeat-password"
-            value={`Repeat password ${isSame ? "✅" : "❌"}`}
+            value={`Repeat password ${isSame ? "v" : "x"}`}
           />
         </div>
         <TextInput
