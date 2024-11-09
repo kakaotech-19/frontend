@@ -39,7 +39,7 @@ const MyAlert: React.FC = () => {
   return (
     <Alert
       color={alert.color}
-      className="flex fixed top-4 left-1/2 transform -translate-x-1/2 w-96 z-50"
+      className="flex fixed top-4 left-1/2 transform -translate-x-1/2 w-96 z-[9999]"
       onDismiss={() => dispatch(clearAlert())}
       withBorderAccent
       icon={HiInformationCircle}

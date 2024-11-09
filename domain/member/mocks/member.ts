@@ -3,7 +3,7 @@ import { HttpResponse, http } from "msw";
 const url = process.env.NEXT_PUBLIC_API_URL;
 export const memberMockups = [
   // 회원 정보
-  http.get(url + "/member/detail", () => {
+  http.get(url + "/member/profile", () => {
     return HttpResponse.json({
       nickname: "todak",
       email: "ktb@gmail.com",
@@ -11,30 +11,22 @@ export const memberMockups = [
     });
   }),
 
-  // 회원 정보 축약
-  // http.get(url + "/member/summary", () => {
-  //   return HttpResponse.json({
-  //     nickname: "todak",
-  //     characterImageUrl: "/minion2.png",
-  //   });
-  // }),
-
   // 캐릭터 불러오기
-  http.get(url + "/member/image", () => {
+  http.get(url + "member/character", () => {
     return HttpResponse.json({
       characterImageUrl: "/minion3.png",
     });
   }),
 
   // 캐릭터 생성
-  http.post(url + "/member/image", () => {
+  http.post(url + "/member/character", () => {
     return HttpResponse.json({
       characterImageUrl: "/minion4.png",
     });
   }),
 
   // 캐릭터 등록
-  http.post(url + "/member/image/register", () => {
+  http.post(url + "member/character/register", () => {
     return new HttpResponse(null, { status: 204 });
   }),
 

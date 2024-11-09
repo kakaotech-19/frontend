@@ -1,6 +1,7 @@
-import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
+import { ActionReducerMapBuilder } from "@reduxjs/toolkit";
 import { SignupState } from "./signupSlice";
 import axiosInstance from "@/domain/shared/axios";
+import createCustomAsyncThunk from "@/redux/createCustomAsyncThunk";
 import {
   CheckIdDuplicateRequestDto,
   CheckIdDuplicateType,
@@ -15,7 +16,7 @@ import {
 } from "../../dto/request";
 
 // 이메일 인증 -----------------------------------------------------
-export const verifyEmail = createAsyncThunk(
+export const verifyEmail = createCustomAsyncThunk(
   "signup/verifyEmail",
   async (data: VerifyEmailType) => {
     const verifyEmailDto = new VerifyEmailRequestDto(data.email);
@@ -39,12 +40,12 @@ const addVerifyEmail = (builder: ActionReducerMapBuilder<SignupState>) => {
   builder.addCase(verifyEmail.rejected, (state, action) => {
     state.verify.isEmailVerified = false;
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 
 // 이메일 인증번호 확인 -----------------------------------------------------
-export const confirmEmailCode = createAsyncThunk(
+export const confirmEmailCode = createCustomAsyncThunk(
   "signup/confirmEmailCode",
   async (data: ConfirmEmailCodeType) => {
     const confirmEmailCodeDto = new ConfirmEmailCodeRequestDto(data);
@@ -68,12 +69,12 @@ const addConfirmEmailCode = (builder: ActionReducerMapBuilder<SignupState>) => {
   builder.addCase(confirmEmailCode.rejected, (state, action) => {
     state.verify.isOtpVerified = false;
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 
 // 닉네임 중복 확인 -----------------------------------------------------
-export const checkNicknameDuplicate = createAsyncThunk(
+export const checkNicknameDuplicate = createCustomAsyncThunk(
   "signup/checkNicknameDuplicate",
   async (data: CheckNicknameDuplicateType) => {
     const checkNickNameDuplicateDto = new CheckNicknameDuplicateRequestDto(
@@ -101,12 +102,12 @@ const addCheckNicknameDuplicate = (
   builder.addCase(checkNicknameDuplicate.rejected, (state, action) => {
     state.verify.isNicknameVerified = false;
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 
 // ID 중복 확인 -----------------------------------------------------
-export const checkIdDuplicate = createAsyncThunk(
+export const checkIdDuplicate = createCustomAsyncThunk(
   "signup/checkIdDuplicate",
   async (data: CheckIdDuplicateType) => {
     const checkIdDuplicateDto = new CheckIdDuplicateRequestDto(data.loginId);
@@ -130,12 +131,12 @@ const addcheckIdDuplicate = (builder: ActionReducerMapBuilder<SignupState>) => {
   builder.addCase(checkIdDuplicate.rejected, (state, action) => {
     state.verify.isSignupIdVerified = false;
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 
 // 회원가입 -----------------------------------------------------
-export const registerUser = createAsyncThunk(
+export const registerUser = createCustomAsyncThunk(
   "signup/registerUser",
   async (data: RegisterUserType) => {
     const registerUserDto = new RegisterUserRequestDto(data);
@@ -159,12 +160,12 @@ const addRegisterUser = (builder: ActionReducerMapBuilder<SignupState>) => {
   builder.addCase(registerUser.rejected, (state, action) => {
     state.isSignup = false;
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 
 // 회원탈퇴 -----------------------------------------------------
-export const deleteAccount = createAsyncThunk(
+export const deleteAccount = createCustomAsyncThunk(
   "signup/deleteAccount",
   async () => {
     const response = await axiosInstance.post("/auth/deactivate");
@@ -183,7 +184,7 @@ const addDeleteAccount = (builder: ActionReducerMapBuilder<SignupState>) => {
   });
   builder.addCase(deleteAccount.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 

@@ -1,6 +1,7 @@
-import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
+import { ActionReducerMapBuilder } from "@reduxjs/toolkit";
 import { MemberState } from "./memberSlice";
 import axiosInstance from "@/domain/shared/axios";
+import createCustomAsyncThunk from "@/redux/createCustomAsyncThunk";
 
 import {
   ChangeNicknameRequestDto,
@@ -10,7 +11,7 @@ import {
 } from "../dto/request";
 
 // 회원 정보 -----------------------------------------------------
-export const fetchMemberInfo = createAsyncThunk(
+export const fetchMemberInfo = createCustomAsyncThunk(
   "member/fetchMemberInfo",
   async () => {
     const response = await axiosInstance.get("/member/profile");
@@ -31,15 +32,15 @@ const addFetchMemberInfo = (builder: ActionReducerMapBuilder<MemberState>) => {
   });
   builder.addCase(fetchMemberInfo.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 
 // 캐릭터 불러오기 -----------------------------------------------------
-export const fetchCharacter = createAsyncThunk(
+export const fetchCharacter = createCustomAsyncThunk(
   "namespace/fetchCharacter",
   async () => {
-    const response = await axiosInstance.get("/member/image");
+    const response = await axiosInstance.get("member/character");
     return response.data;
   }
 );
@@ -54,12 +55,12 @@ const addFetchCharacter = (builder: ActionReducerMapBuilder<MemberState>) => {
   });
   builder.addCase(fetchCharacter.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 
 // 캐릭터 생성 -----------------------------------------------------
-export const createCharacter = createAsyncThunk(
+export const createCharacter = createCustomAsyncThunk(
   "member/createCharacter",
   async (data: CreateCharacterType) => {
     const createCharacterDto = new CreateCharacterRequestDto(data);
@@ -88,15 +89,15 @@ const addCreateCharacter = (builder: ActionReducerMapBuilder<MemberState>) => {
   });
   builder.addCase(createCharacter.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 
 // 캐릭터 등록 -----------------------------------------------------
-export const registerCharacter = createAsyncThunk(
+export const registerCharacter = createCustomAsyncThunk(
   "member/registerCharacter",
   async () => {
-    const response = await axiosInstance.post("/member/character/register");
+    const response = await axiosInstance.post("member/character/register");
     return response.data;
   }
 );
@@ -115,12 +116,12 @@ const addRegisterCharacter = (
   });
   builder.addCase(registerCharacter.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 
 // 닉네임 변경 -----------------------------------------------------
-export const changeNickname = createAsyncThunk(
+export const changeNickname = createCustomAsyncThunk(
   "member/changeNickname",
   async (data: ChangeNicknameType) => {
     const changeNicknameDto = new ChangeNicknameRequestDto(data);
@@ -142,7 +143,7 @@ const addChangeNickname = (builder: ActionReducerMapBuilder<MemberState>) => {
   });
   builder.addCase(changeNickname.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 

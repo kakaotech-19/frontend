@@ -55,7 +55,7 @@ export const feedMockups = [
   // 나의 공개 일기 불러오기(무한 스크롤)
   http.get(url + "/diary/my/shared", () => {
     return HttpResponse.json({
-      diaries: [
+      sharedDiaries: [
         {
           publicDiaryId: 13, // public diary,
           webtoonImageUrl: "/minion2.png", // diary

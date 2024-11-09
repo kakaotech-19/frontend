@@ -1,8 +1,4 @@
-import {
-  ActionReducerMapBuilder,
-  createAsyncThunk,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { ActionReducerMapBuilder, PayloadAction } from "@reduxjs/toolkit";
 import { LoginState } from "./loginSlice";
 import axiosInstance from "@/domain/shared/axios";
 import { LoginUserRequestDto, LoginUserType } from "@/domain/auth/dto/request";
@@ -11,9 +7,10 @@ import {
   ReIssueTokenResponseDto,
   ReIssueTokenType,
 } from "../../dto/response/reIssueTokenDto";
+import createCustomAsyncThunk from "@/redux/createCustomAsyncThunk";
 
 // 로그인 -----------------------------------------------------
-export const loginUser = createAsyncThunk(
+export const loginUser = createCustomAsyncThunk(
   "login/loginUser",
   async (data: LoginUserType) => {
     const loginUserDto = new LoginUserRequestDto(data);
@@ -46,12 +43,12 @@ const addLoginUser = (builder: ActionReducerMapBuilder<LoginState>) => {
   builder.addCase(loginUser.rejected, (state, action) => {
     state.isLogin = false;
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 
 // 로그아웃 -----------------------------------------------------
-export const logoutUser = createAsyncThunk("login/logout", async () => {
+export const logoutUser = createCustomAsyncThunk("login/logout", async () => {
   const response = await axiosInstance.post("/auth/logout");
   return response.data;
 });
@@ -68,12 +65,12 @@ const addLogoutUser = (builder: ActionReducerMapBuilder<LoginState>) => {
   });
   builder.addCase(logoutUser.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 
 // 토큰 재발급 -----------------------------------------------------
-export const reissueToken = createAsyncThunk(
+export const reissueToken = createCustomAsyncThunk(
   "signup/reissueToken",
   async () => {
     const response = await axiosInstance.post("/auth/refresh-token");
@@ -96,7 +93,7 @@ const addReissueToken = (builder: ActionReducerMapBuilder<LoginState>) => {
   );
   builder.addCase(reissueToken.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? "";
+    state.error = action.payload?.message ?? "";
   });
 };
 

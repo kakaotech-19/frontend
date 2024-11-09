@@ -83,11 +83,11 @@ const Page = () => {
         onClick={() =>
           handleSwitchSignupStep({
             postSignup: postSignup,
+            dispatch: dispatch,
             verify: verify,
             password: password,
             reEnterPassword: reEnterPW,
             signupStep: signupStep,
-            dispatch: dispatch,
           })
         }
       >
