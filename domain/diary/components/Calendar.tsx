@@ -21,7 +21,7 @@ const MyCalendar: React.FC = () => {
   );
 
   const onChange = (newDate: any) => {
-    router.push(`${path.READ}?date=${toKSTISOString(newDate)}`);
+    router.push(`${path.READ}?date=${toKSTISOString(newDate).slice(0, 10)}`);
   };
 
   const onActiveStartDateChange = ({
@@ -40,10 +40,12 @@ const MyCalendar: React.FC = () => {
   }, [viewDate]);
 
   const isIncludeDiaryStatusList = (date: Date) => {
-    return diaryStatusList.some(
-      (status: DiaryStatusType) =>
-        date.toISOString().split("T")[0] === status.date
-    );
+    return diaryStatusList.some((status: DiaryStatusType) => {
+      const serverDate = new Date(`${status.date}T00:00:00+09:00`);
+      if (date.toLocaleDateString() == serverDate.toLocaleDateString()) {
+        return true;
+      }
+    });
   };
   return (
     <Calendar
