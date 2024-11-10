@@ -1,3 +1,5 @@
 import UserAvatarWithLabel from "./UserAvatarWithLabel";
 import UploadFileLabel from "./UploadFileLabel";
-export { UploadFileLabel, UserAvatarWithLabel };
+import PreviewUrlLabel from "./PreviewUrlLabel";
+
+export { UploadFileLabel, UserAvatarWithLabel, PreviewUrlLabel };

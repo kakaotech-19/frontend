@@ -11,6 +11,7 @@ const Feed: React.FC<FeedType> = ({
   reactionCount,
   myReaction,
   diaryId,
+  publicContent,
 }) => {
   return (
     <div className="flex-col w-full max-w-md border-b border-gray-200">
@@ -28,7 +29,7 @@ const Feed: React.FC<FeedType> = ({
       />
       <div className="mb-10">
         <p className="w-full border-none text-sm bg-white font-mono m-2">
-          안녕하세요. 고양이 사진입니다.
+          {publicContent}
         </p>
       </div>
     </div>

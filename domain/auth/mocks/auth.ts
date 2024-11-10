@@ -36,8 +36,18 @@ export const authMockups = [
     });
   }),
 
-  // 로그아웃
+  // 로그아웃 (성공 및 에러 응답 처리)
   http.post(url + "/auth/logout", () => {
+    // return new HttpResponse(
+    //   JSON.stringify({
+    //     title: "TEMP_USER_DIARY_CREATE_FAIL",
+    //     message: "로그아웃할 수 없습니다.",
+    //   }),
+    //   {
+    //     status: 404,
+    //     headers: { "Content-Type": "application/json" },
+    //   }
+    // );
     return new HttpResponse(null, { status: 204 });
   }),
 

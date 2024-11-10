@@ -2,45 +2,24 @@
 
 import { Button } from "flowbite-react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { Logo } from "@/domain/shared/components/layout";
 import path from "@/domain/shared/routes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { WritingAnimation } from "@/domain/shared/components/lottie-animation";
 import {
   PrivacyPolicyModal,
   TermsAndConditionsModal,
 } from "@/domain/auth/components";
 
-const DynamicGraphicAnimation = dynamic(
-  () => import("@/domain/shared/components/lottie-animation/GraphicAnimation"),
-  {
-    ssr: false,
-  }
-);
-const DynamicMusicAnimation = dynamic(
-  () => import("@/domain/shared/components/lottie-animation/MusicAnimation"),
-  {
-    ssr: false,
-  }
-);
-const DynamicShareAnimation = dynamic(
-  () => import("@/domain/shared/components/lottie-animation/ShareAnimation"),
-  {
-    ssr: false,
-  }
-);
-const DynamicWritingAnimation = dynamic(
-  () => import("@/domain/shared/components/lottie-animation/WritingAnimation"),
-  {
-    ssr: false,
-  }
-);
-
-const page = () => {
+const Page = () => {
   const [openTermsModal, setOpenTermsModal] = useState(false);
   const [openPrivacyModal, setOpenPrivacyModal] = useState(false);
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      window.location.href = path.HOME;
+    }
+  }, []);
   return (
     <div className="w-full flex flex-col min-h-screen justify-center items-center overflow-x-hidden">
       <main className="w-full min-h-screen">
@@ -51,6 +30,7 @@ const page = () => {
           alt="background"
           sizes="100vw"
           style={{ width: "100%", height: "100%" }}
+          className="animate-slowPulse"
         />
         <h1 className="w-full flex justify-center">
           <Logo />
@@ -70,7 +50,6 @@ const page = () => {
             <Link href={path.LOGIN} className="flex justify-center">
               <Button size="md">시작하기</Button>
             </Link>
-            <WritingAnimation />
           </div>
         </div>
       </main>
@@ -105,4 +84,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

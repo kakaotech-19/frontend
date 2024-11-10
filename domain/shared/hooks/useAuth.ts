@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import path from "../routes";
 import { AlertType } from "@/domain/noti/types";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
-import { reissueToken } from "@/domain/auth/slices/login/loginExtraReducers";
 
 export const useEmptyTokenRedirect = () => {
   // 서버사이드에서는 localStorage에 접근할 수 없으므로 반환
@@ -24,19 +23,19 @@ export const useEmptyTokenRedirect = () => {
       dispatch(setAlert(data));
       router.push(path.LOGIN);
     }
-  }, [token, dispatch]);
+  }, [token]);
 };
 
-export const useReissueToken = () => {
-  const dispatch = useDispatch();
-  // 서버사이드에서는 localStorage에 접근할 수 없으므로 반환
-  if (typeof window === "undefined") {
-    return;
-  }
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-      dispatch<any>(reissueToken());
-    }
-  }, []);
-};
+// export const useReissueToken = () => {
+//   const dispatch = useDispatch();
+//   // 서버사이드에서는 localStorage에 접근할 수 없으므로 반환
+//   if (typeof window === "undefined") {
+//     return;
+//   }
+//   useEffect(() => {
+//     const token = localStorage.getItem("accessToken");
+//     if (!token) {
+//       dispatch<any>(reissueToken());
+//     }
+//   }, []);
+// };

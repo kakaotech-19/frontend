@@ -34,7 +34,7 @@ const KakaoLoginButton: React.FC<ButtonType> = ({ onClick }) => {
           clipRule="evenodd"
         ></path>
       </svg>
-      <p className="ml-1">Log in with Kakao</p>
+      <p className="ml-1 mt-0.5">카카오 로그인하기</p>
     </Button>
   );
 };

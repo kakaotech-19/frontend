@@ -1,5 +1,6 @@
-import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
+import { ActionReducerMapBuilder } from "@reduxjs/toolkit";
 import { FeedState } from "./feedSlice";
+import createCustomAsyncThunk from "@/redux/createCustomAsyncThunk";
 import axiosInstance from "@/domain/shared/axios";
 import {
   ReactionFeedRequestDto,
@@ -10,7 +11,7 @@ import {
 import { toKSTISOString } from "@/domain/shared/function";
 
 // 일기장 불러오기 (무한 스크롤) -----------------------------------------------------
-export const fetchFeedEntries = createAsyncThunk(
+export const fetchFeedEntries = createCustomAsyncThunk(
   "feed/fetchFeedEntries",
   async (params?: number) => {
     const response = await axiosInstance.get(`/diary/public?after=${params}`);
@@ -31,12 +32,12 @@ const addFetchFeedEntries = (builder: ActionReducerMapBuilder<FeedState>) => {
   });
   builder.addCase(fetchFeedEntries.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 
 // 일기장 반응 이벤트 -----------------------------------------------------
-export const reactionFeed = createAsyncThunk(
+export const reactionFeed = createCustomAsyncThunk(
   "feed/reactionFeed",
   async (data: ReactionFeedType) => {
     const reactionFeedDto = new ReactionFeedRequestDto(data);
@@ -58,12 +59,12 @@ const addReactionFeed = (builder: ActionReducerMapBuilder<FeedState>) => {
   });
   builder.addCase(reactionFeed.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 
 // 일기장 공개 업로드 -----------------------------------------------------
-export const uploadFeed = createAsyncThunk(
+export const uploadFeed = createCustomAsyncThunk(
   "Feed/uploadFeed",
   async (data: UploadFeedType) => {
     const uploadFeedDto = new UploadFeedRequestDto(data);
@@ -85,12 +86,12 @@ const addUploadFeed = (builder: ActionReducerMapBuilder<FeedState>) => {
   });
   builder.addCase(uploadFeed.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 
 // 나의 공개 일기 불러오기(무한스크롤)  -----------------------------------------------------
-export const fetchMyFeedEntries = createAsyncThunk(
+export const fetchMyFeedEntries = createCustomAsyncThunk(
   "Feed/fetchMyFeedEntries",
   async (params: number) => {
     const response = await axiosInstance.get(
@@ -106,19 +107,19 @@ const addFetchMyFeedEntries = (builder: ActionReducerMapBuilder<FeedState>) => {
     state.error = null;
   });
   builder.addCase(fetchMyFeedEntries.fulfilled, (state, action) => {
-    state.myFeedList = [...state.myFeedList, ...action.payload.diaries];
+    state.myFeedList = [...state.myFeedList, ...action.payload.sharedDiaries];
     state.myFeedAfter = action.payload.after;
     state.myFeedEnd = action.payload.isEnd;
     state.loading = false;
   });
   builder.addCase(fetchMyFeedEntries.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 
 // 나의 공개 일기 상세 조회 -----------------------------------------------------
-export const fetchMyFeedDetail = createAsyncThunk(
+export const fetchMyFeedDetail = createCustomAsyncThunk(
   "Feed/fetchMyFeedDetail",
   async (params: string) => {
     const date = toKSTISOString(new Date(params));
@@ -140,7 +141,7 @@ const addFetchMyFeedDetail = (builder: ActionReducerMapBuilder<FeedState>) => {
   });
   builder.addCase(fetchMyFeedDetail.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 

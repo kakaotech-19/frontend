@@ -34,12 +34,12 @@ const MyAlert: React.FC = () => {
   }, [alert, dispatch]);
 
   // alert가 없거나 메시지가 비어 있을 때는 렌더링하지 않음
-  if (!alert || alert.message === "") return null;
+  if (!alert || alert.message === "" || alert.message === "none") return null;
 
   return (
     <Alert
       color={alert.color}
-      className="flex fixed top-4 left-1/2 transform -translate-x-1/2 w-96 z-50"
+      className="flex fixed top-4 left-1/2 transform -translate-x-1/2 w-96 z-[9999]"
       onDismiss={() => dispatch(clearAlert())}
       withBorderAccent
       icon={HiInformationCircle}

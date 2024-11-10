@@ -27,38 +27,38 @@ const PolicySection: React.FC = () => {
     >
       <div className="flex items-center gap-2">
         <Checkbox
-          id="agree"
+          id="agreeTerms"
           onChange={(e) => dispatch(setIsTermsAgreed(e.target.checked))}
           required
         />
-        <Label htmlFor="agree" className="flex">
-          I agree with the&nbsp;
+        <Label htmlFor="agreeTerms" className="flex">
           <p
             onClick={() => setOpenTermsModal(true)}
             className="text-cyan-600 hover:underline dark:text-cyan-500 underline"
           >
-            terms and conditions
+            서비스 이용약관&nbsp;
           </p>
           <TermsAndConditionsModal
             open={openTermsModal}
             onClose={() => setOpenTermsModal(false)}
           />
+          에 동의합니다.
         </Label>
       </div>
       <div className="flex items-center gap-2">
         <Checkbox
-          id="agree"
+          id="agreePolicy"
           onChange={(e) => dispatch(setIsPrivacyAgreed(e.target.checked))}
           required
         />
-        <Label htmlFor="agree" className="flex">
-          I agree with the&nbsp;
+        <Label htmlFor="agreePolicy" className="flex">
           <p
             onClick={() => setOpenPrivacyModal(true)}
             className="text-cyan-600 hover:underline dark:text-cyan-500 underline"
           >
-            privacy policy
+            개인정보처리방침&nbsp;
           </p>
+          에 동의합니다.
           <PrivacyPolicyModal
             open={openPrivacyModal}
             onClose={() => setOpenPrivacyModal(false)}

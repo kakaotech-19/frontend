@@ -83,17 +83,15 @@ const Page = () => {
         onClick={() =>
           handleSwitchSignupStep({
             postSignup: postSignup,
+            dispatch: dispatch,
             verify: verify,
             password: password,
             reEnterPassword: reEnterPW,
             signupStep: signupStep,
-            dispatch: dispatch,
           })
         }
       >
-        <p>
-          {signupStep == SIGNUP_STEP.POLICY ? "Register New Account" : "Next"}
-        </p>
+        <p>{signupStep == SIGNUP_STEP.POLICY ? "회원가입 완료" : "다음"}</p>
       </Button>
     </form>
   );

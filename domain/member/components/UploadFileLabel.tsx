@@ -1,16 +1,16 @@
 "use client";
 
-import { RootState } from "@/redux";
-import { encodeFileToBase64 } from "@/domain/shared/function";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedFile } from "../slices/memberSlice";
+import { clearCharacter, setMemberImageFile } from "../slices/memberSlice";
+import Image from "next/image";
+import { RootState } from "@/redux";
+import { Button, Label } from "flowbite-react";
+import { setAlert } from "@/domain/noti/slices/notiSlice";
+import { createCharacter } from "../slices/memberExtraReducers";
 
 const UploadFileLabel: React.FC = () => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const characterImageUrl = useSelector(
-    (state: RootState) => state.member.characterImageUrl
-  );
   const dispatch = useDispatch();
 
   const handleFileChange = async (
@@ -20,9 +20,11 @@ const UploadFileLabel: React.FC = () => {
     if (!file) {
       return;
     }
-    const base64File = await encodeFileToBase64(file);
-    dispatch(setSelectedFile(base64File as string));
+    // 파일 객체로 저장함
+    dispatch(setMemberImageFile(file));
+  };
 
+  const handlePreviewImage = (file: File) => {
     // 파일 미리보기
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -32,23 +34,95 @@ const UploadFileLabel: React.FC = () => {
   };
 
   // 캐릭터 이미지 URL이 변경되면 미리보기 URL 변경
+  const file = useSelector(
+    (state: RootState) => state.member.characterCreate.memberImageFile
+  );
   useEffect(() => {
-    if (characterImageUrl) {
-      setPreviewUrl(characterImageUrl);
+    if (file) {
+      handlePreviewImage(file);
     }
-  }, [characterImageUrl]);
+  }, [file]);
+
+  const memberImageFile = useSelector(
+    (state: RootState) => state.member.characterCreate.memberImageFile
+  );
+  const isDuplicateRequest = useSelector(
+    (state: RootState) => state.member.characterCreate.isCreateCharacter
+  );
+
+  const pass5minute = () => {
+    const lastCharacter = localStorage.getItem("lastCharacter");
+    if (lastCharacter) {
+      const lastCreateTime = new Date(lastCharacter);
+      const currentTime = new Date();
+      const timeDiff = currentTime.getTime() - lastCreateTime.getTime();
+      const minutesDiff = Math.floor(timeDiff / (1000 * 60));
+
+      if (minutesDiff < 5) {
+        dispatch<any>(
+          setAlert({
+            title: "알림",
+            message: `${5 - minutesDiff}분 후에 다시 시도해주세요.`,
+            color: "warning",
+          })
+        );
+        return false;
+      }
+    }
+    localStorage.setItem("lastCharacter", new Date().toISOString());
+    return true;
+  };
+
+  const handleCreateCharacter = async () => {
+    if (!memberImageFile) {
+      dispatch<any>(
+        setAlert({
+          title: "알림",
+          message: "이미지를 업로드해주세요.",
+          color: "info",
+        })
+      );
+      return;
+    }
+    if (isDuplicateRequest) {
+      dispatch<any>(
+        setAlert({
+          title: "알림",
+          message: "캐릭터를 중복으로 생성할 수 없습니다.",
+          color: "warning",
+        })
+      );
+      return;
+    }
+
+    if (!pass5minute()) {
+      return;
+    }
+
+    dispatch<any>(
+      createCharacter({
+        image: memberImageFile,
+      })
+    );
+    dispatch(clearCharacter());
+  };
 
   return (
-    <div>
+    <div className="space-y-4">
+      <Label value="1. 이미지 파일 선택" />
       <label
         htmlFor="dropzone-file"
-        className="flex flex-col items-start justify-center w-64 h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+        className="flex flex-col items-start justify-center w-48 h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-s0 dark:hover:border-gray-500 dark:hover:bg-gray-600"
       >
         {previewUrl ? (
-          <img
+          <Image
+            width={200}
+            height={200}
             src={previewUrl}
-            alt="업로드된 이미지"
-            className="w-full h-full object-cover rounded-lg"
+            alt={`업로드된 이미지 ${previewUrl}`}
+            sizes="100vw"
+            style={{ width: "100%", height: "100%" }}
+            className="rounded-lg shadow-md object-cover"
           />
         ) : (
           <div className="w-full flex flex-col items-center justify-center pt-5 pb-6">
@@ -71,7 +145,7 @@ const UploadFileLabel: React.FC = () => {
               className="
             text-xs text-gray-500 dark:text-gray-400"
             >
-              SVG, PNG, JPG (최대 800x400px)
+              PNG, JPG, JPEG, WEBP 권장
             </p>
           </div>
         )}
@@ -83,6 +157,14 @@ const UploadFileLabel: React.FC = () => {
           accept="image/*"
         />
       </label>
+      <div className="flex justify-center">
+        <Button
+          className={memberImageFile ? "" : "hidden"}
+          onClick={handleCreateCharacter}
+        >
+          캐릭터 생성하기
+        </Button>
+      </div>
     </div>
   );
 };

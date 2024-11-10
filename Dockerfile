@@ -1,4 +1,4 @@
-FROM node:current-slim
+FROM node:current-slim as build
 
 WORKDIR /usr/app/
 
@@ -14,4 +14,12 @@ COPY . .
 
 RUN pnpm build
 
-# CMD ["npm", "serve"]
+#-------------------
+
+FROM nginx
+
+COPY --from=build /usr/app/out /usr/share/nginx/html
+
+COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
+
+CMD	["nginx", "-g", "daemon off;"]

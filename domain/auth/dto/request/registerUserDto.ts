@@ -22,8 +22,7 @@ export class RegisterUserRequestDto implements RegisterUserType {
       throw new Error("이메일 형식이 올바르지 않습니다.");
     if (!nickname) throw new Error("닉네임을 필수로 입력해주세요.");
     if (!loginId) throw new Error("로그인 아이디를 필수로 입력해주세요.");
-    if (!password || password.length < 8)
-      throw new Error("패스워드는 8자 이상이어야 합니다.");
+    if (!password) throw new Error("패스워드가 비어있습니다.");
 
     this.email = email.trim().toLowerCase();
     this.nickname = nickname.trim();

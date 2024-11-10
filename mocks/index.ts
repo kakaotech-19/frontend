@@ -12,4 +12,4 @@ const initMocks = async () => {
   }
 };
 
-export { initMocks }; // default export 대신 named export로 수정
+export default initMocks; // default export 대신 named export로 수정

@@ -3,8 +3,8 @@
 import store, { RootState } from "@/redux";
 import {
   useEmptyTokenRedirect,
+  useLoginChecker,
   useMocking,
-  useReissueToken,
 } from "@/domain/shared/hooks";
 import React, { useEffect } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
@@ -18,8 +18,8 @@ import { AlertType } from "@/domain/noti/types";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   useMocking();
-  useReissueToken();
   useEmptyTokenRedirect();
+  useLoginChecker();
   const dispatch = useDispatch();
 
   const loginError = useSelector((state: RootState) => state.login.error);

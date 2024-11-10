@@ -26,7 +26,7 @@ function NaverLoginButton({ onClick }: ButtonType) {
           />
         </g>
       </svg>
-      Log in with Naver
+      네이버 로그인하기
     </button>
   );
 }

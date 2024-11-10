@@ -21,7 +21,7 @@ const MyCalendar: React.FC = () => {
   );
 
   const onChange = (newDate: any) => {
-    router.push(`${path.READ}?date=${toKSTISOString(newDate)}`);
+    router.push(`${path.READ}?date=${toKSTISOString(newDate).slice(0, 10)}`);
   };
 
   const onActiveStartDateChange = ({
@@ -40,10 +40,12 @@ const MyCalendar: React.FC = () => {
   }, [viewDate]);
 
   const isIncludeDiaryStatusList = (date: Date) => {
-    return diaryStatusList.some(
-      (status: DiaryStatusType) =>
-        date.toISOString().split("T")[0] === status.date
-    );
+    return diaryStatusList.some((status: DiaryStatusType) => {
+      const serverDate = new Date(`${status.date}T00:00:00+09:00`);
+      if (date.toLocaleDateString() == serverDate.toLocaleDateString()) {
+        return true;
+      }
+    });
   };
   return (
     <Calendar
@@ -55,6 +57,11 @@ const MyCalendar: React.FC = () => {
       onActiveStartDateChange={onActiveStartDateChange}
       className="w-full p-2 max-w-md space-y-2 bg-white border border-gray-200 rounded-md"
       tileClassName="flex text-center p-4 border border-gray-100 hover:bg-cyan-500 rounded-sm text-gray-700"
+      // 요일, 한국어 표시
+      formatShortWeekday={(locale, date) =>
+        date.toLocaleDateString("ko-KR", { weekday: "short" }).charAt(0)
+      }
+      // 상단 연월 표시기
       navigationLabel={({ date }) => (
         <span className="flex text-lg font-semibold p-4">
           {date.toLocaleString("ko-KR", {
@@ -63,6 +70,7 @@ const MyCalendar: React.FC = () => {
           })}
         </span>
       )}
+      // 개별요소 내부
       tileContent={({ date }) =>
         isIncludeDiaryStatusList(date) ? (
           <div className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />

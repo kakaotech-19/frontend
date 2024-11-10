@@ -11,7 +11,7 @@ import { GoogleLoginButton, KakaoLoginButton, NaverLoginButton } from "..";
 const OauthLoginGroup: React.FC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const url = process.env.NEXT_PUBLIC_API_URL;
+  const url = "http://localhost:8080";
 
   const handleOAuthClick = (provider: string) => {
     if (!url) {
@@ -41,14 +41,14 @@ const OauthLoginGroup: React.FC = () => {
         className="w-full"
         onClick={() => dispatch(setIsIdLoginFormView(true))}
       >
-        Log in with ID
+        아이디로 로그인하기
       </Button>
       <br />
       <Button
         className="w-full bg-white border border-gray-300 text-cyan-600 hover:text-white"
         onClick={() => router.push(path.SIGNUP)}
       >
-        Create Account
+        회원가입
       </Button>
     </div>
   );

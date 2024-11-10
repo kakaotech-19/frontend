@@ -1,10 +1,7 @@
-import {
-  ActionReducerMapBuilder,
-  createAsyncThunk,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { ActionReducerMapBuilder, PayloadAction } from "@reduxjs/toolkit";
 import { DiaryState } from "./diarySlice";
 import axiosInstance from "@/domain/shared/axios";
+import createCustomAsyncThunk from "@/redux/createCustomAsyncThunk";
 import {
   CreateDiaryEntryRequestDto,
   CreateDiaryEntryType,
@@ -19,7 +16,7 @@ import {
 } from "../dto/response";
 
 // 나의 일기 상세 조회 -----------------------------------------------------
-export const fetchDiaryDetail = createAsyncThunk(
+export const fetchDiaryDetail = createCustomAsyncThunk(
   "diary/fetchDiaryDetail",
   async (params: string) => {
     const response = await axiosInstance.get(`/diary/my/detail?date=${params}`);
@@ -42,12 +39,12 @@ const addFetchDiaryDetail = (builder: ActionReducerMapBuilder<DiaryState>) => {
   );
   builder.addCase(fetchDiaryDetail.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 
 // 연월 일기 작성 현황 확인 -----------------------------------------------------
-export const fetchDiaryStatus = createAsyncThunk(
+export const fetchDiaryStatus = createCustomAsyncThunk(
   "diary/fetchDiaryStatus",
   async (params: string) => {
     const response = await axiosInstance.get(`/diary/my?yearMonth=${params}`);
@@ -71,7 +68,7 @@ const addFetchDiaryStatus = (builder: ActionReducerMapBuilder<DiaryState>) => {
 };
 
 // 일기 작성 -----------------------------------------------------
-export const createDiaryEntry = createAsyncThunk(
+export const createDiaryEntry = createCustomAsyncThunk(
   "diary/createDiaryEntry",
   async (data: CreateDiaryEntryType) => {
     const createDiaryEntryDto = new CreateDiaryEntryRequestDto(data);
@@ -100,12 +97,12 @@ const addCreateDiaryEntry = (builder: ActionReducerMapBuilder<DiaryState>) => {
   );
   builder.addCase(createDiaryEntry.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 
 // 일기 삭제 -----------------------------------------------------
-export const deleteDiaryEntry = createAsyncThunk(
+export const deleteDiaryEntry = createCustomAsyncThunk(
   "diary/deleteDiaryEntry",
   async (data: DeleteDiaryEntryType) => {
     const deleteDiaryEntryDto = new DeleteDiaryEntryRequestDto(data);
@@ -126,7 +123,7 @@ const addDeleteDiaryEntry = (builder: ActionReducerMapBuilder<DiaryState>) => {
   });
   builder.addCase(deleteDiaryEntry.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.error.message ?? null;
+    state.error = action.payload?.message ?? null;
   });
 };
 

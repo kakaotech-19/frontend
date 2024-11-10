@@ -12,14 +12,13 @@ import { CHARACTER_REQUIRED_ALERT } from "@/domain/shared/constants";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
 import {
   clearAiCommet,
-  setCommentView,
+  setAiCommentView,
 } from "@/domain/diary/slices/diarySlice";
 import { RootState } from "@/redux";
 import path from "@/domain/shared/routes";
 import { MoodSelector } from "@/domain/diary/components/MoodSelector";
 import { DiaryTextArea } from "@/domain/diary/components/DiaryTextArea";
 import { AlertType } from "@/domain/noti/types";
-import { toKSTISOString } from "@/domain/shared/function";
 
 const DiaryWritePage: React.FC = () => {
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
@@ -76,31 +75,25 @@ const DiaryWritePage: React.FC = () => {
   };
 
   const handleCloseModal = () => {
-    dispatch(setCommentView(false));
+    dispatch(setAiCommentView(false));
     dispatch(clearAiCommet());
+    router.push(path.DIARY);
+    dispatch(
+      setAlert({
+        title: "알림",
+        message: "일기가 저장되었습니다.",
+        color: "success",
+      })
+    );
   };
 
   useEffect(() => {
-    if (isDiarySaved) {
-      removeTextLocalStorage();
-      router.push(path.DIARY);
-      dispatch(
-        setAlert({
-          title: "알림",
-          message: "일기가 저장되었습니다.",
-          color: "success",
-          callback: (
-            <AlertButton
-              onClick={() =>
-                router.push(`${path.READ}?date=${toKSTISOString(date)}`)
-              }
-              text="작성된 일기 보러가기"
-            />
-          ),
-        })
-      );
+    if (!isDiarySaved) {
+      return;
     }
-  }, [isDiarySaved, removeTextLocalStorage, dispatch]);
+    dispatch(setAiCommentView(true));
+    removeTextLocalStorage();
+  }, [isDiarySaved]);
 
   return (
     <div className="flex flex-col h-relative justify-between p-4">
@@ -117,7 +110,7 @@ const DiaryWritePage: React.FC = () => {
             <div>
               <p className="text-xs text-gray-500 ml-2">임시저장</p>
               <p className="text-xs text-gray-500 ml-2">
-                {toKSTISOString(date).split("T")[1].split(".")[0]}
+                {date.toTimeString().slice(0, 8)}
               </p>
             </div>
           </div>
@@ -138,7 +131,7 @@ const DiaryWritePage: React.FC = () => {
       </div>
 
       <Modal show={commentView} onClose={handleCloseModal}>
-        <Modal.Header>토닥토닥</Modal.Header>
+        <Modal.Header className="font-gamja">토닥토닥 AI 코멘트</Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
             <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">

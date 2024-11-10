@@ -38,11 +38,13 @@ const Page = () => {
     dispatch<any>(fetchMyFeedEntries(myFeedAfter));
   };
 
-  const nickname = useSelector((state: RootState) => state.member.nickname);
-  const characterImageUrl = useSelector(
-    (state: RootState) => state.member.characterImageUrl
+  const nickname = useSelector(
+    (state: RootState) => state.member.profile.nickname
   );
-  const email = useSelector((state: RootState) => state.member.email);
+  const characterImageUrl = useSelector(
+    (state: RootState) => state.member.profile.characterImageUrl
+  );
+  const email = useSelector((state: RootState) => state.member.profile.email);
 
   useEffect(() => {
     dispatch<any>(fetchMemberInfo());
@@ -70,7 +72,7 @@ const Page = () => {
             dataLength={myFeedList.length}
             next={fetchMoreData}
             hasMore={hasMore}
-            loader={<h4>로딩중 ...</h4>}
+            loader={<></>}
             endMessage={
               <p style={{ textAlign: "center" }}>
                 <b>모든 게시물을 불러왔습니다.</b>
@@ -97,7 +99,7 @@ const Page = () => {
                     />
                   </div>
                   <p className="w-full mt-1 flex text-xs text-gray-400">
-                    Posted on: {myFeed.createdDate}
+                    {myFeed.createdDate} 공유
                   </p>
                 </div>
               ))}
@@ -106,7 +108,7 @@ const Page = () => {
         </div>
       </div>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Header>토닥토닥</Modal.Header>
+        <Modal.Header className="font-gamja">토닥토닥</Modal.Header>
         <Button
           onClick={() =>
             router.push(`${path.READ}/?date=${selectedFeed.diaryCreatedDate}`)

@@ -8,6 +8,7 @@ import { Logo, MyAlert } from "@/domain/shared/components/layout";
 import { useEffect } from "react";
 import { AlertType } from "@/domain/noti/types";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
+import Image from "next/image";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   useMocking();
@@ -42,6 +43,14 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 const CustomProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <Provider store={store}>
+      <Image
+        width={500}
+        height={500}
+        src="/background.svg"
+        alt="background"
+        sizes="100vw"
+        className="absolute top-0 sm:opacity-20 w-full"
+      />
       <Layout>{children}</Layout>
     </Provider>
   );

@@ -13,6 +13,15 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      keyframes: {
+        slowPulse: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
+        },
+      },
+      animation: {
+        slowPulse: "slowPulse 10s ease-in-out infinite", // 3초로 설정
+      },
       fontFamily: {
         gamja: ["Gamja", "sans-serif"], // 커스텀 폰트 추가
       },

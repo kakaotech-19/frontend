@@ -9,7 +9,7 @@ import { SIGNUP_STEP } from "../../constants";
 const SignupStepper: React.FC = () => {
   const signupStep = useSelector((state: RootState) => state.signup.step);
   return (
-    <ol className="flex items-center w-full p-3 space-x-2 text-sm font-medium text-center text-gray-500 bg-white border border-gray-200 rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800 dark:border-gray-700">
+    <ol className="flex justify-center items-center w-full p-3 space-x-2 text-sm font-medium text-center text-gray-500 bg-white border border-gray-200 rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800 dark:border-gray-700">
       <li
         className={`flex items-center ${
           signupStep >= SIGNUP_STEP.PERSONAL
@@ -26,7 +26,7 @@ const SignupStepper: React.FC = () => {
         >
           1
         </span>
-        Personal
+        이메일
         <RedirectSVG />
       </li>
       <li
@@ -45,7 +45,7 @@ const SignupStepper: React.FC = () => {
         >
           2
         </span>
-        Account
+        계정
         <RedirectSVG />
       </li>
       <li
@@ -64,7 +64,7 @@ const SignupStepper: React.FC = () => {
         >
           3
         </span>
-        Policy
+        약관동의
       </li>
     </ol>
   );
