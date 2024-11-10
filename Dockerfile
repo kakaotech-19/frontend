@@ -20,4 +20,6 @@ FROM nginx
 
 COPY --from=build /usr/app/out /usr/share/nginx/html
 
+COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
+
 CMD	["nginx", "-g", "daemon off;"]

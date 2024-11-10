@@ -2,7 +2,7 @@
 
 const nextConfig = {
   reactStrictMode: false,
-  // output: "export", // 정적 내보내기 설정 추가
+  output: "export", // 정적 내보내기 설정 추가
 
   // 보안 설정
   images: {
