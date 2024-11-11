@@ -49,7 +49,7 @@ const CustomProvider = ({ children }: { children: React.ReactNode }) => {
         src="/background.svg"
         alt="background"
         sizes="100vw"
-        className="absolute top-0 sm:opacity-20 w-full"
+        className="absolute top-0 w-full"
       />
       <Layout>{children}</Layout>
     </Provider>

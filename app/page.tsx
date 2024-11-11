@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "flowbite-react";
+import { Button, HR } from "flowbite-react";
 import Link from "next/link";
 import { Logo } from "@/domain/shared/components/layout";
 import path from "@/domain/shared/routes";
@@ -30,32 +30,38 @@ const Page = () => {
           alt="background"
           sizes="100vw"
           style={{ width: "100%", height: "100%" }}
-          className="animate-slowPulse"
         />
         <h1 className="w-full flex justify-center">
           <Logo />
         </h1>{" "}
         <div className="w-full px-4 mt-10">
-          <div className="flex flex-col items-center space-y-6 text-center">
+          <div className="flex flex-col items-center space-y-4 text-center">
+            <h1 className="text-xl font-bold tracking-tighter text-cyan-700">
+              당신의 이야기를 공유하세요.
+            </h1>
+            <iframe src="https://lottie.host/embed/aa1bd775-fd92-44da-a62a-8ce4305cc55f/R4ohaZYI7e.lottie"></iframe>
             <div className="space-y-3">
-              <h1 className="text-xl font-bold tracking-tighter text-black">
-                당신의 이야기를 공유하세요.
-              </h1>
-              <p className="mx-auto max-w-[700px] text-black text-md">
+              <p className="mx-auto max-w-[700px] text-cyan-900 text-md">
                 토닥토닥은 다양한 삶을 살아가는 사람들과 <br />
                 일상 경험을 만화로 공유하는 <br />
                 소셜 다이어리 플랫폼입니다.
               </p>
             </div>
-            <Link href={path.LOGIN} className="flex justify-center">
-              <Button size="md">시작하기</Button>
+            <Link href={path.LOGIN} className="w-full flex justify-center">
+              <Button size="xl" className="w-72 absolute bottom-20">
+                시작하기
+              </Button>
             </Link>
+            <script
+              src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+              type="module"
+            ></script>
           </div>
         </div>
       </main>
       <footer className="w-full flex flex-col gap-2 py-6 shrink-0 items-center px-4 border-t bg-white">
         <p className="text-xs text-gray-600">
-          © 2024 todaktoday. All rights reserved.
+          © 2024 todaktodak. All rights reserved.
         </p>
         <nav className="flex gap-4">
           <p
