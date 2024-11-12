@@ -91,7 +91,7 @@ const addCreateDiaryEntry = (builder: ActionReducerMapBuilder<DiaryState>) => {
     createDiaryEntry.fulfilled,
     (state, action: PayloadAction<DiaryWriteResponseType>) => {
       state.isDiarySaved = true;
-      state.aiComment = action.payload.comment;
+      state.aiComment = action.payload.aiComment;
       state.loading = false;
     }
   );
