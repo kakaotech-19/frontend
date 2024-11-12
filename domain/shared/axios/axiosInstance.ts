@@ -61,9 +61,9 @@ axiosInstance.interceptors.response.use(
         // 이전 요청 재시도
         return axiosInstance(config);
       } catch (refreshError) {
-        window.location.href = path.LOGIN;
-        alert("로그인이 필요한 서비스입니다.");
-        localStorage.removeItem("accessToken");
+        // window.location.href = path.LOGIN;
+        // alert("로그인이 필요한 서비스입니다.");
+        // localStorage.removeItem("accessToken");
         return Promise.reject(refreshError);
       }
     }
