@@ -7,9 +7,10 @@ export const setAxiosInnerStore = (store: any) => {
   storeRef = store;
 };
 
+export const url = "https://todaktodak.site";
 // Axios 인스턴스 생성
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: url + "/api/v1",
   withCredentials: true, // 자격증명(리프레시 토큰)을 포함한 쿠키를 서버로 전달
   headers: {
     "Content-Type": "application/json",
