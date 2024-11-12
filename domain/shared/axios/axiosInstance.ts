@@ -47,7 +47,7 @@ axiosInstance.interceptors.response.use(
       try {
         // 토큰 재발급 요청
         const refreshTokenResponse = await axios.post(
-          url + "/auth/refresh-token"
+          url + "/api/v1" + "/auth/refresh-token"
         );
 
         // 새 액세스 토큰 설정
