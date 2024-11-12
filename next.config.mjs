@@ -7,6 +7,7 @@ const nextConfig = {
   // 보안 설정
   images: {
     domains: ["kakaotech19-todak.s3.ap-northeast-2.amazonaws.com"],
+    unoptimized: true, // 모든 이미지에 대해 최적화 비활성화
   },
   webpack: (config) => {
     config.resolve.alias["_http_common"] = false;

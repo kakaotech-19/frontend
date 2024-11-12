@@ -1,4 +1,3 @@
-import logger from "redux-logger";
 import { configureStore } from "@reduxjs/toolkit";
 import diarySlice from "@/domain/diary/slices/diarySlice";
 import feedSlice from "@/domain/feed/slices/feedSlice";
