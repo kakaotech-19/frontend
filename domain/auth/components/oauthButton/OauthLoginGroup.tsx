@@ -7,11 +7,11 @@ import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
 import { useRouter } from "next/navigation";
 import path from "@/domain/shared/routes";
 import { GoogleLoginButton, KakaoLoginButton, NaverLoginButton } from "..";
+import { url } from "@/domain/shared/axios/axiosInstance";
 
 const OauthLoginGroup: React.FC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const url = "http://localhost:8080";
 
   const handleOAuthClick = (provider: string) => {
     if (!url) {
