@@ -28,7 +28,7 @@ const store = configureStore({
     });
 
     // Redux Logger 미들웨어를 추가
-    middlewares.push(logger);
+    // middlewares.push(logger);
 
     return middlewares;
   },
