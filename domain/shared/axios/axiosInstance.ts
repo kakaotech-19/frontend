@@ -1,5 +1,6 @@
 import { reissueToken } from "@/domain/auth/slices/login/loginExtraReducers";
 import axios from "axios";
+import path from "../routes";
 
 // 순환참조 제거
 let storeRef: any;
@@ -43,16 +44,30 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const { response, config } = error;
     if (response && response.status === 401 && !config._retry) {
-      config._retry = true;
       try {
-        storeRef?.dispatch(reissueToken());
-        // 토큰 재발급 후 원래 요청 재시도
+        // 토큰 재발급 요청
+        const refreshTokenResponse = await axios.post(
+          url + "/auth/refresh-token"
+        );
+
+        // 새 액세스 토큰 설정
+        const newAccessToken = refreshTokenResponse.data.accessToken;
+        localStorage.setItem("accessToken", newAccessToken);
+        axiosInstance.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${newAccessToken}`;
+        config.headers["Authorization"] = `Bearer ${newAccessToken}`;
+
+        // 이전 요청 재시도
         return axiosInstance(config);
-      } catch (err) {
-        // 재발급 실패 시 로그인 페이지로 리디렉션 등 처리
-        return Promise.reject(err);
+      } catch (refreshError) {
+        window.location.href = path.LOGIN;
+        alert("로그인이 필요한 서비스입니다.");
+        localStorage.removeItem("accessToken");
+        return Promise.reject(refreshError);
       }
     }
+
     return Promise.reject(error);
   }
 );

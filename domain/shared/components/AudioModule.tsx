@@ -29,11 +29,7 @@ const AudioModule: React.FC<AudioModuleProps> = ({ src }) => {
       >
         {src && isPlaying ? <VolumeUpSVG /> : <MuteSVG />}
       </button>
-
-      <audio ref={audioRef} hidden>
-        <source src={src} type="audio/mpeg" />
-        브라우저가 오디오 요소를 지원하지 않습니다.
-      </audio>
+      <audio src={src} ref={audioRef} hidden></audio>
     </>
   );
 };
