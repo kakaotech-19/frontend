@@ -39,7 +39,7 @@ const addFetchDiaryDetail = (builder: ActionReducerMapBuilder<DiaryState>) => {
   );
   builder.addCase(fetchDiaryDetail.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.payload?.message ?? null;
+    state.error = "해당 날짜에 일기가 존재하지 않습니다.";
   });
 };
 
