@@ -25,7 +25,9 @@ const ShareDiary: React.FC = () => {
 
   const handleDateChage = (date: Date | null) => {
     if (!date) return;
-    dispatch<any>(fetchDiaryDetail(date!.toISOString().slice(0, -1))); // 나중에 z를 제거하도록 포맷 통일
+    const previousDay = new Date(date!);
+    previousDay.setDate(previousDay.getDate() - 1);
+    dispatch<any>(fetchDiaryDetail(previousDay.toISOString().slice(0, -1)));
   };
 
   const handleUpload = () => {
