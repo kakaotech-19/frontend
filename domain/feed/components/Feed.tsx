@@ -28,7 +28,7 @@ const Feed: React.FC<FeedType> = ({
         diaryId={diaryId}
       />
       <div className="mb-10">
-        <p className="w-full border-none text-sm bg-white font-mono m-2">
+        <p className="w-full border-none text-sm bg-white font-mono m-3 mr-4">
           {publicContent}
         </p>
       </div>
