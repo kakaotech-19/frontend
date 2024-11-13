@@ -42,7 +42,7 @@ const Page: React.FC = () => {
               <Accordion.Title>캐릭터 생성하기</Accordion.Title>
               <Accordion.Content>
                 <div className="flex flex-col justify-center items-center">
-                  <div className="flex flex-col justify-center items-start gap-2">
+                  <div className="flex flex-col justify-center items-start gap-2 p-2">
                     <Label className="text-gray-500 text-xs">
                       - 배경이 없는 이미지를 업로드해주세요. <br />
                       - 얼굴이 선명하게 나온 사진을 사용해주세요. <br />
