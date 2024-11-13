@@ -25,9 +25,10 @@ const ShareDiary: React.FC = () => {
 
   const handleDateChage = (date: Date | null) => {
     if (!date) return;
-    const previousDay = new Date(date!);
-    previousDay.setDate(previousDay.getDate() + 1);
-    dispatch<any>(fetchDiaryDetail(previousDay.toISOString().slice(0, -1)));
+    const formattedDate = `${date.getFullYear()}-${String(
+      date.getMonth() + 1
+    ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+    dispatch<any>(fetchDiaryDetail(formattedDate));
   };
 
   const handleUpload = () => {
