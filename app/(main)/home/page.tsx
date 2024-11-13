@@ -34,11 +34,7 @@ const Page: React.FC = () => {
           next={fetchMoreData}
           hasMore={hasMore}
           loader={<></>}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>모든 피드를 불러왔습니다.</b>
-            </p>
-          }
+          endMessage={<></>}
         >
           {feedList.map((feed) => (
             <Feed key={feed.publicDiaryId} {...feed} />

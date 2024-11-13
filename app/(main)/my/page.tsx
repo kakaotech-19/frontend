@@ -73,11 +73,7 @@ const Page = () => {
             next={fetchMoreData}
             hasMore={hasMore}
             loader={<></>}
-            endMessage={
-              <p style={{ textAlign: "center" }}>
-                <b>모든 게시물을 불러왔습니다.</b>
-              </p>
-            }
+            endMessage={<></>}
             style={{ overflow: "visible" }}
           >
             <div className="w-full grid grid-cols-2 gap-4">
