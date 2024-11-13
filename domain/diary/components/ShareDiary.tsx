@@ -26,7 +26,7 @@ const ShareDiary: React.FC = () => {
   const handleDateChage = (date: Date | null) => {
     if (!date) return;
     const previousDay = new Date(date!);
-    previousDay.setDate(previousDay.getDate() - 1);
+    previousDay.setDate(previousDay.getDate() + 1);
     dispatch<any>(fetchDiaryDetail(previousDay.toISOString().slice(0, -1)));
   };
 
