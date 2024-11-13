@@ -108,11 +108,11 @@ const UploadFileLabel: React.FC = () => {
   };
 
   return (
-    <div className="space-y-4">
-      <Label value="1. 이미지 파일 선택" />
+    <div className="space-y-2">
+      <Label value="1. 이미지 파일 선택" className="ml-2" />
       <label
         htmlFor="dropzone-file"
-        className="flex flex-col items-start justify-center w-48 h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-s0 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+        className="flex flex-col items-start justify-center w-48 h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-s0 dark:hover:border-gray-500"
       >
         {previewUrl ? (
           <Image

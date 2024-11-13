@@ -49,7 +49,7 @@ const PreviewUrlLabel = () => {
   }, [isRegisterCharacter]);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-2">
       <Label value="2. 캐릭터 생성 / 등록" />
       <label
         onClick={handleReload}
