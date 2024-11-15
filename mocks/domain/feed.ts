@@ -1,4 +1,4 @@
-import { url } from "@/app/globals";
+import { apiVersion, url } from "@/app/globals";
 import { HttpResponse, http } from "msw";
 
 // 목업 데이터 생성을 위한 헬퍼 함수
@@ -28,7 +28,7 @@ const createMockDiary = (id: number) => ({
 
 export const feedMockups = [
   // 일기장 불러오기 (무한 스크롤)
-  http.get(url + "/diary/public", () => {
+  http.get(url + apiVersion + "/diary/public", () => {
     return HttpResponse.json({
       diaries: [5, 4, 3, 2, 1].map(createMockDiary),
       after: 1,
@@ -37,22 +37,22 @@ export const feedMockups = [
   }),
 
   // 일기장 반응 이벤트
-  http.post(url + "/diary/public/reaction", () => {
+  http.post(url + apiVersion + "/diary/public/reaction", () => {
     return new HttpResponse(null, { status: 204 });
   }),
 
   // 일기장 공개 업로드
-  http.post(url + "/diary/public", () => {
+  http.post(url + apiVersion + "/diary/public", () => {
     return new HttpResponse("created", { status: 201 });
   }),
 
   // 공개 일기장 삭제
-  http.delete(url + "/diary/public", () => {
+  http.delete(url + apiVersion + "/diary/public", () => {
     return new HttpResponse(null, { status: 204 });
   }),
 
   // 나의 공개 일기 불러오기(무한 스크롤)
-  http.get(url + "/diary/my/shared", () => {
+  http.get(url + apiVersion + "/diary/my/shared", () => {
     return HttpResponse.json({
       sharedDiaries: [
         {
@@ -91,7 +91,7 @@ export const feedMockups = [
   }),
 
   // 나의 공개 일기 상세 조회
-  http.get(url + "/diary/my/shared/detail", () => {
+  http.get(url + apiVersion + "/diary/my/shared/detail", () => {
     return HttpResponse.json({
       publicDiaryId: 3, // public diary
       webtoonImageUrls: [
