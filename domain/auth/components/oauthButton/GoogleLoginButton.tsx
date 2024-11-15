@@ -1,11 +1,11 @@
 import { ButtonType } from "@/domain/shared/types/common";
 import { Button } from "flowbite-react";
 
-const GoogleLoginButton: React.FC<ButtonType> = () => {
+const GoogleLoginButton: React.FC<ButtonType> = ({ onClick }) => {
   return (
     <Button
       type="button"
-      onClick={() => {}}
+      onClick={onClick}
       className="w-full h-10 text-black bg-white border border-gray-300 hover:opacity-75 font-medium rounded-lg text-sm px-5 text-center inline-flex items-center"
     >
       <svg
