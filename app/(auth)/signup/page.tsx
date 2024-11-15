@@ -1,6 +1,5 @@
 "use client";
 
-import { RootState } from "@/redux";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, HR, Label } from "flowbite-react";
 import { resetSignupState } from "@/domain/auth/slices/signup/signupSlice";
@@ -20,30 +19,32 @@ import {
   SignupStepper,
 } from "@/domain/auth/components";
 import { DirectionSVG } from "@/domain/shared/components/svg";
+import { RootState } from "@/redux";
 
 const Page = () => {
   const dispatch = useDispatch();
-  const email = useSelector((state: RootState) => state.signup.email);
-  const nickname = useSelector((state: RootState) => state.signup.nickname);
-  const signupId = useSelector((state: RootState) => state.signup.signupId);
-  const password = useSelector((state: RootState) => state.signup.password);
-  const verify = useSelector((state: RootState) => state.signup.verify);
-  const signupStep = useSelector((state: RootState) => state.signup.step);
-  const reEnterPW = useSelector(
-    (state: RootState) => state.signup.reEnterPassword
-  );
+  const {
+    email,
+    nickname,
+    signupId,
+    password,
+    verify,
+    step: signupStep,
+    reEnterPassword: reEnterPW,
+    isSignup,
+  } = useSelector((state: RootState) => state.signup);
 
   // 회원가입 성공시 유저 라우팅
   const router = useRouter();
-  const isSignup = useSelector((state: RootState) => state.signup.isSignup);
   useEffect(() => {
     if (isSignup) {
-      const data: AlertType = {
-        title: "알림",
-        message: "회원가입이 완료되었습니다. 로그인해주세요.",
-        color: "green",
-      };
-      dispatch(setAlert(data));
+      dispatch(
+        setAlert({
+          title: "알림",
+          message: "회원가입이 완료되었습니다. 로그인해주세요.",
+          color: "green",
+        })
+      );
       router.push(path.LOGIN);
       dispatch(resetSignupState());
       dispatch(setIsIdLoginFormView(true));
