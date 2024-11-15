@@ -19,7 +19,7 @@ import {
   SignupStepper,
 } from "@/domain/auth/components";
 import { DirectionSVG } from "@/domain/shared/components/svg";
-import { RootState } from "@/redux";
+import { RootState } from "@/domain/shared/redux";
 
 const Page = () => {
   const dispatch = useDispatch();

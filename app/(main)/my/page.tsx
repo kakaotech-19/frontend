@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { RootState } from "@/redux";
+import { RootState } from "@/domain/shared/redux";
 import Image from "next/image";
 import SettingSVG from "@/domain/shared/components/svg/SettingSVG";
 import { useDispatch, useSelector } from "react-redux";

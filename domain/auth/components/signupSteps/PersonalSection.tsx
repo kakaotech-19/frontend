@@ -1,6 +1,6 @@
 "use client";
 
-import { RootState } from "@/redux";
+import { RootState } from "@/domain/shared/redux";
 import { Button, Label, TextInput } from "flowbite-react";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";

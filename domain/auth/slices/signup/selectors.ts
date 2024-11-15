@@ -1,4 +1,4 @@
-import { RootState } from "@/redux";
+import { RootState } from "@/domain/shared/redux";
 
 export const selectSignupState = (state: RootState) => ({
   email: state.signup.email,

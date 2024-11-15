@@ -1,7 +1,7 @@
 "use client";
 
 import { clearAlert } from "@/domain/noti/slices/notiSlice";
-import { RootState } from "@/redux";
+import { RootState } from "@/domain/shared/redux";
 import { Alert, Button } from "flowbite-react";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";

@@ -4,7 +4,7 @@ import React, { Suspense, useEffect } from "react";
 import { Modal } from "flowbite-react";
 import { useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux";
+import { RootState } from "@/domain/shared/redux";
 import { fetchDiaryDetail } from "@/domain/diary/slices/diaryExtraReducers";
 import { CarouselAudioEmoji } from "@/domain/shared/components";
 

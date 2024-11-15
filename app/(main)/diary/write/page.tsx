@@ -14,7 +14,7 @@ import {
   clearAiCommet,
   setAiCommentView,
 } from "@/domain/diary/slices/diarySlice";
-import { RootState } from "@/redux";
+import { RootState } from "@/domain/shared/redux";
 import path from "@/domain/shared/routes";
 import { MoodSelector } from "@/domain/diary/components/MoodSelector";
 import { DiaryTextArea } from "@/domain/diary/components/DiaryTextArea";

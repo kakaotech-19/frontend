@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Calendar from "react-calendar";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux";
+import { RootState } from "@/domain/shared/redux";
 import path from "@/domain/shared/routes";
 import { fetchDiaryStatus } from "../slices/diaryExtraReducers";
 import { DiaryStatusType } from "../types/diaryResponseType";

@@ -9,7 +9,7 @@ import {
   fetchMemberInfo,
 } from "@/domain/member/slices/memberExtraReducers";
 import { setNickname } from "@/domain/member/slices/memberSlice";
-import { RootState } from "@/redux";
+import { RootState } from "@/domain/shared/redux";
 import { Accordion, Button, HR, Label, Modal, TextInput } from "flowbite-react";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";

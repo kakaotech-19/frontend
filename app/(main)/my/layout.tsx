@@ -2,7 +2,7 @@
 
 import { setAlert } from "@/domain/noti/slices/notiSlice";
 import { AlertType } from "@/domain/noti/types";
-import { RootState } from "@/redux";
+import { RootState } from "@/domain/shared/redux";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 

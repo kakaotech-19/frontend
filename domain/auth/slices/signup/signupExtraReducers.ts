@@ -1,7 +1,7 @@
 import { ActionReducerMapBuilder } from "@reduxjs/toolkit";
 import { SignupState } from "./signupSlice";
 import axiosInstance from "@/domain/shared/axios";
-import createCustomAsyncThunk from "@/redux/createCustomAsyncThunk";
+import createCustomAsyncThunk from "@/domain/shared/redux/createCustomAsyncThunk";
 import {
   CheckIdDuplicateRequestDto,
   CheckIdDuplicateType,

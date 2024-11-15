@@ -1,6 +1,6 @@
 import { ActionReducerMapBuilder } from "@reduxjs/toolkit";
 import { FeedState } from "./feedSlice";
-import createCustomAsyncThunk from "@/redux/createCustomAsyncThunk";
+import createCustomAsyncThunk from "@/domain/shared/redux/createCustomAsyncThunk";
 import axiosInstance from "@/domain/shared/axios";
 import {
   ReactionFeedRequestDto,

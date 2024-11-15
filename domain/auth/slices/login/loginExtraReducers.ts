@@ -7,7 +7,7 @@ import {
   ReIssueTokenResponseDto,
   ReIssueTokenType,
 } from "../../dto/response/reIssueTokenDto";
-import createCustomAsyncThunk from "@/redux/createCustomAsyncThunk";
+import createCustomAsyncThunk from "@/domain/shared/redux/createCustomAsyncThunk";
 import path from "@/domain/shared/routes";
 
 // 로그인 -----------------------------------------------------

@@ -1,6 +1,6 @@
 "use client";
 
-import { RootState } from "@/redux";
+import { RootState } from "@/domain/shared/redux";
 import {
   resetLoginState,
   setIsIdLoginFormView,

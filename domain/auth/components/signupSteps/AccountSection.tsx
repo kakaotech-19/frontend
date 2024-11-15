@@ -1,6 +1,6 @@
 "use client";
 
-import { RootState } from "@/redux";
+import { RootState } from "@/domain/shared/redux";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {

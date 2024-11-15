@@ -1,6 +1,6 @@
 "use client";
 
-import store, { RootState } from "@/redux";
+import store, { RootState } from "@/domain/shared/redux";
 import {
   useEmptyTokenRedirect,
   useLoginChecker,
