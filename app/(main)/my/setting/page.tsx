@@ -16,17 +16,17 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Page: React.FC = () => {
   const dispatch = useDispatch();
-  const email = useSelector((state: RootState) => state.member.profile.email);
-  const nickname = useSelector(
-    (state: RootState) => state.member.profile.nickname
+  const { email, nickname } = useSelector(
+    (state: RootState) => state.member.profile
   );
   const [openModal, setOpenModal] = React.useState(false);
 
   const handleChangeNickname = () => {
-    const data: ChangeNicknameType = {
-      nickname: nickname,
-    };
-    dispatch<any>(changeNickname(data));
+    dispatch<any>(
+      changeNickname({
+        nickname: nickname,
+      })
+    );
   };
 
   useEffect(() => {
