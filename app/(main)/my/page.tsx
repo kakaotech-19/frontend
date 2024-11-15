@@ -13,10 +13,12 @@ import {
   fetchMyFeedEntries,
 } from "@/domain/feed/slices/feedExtraReducers";
 import { fetchMemberInfo } from "@/domain/member/slices/memberExtraReducers";
-import { UserAvatarWithLabel } from "@/domain/member/components";
 import path from "@/domain/shared/routes";
 import { MyFeedType } from "@/domain/feed/types/feedResponseType";
-import { CarouselAudioEmoji } from "@/domain/shared/components";
+import {
+  CarouselAudioEmoji,
+  UserAvatarWithLabel,
+} from "@/domain/shared/components";
 
 const Page = () => {
   const router = useRouter();
