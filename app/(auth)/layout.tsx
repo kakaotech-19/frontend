@@ -1,6 +1,6 @@
 "use client";
 
-import store, { RootState } from "@/redux";
+import store, { RootState } from "@/domain/shared/redux";
 import { useMocking } from "@/domain/shared/hooks";
 import { HR } from "flowbite-react";
 import { Provider, useDispatch, useSelector } from "react-redux";

@@ -1,6 +1,6 @@
 import { ActionReducerMapBuilder } from "@reduxjs/toolkit";
 import { FeedState } from "./feedSlice";
-import createCustomAsyncThunk from "@/redux/createCustomAsyncThunk";
+import createCustomAsyncThunk from "@/domain/shared/redux/createCustomAsyncThunk";
 import axiosInstance from "@/domain/shared/axios";
 import {
   ReactionFeedRequestDto,
@@ -8,7 +8,6 @@ import {
   UploadFeedRequestDto,
   UploadFeedType,
 } from "../dto/request";
-import { toKSTISOString } from "@/domain/shared/function";
 
 // 일기장 불러오기 (무한 스크롤) -----------------------------------------------------
 export const fetchFeedEntries = createCustomAsyncThunk(
@@ -121,8 +120,7 @@ const addFetchMyFeedEntries = (builder: ActionReducerMapBuilder<FeedState>) => {
 // 나의 공개 일기 상세 조회 -----------------------------------------------------
 export const fetchMyFeedDetail = createCustomAsyncThunk(
   "Feed/fetchMyFeedDetail",
-  async (params: string) => {
-    const date = toKSTISOString(new Date(params));
+  async (date: string) => {
     const response = await axiosInstance.get(
       `/diary/my/shared/detail?date=${date}`
     );

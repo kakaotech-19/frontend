@@ -2,7 +2,7 @@
 
 import { Feed } from "@/domain/feed/components";
 import { fetchFeedEntries } from "@/domain/feed/slices/feedExtraReducers";
-import { RootState } from "@/redux";
+import { RootState } from "@/domain/shared/redux";
 import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from "react-redux";

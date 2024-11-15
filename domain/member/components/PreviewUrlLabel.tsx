@@ -2,7 +2,7 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
-import { RootState } from "@/redux";
+import { RootState } from "@/domain/shared/redux";
 import { Button, Label, Spinner } from "flowbite-react";
 import {
   fetchCharacter,

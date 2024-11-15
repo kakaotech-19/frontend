@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCharacter, setMemberImageFile } from "../slices/memberSlice";
 import Image from "next/image";
-import { RootState } from "@/redux";
+import { RootState } from "@/domain/shared/redux";
 import { Button, Label } from "flowbite-react";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
 import { createCharacter } from "../slices/memberExtraReducers";

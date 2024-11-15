@@ -1,7 +1,7 @@
 import { ActionReducerMapBuilder, PayloadAction } from "@reduxjs/toolkit";
 import { DiaryState } from "./diarySlice";
 import axiosInstance from "@/domain/shared/axios";
-import createCustomAsyncThunk from "@/redux/createCustomAsyncThunk";
+import createCustomAsyncThunk from "@/domain/shared/redux/createCustomAsyncThunk";
 import {
   CreateDiaryEntryRequestDto,
   CreateDiaryEntryType,
@@ -14,6 +14,7 @@ import {
   DiaryWriteResponseDto,
   DiaryWriteResponseType,
 } from "../dto/response";
+import { DEFAULT_DIARY } from "@/domain/shared/constants";
 
 // 나의 일기 상세 조회 -----------------------------------------------------
 export const fetchDiaryDetail = createCustomAsyncThunk(
@@ -39,6 +40,7 @@ const addFetchDiaryDetail = (builder: ActionReducerMapBuilder<DiaryState>) => {
   );
   builder.addCase(fetchDiaryDetail.rejected, (state, action) => {
     state.loading = false;
+    state.queriedDiary = DEFAULT_DIARY;
     state.error = "해당 날짜에 일기가 존재하지 않습니다.";
   });
 };

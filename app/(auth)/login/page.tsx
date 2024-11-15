@@ -1,7 +1,7 @@
 "use client";
 
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux";
+import { RootState } from "@/domain/shared/redux";
 import { LoginForm, OauthLoginGroup } from "@/domain/auth/components";
 
 const Page = () => {

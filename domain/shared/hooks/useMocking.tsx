@@ -1,9 +1,10 @@
+import { mocking } from "@/app/globals";
 import initMocks from "@/mocks";
 import { useEffect } from "react";
 
 const useMocking = () => {
   useEffect(() => {
-    if (process.env.NEXT_PUBLIC_API_MOCKING === "enabled") {
+    if (mocking === "enabled") {
       initMocks();
     }
   }, []);

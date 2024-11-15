@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { RootState } from "@/redux";
+import { RootState } from "@/domain/shared/redux";
 import Image from "next/image";
 import SettingSVG from "@/domain/shared/components/svg/SettingSVG";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,23 +13,22 @@ import {
   fetchMyFeedEntries,
 } from "@/domain/feed/slices/feedExtraReducers";
 import { fetchMemberInfo } from "@/domain/member/slices/memberExtraReducers";
-import { UserAvatarWithLabel } from "@/domain/member/components";
 import path from "@/domain/shared/routes";
 import { MyFeedType } from "@/domain/feed/types/feedResponseType";
-import { CarouselAudioEmoji } from "@/domain/shared/components";
+import {
+  CarouselAudioEmoji,
+  UserAvatarWithLabel,
+} from "@/domain/shared/components";
 
 const Page = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
-  const myFeedList = useSelector((state: RootState) => state.feed.myFeedList);
   const [hasMore, setHasMore] = useState(true);
-  const selectedFeed = useSelector(
-    (state: RootState) => state.feed.selectedFeed
+  const { myFeedList, myFeedAfter, myFeedEnd, selectedFeed } = useSelector(
+    (state: RootState) => state.feed
   );
-  const myFeedAfter = useSelector((state: RootState) => state.feed.myFeedAfter);
 
-  const myFeedEnd = useSelector((state: RootState) => state.feed.myFeedEnd);
   const fetchMoreData = () => {
     if (myFeedEnd) {
       setHasMore(false);
@@ -38,18 +37,13 @@ const Page = () => {
     dispatch<any>(fetchMyFeedEntries(myFeedAfter));
   };
 
-  const nickname = useSelector(
-    (state: RootState) => state.member.profile.nickname
+  const { nickname, characterImageUrl, email } = useSelector(
+    (state: RootState) => state.member.profile
   );
-  const characterImageUrl = useSelector(
-    (state: RootState) => state.member.profile.characterImageUrl
-  );
-  const email = useSelector((state: RootState) => state.member.profile.email);
-
   useEffect(() => {
     dispatch<any>(fetchMemberInfo());
     fetchMoreData();
-  }, []); // useEffect가 잘 닫히는지 확인
+  }, []);
 
   return (
     <div className="w-full h-screen">

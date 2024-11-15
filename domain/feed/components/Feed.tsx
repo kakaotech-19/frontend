@@ -1,5 +1,7 @@
-import { CarouselAudioEmoji } from "@/domain/shared/components";
-import { UserAvatarWithLabel } from "../../member/components";
+import {
+  CarouselAudioEmoji,
+  UserAvatarWithLabel,
+} from "@/domain/shared/components";
 import { FeedType } from "../types/feedResponseType";
 
 const Feed: React.FC<FeedType> = ({

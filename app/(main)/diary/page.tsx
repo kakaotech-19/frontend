@@ -3,7 +3,7 @@
 import { Accordion, Button } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux";
+import { RootState } from "@/domain/shared/redux";
 import { AlertButton, ShareDiary } from "@/domain/diary/components";
 import path from "@/domain/shared/routes";
 import MyCalendar from "@/domain/diary/components/Calendar";

@@ -32,7 +32,7 @@
     "prefix": ">post",
     "body": [
       "// ${1:Action Description} -----------------------------------------------------",
-      "export const ${2:actionName} = createAsyncThunk(",
+      "export const ${2:actionName} = createCustomAsyncThunk(",
       "  '${3:namespace}/${2:actionName}',",
       "  async (${4:data}: any) => {",
       "    const response = await axios.post('${5:/api/endpoint}', ${4:data});",
@@ -41,13 +41,13 @@
       ");",
       ""
     ],
-    "description": "Redux Toolkit을 사용한 POST 요청을 위한 createAsyncThunk 스니펫"
+    "description": "Redux Toolkit을 사용한 POST 요청을 위한 createCustomAsyncThunk 스니펫"
   },
   "API Call - GET": {
     "prefix": ">get",
     "body": [
       "// ${1:Action Description} -----------------------------------------------------",
-      "export const ${2:actionName} = createAsyncThunk(",
+      "export const ${2:actionName} = createCustomAsyncThunk(",
       "  '${3:namespace}/${2:actionName}',",
       "  async (${4:params}: any) => {",
       "    const response = await axios.get('${5:/api/endpoint}', { params: ${4:params} });",
@@ -56,7 +56,7 @@
       ");",
       ""
     ],
-    "description": "Redux Toolkit을 사용한 GET 요청을 위한 createAsyncThunk 스니펫"
+    "description": "Redux Toolkit을 사용한 GET 요청을 위한 createCustomAsyncThunk 스니펫"
   },
   "Add Extra Reducer Function": {
     "prefix": ">builder",

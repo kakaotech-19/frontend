@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { createLogger } from "redux-logger";
 import diarySlice from "@/domain/diary/slices/diarySlice";
 import feedSlice from "@/domain/feed/slices/feedSlice";
 import memberSlice from "@/domain/member/slices/memberSlice";
 import { loginSlice, signupSlice } from "@/domain/auth/slices";
 import notiSlice from "@/domain/noti/slices/notiSlice";
-import { setAxiosInnerStore } from "@/domain/shared/axios/axiosInstance";
 
 const store = configureStore({
   reducer: {
@@ -15,24 +15,20 @@ const store = configureStore({
     member: memberSlice,
     noti: notiSlice,
   },
-  middleware: (
-    getDefaultMiddleware: (arg0: {
-      serializableCheck: boolean; // dev: false, prod: true
-      immutableCheck: boolean; // dev: false, prod: true
-    }) => any
-  ) => {
+  middleware: (getDefaultMiddleware) => {
     const middlewares = getDefaultMiddleware({
       serializableCheck: process.env.NODE_ENV !== "development", // dev: false, prod: true
       immutableCheck: process.env.NODE_ENV !== "development", // dev: false, prod: true
     });
 
-    // Redux Logger 미들웨어를 추가
-    // middlewares.push(logger);
+    // 개발 환경에서만 logger 추가
+    if (process.env.NODE_ENV === "development") {
+      middlewares.push(createLogger());
+    }
 
     return middlewares;
   },
 });
 
-setAxiosInnerStore(store);
 export type RootState = ReturnType<typeof store.getState>;
 export default store;

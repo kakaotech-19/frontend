@@ -1,17 +1,10 @@
-import { reissueToken } from "@/domain/auth/slices/login/loginExtraReducers";
 import axios from "axios";
+import { apiVersion, url } from "@/app/globals";
 import path from "../routes";
 
-// 순환참조 제거
-let storeRef: any;
-export const setAxiosInnerStore = (store: any) => {
-  storeRef = store;
-};
-
-export const url = "https://todaktodak.site";
 // Axios 인스턴스 생성
 const axiosInstance = axios.create({
-  baseURL: url + "/api/v1",
+  baseURL: url + apiVersion,
   withCredentials: true, // 자격증명(리프레시 토큰)을 포함한 쿠키를 서버로 전달
   headers: {
     "Content-Type": "application/json",
@@ -47,7 +40,7 @@ axiosInstance.interceptors.response.use(
       try {
         // 토큰 재발급 요청
         const refreshTokenResponse = await axios.post(
-          url + "/api/v1" + "/auth/refresh-token"
+          url + apiVersion + "/auth/refresh-token"
         );
 
         // 새 액세스 토큰 설정
@@ -61,9 +54,9 @@ axiosInstance.interceptors.response.use(
         // 이전 요청 재시도
         return axiosInstance(config);
       } catch (refreshError) {
-        // window.location.href = path.LOGIN;
-        // alert("로그인이 필요한 서비스입니다.");
-        // localStorage.removeItem("accessToken");
+        window.location.href = path.LOGIN;
+        alert("로그인이 필요한 서비스입니다.");
+        localStorage.removeItem("accessToken");
         return Promise.reject(refreshError);
       }
     }

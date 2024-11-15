@@ -7,7 +7,7 @@ import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
 import { useRouter } from "next/navigation";
 import path from "@/domain/shared/routes";
 import { GoogleLoginButton, KakaoLoginButton, NaverLoginButton } from "..";
-import { url } from "@/domain/shared/axios/axiosInstance";
+import { url } from "@/app/globals";
 
 const OauthLoginGroup: React.FC = () => {
   const dispatch = useDispatch();
