@@ -43,6 +43,7 @@
     "react-redux": "^9.1.2",
     "redux-logger": "^3.0.6",
     "tailwindcss": "^3.4.14",
+    "typedoc": "^0.26.11",
     "typescript": "^5.6.3"
   },
   "msw": {

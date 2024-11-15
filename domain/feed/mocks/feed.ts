@@ -1,6 +1,5 @@
+import { url } from "@/app/globals";
 import { HttpResponse, http } from "msw";
-
-const url = process.env.NEXT_PUBLIC_API_URL;
 
 // 목업 데이터 생성을 위한 헬퍼 함수
 const createMockDiary = (id: number) => ({

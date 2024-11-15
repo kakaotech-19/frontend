@@ -4,7 +4,6 @@ import feedSlice from "@/domain/feed/slices/feedSlice";
 import memberSlice from "@/domain/member/slices/memberSlice";
 import { loginSlice, signupSlice } from "@/domain/auth/slices";
 import notiSlice from "@/domain/noti/slices/notiSlice";
-import { setAxiosInnerStore } from "@/domain/shared/axios/axiosInstance";
 
 const store = configureStore({
   reducer: {
@@ -33,6 +32,5 @@ const store = configureStore({
   },
 });
 
-setAxiosInnerStore(store);
 export type RootState = ReturnType<typeof store.getState>;
 export default store;

@@ -1,6 +1,6 @@
+import { url } from "@/app/globals";
 import { HttpResponse, http } from "msw";
 
-const url = process.env.NEXT_PUBLIC_API_URL;
 export const diaryMockups = [
   // 나의 일기 상세 조회
   http.get(url + "/diary/my/detail", () => {
