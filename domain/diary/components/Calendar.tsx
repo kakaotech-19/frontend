@@ -9,7 +9,6 @@ import path from "@/domain/shared/routes";
 import { fetchDiaryStatus } from "../slices/diaryExtraReducers";
 import { DiaryStatusType } from "../types/diaryResponseType";
 import "./Calendar.css";
-import { toKSTISOString } from "@/domain/shared/function";
 
 const MyCalendar: React.FC = () => {
   const date = new Date();
@@ -21,7 +20,7 @@ const MyCalendar: React.FC = () => {
   );
 
   const onChange = (newDate: any) => {
-    router.push(`${path.READ}?date=${toKSTISOString(newDate).slice(0, 10)}`);
+    router.push(`${path.READ}?date=${newDate.toISOString()}`);
   };
 
   const onActiveStartDateChange = ({

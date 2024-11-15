@@ -1,4 +1,4 @@
-import { isValidDate, toKSTISOString } from "@/domain/shared/function";
+import { isValidDate } from "@/domain/shared/function";
 
 // 일기 작성 타입 정의 -----------------------------------------------------
 export type CreateDiaryEntryType = {
@@ -25,7 +25,7 @@ export class CreateDiaryEntryRequestDto implements CreateDiaryEntryType {
       throw new Error("내용을 입력해주세요.");
     }
 
-    this.date = toKSTISOString(new Date(date));
+    this.date = date;
     this.emotion = this.mapEmotionToEnglish(emotion.trim());
     this.content = content.trim();
   }
