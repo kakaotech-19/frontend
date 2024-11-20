@@ -5,7 +5,6 @@ import { Button, HR, Label } from "flowbite-react";
 import { resetSignupState } from "@/domain/auth/slices/signup/signupSlice";
 import { registerUser } from "@/domain/auth/slices/signup/signupExtraReducers";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
 import path from "@/domain/shared/routes";
 import { AlertType } from "@/domain/noti/types";
@@ -20,6 +19,7 @@ import {
 } from "@/domain/auth/components";
 import { DirectionSVG } from "@/domain/shared/components/svg";
 import { RootState } from "@/domain/shared/redux";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const dispatch = useDispatch();
@@ -37,18 +37,19 @@ const Page = () => {
   // 회원가입 성공시 유저 라우팅
   const router = useRouter();
   useEffect(() => {
-    if (isSignup) {
-      dispatch(
-        setAlert({
-          title: "알림",
-          message: "회원가입이 완료되었습니다. 로그인해주세요.",
-          color: "green",
-        })
-      );
-      router.push(path.LOGIN);
-      dispatch(resetSignupState());
-      dispatch(setIsIdLoginFormView(true));
-    }
+    if (!isSignup) return;
+
+    dispatch(
+      setAlert({
+        title: "알림",
+        message: "회원가입이 완료되었습니다. 로그인해주세요.",
+        color: "green",
+      })
+    );
+
+    router.push(path.LOGIN);
+    dispatch(resetSignupState());
+    dispatch(setIsIdLoginFormView(true));
   }, [isSignup]);
 
   // 회원가입

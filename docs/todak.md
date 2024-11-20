@@ -71,8 +71,13 @@ shallow routing: 페이지 이동시 전체 페이지를 다시 렌더링하지 
 - `pnpm dev`: 개발 서버 실행
 - `pnpm build`: 프로덕션 빌드
 
-### 실습
+### 실습 내용
 
 - api문서를 보고 redux Chunk
 - Modal 추가하고 열기
 - 데이터 불러와서 렌더링하기
+
+### 실습 시나리오
+
+- 새로운 Follow 방 기능을 만들어야합니다. API 문서의 요청을 보고, redux chunk를 사용하여 구현해주세요.
+- API는
