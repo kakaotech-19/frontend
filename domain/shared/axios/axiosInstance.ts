@@ -39,7 +39,7 @@ axiosInstance.interceptors.response.use(
     if (response && response.status === 401 && !config._retry) {
       try {
         // 토큰 재발급 요청
-        const refreshTokenResponse = await axios.post(
+        const refreshTokenResponse = await axiosInstance.post(
           url + apiVersion + "/auth/refresh-token"
         );
 
