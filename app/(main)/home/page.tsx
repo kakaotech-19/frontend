@@ -9,7 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Page: React.FC = () => {
   const feedList = useSelector((state: RootState) => state.feed.feedList);
-  const feedAfter = useSelector((state: RootState) => state.feed.feedAfter);
+  const feedAfter = feedList.length > 0 ? feedList[feedList.length - 1].publicDiaryId : 0;
+  const feedAfterDate = feedList.length > 0 ? feedList[feedList.length - 1].createdDate : new Date(0).toISOString();
   const [hasMore, setHasMore] = useState(true);
   const dispatch = useDispatch();
 
@@ -23,7 +24,7 @@ const Page: React.FC = () => {
       setHasMore(false);
       return;
     }
-    dispatch<any>(fetchFeedEntries(feedAfter));
+    dispatch<any>(fetchFeedEntries({ after: feedAfter, date: feedAfterDate }));
   };
 
   return (

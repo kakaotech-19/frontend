@@ -25,16 +25,18 @@ const Page = () => {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const { myFeedList, myFeedAfter, myFeedEnd, selectedFeed } = useSelector(
+  const { myFeedList, myFeedEnd, selectedFeed } = useSelector(
     (state: RootState) => state.feed
   );
+  const myFeedAfter = myFeedList.length > 0 ? myFeedList[myFeedList.length -1 ].publicDiaryId : 0;
+  const myFeedAfterDate = myFeedList.length > 0 ? myFeedList[myFeedList.length - 1].createdDate : new Date(0).toISOString();
 
   const fetchMoreData = () => {
     if (myFeedEnd) {
       setHasMore(false);
       return;
     }
-    dispatch<any>(fetchMyFeedEntries(myFeedAfter));
+    dispatch<any>(fetchMyFeedEntries({after: myFeedAfter, date: myFeedAfterDate}));
   };
 
   const { nickname, characterImageUrl, email } = useSelector(

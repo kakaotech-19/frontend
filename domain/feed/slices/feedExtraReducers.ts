@@ -12,8 +12,8 @@ import {
 // 일기장 불러오기 (무한 스크롤) -----------------------------------------------------
 export const fetchFeedEntries = createCustomAsyncThunk(
   "feed/fetchFeedEntries",
-  async (params?: number) => {
-    const response = await axiosInstance.get(`/diary/public?after=${params}`);
+  async ({after,date} : {after?: number; date?: String }) => {
+    const response = await axiosInstance.get(`/diary/public?after=${after}&date=${date}`);
     return response.data;
   }
 );
@@ -92,9 +92,9 @@ const addUploadFeed = (builder: ActionReducerMapBuilder<FeedState>) => {
 // 나의 공개 일기 불러오기(무한스크롤)  -----------------------------------------------------
 export const fetchMyFeedEntries = createCustomAsyncThunk(
   "Feed/fetchMyFeedEntries",
-  async (params: number) => {
+  async ({after,date} : {after?:number; date?:String}) => {
     const response = await axiosInstance.get(
-      `/diary/my/shared?after=${params}`
+      `/diary/my/shared?after=${after}&date=${date}`
     );
     return response.data;
   }
