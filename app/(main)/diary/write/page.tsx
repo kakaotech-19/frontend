@@ -67,7 +67,7 @@ const DiaryWritePage: React.FC = () => {
 
     dispatch<any>(
       createDiaryEntry({
-        date: new Date().toDateString(), // 일기 작성 클릭시, 작성 시간 생성
+        date: new Date().toISOString(), // 일기 작성 클릭시, 작성 시간 생성
         emotion: selectedMood,
         content: text,
       })
