@@ -110,7 +110,7 @@ const DiaryWritePage: React.FC = () => {
             <div>
               <p className="text-xs text-gray-500 ml-2">임시저장</p>
               <p className="text-xs text-gray-500 ml-2">
-                {date.toTimeString().slice(0, 8)}
+                {date.toTimeString().slice(0, 5)}
               </p>
             </div>
           </div>
