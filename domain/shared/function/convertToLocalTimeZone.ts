@@ -1,5 +1,4 @@
 export function convertToLocalTimezone(date: Date): string {
-    console.log("convertToLocalTimezone pivot date="+date.toISOString());
     try {
         const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
