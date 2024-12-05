@@ -6,13 +6,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/domain/shared/redux";
 import { AlertButton, ShareDiary } from "@/domain/diary/components";
 import path from "@/domain/shared/routes";
-import MyCalendar from "@/domain/diary/components/Calendar";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
 import { AlertType } from "@/domain/noti/types";
 import checkWriteRole from "@/domain/diary/function/checkRole";
 import { CHARACTER_REQUIRED_ALERT } from "@/domain/shared/constants";
+import dynamic from 'next/dynamic';
+
+const MyCalendar = dynamic(
+    () => import('@/domain/diary/components/Calendar'),
+    { ssr: false }
+);
 
 const Page: React.FC = () => {
+
   const router = useRouter();
   const dispatch = useDispatch();
 
