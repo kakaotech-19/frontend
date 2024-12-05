@@ -23,12 +23,9 @@ const ShareDiary: React.FC = () => {
     (state: any) => state.diary.queriedDiary
   );
 
-  const handleDateChage = (date: Date | null) => {
+  const handleDateChange = (date: Date | null) => {
     if (!date) return;
-    const formattedDate = `${date.getFullYear()}-${String(
-      date.getMonth() + 1
-    ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
-    dispatch<any>(fetchDiaryDetail(formattedDate));
+    dispatch<any>(fetchDiaryDetail(date.toISOString()));
   };
 
   const handleUpload = () => {
@@ -64,7 +61,7 @@ const ShareDiary: React.FC = () => {
   return (
     <>
       <div className="flex justify-between items-center mb-2">
-        <KoDatepicker className="z-50" onChange={handleDateChage} />
+        <KoDatepicker className="z-50" onChange={handleDateChange} />
         <Button
           onClick={handleOpenShareModal}
           className="flex justify-end items-center h-10"
