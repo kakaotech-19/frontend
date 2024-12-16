@@ -19,6 +19,7 @@ import {
   CarouselAudioEmoji,
   UserAvatarWithLabel,
 } from "@/domain/shared/components";
+import {convertToLocalTimezone} from "@/domain/shared/function/convertToLocalTimeZone";
 
 const Page = () => {
   const router = useRouter();
@@ -91,7 +92,7 @@ const Page = () => {
                     />
                   </div>
                   <p className="w-full mt-1 flex text-xs text-gray-400">
-                    {myFeed.createdDate} 공유
+                    {convertToLocalTimezone(new Date(myFeed.createdDate)).slice(0,10)} 공유
                   </p>
                 </div>
               ))}
@@ -106,7 +107,7 @@ const Page = () => {
             router.push(`${path.READ}/?date=${selectedFeed.diaryCreatedDate}`)
           }
         >
-          ► 원본 일기 ({selectedFeed.diaryCreatedDate}) 보러가기{" "}
+          ► 원본 일기 ({selectedFeed.diaryCreatedDate && `${convertToLocalTimezone(new Date(selectedFeed.diaryCreatedDate)).slice(0,10)}`}) 보러가기{" "}
         </Button>
         <Modal.Body>
           <CarouselAudioEmoji

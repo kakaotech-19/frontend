@@ -25,7 +25,9 @@ const addFetchFeedEntries = (builder: ActionReducerMapBuilder<FeedState>) => {
   });
   builder.addCase(fetchFeedEntries.fulfilled, (state, action) => {
     state.feedList = [...state.feedList, ...action.payload.diaries];
-    state.feedAfter = action.payload.after;
+    state.feedAfter = state.feedList.length > 0
+        ? state.feedList[state.feedList.length - 1].publicDiaryId
+        : 0;
     state.feedEnd = action.payload.isEnd;
     state.loading = false;
   });
@@ -107,7 +109,9 @@ const addFetchMyFeedEntries = (builder: ActionReducerMapBuilder<FeedState>) => {
   });
   builder.addCase(fetchMyFeedEntries.fulfilled, (state, action) => {
     state.myFeedList = [...state.myFeedList, ...action.payload.sharedDiaries];
-    state.myFeedAfter = action.payload.after;
+    state.myFeedAfter = state.myFeedList.length > 0
+        ? state.myFeedList[state.myFeedList.length - 1].publicDiaryId
+        : 0;;
     state.myFeedEnd = action.payload.isEnd;
     state.loading = false;
   });

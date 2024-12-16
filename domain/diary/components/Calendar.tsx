@@ -9,6 +9,7 @@ import path from "@/domain/shared/routes";
 import { fetchDiaryStatus } from "../slices/diaryExtraReducers";
 import { DiaryStatusType } from "../types/diaryResponseType";
 import "./Calendar.css";
+import {convertToLocalTimezone} from "@/domain/shared/function/convertToLocalTimeZone";
 
 const MyCalendar: React.FC = () => {
   const date = new Date();
@@ -34,14 +35,16 @@ const MyCalendar: React.FC = () => {
   };
 
   useEffect(() => {
-    const data = `${viewDate.getFullYear()}-${viewDate.getMonth() + 1}`;
-    dispatch<any>(fetchDiaryStatus(data));
+    // const data = `${viewDate.getFullYear()}-${viewDate.getMonth() + 1}`;
+    // const data = viewDate.toISOString();
+    dispatch<any>(fetchDiaryStatus(viewDate.toISOString()));
   }, [viewDate]);
 
-  const isIncludeDiaryStatusList = (date: Date) => {
+  const isIncludeDiaryStatusList = (calendarDate: Date) => {
+    const calendarLocalDate = convertToLocalTimezone(calendarDate);
     return diaryStatusList.some((status: DiaryStatusType) => {
-      const serverDate = new Date(`${status.date}T00:00:00+09:00`);
-      if (date.toLocaleDateString() == serverDate.toLocaleDateString()) {
+      const diaryLocalCreatedDate = convertToLocalTimezone(new Date(status.date));
+      if (calendarLocalDate.slice(0,10) == diaryLocalCreatedDate.slice(0,10)) { // 2024-12-04
         return true;
       }
     });
