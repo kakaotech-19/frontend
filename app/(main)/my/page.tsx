@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Button, Modal } from "flowbite-react";
 import {
+  deleteMyFeed,
   fetchMyFeedDetail,
   fetchMyFeedEntries,
 } from "@/domain/feed/slices/feedExtraReducers";
@@ -26,6 +27,7 @@ const Page = () => {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const[deleteModal,setDeleteModal] = useState(false);
   const { myFeedList, myFeedEnd, selectedFeed } = useSelector(
     (state: RootState) => state.feed
   );
@@ -39,6 +41,14 @@ const Page = () => {
     }
     dispatch<any>(fetchMyFeedEntries({after: myFeedAfter, date: myFeedAfterDate}));
   };
+
+  const handleDelete = (publicDiaryId: number) => {
+    dispatch<any>(deleteMyFeed(publicDiaryId));
+    setDeleteModal(false);
+    setOpenModal(false);
+    window.location.reload();
+    // dispatch<any>(fetchMyFeedEntries({}));
+  }
 
   const { nickname, characterImageUrl, email } = useSelector(
     (state: RootState) => state.member.profile
@@ -111,12 +121,48 @@ const Page = () => {
         </Button>
         <Modal.Body>
           <CarouselAudioEmoji
-            webtoonImageUrls={selectedFeed.webtoonImageUrls}
-            bgmUrl={selectedFeed.bgmUrl}
-            reactionCount={selectedFeed.reactionCount}
-            myReaction={selectedFeed.myReaction}
-            diaryId={selectedFeed.publicDiaryId}
+              webtoonImageUrls={selectedFeed.webtoonImageUrls}
+              bgmUrl={selectedFeed.bgmUrl}
+              reactionCount={selectedFeed.reactionCount}
+              myReaction={selectedFeed.myReaction}
+              diaryId={selectedFeed.publicDiaryId}
           />
+          <div className="w-full flex justify-end px-2">
+            <button
+                type="button"
+                className="focus:outline-none mt-2 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                onClick={() => setDeleteModal(true)}
+            >
+              삭제
+            </button>
+          </div>
+          <Modal show={deleteModal} onClose={() => setDeleteModal(false)}>
+            <Modal.Header className="font-gamja">정말로 삭제하시겠습니까?</Modal.Header>
+            <Modal.Body>
+              <div className="space-y-6 flex justify-center px-2 py-1">
+                <div className="w-full max-w-md flex flex-col justify-center items-center">
+                  <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    공개 일기를 삭제합니다.
+                  </p>
+                  <div className="w-full max-w-xs mx-auto flex flex-row justify-center gap-5 items-center mt-5">
+                    <button
+                        type="button"
+                        className="flex-1 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                        onClick={() => handleDelete(selectedFeed.publicDiaryId)}
+                    >
+                      예
+                    </button>
+                    <button type="button"
+                            className="flex-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                            onClick={() => setDeleteModal(false)}
+                    >
+                      아니오
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </Modal.Body>
+          </Modal>
           <p className="p-1">{selectedFeed.publicContent}</p>
         </Modal.Body>
       </Modal>

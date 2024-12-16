@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/domain/shared/redux";
 import {deleteDiaryEntry, fetchDiaryDetail} from "@/domain/diary/slices/diaryExtraReducers";
 import { CarouselAudioEmoji } from "@/domain/shared/components";
+import path from "@/domain/shared/routes";
 
 const DiaryReadPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const DiaryReadPage: React.FC = () => {
   const handleDelete = () => {
       dispatch<any>(deleteDiaryEntry({ id: queriedDiary.diaryId, date:queriedDiary.date }));
       setDeleteModal(false);
-      router.push('/diary');
+      router.push(path.DIARY);
   };
 
   useEffect(() => {
