@@ -5,6 +5,7 @@ export interface MemberState {
   profile: {
     nickname: string;
     email: string;
+    tempCharacterUrl: string;
     characterImageUrl: string;
   };
   characterCreate: {
@@ -21,6 +22,7 @@ const initialState: MemberState = {
   profile: {
     nickname: "",
     email: "",
+    tempCharacterUrl: "",
     characterImageUrl: "",
   },
   characterCreate: {
