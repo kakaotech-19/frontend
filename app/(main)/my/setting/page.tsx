@@ -2,10 +2,12 @@
 
 import { logoutUser } from "@/domain/auth/slices/login/loginExtraReducers";
 import { PreviewUrlLabel } from "@/domain/member/components";
+import CurrentProfileLabel from "@/domain/member/components/CurrentProfileLabel";
 import UploadFileLabel from "@/domain/member/components/UploadFileLabel";
 import { ChangeNicknameType } from "@/domain/member/dto/request";
 import {
   changeNickname,
+  fetchCharacter,
   fetchMemberInfo,
 } from "@/domain/member/slices/memberExtraReducers";
 import { setNickname } from "@/domain/member/slices/memberSlice";
@@ -31,6 +33,7 @@ const Page: React.FC = () => {
 
   useEffect(() => {
     dispatch<any>(fetchMemberInfo());
+    dispatch<any>(fetchCharacter());
   }, []);
 
   return (
@@ -47,6 +50,9 @@ const Page: React.FC = () => {
                       - 배경이 없는 이미지를 업로드해주세요. <br />
                       - 얼굴이 선명하게 나온 사진을 사용해주세요. <br />
                     </Label>
+                    <div className="flex w-full justify-center items-start">
+                      <CurrentProfileLabel />
+                    </div>
                     <div className="flex gap-2">
                       <UploadFileLabel />
                       <PreviewUrlLabel />

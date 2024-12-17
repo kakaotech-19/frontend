@@ -15,7 +15,7 @@ import { clearRegister } from "../slices/memberSlice";
 const PreviewUrlLabel = () => {
   const dispatch = useDispatch();
   const previewUrl = useSelector(
-    (state: RootState) => state.member.characterCreate.createdCharacterUrl
+    (state: RootState) => state.member.profile.tempCharacterUrl
   );
   const isCreateCharacter = useSelector(
     (state: RootState) => state.member.characterCreate.isCreateCharacter
@@ -24,17 +24,19 @@ const PreviewUrlLabel = () => {
     (state: RootState) => state.member.characterCreate.isRegisterCharacter
   );
 
-  const handleRegisterCharacter = () => {
-    dispatch<any>(registerCharacter());
+  const handleRegisterCharacter = async () => {
+    try {
+      await dispatch<any>(registerCharacter());
+      handleReload();
+    } catch (error) {
+      console.error("캐릭터 등록 실패:", error);
+      // 에러 처리 (예: 에러 메시지 표시)
+    }
   };
 
   const handleReload = () => {
     dispatch<any>(fetchCharacter());
   };
-
-  useEffect(() => {
-    dispatch<any>(fetchCharacter());
-  }, []);
 
   useEffect(() => {
     if (!isRegisterCharacter) return;

@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
   withCredentials: true, // 자격증명(리프레시 토큰)을 포함한 쿠키를 서버로 전달
   headers: {
     "Content-Type": "application/json",
-      "Todak-Time-Zone": Intl.DateTimeFormat().resolvedOptions().timeZone,
+    "Todak-Time-Zone": Intl.DateTimeFormat().resolvedOptions().timeZone,
   },
   timeout: 10000,
 });
@@ -41,7 +41,9 @@ axiosInstance.interceptors.response.use(
       try {
         // 토큰 재발급 요청
         const refreshTokenResponse = await axios.post(
-          url + apiVersion + "/auth/refresh-token"
+          url + apiVersion + "/auth/refresh-token",
+          {},
+          { withCredentials: true }
         );
 
         // 새 액세스 토큰 설정

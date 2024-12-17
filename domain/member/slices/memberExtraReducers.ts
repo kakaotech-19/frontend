@@ -53,6 +53,8 @@ const addFetchCharacter = (builder: ActionReducerMapBuilder<MemberState>) => {
   builder.addCase(fetchCharacter.fulfilled, (state, action) => {
     state.characterCreate.createdCharacterUrl =
       action.payload.characterImageUrl;
+    state.profile.tempCharacterUrl = action.payload.tempCharacterImageUrl;
+    state.profile.characterImageUrl = action.payload.characterImageUrl;
     state.loading = false;
   });
   builder.addCase(fetchCharacter.rejected, (state, action) => {
