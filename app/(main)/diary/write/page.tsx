@@ -19,9 +19,11 @@ import path from "@/domain/shared/routes";
 import { MoodSelector } from "@/domain/diary/components/MoodSelector";
 import { DiaryTextArea } from "@/domain/diary/components/DiaryTextArea";
 import { AlertType } from "@/domain/noti/types";
+import { GenreSelector } from "@/domain/diary/components/GenreSelector";
 
 const DiaryWritePage: React.FC = () => {
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
+  const [selectedBgmGenre, setSelectedBgmGenre] = useState<string | null>(null);
   const [text, handleChangeText, removeTextLocalStorage] =
     useSaveTextLocalStorage({
       key: "diaryText",
@@ -32,11 +34,15 @@ const DiaryWritePage: React.FC = () => {
   const date = new Date();
 
   const { aiComment, commentView, isDiarySaved } = useSelector(
-    (state: RootState) => state.diary
+    (state: RootState) => state.diary,
   );
 
   const handleMoodSelect = (mood: string) => {
     setSelectedMood(mood === selectedMood ? null : mood);
+  };
+
+  const handleGenreSelect = (bgmGenre: string) => {
+    setSelectedBgmGenre(bgmGenre === selectedBgmGenre ? null : bgmGenre);
   };
 
   const handleSaveDiary = () => {
@@ -54,13 +60,24 @@ const DiaryWritePage: React.FC = () => {
       return;
     }
 
-    if (!selectedMood) {
+    if (!selectedBgmGenre || !selectedMood) {
       dispatch(
         setAlert({
           title: "알림",
-          message: "기분을 선택해주세요",
+          message: "기분과 BGM 장르를 선택해주세요.",
           color: "warning",
-        })
+        }),
+      );
+      return;
+    }
+
+    if (text.length < 100) {
+      dispatch(
+        setAlert({
+          title: "알림",
+          message: "일기는 100자 이상 작성해 주세요.",
+          color: "warning",
+        }),
       );
       return;
     }
@@ -70,7 +87,8 @@ const DiaryWritePage: React.FC = () => {
         date: new Date().toISOString(), // 일기 작성 클릭시, 작성 시간 생성
         emotion: selectedMood,
         content: text,
-      })
+        bgmGenre: selectedBgmGenre,
+      }),
     );
   };
 
@@ -83,7 +101,7 @@ const DiaryWritePage: React.FC = () => {
         title: "알림",
         message: "일기가 저장되었습니다.",
         color: "success",
-      })
+      }),
     );
   };
 
@@ -126,6 +144,10 @@ const DiaryWritePage: React.FC = () => {
         <MoodSelector
           selectedMood={selectedMood}
           onMoodSelect={handleMoodSelect}
+        />
+        <GenreSelector
+          selectedGenre={selectedBgmGenre}
+          onGenreSelect={handleGenreSelect}
         />
         <DiaryTextArea text={text} onChange={handleChangeText} />
       </div>

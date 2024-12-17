@@ -13,7 +13,7 @@ export const DiaryTextArea = ({ text, onChange }: DiaryTextAreaProps) => {
         maxLength={3000}
         value={text}
         onChange={onChange}
-        placeholder="오늘의 이야기를 들려주세요..."
+        placeholder="오늘의 이야기를 들려주세요! (100자 이상)"
       />
       <div className="absolute bottom-4 right-4 text-sm text-gray-500">
         {text.length} / 3000
