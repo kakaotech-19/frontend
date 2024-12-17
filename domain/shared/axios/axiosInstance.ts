@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
   withCredentials: true, // 자격증명(리프레시 토큰)을 포함한 쿠키를 서버로 전달
   headers: {
     "Content-Type": "application/json",
-      "Todak-Time-Zone": Intl.DateTimeFormat().resolvedOptions().timeZone,
+    "Todak-Time-Zone": Intl.DateTimeFormat().resolvedOptions().timeZone,
   },
   timeout: 10000,
 });
