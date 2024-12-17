@@ -108,7 +108,7 @@ export const deleteDiaryEntry = createCustomAsyncThunk(
   "diary/deleteDiaryEntry",
   async (data: DeleteDiaryEntryType) => {
     const deleteDiaryEntryDto = new DeleteDiaryEntryRequestDto(data);
-    const response = await axiosInstance.delete("/diary/my/1", {
+    const response = await axiosInstance.delete(`/diary/my/${deleteDiaryEntryDto.id}`, {
       data: deleteDiaryEntryDto.toObject(),
     });
     return response.data;
