@@ -12,10 +12,10 @@ fi
 read -p "서버 주소를 입력해주세요 (기본값: localhost:3000): " NEXT_PUBLIC_API_URL
 NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:3000}
 
-# .env.local 파일에 변수 작성
-cat << EOF > .env.local
+# .env 파일에 변수 작성
+cat << EOF > .env
 NEXT_PUBLIC_API_MOCKING="$NEXT_PUBLIC_API_MOCKING"
 NEXT_PUBLIC_API_URL="$NEXT_PUBLIC_API_URL"
 EOF
 
-echo ".env.local file created with NEXT_PUBLIC_API_MOCKING set to $NEXT_PUBLIC_API_MOCKING and NEXT_PUBLIC_API_URL set to $NEXT_PUBLIC_API_URL."
+echo ".env file created with NEXT_PUBLIC_API_MOCKING set to $NEXT_PUBLIC_API_MOCKING and NEXT_PUBLIC_API_URL set to $NEXT_PUBLIC_API_URL."
