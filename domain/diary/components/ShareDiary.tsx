@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Datepicker, Modal, Textarea } from "flowbite-react";
+import { Button, Modal, Textarea } from "flowbite-react";
 import React, { useState } from "react";
 import { ShareSVG } from "../../shared/components/svg";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +20,7 @@ const ShareDiary: React.FC = () => {
   });
 
   const queriedDiary: DiaryResponseType = useSelector(
-    (state: any) => state.diary.queriedDiary
+    (state: any) => state.diary.queriedDiary,
   );
 
   const handleDateChange = (date: Date | null) => {
@@ -77,7 +77,7 @@ const ShareDiary: React.FC = () => {
           <CarouselAudioEmoji
             webtoonImageUrls={queriedDiary.webtoonImageUrls}
             bgmUrl={queriedDiary.bgmUrl}
-            diaryId={queriedDiary.diaryId}
+            publicDiaryId={queriedDiary.diaryId}
           />
         ) : null}
       </>
