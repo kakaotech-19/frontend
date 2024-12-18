@@ -12,7 +12,7 @@ interface CarouselAudioEmojiProps {
   bgmUrl: string;
   reactionCount?: ReactionType;
   myReaction?: [];
-  diaryId: number;
+  publicDiaryId: number;
   emojiReadonly?: boolean;
 }
 
@@ -21,7 +21,7 @@ const CarouselAudioEmoji: React.FC<CarouselAudioEmojiProps> = ({
   bgmUrl,
   reactionCount,
   myReaction,
-  diaryId,
+  publicDiaryId,
   emojiReadonly,
 }) => {
   return (
@@ -37,7 +37,7 @@ const CarouselAudioEmoji: React.FC<CarouselAudioEmojiProps> = ({
                 width={500}
                 height={500}
                 src={imageUrl}
-                alt={`public-feed-${diaryId}-${index}`}
+                alt={`public-feed-${publicDiaryId}-${index}`}
                 sizes="100vw"
                 style={{ width: "100%", height: "100%" }}
                 className="rounded-md shadow-md object-cover"
@@ -55,7 +55,7 @@ const CarouselAudioEmoji: React.FC<CarouselAudioEmojiProps> = ({
         <EmojiSelector
           reactionCount={reactionCount}
           myReaction={myReaction}
-          diaryId={diaryId}
+          publicDiaryId={publicDiaryId}
           readonly={emojiReadonly ?? false}
         />
       )}

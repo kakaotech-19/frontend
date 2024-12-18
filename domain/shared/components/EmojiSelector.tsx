@@ -15,12 +15,12 @@ interface MyReaction {
 }
 
 interface EmojiSelectorProps extends ReactionCount, MyReaction {
-  diaryId: number;
+  publicDiaryId: number;
   readonly?: boolean;
 }
 
 const EmojiSelector: React.FC<EmojiSelectorProps> = ({
-  diaryId,
+  publicDiaryId,
   reactionCount: initialReactionCount,
   myReaction: initialMyReaction,
   readonly = false,
@@ -56,7 +56,7 @@ const EmojiSelector: React.FC<EmojiSelectorProps> = ({
     });
 
     const data: ReactionFeedType = {
-      diaryId: diaryId,
+      publicDiaryId: publicDiaryId,
       reactionType: reactionType,
     };
     dispatch<any>(reactionFeed(data));

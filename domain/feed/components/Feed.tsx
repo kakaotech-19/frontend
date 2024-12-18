@@ -12,7 +12,7 @@ const Feed: React.FC<FeedType> = ({
   bgmUrl,
   reactionCount,
   myReaction,
-  diaryId,
+  publicDiaryId,
   publicContent,
 }) => {
   return (
@@ -27,7 +27,7 @@ const Feed: React.FC<FeedType> = ({
         bgmUrl={bgmUrl}
         reactionCount={reactionCount}
         myReaction={myReaction}
-        diaryId={diaryId}
+        publicDiaryId={publicDiaryId}
       />
       <div className="mb-10">
         <p className="w-full border-none text-sm bg-white font-mono p-4">
