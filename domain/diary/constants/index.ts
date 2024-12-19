@@ -1,5 +1,12 @@
-import { MOOD_COLORS, MOODS } from "./mood";
-import { BGM_GENRE_COLORS, BGM_GENRES } from "./genre";
+import { MOODS, MOOD_COLORS } from "./mood";
+import { BGM_GENRES, BGM_GENRE_COLORS } from "./genre";
+import { CHARACTER_STYLES, CHARACTER_STYLE_COLORS } from "./characterStyle";
 
-export { MOODS, MOOD_COLORS };
-export { BGM_GENRES, BGM_GENRE_COLORS };
+export {
+  MOODS,
+  MOOD_COLORS,
+  BGM_GENRES,
+  BGM_GENRE_COLORS,
+  CHARACTER_STYLES,
+  CHARACTER_STYLE_COLORS,
+};
