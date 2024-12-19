@@ -8,9 +8,16 @@ import { RootState } from "@/domain/shared/redux";
 import { Button, Label } from "flowbite-react";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
 import { createCharacter } from "../slices/memberExtraReducers";
+import {
+  CHARACTER_STYLES,
+  CHARACTER_STYLE_COLORS,
+  MOODS,
+  MOOD_COLORS,
+} from "@/domain/diary/constants";
 
 const UploadFileLabel: React.FC = () => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [characterStyle, setCharacterStyle] = useState<string>("");
   const dispatch = useDispatch();
 
   const handleFileChange = async (
@@ -84,6 +91,17 @@ const UploadFileLabel: React.FC = () => {
       );
       return;
     }
+
+    if (!characterStyle) {
+      dispatch<any>(
+        setAlert({
+          title: "알림",
+          message: "화풍을 선택해주세요.",
+          color: "info",
+        })
+      );
+      return;
+    }
     if (isDuplicateRequest) {
       dispatch<any>(
         setAlert({
@@ -102,6 +120,7 @@ const UploadFileLabel: React.FC = () => {
     dispatch<any>(
       createCharacter({
         image: memberImageFile,
+        characterStyle: characterStyle,
       })
     );
     dispatch(clearCharacter());
@@ -157,6 +176,26 @@ const UploadFileLabel: React.FC = () => {
           accept="image/*"
         />
       </label>
+      <div className="flex justify-center">
+        <Label className="mb-4">
+          <p className="mb-2">화풍 선택</p>
+          <div>
+            {CHARACTER_STYLES.map((style) => (
+              <span
+                key={style}
+                className={`text-xs font-medium me-2 px-3 py-1 rounded-full cursor-pointer ${
+                  style == characterStyle
+                    ? CHARACTER_STYLE_COLORS[style]
+                    : "bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-300"
+                }`}
+                onClick={() => setCharacterStyle(style)}
+              >
+                {style}
+              </span>
+            ))}
+          </div>
+        </Label>
+      </div>
       <div className="flex justify-center">
         <Button
           className={memberImageFile ? "" : "hidden"}
