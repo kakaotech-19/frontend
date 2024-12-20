@@ -4,7 +4,7 @@ name: Reuse Build and Publish to GHCR
 
 on:
   push:
-    branches: [main, release, develop]
+    branches: [main, develop]
   pull_request:
 
 jobs:
@@ -14,3 +14,5 @@ jobs:
       ORGANIZATION: ${{ secrets.ORGANIZATION }}
       PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+  dispatch-cd:
+    uses: kakaotech-19/.github/.github/workflows/dispatch-cd.yaml@main
