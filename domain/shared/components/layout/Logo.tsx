@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 const Logo: React.FC = () => {
   const [index, setIndex] = useState(0);
 
-  const title = "토닥토닥!";
+  const title = "토닥토닥!!";
 
   const keyword = [
     "일상을 나누는 일기, 마음을 따뜻하게 감싸다",
