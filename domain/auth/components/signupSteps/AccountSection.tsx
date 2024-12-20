@@ -17,6 +17,7 @@ import {
   setSignupPassword,
   setSignupReEnterPassword,
 } from "../../slices/signup/signupSlice";
+import { setAlert } from "@/domain/noti/slices/notiSlice";
 
 const AccountSection: React.FC = () => {
   const dispatch = useDispatch();
@@ -27,24 +28,44 @@ const AccountSection: React.FC = () => {
   const signupId = useSelector((state: RootState) => state.signup.signupId);
   const password = useSelector((state: RootState) => state.signup.password);
   const reEnterPassword = useSelector(
-    (state: RootState) => state.signup.reEnterPassword
+    (state: RootState) => state.signup.reEnterPassword,
   );
 
   // 닉네임 중복 확인
   const handleCheckNicknameDuplicate = () => {
+    if (nickname.length < 5) {
+      dispatch<any>(
+        setAlert({
+          title: "알림",
+          message: "5~15 글자 이상이어야 합니다.",
+          color: "info",
+        }),
+      );
+      return;
+    }
     dispatch<any>(
       checkNicknameDuplicate({
         nickname: nickname,
-      })
+      }),
     );
   };
 
   // 아이디 중복 확인
   const handleCheckIdDuplicate = () => {
+    if (signupId.length < 5) {
+      dispatch<any>(
+        setAlert({
+          title: "알림",
+          message: "5~15 글자 이상이어야 합니다.",
+          color: "info",
+        }),
+      );
+      return;
+    }
     dispatch<any>(
       checkIdDuplicate({
         loginId: signupId,
-      })
+      }),
     );
   };
 
