@@ -14,5 +14,9 @@ jobs:
       ORGANIZATION: ${{ secrets.ORGANIZATION }}
       PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+  
   dispatch-cd:
+    needs: build-and-publish
     uses: kakaotech-19/.github/.github/workflows/dispatch-cd.yaml@main
+    secrets:
+      ORG_PAT: ${{ secrets.ORG_PAT }}
