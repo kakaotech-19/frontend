@@ -4,7 +4,6 @@ import { logoutUser } from "@/domain/auth/slices/login/loginExtraReducers";
 import { PreviewUrlLabel } from "@/domain/member/components";
 import CurrentProfileLabel from "@/domain/member/components/CurrentProfileLabel";
 import UploadFileLabel from "@/domain/member/components/UploadFileLabel";
-import { ChangeNicknameType } from "@/domain/member/dto/request";
 import {
   changeNickname,
   fetchCharacter,
@@ -19,7 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Page: React.FC = () => {
   const dispatch = useDispatch();
   const { email, nickname } = useSelector(
-    (state: RootState) => state.member.profile
+    (state: RootState) => state.member.profile,
   );
   const [openModal, setOpenModal] = React.useState(false);
 
@@ -27,7 +26,7 @@ const Page: React.FC = () => {
     dispatch<any>(
       changeNickname({
         nickname: nickname,
-      })
+      }),
     );
   };
 
@@ -47,7 +46,9 @@ const Page: React.FC = () => {
                 <div className="flex flex-col justify-center items-center">
                   <div className="flex flex-col justify-center items-start gap-2">
                     <Label className="text-gray-500 text-xs ml-4">
-                      - 배경이 없는 이미지를 업로드해주세요. <br />
+                      - 배경이 없는 이미지를 업로드해주세요.
+                      <span className="text-red-500"> ( 1MB 이하 ) </span>
+                      <br />
                       - 얼굴이 선명하게 나온 사진을 사용해주세요. <br />
                     </Label>
                     <div className="flex w-full justify-center items-start">
