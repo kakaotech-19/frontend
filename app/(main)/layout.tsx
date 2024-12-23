@@ -17,7 +17,7 @@ import { setAlert } from "@/domain/noti/slices/notiSlice";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   useMocking();
-  useEmptyTokenRedirect();
+  // useEmptyTokenRedirect();
   useLoginChecker();
   const dispatch = useDispatch();
 
