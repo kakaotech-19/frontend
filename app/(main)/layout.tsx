@@ -14,12 +14,14 @@ import {
   MyAlert,
 } from "@/domain/shared/components/layout";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
+import { SSEProvider, useSSE } from "@/domain/sse/sse";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   useMocking();
   useEmptyTokenRedirect();
   useLoginChecker();
   const dispatch = useDispatch();
+  const { lastResponse, error: sseError } = useSSE();
 
   const loginError = useSelector((state: RootState) => state.login.error);
   useEffect(() => {
@@ -29,10 +31,36 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           title: "알림",
           message: loginError,
           color: "red",
-        })
+        }),
       );
     }
   }, [loginError]);
+
+  // SSE 응답 처리
+  useEffect(() => {
+    if (lastResponse) {
+      dispatch(
+        setAlert({
+          title: "새 알림",
+          message: lastResponse.message,
+          color: "info",
+        }),
+      );
+    }
+  }, [lastResponse, dispatch]);
+
+  // SSE 에러 처리
+  useEffect(() => {
+    if (sseError) {
+      dispatch(
+        setAlert({
+          title: "알림 오류",
+          message: sseError.message,
+          color: "failure",
+        }),
+      );
+    }
+  }, [sseError, dispatch]);
 
   return (
     <>
@@ -47,7 +75,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 const CustomProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <Provider store={store}>
-      <Layout>{children}</Layout>
+      <SSEProvider>
+        <Layout>{children}</Layout>
+      </SSEProvider>
     </Provider>
   );
 };
