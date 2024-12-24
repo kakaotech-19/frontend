@@ -18,7 +18,7 @@ import { SSEProvider, useSSE } from "@/domain/sse/sse";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   useMocking();
-  useEmptyTokenRedirect();
+  // useEmptyTokenRedirect();
   useLoginChecker();
   const dispatch = useDispatch();
   const { lastResponse, error: sseError } = useSSE();
