@@ -39,16 +39,13 @@ const useEventSource = (): UseEventSourceReturn => {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
         withCredentials: true,
-        heartbeatTimeout: 85000,
+        heartbeatTimeout: 15000,
       }
     );
+
     if (source.readyState === 1) {
       setState((prev) => ({ ...prev, connected: true, error: null }));
     }
-
-    source.onopen = () => {
-      setState((prev) => ({ ...prev, connected: true, error: null }));
-    };
 
     source.addEventListener("connect", (event: any) => {
       setState((prev) => ({
@@ -84,6 +81,10 @@ const useEventSource = (): UseEventSourceReturn => {
         })
       );
     });
+
+    source.onopen = () => {
+      setState((prev) => ({ ...prev, connected: true, error: null }));
+    };
 
     setEventSource(source);
   }, [dispatch]);
