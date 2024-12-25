@@ -30,6 +30,32 @@ const useEventSource = (): UseEventSourceReturn => {
     eventData: null,
   });
 
+  const disconnect = useCallback(() => {
+    if (eventSource) {
+      eventSource.close();
+      setEventSource(null);
+      setState((prev) => ({ ...prev, connected: false }));
+    }
+  }, [eventSource]);
+
+  const handleEventAndDisconnect = useCallback(
+    (eventType: "character" | "diary", eventData: string) => {
+      setState((prev) => ({
+        ...prev,
+        eventData: { type: eventType, data: eventData },
+      }));
+      dispatch<any>(
+        setAlert({
+          title: "알림",
+          message: eventData,
+          color: "success",
+        })
+      );
+      disconnect();
+    },
+    [dispatch, disconnect]
+  );
+
   const connect = useCallback(() => {
     if (eventSource) return;
     const source = new EventSourcePolyfill(
@@ -55,31 +81,11 @@ const useEventSource = (): UseEventSourceReturn => {
     });
 
     source.addEventListener("character", (event: any) => {
-      setState((prev) => ({
-        ...prev,
-        eventData: { type: "character", data: event.data },
-      }));
-      dispatch<any>(
-        setAlert({
-          title: "알림",
-          message: event.data,
-          color: "success",
-        })
-      );
+      handleEventAndDisconnect("character", event.data);
     });
 
     source.addEventListener("diary", (event: any) => {
-      setState((prev) => ({
-        ...prev,
-        eventData: { type: "diary", data: event.data },
-      }));
-      dispatch<any>(
-        setAlert({
-          title: "알림",
-          message: event.data,
-          color: "success",
-        })
-      );
+      handleEventAndDisconnect("diary", event.data);
     });
 
     source.onopen = () => {
@@ -87,15 +93,7 @@ const useEventSource = (): UseEventSourceReturn => {
     };
 
     setEventSource(source);
-  }, [dispatch]);
-
-  const disconnect = useCallback(() => {
-    if (eventSource) {
-      eventSource.close();
-      setEventSource(null);
-      setState((prev) => ({ ...prev, connected: false }));
-    }
-  }, [eventSource]);
+  }, [dispatch, handleEventAndDisconnect]);
 
   useEffect(() => {
     if (state.error && !eventSource) {
