@@ -14,10 +14,12 @@ import {
   MOODS,
   MOOD_COLORS,
 } from "@/domain/diary/constants";
+import useEventSource from "@/domain/shared/hooks/useEventSource";
 
 const UploadFileLabel: React.FC = () => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [characterStyle, setCharacterStyle] = useState<string>("");
+  const { connected, eventData, connect, disconnect } = useEventSource();
   const dispatch = useDispatch();
 
   const handleFileChange = async (
@@ -80,7 +82,7 @@ const UploadFileLabel: React.FC = () => {
     return true;
   };
 
-  const handleCreateCharacter = async () => {
+  const validateCreateCharacter = (): boolean => {
     if (!memberImageFile) {
       dispatch<any>(
         setAlert({
@@ -89,7 +91,7 @@ const UploadFileLabel: React.FC = () => {
           color: "info",
         })
       );
-      return;
+      return false;
     }
 
     if (!characterStyle) {
@@ -100,7 +102,7 @@ const UploadFileLabel: React.FC = () => {
           color: "info",
         })
       );
-      return;
+      return false;
     }
     if (isDuplicateRequest) {
       dispatch<any>(
@@ -110,20 +112,34 @@ const UploadFileLabel: React.FC = () => {
           color: "warning",
         })
       );
+      return false;
+    }
+    return true;
+  };
+
+  const handleCreateCharacter = async () => {
+    // 등록 조건 검사
+    if (!validateCreateCharacter() || !pass5minute()) {
       return;
     }
 
-    if (!pass5minute()) {
-      return;
-    }
+    connect();
 
     dispatch<any>(
       createCharacter({
-        image: memberImageFile,
+        image: memberImageFile as File,
         characterStyle: characterStyle,
       })
     );
     dispatch(clearCharacter());
+
+    dispatch<any>(
+      setAlert({
+        title: "알림",
+        message: "캐릭터 생성중... 완료되면 알림을 드립니다.",
+        color: "success",
+      })
+    );
   };
 
   return (
