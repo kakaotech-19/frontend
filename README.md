@@ -5,12 +5,12 @@
 맞춤 장르의 음악과 코멘트로 일상을 위로해드려요. <br>
 
 <div align="start">
-<img width="160" alt="스크린샷 2024-11-15 오후 5 20 07" src="https://github.com/user-attachments/assets/99f4a743-8c82-43ad-b172-af32d87d4331">
-<img width="160" alt="스크린샷 2024-11-15 오후 5 17 41" src="https://github.com/user-attachments/assets/80665f37-35b1-4c0e-b484-330f7dbb4e1c">
-<img width="160" alt="스크린샷 2024-11-15 오후 5 19 50" src="https://github.com/user-attachments/assets/c2d74ac0-df0a-4097-8800-d4faf949177e">
-<img width="160" alt="스크린샷 2024-11-15 오후 5 17 49" src="https://github.com/user-attachments/assets/8a92329b-3aee-4517-b125-18744d2700ea">
-<img width="160" alt="스크린샷 2024-11-15 오후 5 17 45" src="https://github.com/user-attachments/assets/c9a5bda8-2298-4178-a0df-dc5ce748d722">
-<img width="160" alt="스크린샷 2024-11-15 오후 5 28 17" src="https://github.com/user-attachments/assets/821dc998-20ae-47a6-aa22-fa5b9176d4e4">
+<img width="180" alt="스크린샷 2024-11-15 오후 5 20 07" src="https://github.com/user-attachments/assets/99f4a743-8c82-43ad-b172-af32d87d4331">
+<img width="180" alt="스크린샷 2024-11-15 오후 5 17 41" src="https://github.com/user-attachments/assets/80665f37-35b1-4c0e-b484-330f7dbb4e1c">
+<img width="180" alt="스크린샷 2024-11-15 오후 5 19 50" src="https://github.com/user-attachments/assets/c2d74ac0-df0a-4097-8800-d4faf949177e">
+<img width="180" alt="스크린샷 2024-11-15 오후 5 17 49" src="https://github.com/user-attachments/assets/8a92329b-3aee-4517-b125-18744d2700ea">
+<img width="180" alt="스크린샷 2024-11-15 오후 5 17 45" src="https://github.com/user-attachments/assets/c9a5bda8-2298-4178-a0df-dc5ce748d722">
+<img width="180" alt="스크린샷 2024-11-15 오후 5 28 17" src="https://github.com/user-attachments/assets/821dc998-20ae-47a6-aa22-fa5b9176d4e4">
 </div>
 
 ## ✨ 주요 기능
