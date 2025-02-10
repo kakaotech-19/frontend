@@ -57,7 +57,7 @@
 
 1️⃣ **저장소 클론**
 ```bash
-git clone [repository-url]
+git clone https://github.com/kakaotech-19/frontend.git todak
 cd todak
 ```
 
