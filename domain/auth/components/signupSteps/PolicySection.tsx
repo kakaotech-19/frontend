@@ -20,11 +20,7 @@ const PolicySection: React.FC = () => {
   const [openPrivacyModal, setOpenPrivacyModal] = useState(false);
 
   return (
-    <section
-      className={`${
-        signupStep == SIGNUP_STEP.POLICY ? "" : "hidden"
-      } space-y-4 h-40 flex flex-col justify-center`}
-    >
+    <section className="space-y-4 h-40 flex flex-col justify-center">
       <div className="flex items-center gap-2">
         <Checkbox
           id="agreeTerms"

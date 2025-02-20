@@ -73,11 +73,7 @@ const PersonalSection: React.FC = () => {
   }, [isOtpVerified]);
 
   return (
-    <section
-      className={`${
-        signupStep == SIGNUP_STEP.PERSONAL ? "" : "hidden"
-      } space-y-2`}
-    >
+    <section className="space-y-2">
       <div className="mb-2 block">
         <Label htmlFor="email2" value="이메일" />
       </div>

@@ -1,25 +1,44 @@
 "use client";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Button, HR, Label } from "flowbite-react";
+import { Button, HR, Label, Spinner } from "flowbite-react";
 import { resetSignupState } from "@/domain/auth/slices/signup/signupSlice";
 import { registerUser } from "@/domain/auth/slices/signup/signupExtraReducers";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
 import path from "@/domain/shared/routes";
-import { AlertType } from "@/domain/noti/types";
 import { setAlert } from "@/domain/noti/slices/notiSlice";
 import { SIGNUP_STEP } from "@/domain/auth/constants";
 import { handleSwitchSignupStep } from "@/domain/auth/function";
-import {
-  AccountSection,
-  PersonalSection,
-  PolicySection,
-  SignupStepper,
-} from "@/domain/auth/components";
+import { SignupStepper } from "@/domain/auth/components";
 import { DirectionSVG } from "@/domain/shared/components/svg";
 import { RootState } from "@/domain/shared/redux";
+import dynamic from "next/dynamic";
+
+const PersonalSection = dynamic(
+  () => import("@/domain/auth/components/signupSteps/PersonalSection"),
+  {
+    loading: () => <Spinner />,
+    ssr: false,
+  }
+);
+
+const AccountSection = dynamic(
+  () => import("@/domain/auth/components/signupSteps/AccountSection"),
+  {
+    loading: () => <Spinner />,
+    ssr: false,
+  }
+);
+
+const PolicySection = dynamic(
+  () => import("@/domain/auth/components/signupSteps/PolicySection"),
+  {
+    loading: () => <Spinner />,
+    ssr: false,
+  }
+);
 
 const Page = () => {
   const dispatch = useDispatch();
@@ -63,6 +82,19 @@ const Page = () => {
     );
   };
 
+  const renderStepComponent = () => {
+    switch (signupStep) {
+      case SIGNUP_STEP.PERSONAL:
+        return <PersonalSection />;
+      case SIGNUP_STEP.ACCOUNT:
+        return <AccountSection />;
+      case SIGNUP_STEP.POLICY:
+        return <PolicySection />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <form
       className="w-80 flex flex-col gap-4"
@@ -74,10 +106,9 @@ const Page = () => {
       >
         <DirectionSVG />
       </Label>
+
       <SignupStepper />
-      <PersonalSection />
-      <AccountSection />
-      <PolicySection />
+      {renderStepComponent()}
       <HR className="mt-0 mb-2" />
       <Button
         type="submit"
