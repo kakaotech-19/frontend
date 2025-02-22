@@ -2,6 +2,7 @@
 
 import { HR, Label } from "flowbite-react";
 import React, { useEffect, useState } from "react";
+import TodakLogoSVG from "../svg/TodakLogoSVG";
 
 const Logo: React.FC = () => {
   const [index, setIndex] = useState(0);
@@ -26,7 +27,9 @@ const Logo: React.FC = () => {
       <Label htmlFor="todak-title" className="flex items-center justify-center">
         <h1 id="todak-title" className="text-3xl font-bold text-cyan-800">
           <div className="flex gap-2">
-            <img src="/todak-logo.svg" />
+            <div className="flex items-center">
+              <TodakLogoSVG />
+            </div>
             <p className="font-gamja text-6xl">{title}</p>
           </div>
         </h1>
