@@ -19,7 +19,11 @@ import dynamic from "next/dynamic";
 const PersonalSection = dynamic(
   () => import("@/domain/auth/components/signupSteps/PersonalSection"),
   {
-    loading: () => <Spinner />,
+    loading: () => (
+      <div className="flex h-full justify-center items-center">
+        <Spinner />
+      </div>
+    ),
     ssr: false,
   }
 );
@@ -27,7 +31,11 @@ const PersonalSection = dynamic(
 const AccountSection = dynamic(
   () => import("@/domain/auth/components/signupSteps/AccountSection"),
   {
-    loading: () => <Spinner />,
+    loading: () => (
+      <div className="flex h-full justify-center items-center">
+        <Spinner />
+      </div>
+    ),
     ssr: false,
   }
 );
@@ -35,7 +43,11 @@ const AccountSection = dynamic(
 const PolicySection = dynamic(
   () => import("@/domain/auth/components/signupSteps/PolicySection"),
   {
-    loading: () => <Spinner />,
+    loading: () => (
+      <div className="w-full justify-center items-center">
+        <Spinner />
+      </div>
+    ),
     ssr: false,
   }
 );
@@ -106,9 +118,8 @@ const Page = () => {
       >
         <DirectionSVG />
       </Label>
-
       <SignupStepper />
-      {renderStepComponent()}
+      <div className="w-full relative h-48">{renderStepComponent()}</div>
       <HR className="mt-0 mb-2" />
       <Button
         type="submit"
