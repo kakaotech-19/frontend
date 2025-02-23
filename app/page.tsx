@@ -10,6 +10,7 @@ import {
   PrivacyPolicyModal,
   TermsAndConditionsModal,
 } from "@/domain/auth/components";
+import BackgroundSVG from "@/domain/shared/components/svg/BackgroundSVG";
 
 const Page = () => {
   const [openTermsModal, setOpenTermsModal] = useState(false);
@@ -23,14 +24,8 @@ const Page = () => {
   return (
     <div className="w-full flex flex-col min-h-screen justify-center items-center overflow-x-hidden">
       <main className="w-full min-h-screen">
-        <Image
-          width={500}
-          height={500}
-          src="/background.svg"
-          alt="background"
-          sizes="100vw"
-          style={{ width: "100%", height: "100%" }}
-        />
+        <BackgroundSVG />
+        <div className="mt-40"></div>
         <h1 className="w-full flex justify-center">
           <Logo />
         </h1>{" "}
