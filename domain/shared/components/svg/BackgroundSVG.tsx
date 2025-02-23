@@ -1,7 +1,7 @@
 const BackgroundSVG = () => {
   return (
     <svg
-      className="absolute w-full sm:h-48 md:h-36"
+      className="absolute w-full h-36 sm:h-48 md:h-36"
       fill="none"
       preserveAspectRatio="none" // 비율 무시하고 컨테이너에 맞춤
       xmlns="http://www.w3.org/2000/svg"

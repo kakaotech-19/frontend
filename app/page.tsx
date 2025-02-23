@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Logo } from "@/domain/shared/components/layout";
 import path from "@/domain/shared/routes";
 import { useEffect, useState } from "react";
-import Image from "next/image";
+
 import {
   PrivacyPolicyModal,
   TermsAndConditionsModal,

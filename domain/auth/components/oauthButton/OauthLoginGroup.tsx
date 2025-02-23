@@ -31,11 +31,18 @@ const OauthLoginGroup: React.FC = () => {
         <br />
         <NaverLoginButton onClick={() => handleOAuthClick(path.NAVER)} />
       </div>
-      <div className="inline-flex items-center justify-center w-full">
-        <HR className="w-60 h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-        <span className="absolute px-3 font-sm text-gray-400 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900">
-          or
-        </span>
+      <div className="flex items-center justify-center w-full">
+        <div className="relative flex items-center w-full">
+          <span className="flex-grow">
+            <HR className="" />
+          </span>
+          <span className="px-3 font-sm text-gray-400 dark:text-white dark:bg-gray-900">
+            or
+          </span>
+          <span className="flex-grow">
+            <HR className="" />
+          </span>
+        </div>
       </div>
       <Button
         className="w-full"
