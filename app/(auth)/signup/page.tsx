@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, HR, Label, Spinner } from "flowbite-react";
 import { resetSignupState } from "@/domain/auth/slices/signup/signupSlice";
 import { registerUser } from "@/domain/auth/slices/signup/signupExtraReducers";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { setIsIdLoginFormView } from "@/domain/auth/slices/login/loginSlice";
 import path from "@/domain/shared/routes";

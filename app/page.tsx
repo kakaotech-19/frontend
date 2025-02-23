@@ -54,13 +54,11 @@ const Page = () => {
           </div>
         </div>
       </main>
-      <footer className="w-full flex flex-col gap-2 py-6 shrink-0 items-center px-4 border-t bg-white">
-        <p className="text-xs text-gray-600">
-          © 2024 todaktodak. All rights reserved.
-        </p>
+      <footer className="w-full flex flex-col gap-2 py-6 shrink-0 items-center px-4 border-t border-gray-500 dark:bg-black dark:text-gray-500">
+        <p className="text-xs">© 2024 todaktodak. All rights reserved.</p>
         <nav className="flex gap-4">
           <p
-            className="text-xs hover:underline underline-offset-4 text-gray-600"
+            className="text-xs hover:underline underline-offset-4"
             onClick={() => setOpenTermsModal(true)}
           >
             서비스 약관
@@ -70,7 +68,7 @@ const Page = () => {
             onClose={() => setOpenTermsModal(false)}
           />
           <p
-            className="text-xs hover:underline underline-offset-4 text-gray-600"
+            className="text-xs hover:underline underline-offset-4"
             onClick={() => setOpenPrivacyModal(true)}
           >
             개인정보 처리방침
