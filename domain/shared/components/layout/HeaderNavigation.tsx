@@ -3,6 +3,7 @@
 import { useHideOnScroll } from "@/domain/shared/hooks";
 import { HR } from "flowbite-react";
 import Link from "next/link";
+import TodakLogoSVG from "../svg/TodakLogoSVG";
 
 const HeaderNavigation: React.FC = () => {
   const [isVisible] = useHideOnScroll();
@@ -18,7 +19,7 @@ const HeaderNavigation: React.FC = () => {
           href="/home"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
-          <img src="/todak-logo.svg" className="h-6 ml-2" alt="Flowbite Logo" />
+          <TodakLogoSVG />
           <h1 className="self-center text-2xl font-gamja whitespace-nowrap dark:text-white">
             토닥토닥
           </h1>
