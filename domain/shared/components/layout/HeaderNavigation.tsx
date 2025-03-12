@@ -20,7 +20,7 @@ const HeaderNavigation: React.FC = () => {
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
           <TodakLogoSVG />
-          <h1 className="self-center text-2xl font-gamja whitespace-nowrap dark:text-white">
+          <h1 className="self-center text-2xl font-gamja whitespace-nowrap dark:text-gray-800">
             토닥토닥
           </h1>
         </Link>

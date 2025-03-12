@@ -10,7 +10,7 @@ const Logo: React.FC = () => {
             <div className="flex items-center">
               <TodakLogoSVG />
             </div>
-            <p className="text-6xl font-bold">토닥토닥</p>
+            <p className="text-6xl font-gamja">토닥토닥</p>
           </div>
         </h1>
       </Label>
