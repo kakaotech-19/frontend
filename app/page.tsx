@@ -5,11 +5,12 @@ import Link from "next/link";
 import { Logo } from "@/domain/shared/components/layout";
 import path from "@/domain/shared/routes";
 import { useEffect, useState } from "react";
-import Image from "next/image";
+
 import {
   PrivacyPolicyModal,
   TermsAndConditionsModal,
 } from "@/domain/auth/components";
+import BackgroundSVG from "@/domain/shared/components/svg/BackgroundSVG";
 
 const Page = () => {
   const [openTermsModal, setOpenTermsModal] = useState(false);
@@ -23,14 +24,8 @@ const Page = () => {
   return (
     <div className="w-full flex flex-col min-h-screen justify-center items-center overflow-x-hidden">
       <main className="w-full min-h-screen">
-        <Image
-          width={500}
-          height={500}
-          src="/background.svg"
-          alt="background"
-          sizes="100vw"
-          style={{ width: "100%", height: "100%" }}
-        />
+        <BackgroundSVG />
+        <div className="mt-40"></div>
         <h1 className="w-full flex justify-center">
           <Logo />
         </h1>{" "}
@@ -59,13 +54,11 @@ const Page = () => {
           </div>
         </div>
       </main>
-      <footer className="w-full flex flex-col gap-2 py-6 shrink-0 items-center px-4 border-t bg-white">
-        <p className="text-xs text-gray-600">
-          © 2024 todaktodak. All rights reserved.
-        </p>
+      <footer className="w-full flex flex-col gap-2 py-6 shrink-0 items-center px-4 border-t border-gray-500 dark:bg-black dark:text-gray-500">
+        <p className="text-xs">© 2024 todaktodak. All rights reserved.</p>
         <nav className="flex gap-4">
           <p
-            className="text-xs hover:underline underline-offset-4 text-gray-600"
+            className="text-xs hover:underline underline-offset-4"
             onClick={() => setOpenTermsModal(true)}
           >
             서비스 약관
@@ -75,7 +68,7 @@ const Page = () => {
             onClose={() => setOpenTermsModal(false)}
           />
           <p
-            className="text-xs hover:underline underline-offset-4 text-gray-600"
+            className="text-xs hover:underline underline-offset-4"
             onClick={() => setOpenPrivacyModal(true)}
           >
             개인정보 처리방침

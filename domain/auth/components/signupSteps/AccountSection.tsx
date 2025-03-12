@@ -28,7 +28,7 @@ const AccountSection: React.FC = () => {
   const signupId = useSelector((state: RootState) => state.signup.signupId);
   const password = useSelector((state: RootState) => state.signup.password);
   const reEnterPassword = useSelector(
-    (state: RootState) => state.signup.reEnterPassword,
+    (state: RootState) => state.signup.reEnterPassword
   );
 
   // 닉네임 중복 확인
@@ -39,14 +39,14 @@ const AccountSection: React.FC = () => {
           title: "알림",
           message: "5~15 글자 이상이어야 합니다.",
           color: "info",
-        }),
+        })
       );
       return;
     }
     dispatch<any>(
       checkNicknameDuplicate({
         nickname: nickname,
-      }),
+      })
     );
   };
 
@@ -58,14 +58,14 @@ const AccountSection: React.FC = () => {
           title: "알림",
           message: "5~15 글자 이상이어야 합니다.",
           color: "info",
-        }),
+        })
       );
       return;
     }
     dispatch<any>(
       checkIdDuplicate({
         loginId: signupId,
-      }),
+      })
     );
   };
 
@@ -77,11 +77,7 @@ const AccountSection: React.FC = () => {
   }, [password, reEnterPassword]);
 
   return (
-    <section
-      className={`${
-        signupStep == SIGNUP_STEP.ACCOUNT ? "" : "hidden"
-      } space-y-2`}
-    >
+    <section className="space-y-2">
       <div>
         <div className="mb-2 block">
           <Label htmlFor="nickname" value="닉네임" />

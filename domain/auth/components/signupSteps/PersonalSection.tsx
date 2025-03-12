@@ -8,7 +8,6 @@ import {
   confirmEmailCode,
   verifyEmail,
 } from "../../slices/signup/signupExtraReducers";
-import { SIGNUP_STEP } from "../../constants";
 import {
   setIsEmailVerified,
   setIsOtpVerified,
@@ -20,7 +19,6 @@ import { setAlert } from "@/domain/noti/slices/notiSlice";
 const PersonalSection: React.FC = () => {
   const dispatch = useDispatch();
 
-  const signupStep = useSelector((state: RootState) => state.signup.step);
   const email = useSelector((state: RootState) => state.signup.email);
   const otp = useSelector((state: RootState) => state.signup.otp);
 
@@ -73,11 +71,7 @@ const PersonalSection: React.FC = () => {
   }, [isOtpVerified]);
 
   return (
-    <section
-      className={`${
-        signupStep == SIGNUP_STEP.PERSONAL ? "" : "hidden"
-      } space-y-2`}
-    >
+    <section className="space-y-2">
       <div className="mb-2 block">
         <Label htmlFor="email2" value="이메일" />
       </div>
